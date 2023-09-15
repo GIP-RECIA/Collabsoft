@@ -1,0 +1,11 @@
+{
+  "button": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "add": "Ajouter",
+    "delete": "Supprimer",
+    "close": "Fermer",
+    "edit": "Editer",
+    "signIn": "Connexion"
+  }
+}

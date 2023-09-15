@@ -1,0 +1,63 @@
+spring:
+  config:
+    activate:
+      on-profile: 'default-config'
+
+---
+
+server:
+  port: 8090
+  servlet:
+    context-path: /spring-api
+
+logging:
+  config: "classpath:logback.xml"
+
+spring:
+  application:
+    name: Collabosoft
+
+  profiles:
+    active: @spring.profiles.active@
+    group:
+      dev: dev
+      test: test
+      prod: prod
+      ci: test
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        format_sql: true
+
+security-configuration:
+  cors:
+    enable: true
+    allow-credentials: true
+    allowed-origins: >
+      http://localhost:5173,
+      https://*.giprecia.net
+    exposed-headers: >
+      x-auth-token,
+      x-requested-with,
+      x-xsrf-token
+    allowed-headers: >
+      content-type,
+      authorization,
+      x-com-persist,
+      X-Auth-Token,
+      x-auth-token,
+      x-requested-with,
+      x-xsrf-token
+    allowed-methods: >
+      GET,
+      PUT,
+      POST,
+      DELETE
