@@ -17,15 +17,25 @@ package fr.recia.collabsoft.web.rest;
 
 import com.querydsl.jpa.JPAExpressions;
 import fr.recia.collabsoft.db.dto.FileDto;
+import fr.recia.collabsoft.db.entities.AssociatedApp;
 import fr.recia.collabsoft.db.entities.Collaboration;
 import fr.recia.collabsoft.db.entities.File;
 import fr.recia.collabsoft.db.entities.FileHistory;
+import fr.recia.collabsoft.db.entities.QAssociatedApp;
 import fr.recia.collabsoft.db.entities.QCollaboration;
 import fr.recia.collabsoft.db.entities.QFile;
 import fr.recia.collabsoft.db.entities.QFileHistory;
+import fr.recia.collabsoft.db.entities.QUser;
+import fr.recia.collabsoft.db.entities.User;
+import fr.recia.collabsoft.db.repositories.AssociatedAppRepository;
 import fr.recia.collabsoft.db.repositories.CollaborationRepository;
 import fr.recia.collabsoft.db.repositories.FileHistoryRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
+import fr.recia.collabsoft.db.repositories.UserRepository;
+import fr.recia.collabsoft.pojo.JsonCollaborationBody;
+import fr.recia.collabsoft.pojo.JsonFileBody;
+import fr.recia.collabsoft.pojo.JsonHistoryBody;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.http.HttpStatus;
@@ -41,7 +51,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/file")
@@ -49,19 +58,33 @@ import java.util.Map;
 public class FileController {
 
   @Inject
+  private AssociatedAppRepository<AssociatedApp> associatedAppRepository;
+  @Inject
   private CollaborationRepository<Collaboration> collaborationRepository;
   @Inject
   private FileRepository<File> fileRepository;
   @Inject
   private FileHistoryRepository<FileHistory> fileHistoryRepository;
+  @Inject
+  private UserRepository<User> userRepository;
 
   // TODO: only for tests
   private final Long myId = 1L;
+
+  private User getCurrentUser() {
+    return userRepository.findOne(
+      QUser.user.id.eq(myId)
+    ).orElse(null);
+  }
 
   /*
    * File
    */
 
+  /**
+   * List my files
+   * @return
+   */
   @GetMapping
   public ResponseEntity<List<File>> getFiles() {
     final List<File> files = IteratorUtils.toList(
@@ -72,6 +95,10 @@ public class FileController {
     return new ResponseEntity<>(files, HttpStatus.OK);
   }
 
+  /**
+   * List files shared with me
+   * @return
+   */
   @GetMapping(value = "/shared")
   public ResponseEntity<List<File>> getSharedFiles() {
     final List<File> files = IteratorUtils.toList(
@@ -88,12 +115,36 @@ public class FileController {
     return new ResponseEntity<>(files, HttpStatus.OK);
   }
 
+  /**
+   * Save file
+   * @param body
+   */
   @PostMapping
-  public ResponseEntity<Object> postFile(@RequestBody Map<String, Object> body) {
+  public ResponseEntity<Object> postFile(@NonNull @RequestBody JsonFileBody body) {
+    if (!body.postDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    User user = getCurrentUser();
+    AssociatedApp associatedApp = associatedAppRepository.findOne(
+      QAssociatedApp.associatedApp.id.eq(body.getAssociatedAppId())
+    ).orElse(null);
+    if (associatedApp == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    File file = new File();
+    file.setTitle(body.getTitle());
+    file.setDescription(body.getDescription());
+    file.setBlob(body.getBlob());
+    file.setCreator(user);
+    file.setLastEditor(user);
+    file.setAssociatedApp(associatedApp);
+    fileRepository.saveAndFlush(file);
 
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
+  /**
+   * Get file
+   * @param id  File id
+   * @return
+   */
   @GetMapping(value = "/{id}")
   public ResponseEntity<File> getFile(@PathVariable Long id) {
     final File file = fileRepository.findOne(
@@ -104,16 +155,37 @@ public class FileController {
     return new ResponseEntity<>(file, HttpStatus.OK);
   }
 
+  /**
+   * Update file
+   * @param id    File id
+   * @param body
+   */
   @PutMapping(value = "/{id}")
-  public ResponseEntity<Object> putFile(@PathVariable Long id, @RequestBody Map<String, Object> body) {
+  public ResponseEntity<Object> putFile(@PathVariable Long id, @NonNull @RequestBody JsonFileBody body) {
+    if (!body.putDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    User user = getCurrentUser();
     final File file = fileRepository.findOne(
       QFile.file.id.eq(id)
     ).orElse(null);
-    if (file == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    if (file == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    if (body.getTitle() != null)
+      file.setTitle(body.getTitle());
+    if (body.getDescription() != null)
+      file.setDescription(body.getDescription().isEmpty() ? null : body.getDescription());
+    if (body.getBlob() != null)
+      file.setBlob(body.getBlob());
+    if (user != file.getLastEditor())
+      file.setLastEditor(user);
+    fileRepository.saveAndFlush(file);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  /**
+   * Delete file
+   * @param id  File id
+   */
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Object> deleteFile(@PathVariable Long id) {
     final File file = fileRepository.findOne(
@@ -130,6 +202,11 @@ public class FileController {
    * Share
    */
 
+  /**
+   * List sharing
+   * @param id  File id
+   * @return
+   */
   @GetMapping(value = "/{id}/share")
   public ResponseEntity<List<Collaboration>> getShare(@PathVariable Long id) {
     final List<Collaboration> collaborations = IteratorUtils.toList(
@@ -140,22 +217,57 @@ public class FileController {
     return new ResponseEntity<>(collaborations, HttpStatus.OK);
   }
 
+  /**
+   * Share to someone
+   * @param id    File id
+   * @param body
+   */
   @PostMapping(value = "/{id}/share")
-  public ResponseEntity<Object> postShare(@PathVariable Long id, @RequestBody Map<String, Object> body) {
+  public ResponseEntity<Object> postShare(@PathVariable Long id, @NonNull @RequestBody JsonCollaborationBody body) {
+    if (!body.postDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    User user = userRepository.findOne(
+      QUser.user.id.eq(body.getUserId())
+    ).orElse(null);
+    if (user == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    final File file = fileRepository.findOne(
+      QFile.file.id.eq(id)
+    ).orElse(null);
+    if (file == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    Collaboration collaboration = new Collaboration();
+    collaboration.setUser(user);
+    collaboration.setFile(file);
+    collaboration.setRole(body.getRole());
+    collaborationRepository.saveAndFlush(collaboration);
+
+    return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
+  /**
+   * Update a share
+   * @param id      File id
+   * @param userId  User id
+   * @param body
+   */
   @PutMapping(value = "/{id}/share/{userId}")
-  public ResponseEntity<Object> putShare(@PathVariable Long id, @PathVariable Long userId, @RequestBody Map<String, Object> body) {
+  public ResponseEntity<Object> putShare(@PathVariable Long id, @PathVariable Long userId, @NonNull @RequestBody JsonCollaborationBody body) {
+    if (!body.putDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     final Collaboration collaboration = collaborationRepository.findOne(
       QCollaboration.collaboration.file.id.eq(id).and(QCollaboration.collaboration.user.id.eq(userId))
     ).orElse(null);
-    if (collaboration == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    if (collaboration == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    collaboration.setRole(body.getRole());
+    collaborationRepository.saveAndFlush(collaboration);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  /**
+   * Delete a share
+   * @param id      File id
+   * @param userId  User id
+   */
   @DeleteMapping(value = "/{id}/share/{userId}")
   public ResponseEntity<Object> deleteShare(@PathVariable Long id, @PathVariable Long userId) {
     final Collaboration collaboration = collaborationRepository.findOne(
@@ -168,6 +280,10 @@ public class FileController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  /**
+   * Delete sharing
+   * @param id  File id
+   */
   @DeleteMapping(value = "/{id}/share")
   public ResponseEntity<Object> deleteShared(@PathVariable Long id) {
     final List<Collaboration> collaborations = IteratorUtils.toList(
@@ -184,6 +300,11 @@ public class FileController {
    * History
    */
 
+  /**
+   * List histories
+   * @param id  File id
+   * @return
+   */
   @GetMapping(value = "/{id}/history")
   public ResponseEntity<List<FileHistory>> getHistories(@PathVariable Long id) {
     final List<FileHistory> fileHistories = IteratorUtils.toList(
@@ -194,12 +315,32 @@ public class FileController {
     return new ResponseEntity<>(fileHistories, HttpStatus.OK);
   }
 
+  /**
+   * Create a history
+   * @param id    File id
+   * @param body
+   */
   @PostMapping(value = "/{id}/history")
-  public ResponseEntity<Object> postHistory(@PathVariable Long id, @RequestBody Map<String, Object> body) {
+  public ResponseEntity<Object> postHistory(@PathVariable Long id, @NonNull @RequestBody JsonHistoryBody body) {
+    if (!body.postDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    final File file = fileRepository.findOne(
+      QFile.file.id.eq(id)
+    ).orElse(null);
+    if (file == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    FileHistory fileHistory = new FileHistory();
+    fileHistory.setFile(file);
+    fileHistory.setBlob(body.getBlob());
+
+    return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
+  /**
+   * Get a history
+   * @param id        File id
+   * @param historyId FileHistory id
+   * @return
+   */
   @GetMapping(value = "/{id}/history/{historyId}")
   public ResponseEntity<FileHistory> getHistory(@PathVariable Long id, @PathVariable Long historyId) {
     final FileHistory fileHistory = fileHistoryRepository.findOne(
@@ -210,6 +351,11 @@ public class FileController {
     return new ResponseEntity<>(fileHistory, HttpStatus.OK);
   }
 
+  /**
+   * Delete a history
+   * @param id        File id
+   * @param historyId FileHistory id
+   */
   @DeleteMapping(value = "/{id}/history/{historyId}")
   public ResponseEntity<Object> deleteHistory(@PathVariable Long id, @PathVariable Long historyId) {
     final FileHistory fileHistory = fileHistoryRepository.findOne(
@@ -222,12 +368,36 @@ public class FileController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  /**
+   * Revert a history
+   * @param id        File id
+   * @param historyId FileHistory id
+   */
   @PostMapping(value = "/{id}/history/{historyId}/revert")
   public ResponseEntity<FileDto> revertHistory(@PathVariable Long id, @PathVariable Long historyId) {
+    final FileHistory fileHistory = fileHistoryRepository.findOne(
+      QFileHistory.fileHistory.file.id.eq(id).and(QFileHistory.fileHistory.id.eq(historyId))
+    ).orElse(null);
+    if (fileHistory == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    // create new file history
+    FileHistory newFileHistory = new FileHistory();
+    newFileHistory.setFile(fileHistory.getFile());
+    newFileHistory.setBlob(fileHistory.getFile().getBlob());
+    fileHistoryRepository.saveAndFlush(newFileHistory);
+
+    // update file blob with history
+    File file = fileHistory.getFile();
+    file.setBlob(fileHistory.getBlob());
+    fileRepository.saveAndFlush(file);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  /**
+   * Delete histories
+   * @param id  File id
+   */
   @DeleteMapping(value = "/{id}/history")
   public ResponseEntity<Object> deleteHistories(@PathVariable Long id) {
     final List<FileHistory> fileHistories = IteratorUtils.toList(

@@ -51,9 +51,6 @@ public class Collaboration {
   @Column(name = "role")
   private Integer role;
 
-  @Column(name = "starred")
-  private boolean starred;
-
   @Override
   public final boolean equals(Object o) {
     if (this == o) return true;
