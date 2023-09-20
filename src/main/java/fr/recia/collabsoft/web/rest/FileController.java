@@ -55,9 +55,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/file")
-@Slf4j
 public class FileController {
 
   @Inject
