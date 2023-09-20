@@ -13,25 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.collabsoft.pojo;
+package fr.recia.collabsoft.db.repositories;
 
-import lombok.Data;
+import fr.recia.collabsoft.db.entities.Metadata;
+import fr.recia.collabsoft.db.entities.ids.MetadataId;
 
-@Data
-public class JsonFileBody {
-
-  private String title;
-  private String description;
-  private byte[] blob;
-  private Long associatedAppId;
-  private Boolean pub;
-
-  public boolean postDataOk() {
-    return (title != null && blob != null && associatedAppId != null && pub != null);
-  }
-
-  public boolean putDataOk() {
-    return (title != null || description != null || blob != null || pub != null);
-  }
-
+public interface MetadataRepository<T extends Metadata> extends AbstractRepository<T, MetadataId> {
 }

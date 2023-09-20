@@ -16,25 +16,28 @@
 package fr.recia.collabsoft.web.rest;
 
 import com.querydsl.jpa.JPAExpressions;
-import fr.recia.collabsoft.db.dto.FileDto;
 import fr.recia.collabsoft.db.entities.AssociatedApp;
 import fr.recia.collabsoft.db.entities.Collaboration;
 import fr.recia.collabsoft.db.entities.File;
 import fr.recia.collabsoft.db.entities.FileHistory;
+import fr.recia.collabsoft.db.entities.Metadata;
 import fr.recia.collabsoft.db.entities.QAssociatedApp;
 import fr.recia.collabsoft.db.entities.QCollaboration;
 import fr.recia.collabsoft.db.entities.QFile;
 import fr.recia.collabsoft.db.entities.QFileHistory;
+import fr.recia.collabsoft.db.entities.QMetadata;
 import fr.recia.collabsoft.db.entities.QUser;
 import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.AssociatedAppRepository;
 import fr.recia.collabsoft.db.repositories.CollaborationRepository;
 import fr.recia.collabsoft.db.repositories.FileHistoryRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
+import fr.recia.collabsoft.db.repositories.MetadataRepository;
 import fr.recia.collabsoft.db.repositories.UserRepository;
 import fr.recia.collabsoft.pojo.JsonCollaborationBody;
 import fr.recia.collabsoft.pojo.JsonFileBody;
 import fr.recia.collabsoft.pojo.JsonHistoryBody;
+import fr.recia.collabsoft.pojo.JsonMetadataBody;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
@@ -66,6 +69,8 @@ public class FileController {
   @Inject
   private FileHistoryRepository<FileHistory> fileHistoryRepository;
   @Inject
+  private MetadataRepository<Metadata> metadataRepository;
+  @Inject
   private UserRepository<User> userRepository;
 
   // TODO: only for tests
@@ -96,6 +101,26 @@ public class FileController {
   }
 
   /**
+   * List files starred
+   * @return
+   */
+  @GetMapping(value = "/starred")
+  public ResponseEntity<List<File>> getStarredFiles() {
+    final List<File> files = IteratorUtils.toList(
+      fileRepository.findAll(
+        QFile.file.id.in(
+          JPAExpressions.select(QMetadata.metadata.file.id)
+            .from(QMetadata.metadata)
+            .where(QMetadata.metadata.starred.eq(true))
+        )
+      ).iterator()
+    );
+    if (files.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    return new ResponseEntity<>(files, HttpStatus.OK);
+  }
+
+  /**
    * List files shared with me
    * @return
    */
@@ -108,6 +133,22 @@ public class FileController {
             .from(QCollaboration.collaboration)
             .where(QCollaboration.collaboration.user.id.eq(myId))
         )
+      ).iterator()
+    );
+    if (files.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    return new ResponseEntity<>(files, HttpStatus.OK);
+  }
+
+  /**
+   * List files public
+   * @return
+   */
+  @GetMapping(value = "/public")
+  public ResponseEntity<List<File>> getPublicFiles() {
+    final List<File> files = IteratorUtils.toList(
+      fileRepository.findAll(
+        QFile.file.pub.eq(true)
       ).iterator()
     );
     if (files.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -135,6 +176,7 @@ public class FileController {
     file.setCreator(user);
     file.setLastEditor(user);
     file.setAssociatedApp(associatedApp);
+    file.setPub(body.getPub());
     fileRepository.saveAndFlush(file);
 
     return new ResponseEntity<>(HttpStatus.CREATED);
@@ -177,6 +219,8 @@ public class FileController {
       file.setBlob(body.getBlob());
     if (user != file.getLastEditor())
       file.setLastEditor(user);
+    if (body.getPub() != null)
+      file.setPub(body.getPub());
     fileRepository.saveAndFlush(file);
 
     return new ResponseEntity<>(HttpStatus.OK);
@@ -194,6 +238,38 @@ public class FileController {
     if (file == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     fileRepository.delete(file);
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  /*
+   * Metadata
+   */
+
+  /**
+   * Update metadata
+   * @param id  File id
+   */
+  @PutMapping(value = "/{id}/metadata")
+  public ResponseEntity<List<Collaboration>> putMetadata(@PathVariable Long id, @NonNull @RequestBody JsonMetadataBody body) {
+    if (!body.putDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    User user = getCurrentUser();
+    Metadata metadata = metadataRepository.findOne(
+      QMetadata.metadata.file.id.eq(id).and(QMetadata.metadata.user.id.eq(myId))
+    ).orElse(null);
+    if (metadata == null) {
+      final File file = fileRepository.findOne(
+        QFile.file.id.eq(id)
+      ).orElse(null);
+      if (file == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      metadata = new Metadata();
+      metadata.setUser(user);
+      metadata.setFile(file);
+    }
+
+    if (body.getStarred() != null)
+      metadata.setStarred(body.getStarred());
+    metadataRepository.saveAndFlush(metadata);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
@@ -374,7 +450,7 @@ public class FileController {
    * @param historyId FileHistory id
    */
   @PostMapping(value = "/{id}/history/{historyId}/revert")
-  public ResponseEntity<FileDto> revertHistory(@PathVariable Long id, @PathVariable Long historyId) {
+  public ResponseEntity<Object> revertHistory(@PathVariable Long id, @PathVariable Long historyId) {
     final FileHistory fileHistory = fileHistoryRepository.findOne(
       QFileHistory.fileHistory.file.id.eq(id).and(QFileHistory.fileHistory.id.eq(historyId))
     ).orElse(null);

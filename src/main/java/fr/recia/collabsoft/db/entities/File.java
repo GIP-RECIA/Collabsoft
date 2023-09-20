@@ -80,6 +80,9 @@ public class File {
   @JoinColumn(name = "associated_app_id")
   private AssociatedApp associatedApp;
 
+  @Column(name = "public", nullable = false)
+  private Boolean pub;
+
   @PrePersist
   public void prePersist() {
     Date d = new Date();

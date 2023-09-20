@@ -18,20 +18,12 @@ package fr.recia.collabsoft.pojo;
 import lombok.Data;
 
 @Data
-public class JsonFileBody {
+public class JsonMetadataBody {
 
-  private String title;
-  private String description;
-  private byte[] blob;
-  private Long associatedAppId;
-  private Boolean pub;
-
-  public boolean postDataOk() {
-    return (title != null && blob != null && associatedAppId != null && pub != null);
-  }
+  private Boolean starred;
 
   public boolean putDataOk() {
-    return (title != null || description != null || blob != null || pub != null);
+    return (starred != null);
   }
 
 }
