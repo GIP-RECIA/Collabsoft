@@ -1,0 +1,11 @@
+{
+  "navigation": {
+    "item": {
+      "projects": "Projects",
+      "favorites": "Favorites",
+      "shared": "Shared",
+      "public": "Public",
+      "settings": "Settings"
+    }
+  }
+}

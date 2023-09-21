@@ -7,6 +7,33 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('@/views/HomeView.vue'),
+      children: [
+        {
+          path: 'projects',
+          name: 'projects',
+          component: () => import('@/views/home/ProjectsView.vue'),
+        },
+        {
+          path: 'favorites',
+          name: 'favorites',
+          component: () => import('@/views/home/FavoritesView.vue'),
+        },
+        {
+          path: 'shared',
+          name: 'shared',
+          component: () => import('@/views/home/SharedView.vue'),
+        },
+        {
+          path: 'public',
+          name: 'public',
+          component: () => import('@/views/home/PublicView.vue'),
+        },
+      ],
+    },
+    {
+      path: '/app',
+      name: 'app',
+      component: () => import('@/views/AppView.vue'),
     },
   ],
 });

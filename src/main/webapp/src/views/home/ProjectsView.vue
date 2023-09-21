@@ -1,0 +1,20 @@
+<script setup lang="ts">
+import FilesLayout from '@/components/layouts/FilesLayout.vue';
+import { getFiles } from '@/services/fileService';
+import { ref } from 'vue';
+
+const files = ref(undefined);
+
+const getData = async () => {
+  const result = await getFiles();
+  files.value = result.data;
+};
+
+getData();
+</script>
+
+<template>
+  <v-btn icon="fas fa-plus" variant="tonal" />
+
+  <files-layout :files="files" />
+</template>

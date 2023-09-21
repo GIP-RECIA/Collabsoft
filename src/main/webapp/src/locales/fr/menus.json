@@ -1,0 +1,11 @@
+{
+  "menu": {
+    "item": {
+      "information": "Informations",
+      "createHistory": "Créer une version",
+      "exportOnNextcloud": "Exporter sur Nextcloud",
+      "download": "Télécharger",
+      "delete": "Supprimer"
+    }
+  }
+}

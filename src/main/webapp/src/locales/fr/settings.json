@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "appearance": {
+      "subheader": "Apparence",
+      "darkTheme": {
+        "title": "Thème sombre",
+        "subtitle": "Activer le thème sombre"
+      }
+    }
+  }
+}

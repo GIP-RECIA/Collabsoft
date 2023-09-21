@@ -1,0 +1,11 @@
+{
+  "menu": {
+    "item": {
+      "information": "Information",
+      "createHistory": "Create history",
+      "exportOnNextcloud": "Export on Nextcloud",
+      "download": "Download",
+      "delete": "Delete"
+    }
+  }
+}
