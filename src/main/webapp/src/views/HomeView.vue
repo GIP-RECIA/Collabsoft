@@ -5,12 +5,14 @@ import SettingsModal from '@/components/modals/SettingsModal.vue';
 </script>
 
 <template>
-  <navigation-drawer />
-  <v-main>
-    <v-container fluid>
-      <router-view />
-    </v-container>
-  </v-main>
-  <information-drawer />
-  <settings-modal />
+  <v-layout full-height>
+    <navigation-drawer />
+    <v-main>
+      <v-container fluid>
+        <router-view />
+      </v-container>
+    </v-main>
+    <information-drawer />
+    <settings-modal />
+  </v-layout>
 </template>

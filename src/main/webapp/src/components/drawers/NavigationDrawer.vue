@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { useConfigurationStore } from '@/stores/configurationStore';
+import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n();
+const configurationStore = useConfigurationStore();
+const { isSettings } = storeToRefs(configurationStore);
 
-const settings = () => {};
+const { t } = useI18n();
 </script>
 
 <template>
@@ -42,7 +45,12 @@ const settings = () => {};
       </v-list>
       <div class="flex-grow-1"></div>
       <v-list class="py-0">
-        <v-list-item prepend-icon="fas fa-gear" :title="t('navigation.item.settings')" rounded="xl" @click="settings" />
+        <v-list-item
+          prepend-icon="fas fa-gear"
+          :title="t('navigation.item.settings')"
+          rounded="xl"
+          @click="isSettings = true"
+        />
       </v-list>
     </div>
   </v-navigation-drawer>

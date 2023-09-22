@@ -57,10 +57,8 @@ const { isAuthenticated } = storeToRefs(configurationStore);
       />
     </header>
     <main>
-      <v-layout full-height>
-        <router-view v-if="isAuthenticated" />
-        <login-modal />
-      </v-layout>
+      <router-view v-if="isAuthenticated" />
+      <login-modal />
     </main>
     <footer v-if="isAuthenticated">
       <extended-uportal-footer

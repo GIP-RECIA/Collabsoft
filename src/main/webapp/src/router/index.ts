@@ -31,7 +31,7 @@ const router = createRouter({
       ],
     },
     {
-      path: '/app',
+      path: '/app/:appSlug/:fileId',
       name: 'app',
       component: () => import('@/views/AppView.vue'),
     },

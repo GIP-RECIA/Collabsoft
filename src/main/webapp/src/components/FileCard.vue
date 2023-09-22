@@ -31,7 +31,7 @@ let rounded: string = 'xl';
   <v-card class="w-100" flat>
     <v-img height="200" src="https://cdn.vuetifyjs.com/docs/images/cards/purple-flowers.jpg" cover class="text-white">
       <div class="d-flex flex-column h-100">
-        <v-toolbar color="rgba(0, 0, 0, 0)">
+        <v-toolbar color="rgba(255, 255, 255, 0)" class="text-white">
           <template #prepend>
             <v-btn :icon="`${isStarred ? 'fas' : 'far'} fa-star`" @click="star" />
           </template>
@@ -39,8 +39,12 @@ let rounded: string = 'xl';
             <v-btn icon="fas fa-share-nodes" @click="share" />
           </template>
         </v-toolbar>
-        <div class="flex-grow-1"></div>
-        <v-toolbar color="rgba(0, 0, 0, 0)">
+        <router-link
+          :to="{ name: 'app', params: { appSlug: file.associatedApp.slug, fileId: file.id } }"
+          class="flex-grow-1"
+        >
+        </router-link>
+        <v-toolbar color="rgba(255, 255, 255, 0)" class="text-white">
           <v-toolbar-title class="text-h6">{{ file.title }}</v-toolbar-title>
           <template #append>
             <v-menu>

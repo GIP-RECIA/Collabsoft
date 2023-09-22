@@ -23,6 +23,10 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isInit = computed<boolean>(() => configuration.value != undefined);
 
+  /* -- Gestion des paramètres -- */
+
+  const isSettings = ref<boolean>(false);
+
   /* -- Gestion de l'authentification -- */
 
   const identity = ref<Identity | undefined>();
@@ -36,6 +40,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
   return {
     init,
     isInit,
+    isSettings,
     identity,
     isAuthenticated,
     isAdmin,
