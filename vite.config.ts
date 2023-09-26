@@ -16,7 +16,7 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: (tag) => tag.includes('extended-uportal-'),
+            isCustomElement: (tag) => ['extended-uportal-header', 'extended-uportal-footer'].includes(tag),
           },
         },
       }),

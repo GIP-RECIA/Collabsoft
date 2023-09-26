@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import LoginModal from '@/components/modals/LoginModal.vue';
-import { useConfigurationStore } from '@/stores/configurationStore';
 import { usePreferredDark } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
 import { onBeforeMount, watch } from 'vue';
 import { useTheme } from 'vuetify';
 
@@ -21,15 +18,11 @@ onBeforeMount(() => {
   extendedUportalFooterScript.setAttribute('src', '/commun/extended-uportal-footer.min.js');
   document.head.appendChild(extendedUportalFooterScript);
 });
-
-const configurationStore = useConfigurationStore();
-configurationStore.init();
-const { isAuthenticated } = storeToRefs(configurationStore);
 </script>
 
 <template>
   <v-app>
-    <header v-if="isAuthenticated">
+    <header>
       <extended-uportal-header
         domain="test-lycee.giprecia.net"
         service-name="Collabsoft"
@@ -56,11 +49,10 @@ const { isAuthenticated } = storeToRefs(configurationStore);
         icon-type="nine-square"
       />
     </header>
-    <main>
-      <router-view v-if="isAuthenticated" />
-      <login-modal />
+    <main class="h-100">
+      <router-view />
     </main>
-    <footer v-if="isAuthenticated">
+    <footer>
       <extended-uportal-footer
         domain="test-lycee.giprecia.net"
         template-api-path="/commun/portal_template_api.tpl.json"
@@ -68,9 +60,3 @@ const { isAuthenticated } = storeToRefs(configurationStore);
     </footer>
   </v-app>
 </template>
-
-<style scoped lang="scss">
-main {
-  height: 100%;
-}
-</style>

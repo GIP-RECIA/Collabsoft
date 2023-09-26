@@ -13,21 +13,7 @@ spring:
     username:
     password:
 
-  ldap:
-    url:
-    base:
-    username:
-    password:
-
-security-configuration:
-  cas:
-    id-key-provider:
-    service:
-    url:
-      prefix:
-      login:
-      logout:
-
+app:
   cors:
     enable: true
     allowed-origins: >
