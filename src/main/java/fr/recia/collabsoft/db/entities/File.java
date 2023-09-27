@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.Column;
@@ -33,7 +34,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.sql.Blob;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -43,14 +44,19 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class File {
+@ToString(onlyExplicitlyIncluded = true)
+public class File implements Serializable {
+
+  private static final long serialVersionUID = 3L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
+  @ToString.Include
   private Long id;
 
   @Column(name = "title", nullable = false)
+  @ToString.Include
   private String title;
 
   @Column(name = "description")
@@ -62,25 +68,31 @@ public class File {
 
   @ManyToOne
   @JoinColumn(name = "creator_id", nullable = false)
+  @ToString.Include
   private User creator;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "creation_date", nullable = false)
+  @ToString.Include
   private Date creationDate;
 
   @ManyToOne
   @JoinColumn(name = "last_editor_id", nullable = false)
+  @ToString.Include
   private User lastEditor;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "edition_date", nullable = false)
+  @ToString.Include
   private Date editionDate;
 
   @ManyToOne
   @JoinColumn(name = "associated_app_id")
+  @ToString.Include
   private AssociatedApp associatedApp;
 
   @Column(name = "public", nullable = false)
+  @ToString.Include
   private Boolean pub;
 
   @PrePersist

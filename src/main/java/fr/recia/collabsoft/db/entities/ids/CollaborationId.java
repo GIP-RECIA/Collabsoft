@@ -15,8 +15,6 @@
  */
 package fr.recia.collabsoft.db.entities.ids;
 
-import fr.recia.collabsoft.db.entities.File;
-import fr.recia.collabsoft.db.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -28,7 +26,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class CollaborationId implements Serializable {
 
-  private User user;
-  private File file;
+  private Long user;
+  private Long file;
 
 }

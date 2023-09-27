@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.Column;
@@ -27,6 +28,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -35,17 +37,22 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AssociatedApp {
+@ToString(onlyExplicitlyIncluded = true)
+public class AssociatedApp implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
+  @ToString.Include
   private Long id;
 
   @Column(name = "name", nullable = false)
   private String name;
 
   @Column(name = "slug", nullable = false)
+  @ToString.Include
   private String slug;
 
   @Column(name = "primary_color")

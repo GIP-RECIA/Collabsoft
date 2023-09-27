@@ -15,7 +15,6 @@
  */
 package fr.recia.collabsoft.db.entities.ids;
 
-import fr.recia.collabsoft.db.entities.File;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -28,6 +27,6 @@ import java.io.Serializable;
 public class FileHistoryId implements Serializable {
 
   private Long id;
-  private File file;
+  private Long file;
 
 }

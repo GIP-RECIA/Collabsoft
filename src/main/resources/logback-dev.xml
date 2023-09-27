@@ -26,7 +26,7 @@
   <logger name="org.springframework.security.web" level="DEBUG"/>
   <logger name="org.springframework.security.cas" level="DEBUG"/>
   <logger name="org.apereo.cas.client" level="DEBUG"/>
-  <logger name="fr.recia.glc" level="DEBUG"/>
+  <logger name="fr.recia.collabsoft" level="DEBUG"/>
 
   <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
     <resetJUL>true</resetJUL>

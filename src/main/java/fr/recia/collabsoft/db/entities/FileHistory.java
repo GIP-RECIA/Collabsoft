@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.Column;
@@ -35,7 +36,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.sql.Blob;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -47,16 +48,21 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileHistory {
+@ToString(onlyExplicitlyIncluded = true)
+public class FileHistory implements Serializable {
+
+  private static final long serialVersionUID = 4L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
+  @ToString.Include
   private Long id;
 
   @Id
   @ManyToOne
   @JoinColumn(name = "file_id", nullable = false)
+  @ToString.Include
   private File file;
 
   @Lob
@@ -65,6 +71,7 @@ public class FileHistory {
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "creation_date", nullable = false)
+  @ToString.Include
   private Date creationDate;
 
   @PrePersist

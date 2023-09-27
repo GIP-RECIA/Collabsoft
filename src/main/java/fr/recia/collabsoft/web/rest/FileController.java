@@ -163,8 +163,8 @@ public class FileController {
   @PostMapping
   public ResponseEntity<Object> postFile(@NonNull @RequestBody JsonFileBody body) {
     if (!body.postDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    User user = getCurrentUser();
-    AssociatedApp associatedApp = associatedAppRepository.findOne(
+    final User user = getCurrentUser();
+    final AssociatedApp associatedApp = associatedAppRepository.findOne(
       QAssociatedApp.associatedApp.id.eq(body.getAssociatedAppId())
     ).orElse(null);
     if (associatedApp == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -205,7 +205,7 @@ public class FileController {
   @PutMapping(value = "/{id}")
   public ResponseEntity<Object> putFile(@PathVariable Long id, @NonNull @RequestBody JsonFileBody body) {
     if (!body.putDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    User user = getCurrentUser();
+    final User user = getCurrentUser();
     final File file = fileRepository.findOne(
       QFile.file.id.eq(id)
     ).orElse(null);
@@ -253,7 +253,7 @@ public class FileController {
   @PutMapping(value = "/{id}/metadata")
   public ResponseEntity<List<Collaboration>> putMetadata(@PathVariable Long id, @NonNull @RequestBody JsonMetadataBody body) {
     if (!body.putDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    User user = getCurrentUser();
+    final User user = getCurrentUser();
     Metadata metadata = metadataRepository.findOne(
       QMetadata.metadata.file.id.eq(id).and(QMetadata.metadata.user.id.eq(myId))
     ).orElse(null);
@@ -301,7 +301,7 @@ public class FileController {
   @PostMapping(value = "/{id}/share")
   public ResponseEntity<Object> postShare(@PathVariable Long id, @NonNull @RequestBody JsonCollaborationBody body) {
     if (!body.postDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    User user = userRepository.findOne(
+    final User user = userRepository.findOne(
       QUser.user.id.eq(body.getUserId())
     ).orElse(null);
     if (user == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
