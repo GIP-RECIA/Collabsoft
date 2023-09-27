@@ -63,7 +63,7 @@ public class File implements Serializable {
   private String description;
 
   @Lob
-  @Column(name = "blob", nullable = false)
+  @Column(name = "blob_file", nullable = false)
   private byte[] blob;
 
   @ManyToOne

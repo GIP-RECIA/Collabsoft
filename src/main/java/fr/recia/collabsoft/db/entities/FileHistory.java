@@ -66,7 +66,7 @@ public class FileHistory implements Serializable {
   private File file;
 
   @Lob
-  @Column(name = "blob", nullable = false)
+  @Column(name = "blob_file", nullable = false)
   private byte[] blob;
 
   @Temporal(TemporalType.TIMESTAMP)

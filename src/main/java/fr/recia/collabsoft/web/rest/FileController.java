@@ -172,14 +172,14 @@ public class FileController {
     File file = new File();
     file.setTitle(body.getTitle());
     file.setDescription(body.getDescription());
-    file.setBlob(body.getBlob());
+    file.setBlob(body.getBlob().getBytes());
     file.setCreator(user);
     file.setLastEditor(user);
     file.setAssociatedApp(associatedApp);
     file.setPub(body.getPub());
     fileRepository.saveAndFlush(file);
 
-    return new ResponseEntity<>(HttpStatus.CREATED);
+    return new ResponseEntity<>(file.getId(), HttpStatus.CREATED);
   }
 
   /**
@@ -216,7 +216,7 @@ public class FileController {
     if (body.getDescription() != null)
       file.setDescription(body.getDescription().isEmpty() ? null : body.getDescription());
     if (body.getBlob() != null)
-      file.setBlob(body.getBlob());
+      file.setBlob(body.getBlob().getBytes());
     if (user != file.getLastEditor())
       file.setLastEditor(user);
     if (body.getPub() != null)

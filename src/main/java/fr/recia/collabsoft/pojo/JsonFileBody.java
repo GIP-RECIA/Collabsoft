@@ -22,7 +22,7 @@ public class JsonFileBody {
 
   private String title;
   private String description;
-  private byte[] blob;
+  private String blob;
   private Long associatedAppId;
   private Boolean pub;
 
