@@ -18,13 +18,15 @@ onBeforeMount(() => {
   extendedUportalFooterScript.setAttribute('src', '/commun/extended-uportal-footer.min.js');
   document.head.appendChild(extendedUportalFooterScript);
 });
+
+const domain = window.location.hostname;
 </script>
 
 <template>
   <v-app>
     <header>
       <extended-uportal-header
-        domain="test-lycee.giprecia.net"
+        :domain="domain"
         service-name="Collabsoft"
         context-api-url="/portail"
         sign-out-url="/portail/Logout"
@@ -53,10 +55,7 @@ onBeforeMount(() => {
       <router-view />
     </main>
     <footer>
-      <extended-uportal-footer
-        domain="test-lycee.giprecia.net"
-        template-api-path="/commun/portal_template_api.tpl.json"
-      />
+      <extended-uportal-footer :domain="domain" template-api-path="/commun/portal_template_api.tpl.json" />
     </footer>
   </v-app>
 </template>
