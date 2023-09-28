@@ -8,6 +8,10 @@ const { isInfo, isConfirmation } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 
+defineProps<{
+  size?: string | number;
+}>();
+
 const information = () => {
   isInfo.value = true;
 };
@@ -17,16 +21,12 @@ const createHistory = () => {};
 const exportOnNextloud = () => {};
 
 const download = () => {};
-
-const confirmDelete = () => {
-  isConfirmation.value = true;
-};
 </script>
 
 <template>
   <v-menu>
     <template #activator="{ props }">
-      <v-btn v-bind="props" icon="fas fa-ellipsis-vertical" />
+      <v-btn v-bind="props" icon="fas fa-ellipsis-vertical" :size="size" />
     </template>
 
     <v-list rounded="xl" class="pa-2">
@@ -50,7 +50,12 @@ const confirmDelete = () => {
       />
       <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="download" />
       <v-divider class="my-2" />
-      <v-list-item prepend-icon="fas fa-trash" :title="t('menu.item.delete')" rounded="xl" @click="confirmDelete" />
+      <v-list-item
+        prepend-icon="fas fa-trash"
+        :title="t('menu.item.delete')"
+        rounded="xl"
+        @click="isConfirmation = true"
+      />
     </v-list>
   </v-menu>
 </template>

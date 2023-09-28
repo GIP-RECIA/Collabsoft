@@ -33,7 +33,11 @@ const share = () => {
       <div class="d-flex flex-column h-100">
         <v-toolbar color="rgba(255, 255, 255, 0)" class="text-white">
           <template #prepend>
-            <v-btn :icon="`${isStarred ? 'fas' : 'far'} fa-star`" @click="star" />
+            <v-btn
+              :icon="`${isStarred ? 'fas' : 'far'} fa-star`"
+              :color="isStarred ? 'yellow' : 'default'"
+              @click="star"
+            />
           </template>
           <template #append>
             <v-btn icon="fas fa-share-nodes" @click="share" />

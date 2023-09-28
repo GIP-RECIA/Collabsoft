@@ -1,7 +1,25 @@
 <script setup lang="ts">
+import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
+import ShareDialog from '@/components/dialogs/ShareDialog.vue';
+import { deleteFile } from '@/services/fileService';
+import { useConfigurationStore } from '@/stores/configurationStore';
+import { Response } from '@/types/enums/Response';
+import { errorHandler } from '@/utils/axiosUtils';
 import { usePreferredDark } from '@vueuse/core';
-import { onBeforeMount, watch } from 'vue';
+import { storeToRefs } from 'pinia';
+import { computed, onBeforeMount, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
+
+const configurationStore = useConfigurationStore();
+const { resetState } = configurationStore;
+const { selectedFile, isSelectedFile, isConfirmation } = storeToRefs(configurationStore);
+
+const router = useRouter();
+
+router.beforeEach(() => {
+  resetState();
+});
 
 const theme = useTheme();
 const isDark = usePreferredDark();
@@ -20,6 +38,25 @@ onBeforeMount(() => {
 });
 
 const domain = window.location.hostname;
+
+const confirmationDelete = computed<boolean>({
+  get() {
+    return isSelectedFile.value && isConfirmation.value;
+  },
+  set(newValue) {
+    isConfirmation.value = newValue;
+  },
+});
+
+const deleteItem = async (result: Response) => {
+  if (result == Response.yes && isSelectedFile.value) {
+    try {
+      await deleteFile(selectedFile.value!);
+    } catch (e) {
+      errorHandler(e);
+    }
+  }
+};
 </script>
 
 <template>
@@ -53,6 +90,14 @@ const domain = window.location.hostname;
     </header>
     <main class="h-100">
       <router-view />
+      <share-dialog />
+      <confirmation-dialog
+        v-model="confirmationDelete"
+        title=""
+        yes-value="button.delete"
+        no-value="button.cancel"
+        @close="deleteItem"
+      />
     </main>
     <footer>
       <extended-uportal-footer :domain="domain" template-api-path="/commun/portal_template_api.tpl.json" />

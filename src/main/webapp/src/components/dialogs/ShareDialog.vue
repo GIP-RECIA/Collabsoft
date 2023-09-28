@@ -5,13 +5,13 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { isShare } = storeToRefs(configurationStore);
+const { isSelectedFile, isShare } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 
 const modelValue = computed<boolean>({
   get() {
-    return isShare.value;
+    return isSelectedFile.value && isShare.value;
   },
   set() {},
 });

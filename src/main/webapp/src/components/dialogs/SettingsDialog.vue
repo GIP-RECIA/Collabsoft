@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore';
 import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useTheme } from 'vuetify';
 
@@ -18,7 +18,19 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-const selected = ref<Array<string>>(['']);
+const selected = ref<Array<string>>([]);
+
+if (theme.global.name.value == 'dark') {
+  selected.value.push('dark');
+}
+
+watch(theme.global.name, (newValue) => {
+  if (newValue == 'dark') selected.value.push('dark');
+  else {
+    const index = selected.value.indexOf('dark');
+    if (index > -1) selected.value = selected.value.slice(index, 0);
+  }
+});
 
 const updateSelected = (newValue: Array<any>) => {
   setDarkTheme(newValue.includes('dark'));
