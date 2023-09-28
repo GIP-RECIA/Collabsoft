@@ -28,6 +28,14 @@ export default ({ mode }: { mode: string }) => {
         '@': fileURLToPath(new URL('./src/main/webapp/src', import.meta.url)),
       },
     },
+    server: {
+      proxy: {
+        '^/.*api': {
+          target: process.env.VITE_PROXY_API_URL,
+          changeOrigin: true,
+        },
+      },
+    },
     build: {
       rollupOptions: {
         output: {

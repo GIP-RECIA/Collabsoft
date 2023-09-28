@@ -5,10 +5,10 @@ import { useToast } from 'vue-toastification';
 const { t } = i18n.global;
 const toast = useToast();
 
-const { VITE_API_URL } = import.meta.env;
+const { VITE_API_URI } = import.meta.env;
 
 const instance = axios.create({
-  baseURL: VITE_API_URL,
+  baseURL: VITE_API_URI,
   timeout: 10000,
 });
 
