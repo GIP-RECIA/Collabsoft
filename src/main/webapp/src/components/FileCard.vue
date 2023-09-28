@@ -1,30 +1,30 @@
 <script setup lang="ts">
+import FileMenu from '@/components/FileMenu.vue';
+import { useConfigurationStore } from '@/stores/configurationStore';
+import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+const configurationStore = useConfigurationStore();
+const { selectedFile, isShare } = storeToRefs(configurationStore);
+
 const { t } = useI18n();
 
-defineProps<{
+const props = defineProps<{
   file: any;
 }>();
 
 const isStarred = ref(false);
 
 const star = () => {
+  selectedFile.value = props.file.id;
   isStarred.value = !isStarred.value;
 };
 
-const share = () => {};
-
-const options = () => {};
-
-const information = () => {};
-const createHistory = () => {};
-const exportOnNextloud = () => {};
-const download = () => {};
-const deleteItem = () => {};
-
-let rounded: string = 'xl';
+const share = () => {
+  selectedFile.value = props.file.id;
+  isShare.value = true;
+};
 </script>
 
 <template>
@@ -47,45 +47,7 @@ let rounded: string = 'xl';
         <v-toolbar color="rgba(255, 255, 255, 0)" class="text-white">
           <v-toolbar-title class="text-h6">{{ file.title }}</v-toolbar-title>
           <template #append>
-            <v-menu>
-              <template #activator="{ props }">
-                <v-btn v-bind="props" icon="fas fa-ellipsis-vertical" @click="options" />
-              </template>
-
-              <v-list :rounded="rounded" class="pa-2">
-                <v-list-item
-                  prepend-icon="fas fa-circle-info"
-                  :title="t('menu.item.information')"
-                  :rounded="rounded"
-                  @click="information"
-                />
-                <v-list-item
-                  prepend-icon="fas fa-clock-rotate-left"
-                  :title="t('menu.item.createHistory')"
-                  :rounded="rounded"
-                  @click="createHistory"
-                />
-                <v-list-item
-                  prepend-icon="fas fa-cloud"
-                  :title="t('menu.item.exportOnNextcloud')"
-                  :rounded="rounded"
-                  @click="exportOnNextloud"
-                />
-                <v-list-item
-                  prepend-icon="fas fa-download"
-                  :title="t('menu.item.download')"
-                  :rounded="rounded"
-                  @click="download"
-                />
-                <v-divider class="my-2" />
-                <v-list-item
-                  prepend-icon="fas fa-trash"
-                  :title="t('menu.item.delete')"
-                  :rounded="rounded"
-                  @click="deleteItem"
-                />
-              </v-list>
-            </v-menu>
+            <file-menu @click="selectedFile = file.id" />
           </template>
         </v-toolbar>
       </div>

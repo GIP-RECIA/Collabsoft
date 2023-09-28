@@ -1,5 +1,9 @@
 {
   "navigation": {
+    "title": {
+      "information": "Informations",
+      "histories": "Historiques"
+    },
     "item": {
       "projects": "Projets",
       "favorites": "Favoris",

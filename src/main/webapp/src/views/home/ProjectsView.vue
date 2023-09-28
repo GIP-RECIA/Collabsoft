@@ -14,7 +14,5 @@ getData();
 </script>
 
 <template>
-  <v-btn icon="fas fa-plus" variant="tonal" />
-
   <files-layout :files="files" />
 </template>

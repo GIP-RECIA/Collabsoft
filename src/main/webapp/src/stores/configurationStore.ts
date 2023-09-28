@@ -11,15 +11,32 @@ export const useConfigurationStore = defineStore('configuration', () => {
    * Initialise `configuration`
    */
   const init = async (): Promise<void> => {
-    try {
-      const response = await getConfiguration();
-      configuration.value = response.data;
-    } catch (e) {
-      errorHandler(e, 'initConfigurationStore');
+    if (!isInit.value) {
+      try {
+        const response = await getConfiguration();
+        configuration.value = response.data;
+      } catch (e) {
+        errorHandler(e, 'initConfigurationStore');
+      }
     }
   };
 
   const isInit = computed<boolean>(() => configuration.value != undefined);
+
+  /* -- Gestion des fichier -- */
+
+  const selectedFile = ref<number | undefined>();
+  const isSelectedFile = computed<boolean>(() => selectedFile.value != undefined);
+  const isShare = ref<boolean>(false);
+  const isInfo = ref<boolean>(false);
+  const isConfirmation = ref<boolean>(false);
+
+  const resetState = () => {
+    selectedFile.value = undefined;
+    isShare.value = false;
+    isInfo.value = false;
+    isConfirmation.value = false;
+  };
 
   /* -- Gestion des paramètres -- */
 
@@ -28,6 +45,12 @@ export const useConfigurationStore = defineStore('configuration', () => {
   return {
     init,
     isInit,
+    selectedFile,
+    isSelectedFile,
+    isShare,
+    isInfo,
+    isConfirmation,
+    resetState,
     isSettings,
   };
 });
