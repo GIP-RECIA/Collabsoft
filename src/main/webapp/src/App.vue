@@ -60,3 +60,9 @@ onBeforeMount(() => {
     </footer>
   </v-app>
 </template>
+
+<style scoped lang="scss">
+extended-uportal-footer {
+  display: block;
+}
+</style>
