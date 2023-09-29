@@ -12,13 +12,15 @@ import { useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 
 const configurationStore = useConfigurationStore();
-const { resetState } = configurationStore;
-const { selectedFile, isSelectedFile, isConfirmation } = storeToRefs(configurationStore);
+const { refresh, resetState } = configurationStore;
+const { lastNavigation, selectedFile, isSelectedFile, isConfirmation } = storeToRefs(configurationStore);
 
 const router = useRouter();
 
-router.beforeEach(() => {
+router.beforeEach((to) => {
   resetState();
+  if (to.name != undefined && to.name != null) lastNavigation.value = to.name as string;
+  refresh(true, true);
 });
 
 const theme = useTheme();
@@ -52,6 +54,7 @@ const deleteItem = async (result: Response) => {
   if (result == Response.yes && isSelectedFile.value) {
     try {
       await deleteFile(selectedFile.value!);
+      refresh(true);
     } catch (e) {
       errorHandler(e);
     }

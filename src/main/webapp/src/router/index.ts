@@ -1,3 +1,4 @@
+import { Navigation } from '@/types/enums/Navigation';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -9,23 +10,23 @@ const router = createRouter({
       component: () => import('@/views/HomeView.vue'),
       children: [
         {
-          path: 'projects',
-          name: 'projects',
+          path: Navigation.projects,
+          name: Navigation.projects,
           component: () => import('@/views/home/ProjectsView.vue'),
         },
         {
-          path: 'favorites',
-          name: 'favorites',
+          path: Navigation.favorites,
+          name: Navigation.favorites,
           component: () => import('@/views/home/FavoritesView.vue'),
         },
         {
-          path: 'shared',
-          name: 'shared',
+          path: Navigation.shared,
+          name: Navigation.shared,
           component: () => import('@/views/home/SharedView.vue'),
         },
         {
-          path: 'public',
-          name: 'public',
+          path: Navigation.public,
+          name: Navigation.public,
           component: () => import('@/views/home/PublicView.vue'),
         },
       ],

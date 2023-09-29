@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import FilesLayout from '@/components/layouts/FilesLayout.vue';
-import { getShared } from '@/services/fileService';
-import { ref } from 'vue';
+import { useConfigurationStore } from '@/stores/configurationStore';
+import { storeToRefs } from 'pinia';
 
-const files = ref(undefined);
-
-const getData = async () => {
-  const result = await getShared();
-  files.value = result.data;
-};
-
-getData();
+const configurationStore = useConfigurationStore();
+const { files } = storeToRefs(configurationStore);
 </script>
 
 <template>

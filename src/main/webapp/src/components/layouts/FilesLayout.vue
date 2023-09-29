@@ -3,7 +3,6 @@ import FileCard from '@/components/FileCard.vue';
 
 defineProps<{
   files: Array<any> | undefined;
-  list?: boolean;
 }>();
 </script>
 

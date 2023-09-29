@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
+const { refresh } = configurationStore;
 const { isSettings } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
@@ -20,6 +21,7 @@ const { t } = useI18n();
           :to="{ name: 'projects' }"
           rounded="xl"
           class="mb-2"
+          @click="refresh"
         />
         <v-list-item
           prepend-icon="fas fa-star"
@@ -27,6 +29,7 @@ const { t } = useI18n();
           :to="{ name: 'favorites' }"
           rounded="xl"
           class="mb-2"
+          @click="refresh"
         />
         <v-list-item
           prepend-icon="fas fa-share-nodes"
@@ -34,6 +37,7 @@ const { t } = useI18n();
           :to="{ name: 'shared' }"
           rounded="xl"
           class="mb-2"
+          @click="refresh"
         />
         <v-list-item
           prepend-icon="fas fa-globe"
@@ -41,6 +45,7 @@ const { t } = useI18n();
           :to="{ name: 'public' }"
           rounded="xl"
           class="mb-2"
+          @click="refresh"
         />
       </v-list>
       <div class="flex-grow-1"></div>
