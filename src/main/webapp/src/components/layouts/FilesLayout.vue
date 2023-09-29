@@ -13,9 +13,10 @@ defineProps<{
       v-for="(file, index) in files"
       :key="index"
       :cols="12"
-      :md="6"
-      :lg="4"
-      :xxl="3"
+      :sm="6"
+      :md="4"
+      :lg="3"
+      :xxl="2"
       class="d-flex align-center pa-2"
     >
       <file-card :file="file" />

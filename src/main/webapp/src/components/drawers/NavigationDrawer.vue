@@ -13,7 +13,7 @@ const { t } = useI18n();
   <v-navigation-drawer class="pa-2">
     <div class="d-flex flex-column h-100">
       <h1 class="text-center my-3">Collabsoft</h1>
-      <v-list>
+      <v-list color="primary">
         <v-list-item
           prepend-icon="fas fa-folder"
           :title="t('navigation.item.projects')"
