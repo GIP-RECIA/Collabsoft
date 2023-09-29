@@ -68,14 +68,14 @@ const file = {
         <div class="text-h6 mx-3">{{ t('navigation.title.histories') }}</div>
         <v-btn icon="fas fa-plus" color="default" variant="plain" size="small" />
       </div>
-      <v-list>
+      <v-list class="pb-0">
         <v-list-item
           v-for="(history, index) in file.histories"
           :key="index"
           :title="format(parseISO(history.creationDate), 'Pp')"
           variant="tonal"
           rounded="xl"
-          class="mb-2 pr-1"
+          :class="[index < file.histories.length - 1 ? 'mb-2' : '', 'pr-1']"
         >
           <template #append>
             <v-btn icon="fas fa-eye" color="secondary" variant="text" size="small" />
@@ -87,5 +87,3 @@ const file = {
     </div>
   </v-navigation-drawer>
 </template>
-
-<style scoped lang="scss"></style>

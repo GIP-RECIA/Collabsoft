@@ -60,7 +60,7 @@ const deleteItem = async (result: Response) => {
 </script>
 
 <template>
-  <v-app>
+  <v-app class="app-container">
     <header>
       <extended-uportal-header
         :domain="domain"
@@ -106,6 +106,11 @@ const deleteItem = async (result: Response) => {
 </template>
 
 <style scoped lang="scss">
+.app-container {
+  height: 100vh;
+  width: 100vw;
+}
+
 extended-uportal-footer {
   display: block;
 }

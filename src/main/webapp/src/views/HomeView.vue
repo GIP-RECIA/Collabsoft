@@ -8,8 +8,10 @@ import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
   <v-layout full-height>
     <navigation-drawer />
     <v-main>
-      <v-container fluid>
-        <router-view />
+      <v-container fluid class="h-100 overflow-y-auto">
+        <div class="h-0">
+          <router-view />
+        </div>
       </v-container>
     </v-main>
     <information-drawer />

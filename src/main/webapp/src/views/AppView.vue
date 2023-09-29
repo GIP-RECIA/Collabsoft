@@ -60,5 +60,3 @@ const share = () => {
     <information-drawer />
   </v-layout>
 </template>
-
-<style scoped lang="scss"></style>

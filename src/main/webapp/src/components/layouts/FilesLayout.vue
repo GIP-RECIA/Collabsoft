@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <v-row>
+  <v-row class="mb-1">
     <v-col
       v-for="(file, index) in files"
       :key="index"
@@ -22,5 +22,3 @@ defineProps<{
     </v-col>
   </v-row>
 </template>
-
-<style scoped lang="scss"></style>
