@@ -31,7 +31,7 @@ const share = () => {
 <template>
   <v-layout full-height>
     <v-main>
-      <div class="d-flex flex-column h-100">
+      <div v-if="currentFile" class="d-flex flex-column h-100">
         <v-toolbar :title="currentFile.title" density="compact">
           <template #prepend>
             <v-btn icon="fas fa-arrow-left" size="small" :to="{ name: 'projects' }" />

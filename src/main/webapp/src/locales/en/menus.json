@@ -2,7 +2,7 @@
   "menu": {
     "item": {
       "information": "Information",
-      "createHistory": "Create history",
+      "histories": "Historiques",
       "exportOnNextcloud": "Export on Nextcloud",
       "download": "Download",
       "delete": "Delete"

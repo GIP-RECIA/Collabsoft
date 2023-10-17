@@ -18,7 +18,7 @@ const information = () => {
   isInfo.value = true;
 };
 
-const createHistory = () => {
+const histories = () => {
   currentTab.value = Tabs.Histories;
   isInfo.value = true;
 };
@@ -43,9 +43,9 @@ const download = () => {};
       />
       <v-list-item
         prepend-icon="fas fa-clock-rotate-left"
-        :title="t('menu.item.createHistory')"
+        :title="t('menu.item.histories')"
         rounded="xl"
-        @click="createHistory"
+        @click="histories"
       />
       <v-list-item
         prepend-icon="fas fa-cloud"

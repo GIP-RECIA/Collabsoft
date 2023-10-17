@@ -42,7 +42,7 @@ const domain = window.location.hostname;
 
 const confirmationDelete = computed<boolean>({
   get() {
-    return currentFile.value && isConfirmation.value;
+    return currentFile.value != undefined && isConfirmation.value;
   },
   set(newValue) {
     isConfirmation.value = newValue;
