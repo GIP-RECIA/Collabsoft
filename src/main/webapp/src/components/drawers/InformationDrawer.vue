@@ -7,13 +7,13 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { isSelectedFile, isInfo, currentTab } = storeToRefs(configurationStore);
+const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 
 const modelValue = computed<boolean>({
   get() {
-    return isSelectedFile.value && isInfo.value;
+    return currentFile.value && isInfo.value;
   },
   set() {
     isInfo.value = false;
@@ -100,7 +100,7 @@ const file = {
           disabled
         />
         <div class="ml-2 mb-2">
-          {{ t('information.visibility') }} : {{ t(`information.${file.pub ? 'public' : 'private'}`) }}
+          {{ t('information.visibility') }} : {{ t(`visibility.${file.pub ? 'public' : 'private'}`) }}
         </div>
         <div class="ml-2 mb-2">{{ t('information.creationDate') }} {{ format(parseISO(file.creationDate), 'Pp') }}</div>
         <div class="ml-2 mb-2">{{ t('information.editionDate') }} {{ format(parseISO(file.editionDate), 'Pp') }}</div>

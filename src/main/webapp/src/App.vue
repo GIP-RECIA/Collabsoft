@@ -12,7 +12,7 @@ import { useTheme } from 'vuetify';
 
 const configurationStore = useConfigurationStore();
 const { refresh, resetState } = configurationStore;
-const { lastNavigation, selectedFile, isSelectedFile, isConfirmation } = storeToRefs(configurationStore);
+const { lastNavigation, currentFile, isConfirmation } = storeToRefs(configurationStore);
 
 const router = useRouter();
 
@@ -42,7 +42,7 @@ const domain = window.location.hostname;
 
 const confirmationDelete = computed<boolean>({
   get() {
-    return isSelectedFile.value && isConfirmation.value;
+    return currentFile.value && isConfirmation.value;
   },
   set(newValue) {
     isConfirmation.value = newValue;
@@ -50,9 +50,9 @@ const confirmationDelete = computed<boolean>({
 });
 
 const deleteItem = async (result: Response) => {
-  if (result == Response.yes && isSelectedFile.value) {
+  if (result == Response.yes && currentFile.value) {
     try {
-      await deleteFile(selectedFile.value!);
+      await deleteFile(currentFile.value.id);
       refresh(true);
     } catch (e) {
       errorHandler(e);

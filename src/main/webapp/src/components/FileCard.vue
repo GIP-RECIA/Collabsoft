@@ -7,7 +7,8 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { selectedFile, isInfo, currentTab } = storeToRefs(configurationStore);
+const { loadFile } = configurationStore;
+const { isInfo, currentTab } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 
@@ -18,12 +19,11 @@ const props = defineProps<{
 const isStarred = ref(false);
 
 const star = () => {
-  selectedFile.value = props.file.id;
   isStarred.value = !isStarred.value;
 };
 
 const share = () => {
-  selectedFile.value = props.file.id;
+  loadFile(props.file.id);
   currentTab.value = Tabs.Share;
   isInfo.value = true;
 };
@@ -63,7 +63,7 @@ const filePreview = computed(() => {
         />
         <v-toolbar color="rgba(255, 255, 255, 0)" :title="file.title" class="text-white">
           <template #append>
-            <file-menu @click="selectedFile = file.id" />
+            <file-menu @click="loadFile(file.id)" />
           </template>
         </v-toolbar>
       </div>

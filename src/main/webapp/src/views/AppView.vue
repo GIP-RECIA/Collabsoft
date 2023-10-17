@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router';
 
 const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
-const { currentFile, selectedFile, isInfo, currentTab } = storeToRefs(configurationStore);
+const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
 
 const route = useRoute();
 if (!currentFile.value || currentFile.value.id != route.params.fileId)
@@ -18,12 +18,11 @@ if (!currentFile.value || currentFile.value.id != route.params.fileId)
 const isStarred = ref(false);
 
 const star = () => {
-  selectedFile.value = currentFile.value.id;
   isStarred.value = !isStarred.value;
 };
 
 const share = () => {
-  selectedFile.value = currentFile.value.id;
+  loadFile(currentFile.value.id);
   currentTab.value = Tabs.Share;
   isInfo.value = true;
 };
@@ -45,7 +44,7 @@ const share = () => {
               @click="star"
             />
             <v-btn icon="fas fa-share-nodes" size="small" @click="share" />
-            <file-menu size="small" @click="selectedFile = currentFile.id" />
+            <file-menu size="small" @click="loadFile(currentFile.id)" />
           </template>
         </v-toolbar>
         {{ currentFile }}
