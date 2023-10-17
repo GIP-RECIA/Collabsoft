@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BottomNavigation from '@/components/BottomNavigation.vue';
+import FileDialog from '@/components/dialogs/FileDialog.vue';
 import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
 import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
@@ -17,6 +18,7 @@ import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
     </v-main>
     <bottom-navigation />
     <information-drawer />
+    <file-dialog />
     <settings-dialog />
   </v-layout>
 </template>

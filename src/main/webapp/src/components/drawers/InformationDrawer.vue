@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore';
+import { Tabs } from '@/types/enums/Tabs';
 import { format, parseISO } from 'date-fns';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { isSelectedFile, isInfo } = storeToRefs(configurationStore);
+const { isSelectedFile, isInfo, currentTab } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 
@@ -24,6 +25,7 @@ const file = {
   description: '',
   creationDate: '2023-09-19 16:45:00.000',
   editionDate: '2023-09-19 16:45:00.000',
+  pub: false,
   histories: [
     {
       id: 1,
@@ -42,48 +44,99 @@ const file = {
 </script>
 
 <template>
-  <v-navigation-drawer v-model="modelValue" location="right" :width="350">
+  <v-navigation-drawer v-model="modelValue" location="right" :width="460">
     <v-toolbar :title="t('navigation.title.information')" color="rgba(255, 255, 255, 0)">
       <template #append>
-        <v-btn icon="fas fa-xmark" color="default" variant="plain" @click="modelValue = false" />
+        <v-btn
+          icon="fas fa-xmark"
+          color="default"
+          variant="plain"
+          :alt="t('button.close')"
+          @click="modelValue = false"
+        />
       </template>
     </v-toolbar>
-    <div class="pa-2">
-      <div class="ml-2 mb-2">{{ t('information.title') }}</div>
-      <v-card variant="tonal" rounded="xl" class="mb-2">
-        <v-card-text>
-          {{ file.title }}
-        </v-card-text>
-      </v-card>
-      <div class="ml-2 mb-2">{{ t('information.description') }}</div>
-      <v-card variant="tonal" rounded="xl" class="mb-2">
-        <v-card-text>
-          {{ file.description ? file.description : '-' }}
-        </v-card-text>
-      </v-card>
-      <div class="ml-2 mb-2">{{ t('information.creationDate') }} {{ format(parseISO(file.creationDate), 'Pp') }}</div>
-      <div class="ml-2 mb-2">{{ t('information.editionDate') }} {{ format(parseISO(file.editionDate), 'Pp') }}</div>
-      <v-divider class="my-2" />
-      <div class="d-flex align-center">
-        <div class="text-h6 mx-3">{{ t('navigation.title.histories') }}</div>
-        <v-btn icon="fas fa-plus" color="default" variant="plain" size="small" />
-      </div>
-      <v-list class="pb-0">
-        <v-list-item
-          v-for="(history, index) in file.histories"
-          :key="index"
-          :title="format(parseISO(history.creationDate), 'Pp')"
-          variant="tonal"
+    <v-tabs
+      v-model="currentTab"
+      align-tabs="center"
+      :show-arrows="false"
+      hide-slider
+      selected-class="slide-group-item--activate"
+      class="mx-2"
+      fixed-tabs
+    >
+      <v-tab :value="Tabs.Information" :title="t('navigation.title.information')">
+        <v-icon icon="fas fa-circle-info" />
+      </v-tab>
+      <v-tab :value="Tabs.Share" :title="t('navigation.title.share')">
+        <v-icon icon="fas fa-share-nodes" />
+      </v-tab>
+      <v-tab :value="Tabs.Histories" :title="t('navigation.title.histories')">
+        <v-icon icon="fas fa-clock-rotate-left" />
+      </v-tab>
+    </v-tabs>
+    <v-window v-model="currentTab" class="pa-2">
+      <v-window-item :value="Tabs.Information">
+        <v-text-field
+          v-model="file.title"
+          :label="t('information.title')"
+          variant="solo"
+          bg-color="grey-lighten-3"
           rounded="xl"
-          :class="[index < file.histories.length - 1 ? 'mb-2' : '', 'pr-1']"
-        >
-          <template #append>
-            <v-btn icon="fas fa-eye" color="secondary" variant="text" size="small" />
-            <v-btn icon="fas fa-clock-rotate-left" color="secondary" variant="text" size="small" />
-            <v-btn icon="fas fa-trash" color="secondary" variant="text" size="small" />
-          </template>
-        </v-list-item>
-      </v-list>
-    </div>
+          class="mb-2"
+          flat
+          hide-details
+          disabled
+        />
+        <v-textarea
+          v-model="file.description"
+          :label="t('information.description')"
+          variant="solo"
+          bg-color="grey-lighten-3"
+          rounded="xl"
+          class="mb-2"
+          flat
+          hide-details
+          disabled
+        />
+        <div class="ml-2 mb-2">
+          {{ t('information.visibility') }} : {{ t(`information.${file.pub ? 'public' : 'private'}`) }}
+        </div>
+        <div class="ml-2 mb-2">{{ t('information.creationDate') }} {{ format(parseISO(file.creationDate), 'Pp') }}</div>
+        <div class="ml-2 mb-2">{{ t('information.editionDate') }} {{ format(parseISO(file.editionDate), 'Pp') }}</div>
+      </v-window-item>
+
+      <v-window-item :value="Tabs.Share"></v-window-item>
+
+      <v-window-item :value="Tabs.Histories">
+        <v-list class="pb-0">
+          <v-list-item
+            v-for="(history, index) in file.histories"
+            :key="index"
+            :title="format(parseISO(history.creationDate), 'Pp')"
+            rounded="xl"
+            :class="[index < file.histories.length - 1 ? 'mb-2' : '', 'pr-1', 'bg-grey-lighten-3']"
+          >
+            <template #append>
+              <v-btn icon="fas fa-eye" color="secondary" variant="text" size="small" :alt="t('button.view')" />
+              <v-btn
+                icon="fas fa-clock-rotate-left"
+                color="secondary"
+                variant="text"
+                size="small"
+                :alt="t('button.revert')"
+              />
+              <v-btn icon="fas fa-trash" color="secondary" variant="text" size="small" :alt="t('button.delete')" />
+            </template>
+          </v-list-item>
+        </v-list>
+      </v-window-item>
+    </v-window>
   </v-navigation-drawer>
 </template>
+
+<style scoped lang="scss">
+.slide-group-item--activate {
+  background-color: rgba(var(--v-theme-primary), var(--v-activated-opacity)) !important;
+}
+</style>

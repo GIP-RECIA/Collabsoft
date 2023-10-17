@@ -5,6 +5,12 @@
     "add": "Add",
     "delete": "Delete",
     "close": "Close",
-    "edit": "Edit"
+    "edit": "Edit",
+    "revert": "Revert",
+    "view": "View",
+    "options": "Options",
+    "star": "Star",
+    "unstar": "Unstar",
+    "share": "Share"
   }
 }

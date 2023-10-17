@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
-import ShareDialog from '@/components/dialogs/ShareDialog.vue';
 import { deleteFile } from '@/services/fileService';
 import { useConfigurationStore } from '@/stores/configurationStore';
 import { Response } from '@/types/enums/Response';
@@ -93,7 +92,6 @@ const deleteItem = async (result: Response) => {
     </header>
     <main class="h-100">
       <router-view />
-      <share-dialog />
       <confirmation-dialog
         v-model="confirmationDelete"
         title=""

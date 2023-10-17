@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <v-row class="mb-1">
+  <v-row class="mb-1 pa-1">
     <v-col
       v-for="(file, index) in files"
       :key="index"

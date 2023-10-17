@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore';
+import { Tabs } from '@/types/enums/Tabs';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { isInfo, isConfirmation } = storeToRefs(configurationStore);
+const { isInfo, currentTab, isConfirmation } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 
@@ -13,10 +14,14 @@ defineProps<{
 }>();
 
 const information = () => {
+  currentTab.value = Tabs.Information;
   isInfo.value = true;
 };
 
-const createHistory = () => {};
+const createHistory = () => {
+  currentTab.value = Tabs.Histories;
+  isInfo.value = true;
+};
 
 const exportOnNextloud = () => {};
 
@@ -26,7 +31,7 @@ const download = () => {};
 <template>
   <v-menu>
     <template #activator="{ props }">
-      <v-btn v-bind="props" icon="fas fa-ellipsis-vertical" :size="size" />
+      <v-btn v-bind="props" icon="fas fa-ellipsis-vertical" :alt="t('button.options')" :size="size" />
     </template>
 
     <v-list rounded="xl" class="pa-2">

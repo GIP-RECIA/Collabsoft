@@ -4,9 +4,12 @@ import { useConfigurationStore } from '@/stores/configurationStore';
 import { storeToRefs } from 'pinia';
 
 const configurationStore = useConfigurationStore();
-const { files } = storeToRefs(configurationStore);
+const { files, isNew } = storeToRefs(configurationStore);
 </script>
 
 <template>
+  <div class="pb-4">
+    <v-btn icon="fas fa-plus" variant="tonal" @click="isNew = true" />
+  </div>
   <files-layout :files="files" />
 </template>

@@ -3,6 +3,7 @@
     "title": "Title",
     "description": "Description",
     "creationDate": "Created on",
-    "editionDate": "Edited on"
+    "editionDate": "Edited on",
+    "visibility": "Visibility"
   }
 }

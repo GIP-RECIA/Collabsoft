@@ -46,7 +46,7 @@ const yes = () => {
 
 <template>
   <v-dialog v-model="modelValue" persistent :max-width="500">
-    <v-card :title="title">
+    <v-card :title="title" rounded="xl">
       <v-card-text v-if="description">{{ description }}</v-card-text>
 
       <v-card-actions>

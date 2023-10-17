@@ -2,6 +2,10 @@
   "dialog": {
     "share": {
       "title": "Share"
+    },
+    "file": {
+      "title": "New File",
+      "description": "File type"
     }
   }
 }

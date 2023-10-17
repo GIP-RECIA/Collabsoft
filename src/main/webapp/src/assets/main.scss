@@ -16,5 +16,6 @@
 
 @use 'vuetify/styles' with (
   $color-pack: false,
-  $utilities: false
+  $utilities: false,
+  $navigation-drawer-border-style: none
 );

@@ -5,6 +5,12 @@
     "add": "Ajouter",
     "delete": "Supprimer",
     "close": "Fermer",
-    "edit": "Editer"
+    "edit": "Editer",
+    "revert": "Rétablir",
+    "view": "Voir",
+    "options": "Options",
+    "star": "Favoris",
+    "unstar": "Retirer des favoris",
+    "share": "Partager"
   }
 }

@@ -30,7 +30,7 @@ export default ({ mode }: { mode: string }) => {
     },
     server: {
       proxy: {
-        '^/.*api': {
+        '^(?:/.*)?/api': {
           target: process.env.VITE_PROXY_API_URL,
           changeOrigin: true,
         },

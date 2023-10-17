@@ -1,7 +1,8 @@
 import { getConfiguration } from '@/services/configurationService';
-import { getFiles, getPublic, getShared, getStarred } from '@/services/fileService';
+import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/fileService';
 import type { Configuration } from '@/types/configurationType';
 import { Navigation } from '@/types/enums/Navigation';
+import { Tabs } from '@/types/enums/Tabs';
 import { errorHandler } from '@/utils/axiosUtils';
 import { differenceInMilliseconds } from 'date-fns';
 import debounce from 'lodash.debounce';
@@ -54,7 +55,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
           response = await getPublic();
           break;
       }
-      files.value = response.data;
+      if (response) files.value = response.data;
     } catch (e) {
       errorHandler(e);
     }
@@ -73,15 +74,26 @@ export const useConfigurationStore = defineStore('configuration', () => {
     }
   };
 
+  const currentFile = ref<any>();
+
+  const loadFile = async (fileId: number) => {
+    try {
+      const response = await getFile(fileId);
+      currentFile.value = response.data;
+    } catch (e) {
+      errorHandler(e);
+    }
+  };
+
   const selectedFile = ref<number | undefined>();
   const isSelectedFile = computed<boolean>(() => selectedFile.value != undefined);
-  const isShare = ref<boolean>(false);
   const isInfo = ref<boolean>(false);
+  const currentTab = ref<number>(Tabs.Information);
   const isConfirmation = ref<boolean>(false);
+  const isNew = ref<boolean>(false);
 
   const resetState = () => {
     selectedFile.value = undefined;
-    isShare.value = false;
     isInfo.value = false;
     isConfirmation.value = false;
   };
@@ -97,11 +109,14 @@ export const useConfigurationStore = defineStore('configuration', () => {
     files,
     loadFiles,
     refresh,
+    currentFile,
+    loadFile,
     selectedFile,
     isSelectedFile,
-    isShare,
     isInfo,
+    currentTab,
     isConfirmation,
+    isNew,
     resetState,
     isSettings,
   };
