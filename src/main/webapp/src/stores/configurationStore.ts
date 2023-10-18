@@ -76,8 +76,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const currentFile = ref<any>();
 
-  const loadFile = async (fileId: number) => {
-    if (!currentFile.value || currentFile.value.id != fileId) {
+  const loadFile = async (fileId: number, force?: boolean) => {
+    if (!currentFile.value || currentFile.value.id != fileId || force) {
       try {
         const response = await getFile(fileId);
         currentFile.value = response.data;
@@ -85,6 +85,10 @@ export const useConfigurationStore = defineStore('configuration', () => {
         errorHandler(e);
       }
     }
+  };
+
+  const refreshCurrentFile = () => {
+    loadFile(currentFile.value.id, true);
   };
 
   const isInfo = ref<boolean>(false);
@@ -111,6 +115,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     refresh,
     currentFile,
     loadFile,
+    refreshCurrentFile,
     isInfo,
     currentTab,
     isConfirmation,
