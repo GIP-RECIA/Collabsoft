@@ -74,6 +74,10 @@ public class FileHistory implements Serializable {
   @ToString.Include
   private Date creationDate;
 
+  public String getBlob() {
+    return new String(blob);
+  }
+
   @PrePersist
   public void prePersist() {
     Date d = new Date();

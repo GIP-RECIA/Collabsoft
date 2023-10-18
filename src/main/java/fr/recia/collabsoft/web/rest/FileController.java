@@ -459,12 +459,12 @@ public class FileController {
     // create new file history
     FileHistory newFileHistory = new FileHistory();
     newFileHistory.setFile(fileHistory.getFile());
-    newFileHistory.setBlob(fileHistory.getFile().getBlob());
+    newFileHistory.setBlob(fileHistory.getFile().getBlob().getBytes());
     fileHistoryRepository.saveAndFlush(newFileHistory);
 
     // update file blob with history
     File file = fileHistory.getFile();
-    file.setBlob(fileHistory.getBlob());
+    file.setBlob(fileHistory.getBlob().getBytes());
     fileRepository.saveAndFlush(file);
 
     return new ResponseEntity<>(HttpStatus.OK);

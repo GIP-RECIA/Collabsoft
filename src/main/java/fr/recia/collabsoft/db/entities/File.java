@@ -95,6 +95,10 @@ public class File implements Serializable {
   @ToString.Include
   private Boolean pub;
 
+  public String getBlob() {
+    return new String(blob);
+  }
+
   @PrePersist
   public void prePersist() {
     Date d = new Date();
