@@ -2,16 +2,19 @@
 import FileMenu from '@/components/FileMenu.vue';
 import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import { useConfigurationStore } from '@/stores/configurationStore';
+import { Navigation } from '@/types/enums/Navigation';
 import { Tabs } from '@/types/enums/Tabs';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
 const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
 
 const route = useRoute();
+const router = useRouter();
+
 if (!currentFile.value || currentFile.value.id != route.params.fileId)
   loadFile(parseInt(route.params.fileId as string));
 
@@ -26,6 +29,8 @@ const share = () => {
   currentTab.value = Tabs.Share;
   isInfo.value = true;
 };
+
+const goBack = () => (window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects }));
 </script>
 
 <template>
@@ -34,7 +39,7 @@ const share = () => {
       <div v-if="currentFile" class="d-flex flex-column h-100">
         <v-toolbar :title="currentFile.title" density="compact">
           <template #prepend>
-            <v-btn icon="fas fa-arrow-left" size="small" :to="{ name: 'projects' }" />
+            <v-btn icon="fas fa-arrow-left" size="small" @click="goBack" />
           </template>
           <template #append>
             <v-btn
@@ -47,7 +52,6 @@ const share = () => {
             <file-menu size="small" @click="loadFile(currentFile.id)" />
           </template>
         </v-toolbar>
-        {{ currentFile }}
       </div>
     </v-main>
     <information-drawer />
