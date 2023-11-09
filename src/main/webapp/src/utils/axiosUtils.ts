@@ -1,4 +1,5 @@
 import i18n from '@/plugins/i18n';
+import { getToken } from '@/utils/soffitUtils';
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
 
@@ -10,6 +11,16 @@ const { VITE_API_URI } = import.meta.env;
 const instance = axios.create({
   baseURL: VITE_API_URI,
   timeout: 10000,
+});
+
+instance.interceptors.request.use(async (config) => {
+  try {
+    config.headers['Authorization'] = `Bearer ${(await getToken()).encoded}`;
+  } catch (e) {
+    // nothing to do
+  }
+
+  return config;
 });
 
 const errorHandler = (e: any, toastOrI18n?: boolean | string): void => {

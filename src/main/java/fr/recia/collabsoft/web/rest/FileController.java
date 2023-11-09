@@ -34,6 +34,7 @@ import fr.recia.collabsoft.db.repositories.FileHistoryRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
 import fr.recia.collabsoft.db.repositories.MetadataRepository;
 import fr.recia.collabsoft.db.repositories.UserRepository;
+import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
 import fr.recia.collabsoft.pojo.JsonCollaborationBody;
 import fr.recia.collabsoft.pojo.JsonFileBody;
 import fr.recia.collabsoft.pojo.JsonHistoryBody;
@@ -73,12 +74,15 @@ public class FileController {
   @Inject
   private UserRepository<User> userRepository;
 
-  // TODO: only for tests
-  private final Long myId = 1L;
+  private final SoffitHolder soffitHolder;
+
+  public FileController(SoffitHolder soffitHolder) {
+    this.soffitHolder = soffitHolder;
+  }
 
   private User getCurrentUser() {
     return userRepository.findOne(
-      QUser.user.id.eq(myId)
+      QUser.user.casUid.eq(soffitHolder.getSub())
     ).orElse(null);
   }
 
@@ -93,7 +97,7 @@ public class FileController {
   @GetMapping
   public ResponseEntity<List<File>> getFiles() {
     final List<File> files = IteratorUtils.toList(
-      fileRepository.findAll(QFile.file.creator.id.eq(myId)).iterator()
+      fileRepository.findAll(QFile.file.creator.casUid.eq(soffitHolder.getSub())).iterator()
     );
     if (files.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -131,7 +135,7 @@ public class FileController {
         QFile.file.id.in(
           JPAExpressions.select(QCollaboration.collaboration.file.id)
             .from(QCollaboration.collaboration)
-            .where(QCollaboration.collaboration.user.id.eq(myId))
+            .where(QCollaboration.collaboration.user.casUid.eq(soffitHolder.getSub()))
         )
       ).iterator()
     );
@@ -255,7 +259,7 @@ public class FileController {
     if (!body.putDataOk()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     final User user = getCurrentUser();
     Metadata metadata = metadataRepository.findOne(
-      QMetadata.metadata.file.id.eq(id).and(QMetadata.metadata.user.id.eq(myId))
+      QMetadata.metadata.file.id.eq(id).and(QMetadata.metadata.user.casUid.eq(soffitHolder.getSub()))
     ).orElse(null);
     if (metadata == null) {
       final File file = fileRepository.findOne(

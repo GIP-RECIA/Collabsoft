@@ -1206,6 +1206,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uportal/open-id-connect@npm:^1.40.2":
+  version: 1.40.2
+  resolution: "@uportal/open-id-connect@npm:1.40.2"
+  dependencies:
+    jwt-decode: "npm:^3.0.0"
+  checksum: 0e16ad2b0725e0eb1340ba30b0f2d3b7580e7a494364bfc4fab736431616738073d9125a8c6b83544c6f49974928756e2130d04932dc1e78fc81ac629c334519
+  languageName: node
+  linkType: hard
+
 "@vitejs/plugin-vue@npm:^4.4.0":
   version: 4.4.0
   resolution: "@vitejs/plugin-vue@npm:4.4.0"
@@ -2075,6 +2084,7 @@ __metadata:
     "@types/lodash.debounce": "npm:^4.0.8"
     "@types/lodash.isempty": "npm:^4.4.8"
     "@types/node": "npm:^20.8.10"
+    "@uportal/open-id-connect": "npm:^1.40.2"
     "@vitejs/plugin-vue": "npm:^4.4.0"
     "@vue/eslint-config-prettier": "npm:^8.0.0"
     "@vue/eslint-config-typescript": "npm:^12.0.0"
@@ -2095,6 +2105,7 @@ __metadata:
     npm-run-all: "npm:^4.1.5"
     pinia: "npm:^2.1.7"
     prettier: "npm:^3.0.3"
+    regenerator-runtime: "npm:^0.14.0"
     resize-observer-polyfill: "npm:^1.5.1"
     sass: "npm:^1.69.5"
     typescript: "npm:~5.2.2"
@@ -4190,6 +4201,13 @@ __metadata:
   version: 3.2.0
   resolution: "jsonc-parser@npm:3.2.0"
   checksum: bd68b902e5f9394f01da97921f49c5084b2dc03a0c5b4fdb2a429f8d6f292686c1bf87badaeb0a8148d024192a88f5ad2e57b2918ba43fe25cf15f3371db64d4
+  languageName: node
+  linkType: hard
+
+"jwt-decode@npm:^3.0.0":
+  version: 3.1.2
+  resolution: "jwt-decode@npm:3.1.2"
+  checksum: 20a4b072d44ce3479f42d0d2c8d3dabeb353081ba4982e40b83a779f2459a70be26441be6c160bfc8c3c6eadf9f6380a036fbb06ac5406b5674e35d8c4205eeb
   languageName: node
   linkType: hard
 
