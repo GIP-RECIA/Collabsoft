@@ -16,12 +16,16 @@
 package fr.recia.collabsoft.configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apereo.portal.soffit.security.SoffitApiAuthenticationManager;
+import org.apereo.portal.soffit.security.SoffitApiPreAuthenticatedProcessingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Slf4j
@@ -29,11 +33,28 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+  private final CollabsoftProperties collabsoftProperties;
+
+  public SecurityConfiguration(CollabsoftProperties collabsoftProperties) {
+    this.collabsoftProperties = collabsoftProperties;
+  }
+
+  @Bean
+  public AuthenticationManager authenticationManager() {
+    return new SoffitApiAuthenticationManager();
+  }
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    final AbstractPreAuthenticatedProcessingFilter filter = new SoffitApiPreAuthenticatedProcessingFilter(
+      collabsoftProperties.getSoffit().getJwtSignatureKey()
+    );
+    filter.setAuthenticationManager(authenticationManager());
+    http.addFilter(filter);
+
     http
       .csrf()
-        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
     http
       .authorizeHttpRequests(authz -> authz
@@ -42,6 +63,8 @@ public class SecurityConfiguration {
         .antMatchers("/api/**").authenticated()
         .anyRequest().denyAll()
       );
+
+    http.sessionManagement().sessionFixation().newSession();
 
     return http.build();
   }

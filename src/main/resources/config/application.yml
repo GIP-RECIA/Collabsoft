@@ -11,7 +11,7 @@ server:
     context-path: /spring-api
 
 logging:
-  config: "classpath:logback.xml"
+  config: 'classpath:logback.xml'
 
 spring:
   application:
@@ -61,3 +61,6 @@ app:
       PUT,
       POST,
       DELETE
+
+  soffit:
+    jwt-signature-key: ''

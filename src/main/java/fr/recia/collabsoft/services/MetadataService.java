@@ -45,6 +45,7 @@ public class MetadataService {
 
   public boolean updateMetadata(Long fileId, JsonMetadataBody body) {
     final User user = userService.getCurrentUser();
+    if (user == null) return false;
     Metadata metadata = metadataRepository.findOne(
       QMetadata.metadata.file.id.eq(fileId).and(QMetadata.metadata.user.casUid.eq(soffitHolder.getSub()))
     ).orElse(null);

@@ -22,11 +22,9 @@ import fr.recia.collabsoft.db.entities.QAssociatedApp;
 import fr.recia.collabsoft.db.entities.QCollaboration;
 import fr.recia.collabsoft.db.entities.QFile;
 import fr.recia.collabsoft.db.entities.QMetadata;
-import fr.recia.collabsoft.db.entities.QUser;
 import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.AssociatedAppRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
-import fr.recia.collabsoft.db.repositories.UserRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
 import fr.recia.collabsoft.pojo.JsonFileBody;
 import org.apache.commons.collections4.IteratorUtils;
@@ -52,7 +50,7 @@ public class FileService {
     this.soffitHolder = soffitHolder;
   }
 
-  public List<File> getMyFiles() {
+  public List<File> getFiles() {
     return IteratorUtils.toList(
       fileRepository.findAll(QFile.file.creator.casUid.eq(soffitHolder.getSub())).iterator()
     );

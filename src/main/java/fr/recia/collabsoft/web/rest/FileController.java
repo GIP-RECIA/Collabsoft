@@ -23,8 +23,8 @@ import fr.recia.collabsoft.pojo.JsonFileBody;
 import fr.recia.collabsoft.pojo.JsonHistoryBody;
 import fr.recia.collabsoft.pojo.JsonMetadataBody;
 import fr.recia.collabsoft.services.CollaborationService;
-import fr.recia.collabsoft.services.FileService;
 import fr.recia.collabsoft.services.FileHistoryService;
+import fr.recia.collabsoft.services.FileService;
 import fr.recia.collabsoft.services.MetadataService;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -67,7 +67,7 @@ public class FileController {
    */
   @GetMapping
   public ResponseEntity<List<File>> getFiles() {
-    return new ResponseEntity<>(fileService.getMyFiles(), HttpStatus.OK);
+    return new ResponseEntity<>(fileService.getFiles(), HttpStatus.OK);
   }
 
   /**
