@@ -1,6 +1,7 @@
 import i18n from '@/plugins/i18n';
 import { getToken } from '@/utils/soffitUtils';
 import axios from 'axios';
+import throttle from 'lodash.throttle';
 import { useToast } from 'vue-toastification';
 
 const { t } = i18n.global;
@@ -13,12 +14,38 @@ const instance = axios.create({
   timeout: 10000,
 });
 
-instance.interceptors.request.use(async (config) => {
+let token: string | undefined = undefined;
+let timeout: number | undefined = undefined;
+let renewToken: any;
+
+const init = async () => {
   try {
-    config.headers['Authorization'] = `Bearer ${(await getToken()).encoded}`;
+    const {
+      decoded: { exp, iat },
+    } = await getToken();
+    timeout = (exp - iat) * 1000 * 0.75;
+    renewToken = throttle(
+      async () => {
+        try {
+          const { encoded } = await getToken();
+          token = `Bearer ${encoded}`;
+        } catch (e) {
+          // nothing to do
+        }
+      },
+      timeout,
+      { trailing: false },
+    );
+    await renewToken();
   } catch (e) {
     // nothing to do
   }
+};
+
+instance.interceptors.request.use(async (config) => {
+  if (timeout == undefined) await init();
+  else await renewToken();
+  config.headers['Authorization'] = token;
 
   return config;
 });
