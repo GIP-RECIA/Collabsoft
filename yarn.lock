@@ -1024,12 +1024,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.isempty@npm:^4.4.8":
-  version: 4.4.8
-  resolution: "@types/lodash.isempty@npm:4.4.8"
+"@types/lodash.isempty@npm:^4.4.9":
+  version: 4.4.9
+  resolution: "@types/lodash.isempty@npm:4.4.9"
   dependencies:
     "@types/lodash": "npm:*"
-  checksum: e5ecec24b2f4264d9a7c1062e374f5de2b470f45b095f7aae1f0a8f5e27aeae1e79f3d44385e27d11ee56855ae77f4f0d3d7146f0700e983b526afd9a0cb47ea
+  checksum: 89f94bac5364850cb2f49a414a1632371541bdb2e6c00d73fbe2f7ad827a3ced3eaa42d64d9463eced4499d99c0619757605322f45c5b0d36cd761c561dcf8a2
   languageName: node
   linkType: hard
 
@@ -2091,7 +2091,7 @@ __metadata:
     "@tsconfig/node20": "npm:^20.1.2"
     "@types/jsdom": "npm:^21.1.4"
     "@types/lodash.debounce": "npm:^4.0.8"
-    "@types/lodash.isempty": "npm:^4.4.8"
+    "@types/lodash.isempty": "npm:^4.4.9"
     "@types/lodash.throttle": "npm:^4"
     "@types/node": "npm:^20.8.10"
     "@uportal/open-id-connect": "npm:^1.40.2"
