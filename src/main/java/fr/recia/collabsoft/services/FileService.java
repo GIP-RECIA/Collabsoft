@@ -90,6 +90,7 @@ public class FileService {
 
   public File saveFile(JsonFileBody body) {
     final User user = userService.getCurrentUser();
+    if (user == null) return null;
     final AssociatedApp associatedApp = associatedAppRepository.findOne(
       QAssociatedApp.associatedApp.id.eq(body.getAssociatedAppId())
     ).orElse(null);
@@ -116,6 +117,7 @@ public class FileService {
 
   public File updateFile(Long id, JsonFileBody body) {
     final User user = userService.getCurrentUser();
+    if (user == null) return null;
     final File file = getFile(id);
     if (file == null) return null;
 
