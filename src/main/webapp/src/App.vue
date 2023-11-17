@@ -105,14 +105,3 @@ const deleteItem = async (result: Response) => {
     </footer>
   </v-app>
 </template>
-
-<style scoped lang="scss">
-.app-container {
-  height: 100vh;
-  width: 100vw;
-}
-
-extended-uportal-footer {
-  display: block;
-}
-</style>
