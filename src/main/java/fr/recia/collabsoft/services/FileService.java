@@ -28,20 +28,20 @@ import fr.recia.collabsoft.db.repositories.FileRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
 import fr.recia.collabsoft.pojo.JsonFileBody;
 import org.apache.commons.collections4.IteratorUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
 public class FileService {
 
-  @Inject
+  @Autowired
   private AssociatedAppRepository<AssociatedApp> associatedAppRepository;
-  @Inject
+  @Autowired
   private FileRepository<File> fileRepository;
 
-  @Inject
+  @Autowired
   private UserService userService;
 
   private final SoffitHolder soffitHolder;

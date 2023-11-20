@@ -22,20 +22,20 @@ import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.CollaborationRepository;
 import fr.recia.collabsoft.pojo.JsonCollaborationBody;
 import org.apache.commons.collections4.IteratorUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
 public class CollaborationService {
 
-  @Inject
+  @Autowired
   private CollaborationRepository<Collaboration> collaborationRepository;
 
-  @Inject
+  @Autowired
   private FileService fileService;
-  @Inject
+  @Autowired
   private UserService userService;
 
   public List<Collaboration> getCollaborations(Long fileId) {

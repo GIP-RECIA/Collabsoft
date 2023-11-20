@@ -22,19 +22,18 @@ import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.MetadataRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
 import fr.recia.collabsoft.pojo.JsonMetadataBody;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 @Service
 public class MetadataService {
 
-  @Inject
+  @Autowired
   private MetadataRepository<Metadata> metadataRepository;
 
-  @Inject
+  @Autowired
   private FileService fileService;
-  @Inject
+  @Autowired
   private UserService userService;
 
   private final SoffitHolder soffitHolder;

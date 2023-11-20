@@ -19,14 +19,13 @@ import fr.recia.collabsoft.db.entities.QUser;
 import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.UserRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 @Service
 public class UserService {
 
-  @Inject
+  @Autowired
   private UserRepository<User> userRepository;
 
   private final SoffitHolder soffitHolder;

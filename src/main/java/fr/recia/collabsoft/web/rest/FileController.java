@@ -28,6 +28,7 @@ import fr.recia.collabsoft.services.FileService;
 import fr.recia.collabsoft.services.MetadataService;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,7 +40,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Slf4j
@@ -47,13 +47,13 @@ import java.util.List;
 @RequestMapping(value = "/api/file")
 public class FileController {
 
-  @Inject
+  @Autowired
   private CollaborationService collaborationService;
-  @Inject
+  @Autowired
   private FileService fileService;
-  @Inject
+  @Autowired
   private FileHistoryService fileHistoryService;
-  @Inject
+  @Autowired
   private MetadataService metadataService;
 
   /*

@@ -22,20 +22,20 @@ import fr.recia.collabsoft.db.repositories.FileHistoryRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
 import fr.recia.collabsoft.pojo.JsonHistoryBody;
 import org.apache.commons.collections4.IteratorUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
 public class FileHistoryService {
 
-  @Inject
+  @Autowired
   private FileHistoryRepository<FileHistory> fileHistoryRepository;
-  @Inject
+  @Autowired
   private FileRepository<File> fileRepository;
 
-  @Inject
+  @Autowired
   private FileService fileService;
 
   public List<FileHistory> getHistories(Long fileId) {
