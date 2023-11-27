@@ -21,7 +21,7 @@ const modelValue = computed<boolean>({
   },
 });
 
-const roles = [];
+const roles: Array<string> = [];
 
 const newUser = ref<any>();
 const newRole = ref<string>();

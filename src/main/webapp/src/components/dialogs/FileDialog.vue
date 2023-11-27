@@ -33,14 +33,16 @@ const save = () => {
 };
 
 const addElement = async () => {
-  await saveFile({
-    title: title.value,
-    description: description.value && description.value.trim.length > 0 ? description.value : null,
-    blob: '',
-    associatedAppId: fileType.value,
-    pub: pub.value,
-  });
-  refresh(true);
+  if (canSave.value) {
+    await saveFile({
+      title: title.value!,
+      description: description.value && description.value.trim.length > 0 ? description.value : null,
+      blob: '',
+      associatedAppId: fileType.value!,
+      pub: pub.value,
+    });
+    refresh(true);
+  }
 };
 </script>
 

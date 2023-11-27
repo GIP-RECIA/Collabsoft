@@ -1,3 +1,7 @@
+import type { CollaborationBody } from '@/types/collaborationBody.ts';
+import type { FileBody } from '@/types/fileBodyType.ts';
+import type { HistoryBody } from '@/types/historyBodyType.ts';
+import type { MetadataBody } from '@/types/metadataBodyType.ts';
 import { instance as axios } from '@/utils/axiosUtils';
 
 const getFiles = async () => await axios.get('/api/file');
@@ -8,21 +12,22 @@ const getStarred = async () => await axios.get('/api/file/starred');
 
 const getPublic = async () => await axios.get('/api/file/public');
 
-const saveFile = async (body) => await axios.post('/api/file', body);
+const saveFile = async (body: FileBody) => await axios.post('/api/file', body);
 
 const getFile = async (fileId: number) => await axios.get(`/api/file/${fileId}`);
 
-const setFile = async (fileId: number, body) => await axios.put(`/api/file/${fileId}`, body);
+const setFile = async (fileId: number, body: FileBody) => await axios.put(`/api/file/${fileId}`, body);
 
 const deleteFile = async (fileId: number) => await axios.delete(`/api/file/${fileId}`);
 
-const setMetadata = async (fileId: number, body) => await axios.put(`/api/file/${fileId}/metadata`, body);
+const setMetadata = async (fileId: number, body: MetadataBody) => await axios.put(`/api/file/${fileId}/metadata`, body);
 
 const getShare = async (fileId: number) => await axios.get(`/api/file/${fileId}`);
 
-const saveShare = async (fileId: number, body) => await axios.post(`/api/file/${fileId}/share`, body);
+const saveShare = async (fileId: number, body: CollaborationBody) =>
+  await axios.post(`/api/file/${fileId}/share`, body);
 
-const setShare = async (fileId: number, userId: number, body) =>
+const setShare = async (fileId: number, userId: number, body: CollaborationBody) =>
   await axios.put(`/api/file/${fileId}/share/${userId}`, body);
 
 const deleteShare = async (fileId: number, userId: number) => await axios.delete(`/api/file/${fileId}/share/${userId}`);
@@ -31,7 +36,8 @@ const deleteSharing = async (fileId: number) => await axios.delete(`/api/file/${
 
 const getHistories = async (fileId: number) => await axios.get(`/api/file/${fileId}/history`);
 
-const createHistory = async (fileId: number, body) => await axios.post(`/api/file/${fileId}/history`, body);
+const createHistory = async (fileId: number, body: HistoryBody) =>
+  await axios.post(`/api/file/${fileId}/history`, body);
 
 const getHistory = async (fileId: number, historyId: number) =>
   await axios.get(`/api/file/${fileId}/history/${historyId}`);
