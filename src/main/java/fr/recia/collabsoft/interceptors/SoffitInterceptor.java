@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +39,13 @@ public class SoffitInterceptor implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    String path = request.getRequestURI().substring(request.getContextPath().length());
+    if (!path.startsWith("/api/file")) return true;
     String token = request.getHeader("Authorization");
     if (token == null) {
       log.debug("No Authorization header found");
-      soffitHolder.setSub("");
-      return true;
+      response.setStatus(HttpStatus.FORBIDDEN.value());
+      return false;
     }
 
     Base64.Decoder decoder = Base64.getUrlDecoder();
