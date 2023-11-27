@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.collabsoft.services;
+package fr.recia.collabsoft.services.db;
 
 import com.querydsl.jpa.JPAExpressions;
 import fr.recia.collabsoft.db.entities.AssociatedApp;
