@@ -1,0 +1,100 @@
+# For more information see: https://docs.github.com/en/actions/
+
+name: Project CI
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  setup-java:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java: ['11', '17']
+
+    name: Setup java ${{ matrix.java }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: '${{ matrix.java }}'
+          distribution: 'temurin'
+          cache: maven
+      - name: Check license hearders
+        run: ./mvnw license:check
+      - name: Check NOTICE
+        run: ./mvnw -B notice:check
+
+  setup-node:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: ['20']
+
+    name: Setup node ${{ matrix.node }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+      - run: yarn install --immutable
+
+  build-frontend:
+    needs: setup-node
+
+    runs-on: ubuntu-latest
+
+    name: Build frontend
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: yarn build
+
+  build-backend:
+    needs: [setup-java, build-frontend]
+
+    runs-on: ubuntu-latest
+
+    name: Build backend
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build with Maven
+        run: ./mvnw -B package --file pom.xml -Dmaven.test.skip=true -Darguments="-DskipTests"
+
+  test-frontend:
+    needs: setup-node
+
+    runs-on: ubuntu-latest
+
+    name: Test frontend
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Unit tests
+        run: yarn test:unit
+      - name: End to end tests
+        run: yarn test:e2e
+
+  test-backend:
+    needs: build-backend
+
+    runs-on: ubuntu-latest
+
+    name: Test backend
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test with Maven
+        run: ./mvnw -B test --file pom.xml
