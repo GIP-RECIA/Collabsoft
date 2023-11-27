@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 

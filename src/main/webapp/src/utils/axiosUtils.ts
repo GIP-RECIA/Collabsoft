@@ -1,5 +1,5 @@
-import i18n from '@/plugins/i18n';
-import { getToken } from '@/utils/soffitUtils';
+import i18n from '@/plugins/i18n.ts';
+import { getToken } from '@/utils/soffitUtils.ts';
 import axios from 'axios';
 import throttle from 'lodash.throttle';
 import { useToast } from 'vue-toastification';

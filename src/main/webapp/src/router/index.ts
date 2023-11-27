@@ -1,4 +1,4 @@
-import { Navigation } from '@/types/enums/Navigation';
+import { Navigation } from '@/types/enums/Navigation.ts';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({

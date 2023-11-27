@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';

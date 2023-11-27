@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Response } from '@/types/enums/Response';
+import { Response } from '@/types/enums/Response.ts';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 

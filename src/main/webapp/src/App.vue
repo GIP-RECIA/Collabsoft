@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
-import { deleteFile } from '@/services/fileService';
-import { useConfigurationStore } from '@/stores/configurationStore';
-import { Response } from '@/types/enums/Response';
-import { errorHandler } from '@/utils/axiosUtils';
+import { deleteFile } from '@/services/fileService.ts';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { Response } from '@/types/enums/Response.ts';
+import { errorHandler } from '@/utils/axiosUtils.ts';
 import { usePreferredDark } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { computed, onBeforeMount, watch } from 'vue';

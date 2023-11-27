@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
 import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
-import { useConfigurationStore } from '@/stores/configurationStore';
-import { Navigation } from '@/types/enums/Navigation';
-import { Tabs } from '@/types/enums/Tabs';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { Navigation } from '@/types/enums/Navigation.ts';
+import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';

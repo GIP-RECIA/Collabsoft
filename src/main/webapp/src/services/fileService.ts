@@ -2,7 +2,7 @@ import type { CollaborationBody } from '@/types/collaborationBody.ts';
 import type { FileBody } from '@/types/fileBodyType.ts';
 import type { HistoryBody } from '@/types/historyBodyType.ts';
 import type { MetadataBody } from '@/types/metadataBodyType.ts';
-import { instance as axios } from '@/utils/axiosUtils';
+import { instance as axios } from '@/utils/axiosUtils.ts';
 
 const getFiles = async () => await axios.get('/api/file');
 

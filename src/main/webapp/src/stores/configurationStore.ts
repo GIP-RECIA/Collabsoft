@@ -1,9 +1,9 @@
-import { getConfiguration } from '@/services/configurationService';
-import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/fileService';
-import type { Configuration } from '@/types/configurationType';
-import { Navigation } from '@/types/enums/Navigation';
-import { Tabs } from '@/types/enums/Tabs';
-import { errorHandler } from '@/utils/axiosUtils';
+import { getConfiguration } from '@/services/configurationService.ts';
+import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/fileService.ts';
+import type { Configuration } from '@/types/configurationType.ts';
+import { Navigation } from '@/types/enums/Navigation.ts';
+import { Tabs } from '@/types/enums/Tabs.ts';
+import { errorHandler } from '@/utils/axiosUtils.ts';
 import { differenceInMilliseconds } from 'date-fns';
 import debounce from 'lodash.debounce';
 import { defineStore } from 'pinia';

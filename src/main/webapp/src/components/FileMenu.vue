@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore';
-import { Tabs } from '@/types/enums/Tabs';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
-import { useConfigurationStore } from '@/stores/configurationStore';
-import { Tabs } from '@/types/enums/Tabs';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

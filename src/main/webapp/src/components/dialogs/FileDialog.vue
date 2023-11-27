@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { saveFile } from '@/services/fileService';
-import { useConfigurationStore } from '@/stores/configurationStore';
+import { saveFile } from '@/services/fileService.ts';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
