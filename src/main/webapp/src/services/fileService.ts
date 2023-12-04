@@ -1,4 +1,4 @@
-import type { CollaborationBody } from '@/types/collaborationBody.ts';
+import type { CollaborationBody } from '@/types/collaborationBodyType.ts';
 import type { FileBody } from '@/types/fileBodyType.ts';
 import type { HistoryBody } from '@/types/historyBodyType.ts';
 import type { MetadataBody } from '@/types/metadataBodyType.ts';
