@@ -1458,7 +1458,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:^10.5.0":
+"@vueuse/core@npm:^10.6.1":
   version: 10.6.1
   resolution: "@vueuse/core@npm:10.6.1"
   dependencies:
@@ -2013,7 +2013,7 @@ __metadata:
     "@vue/eslint-config-typescript": "npm:^12.0.0"
     "@vue/test-utils": "npm:^2.4.3"
     "@vue/tsconfig": "npm:^0.4.0"
-    "@vueuse/core": "npm:^10.5.0"
+    "@vueuse/core": "npm:^10.6.1"
     axios: "npm:^1.6.1"
     date-fns: "npm:^2.30.0"
     dotenv: "npm:^16.3.1"
