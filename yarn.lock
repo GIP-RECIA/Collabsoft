@@ -880,7 +880,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.debounce@npm:^4.0.8":
+"@types/lodash.debounce@npm:^4.0.9":
   version: 4.0.9
   resolution: "@types/lodash.debounce@npm:4.0.9"
   dependencies:
@@ -2003,7 +2003,7 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/node20": "npm:^20.1.2"
     "@types/jsdom": "npm:^21.1.6"
-    "@types/lodash.debounce": "npm:^4.0.8"
+    "@types/lodash.debounce": "npm:^4.0.9"
     "@types/lodash.isempty": "npm:^4.4.9"
     "@types/lodash.throttle": "npm:^4"
     "@types/node": "npm:^20.8.10"
