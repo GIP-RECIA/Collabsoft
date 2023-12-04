@@ -1699,7 +1699,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.6.1":
+"axios@npm:^1.6.2":
   version: 1.6.2
   resolution: "axios@npm:1.6.2"
   dependencies:
@@ -2023,7 +2023,7 @@ __metadata:
     "@vue/test-utils": "npm:^2.4.3"
     "@vue/tsconfig": "npm:^0.4.0"
     "@vueuse/core": "npm:^10.6.1"
-    axios: "npm:^1.6.1"
+    axios: "npm:^1.6.2"
     date-fns: "npm:^2.30.0"
     dotenv: "npm:^16.3.1"
     dotenv-checker: "npm:^1.1.5"
