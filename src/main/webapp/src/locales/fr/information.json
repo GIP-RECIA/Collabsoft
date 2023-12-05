@@ -2,8 +2,10 @@
   "information": {
     "title": "Titre",
     "description": "Description",
-    "creationDate": "Créé le",
-    "editionDate": "Modifié le",
-    "visibility": "Visibilité"
+    "creationDate": "Créé le {date}",
+    "editionDate": "Modifié le {date}",
+    "visibility": "Visibilité",
+    "edited": "Modifié",
+    "duration": "Il y a {duration}"
   }
 }

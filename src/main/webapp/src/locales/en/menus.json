@@ -2,6 +2,7 @@
   "menu": {
     "item": {
       "information": "Information",
+      "share": "Share",
       "histories": "Historiques",
       "exportOnNextcloud": "Export on Nextcloud",
       "download": "Download",

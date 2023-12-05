@@ -99,10 +99,10 @@ const addUser = () => {
           class="mb-2"
         />
         <div class="ml-2 mb-2">
-          {{ t('information.creationDate') }} {{ format(parseISO(currentFile.creationDate), 'Pp') }}
+          {{ t('information.creationDate', { date: format(parseISO(currentFile.creationDate), 'Pp') }) }}
         </div>
         <div class="ml-2 mb-2">
-          {{ t('information.editionDate') }} {{ format(parseISO(currentFile.editionDate), 'Pp') }}
+          {{ t('information.editionDate', { date: format(parseISO(currentFile.editionDate), 'Pp') }) }}
         </div>
       </v-window-item>
 
