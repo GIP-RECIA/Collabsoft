@@ -4,13 +4,19 @@ import FileDialog from '@/components/dialogs/FileDialog.vue';
 import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
 import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
-import { Navigation } from '@/types/enums/Navigation';
+import FilesLayout from '@/components/layouts/FilesLayout.vue';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { Navigation } from '@/types/enums/Navigation.ts';
+import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
 
 if (route.name == 'home') router.replace({ name: Navigation.projects });
+
+const configurationStore = useConfigurationStore();
+const { files } = storeToRefs(configurationStore);
 </script>
 
 <template>
@@ -20,6 +26,7 @@ if (route.name == 'home') router.replace({ name: Navigation.projects });
       <v-container fluid class="h-100 overflow-y-auto">
         <div class="h-0">
           <router-view />
+          <files-layout :files="files" />
         </div>
       </v-container>
     </v-main>

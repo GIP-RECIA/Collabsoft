@@ -1,12 +1,3 @@
-<script setup lang="ts">
-import FilesLayout from '@/components/layouts/FilesLayout.vue';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { storeToRefs } from 'pinia';
+<script setup lang="ts"></script>
 
-const configurationStore = useConfigurationStore();
-const { files } = storeToRefs(configurationStore);
-</script>
-
-<template>
-  <files-layout :files="files" />
-</template>
+<template><div></div></template>
