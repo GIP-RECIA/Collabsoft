@@ -1,16 +1,101 @@
 <script setup lang="ts">
-import FileCard from '@/components/FileCard.vue';
+import FileMenu from '@/components/FileMenu.vue';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import type { File } from '@/types/fileType.ts';
+import { dateToDuration } from '@/utils/dateFnsUtils.ts';
+import { storeToRefs } from 'pinia';
+import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useDisplay } from 'vuetify';
+
+const { t } = useI18n();
+
+const { xs } = useDisplay();
+
+const configurationStore = useConfigurationStore();
+const { loadFile } = configurationStore;
+const { isGrid } = storeToRefs(configurationStore);
 
 defineProps<{
   files: Array<File> | undefined;
 }>();
+
+const headers = ref<Array<any>>([
+  { title: t('information.title'), value: 'title', sortable: true, width: '100%' },
+  { title: '', key: 'actions', sortable: false, align: 'end' },
+]);
+
+const addColumnEditionDate = () => {
+  headers.value.splice(1, 0, {
+    title: t('information.edited'),
+    key: 'editionDate',
+    value: (item: File) => t('information.duration', { duration: dateToDuration(item.editionDate) }),
+    sortable: true,
+    headerProps: {
+      style: 'white-space: nowrap;',
+    },
+    cellProps: {
+      style: 'white-space: nowrap;',
+    },
+  });
+};
+
+const removeColumnEditionDate = () => {
+  const index = headers.value.findIndex((header) => header.key == 'editionDate');
+  if (index >= 0) headers.value.splice(index, 1);
+};
+
+watch(
+  xs,
+  (newValue, oldValue) => {
+    if (newValue != oldValue) newValue ? removeColumnEditionDate() : addColumnEditionDate();
+  },
+  { immediate: true },
+);
 </script>
 
+<!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <v-row class="mb-1 pa-1">
-    <v-col v-for="(file, index) in files" :key="index" :cols="12" :sm="6" :md="4" :lg="3" :xxl="2" class="pa-2">
-      <file-card :file="file" />
-    </v-col>
-  </v-row>
+  <v-data-table
+    :headers="headers"
+    :items="files"
+    :sort-by="[{ key: 'title', order: 'asc' }]"
+    :loading="files == undefined"
+    :items-per-page="-1"
+    sort-asc-icon="fas fa-sort-up"
+    sort-desc-icon="fas fa-sort-down"
+    hover
+    class="rounded-xl mb-4"
+  >
+    <template v-slot:item.title="{ item }">
+      <router-link
+        :to="{ name: 'app', params: { appSlug: item.associatedApp.slug, fileId: item.id } }"
+        class="d-flex align-center h-100 table-column-title"
+      >
+        <v-icon :icon="`fas fa-${item.associatedApp.id}`" />
+        <span class="ms-2">{{ item.title }}</span>
+      </router-link>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <file-menu @click="loadFile(item.id)" />
+    </template>
+    <template v-slot:loading>
+      <v-skeleton-loader type="table-row@6" />
+    </template>
+    <template v-slot:bottom></template>
+  </v-data-table>
 </template>
+
+<style scoped lang="scss">
+.table-column-title {
+  white-space: nowrap;
+  text-decoration: none;
+  color: inherit;
+}
+</style>
+
+<style lang="scss">
+.v-data-table-header__content > span {
+  margin-right: 4px;
+}
+</style>

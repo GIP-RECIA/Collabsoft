@@ -103,6 +103,10 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isConfirmation.value = false;
   };
 
+  /* -- Gestion de l'affichage -- */
+
+  const isGrid = ref<boolean>(false);
+
   /* -- Gestion des paramètres -- */
 
   const isSettings = ref<boolean>(false);
@@ -122,6 +126,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isConfirmation,
     isNew,
     resetState,
+    isGrid,
     isSettings,
   };
 });
