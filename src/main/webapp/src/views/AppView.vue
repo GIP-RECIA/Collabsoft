@@ -15,7 +15,7 @@ const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
 const route = useRoute();
 const router = useRouter();
 
-if (!currentFile.value || currentFile.value.id != route.params.fileId)
+if (!currentFile.value || currentFile.value.id != (route.params.fileId as unknown as number))
   loadFile(parseInt(route.params.fileId as string));
 
 const isStarred = ref(false);
@@ -25,9 +25,11 @@ const star = () => {
 };
 
 const share = () => {
-  loadFile(currentFile.value.id);
-  currentTab.value = Tabs.Share;
-  isInfo.value = true;
+  if (currentFile.value) {
+    loadFile(currentFile.value.id);
+    currentTab.value = Tabs.Share;
+    isInfo.value = true;
+  }
 };
 
 const goBack = () => (window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects }));

@@ -2,6 +2,7 @@
 import FileMenu from '@/components/FileMenu.vue';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import type { File } from '@/types/fileType.ts';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -13,7 +14,7 @@ const { isInfo, currentTab } = storeToRefs(configurationStore);
 const { t } = useI18n();
 
 const props = defineProps<{
-  file: any;
+  file: File;
 }>();
 
 const isStarred = ref(false);

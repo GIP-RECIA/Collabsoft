@@ -3,6 +3,7 @@ import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/
 import type { Configuration } from '@/types/configurationType.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import type { File } from '@/types/fileType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import { differenceInMilliseconds } from 'date-fns';
 import debounce from 'lodash.debounce';
@@ -36,7 +37,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   let lastUpdated = new Date();
 
-  const files = ref<Array<any> | undefined>();
+  const files = ref<Array<File> | undefined>();
 
   const loadFiles = async (requestedFiles: Navigation | string) => {
     try {
@@ -74,7 +75,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     }
   };
 
-  const currentFile = ref<any>();
+  const currentFile = ref<File>();
 
   const loadFile = async (fileId: number, force?: boolean) => {
     if (!currentFile.value || currentFile.value.id != fileId || force) {
@@ -88,7 +89,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
   };
 
   const refreshCurrentFile = () => {
-    loadFile(currentFile.value.id, true);
+    if (currentFile.value) loadFile(currentFile.value.id, true);
   };
 
   const isInfo = ref<boolean>(false);
