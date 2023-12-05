@@ -18,6 +18,11 @@ const information = () => {
   isInfo.value = true;
 };
 
+const share = () => {
+  currentTab.value = Tabs.Share;
+  isInfo.value = true;
+};
+
 const histories = () => {
   currentTab.value = Tabs.Histories;
   isInfo.value = true;
@@ -31,7 +36,14 @@ const download = () => {};
 <template>
   <v-menu>
     <template #activator="{ props }">
-      <v-btn v-bind="props" icon="fas fa-ellipsis-vertical" :alt="t('button.options')" :size="size" />
+      <v-btn
+        v-bind="props"
+        variant="text"
+        color="default"
+        icon="fas fa-ellipsis-vertical"
+        :alt="t('button.options')"
+        :size="size"
+      />
     </template>
 
     <v-list rounded="xl" class="pa-2">
@@ -41,6 +53,7 @@ const download = () => {};
         rounded="xl"
         @click="information"
       />
+      <v-list-item prepend-icon="fas fa-share-nodes" :title="t('menu.item.share')" rounded="xl" @click="share" />
       <v-list-item
         prepend-icon="fas fa-clock-rotate-left"
         :title="t('menu.item.histories')"
