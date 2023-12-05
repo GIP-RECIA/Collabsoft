@@ -36,7 +36,7 @@ const addElement = async () => {
   if (canSave.value) {
     await saveFile({
       title: title.value!,
-      description: description.value && description.value.trim.length > 0 ? description.value : null,
+      description: description.value && description.value.trim().length > 0 ? description.value : null,
       blob: '',
       associatedAppId: fileType.value!,
       pub: pub.value,
@@ -63,22 +63,22 @@ const addElement = async () => {
         <v-text-field
           v-model="title"
           :label="t('information.title')"
-          variant="solo"
-          bg-color="grey-lighten-3"
+          :maxlength="45"
+          variant="solo-filled"
           rounded="xl"
-          class="mb-3"
           flat
           hide-details
+          class="mb-3"
         />
         <v-textarea
           v-model="description"
           :label="t('information.description')"
-          variant="solo"
-          bg-color="grey-lighten-3"
+          :maxlength="45"
+          variant="solo-filled"
           rounded="xl"
-          class="mb-3"
           flat
           hide-details
+          class="mb-3"
         />
         <div class="ml-2 mb-1">{{ t('information.visibility') }}</div>
         <v-switch

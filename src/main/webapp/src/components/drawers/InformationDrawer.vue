@@ -61,8 +61,8 @@ const addUser = () => {
       :show-arrows="false"
       hide-slider
       selected-class="slide-group-item--activate"
-      class="mx-2"
       fixed-tabs
+      class="mx-2"
     >
       <v-tab :value="Tabs.Information" :title="t('navigation.title.information')">
         <v-icon icon="fas fa-circle-info" />
@@ -79,24 +79,24 @@ const addUser = () => {
         <v-text-field
           :model-value="currentFile.title"
           :label="t('information.title')"
-          variant="solo"
-          bg-color="grey-lighten-3"
+          :maxlength="45"
+          variant="solo-filled"
           rounded="xl"
-          class="mb-2"
           flat
           hide-details
           readonly
+          class="mb-2"
         />
         <v-textarea
           :model-value="currentFile.description"
           :label="t('information.description')"
-          variant="solo"
-          bg-color="grey-lighten-3"
+          :maxlength="45"
+          variant="solo-filled"
           rounded="xl"
-          class="mb-2"
           flat
           hide-details
           readonly
+          class="mb-2"
         />
         <div class="ml-2 mb-2">
           {{ t('information.creationDate') }} {{ format(parseISO(currentFile.creationDate), 'Pp') }}
@@ -167,10 +167,10 @@ const addUser = () => {
                   density="compact"
                   rounded="xl"
                   bg-color="rgba(255,255,255, 0)"
-                  class="share-item--role"
                   flat
                   hide-details
                   hide-no-data
+                  class="share-item--role"
                   @update:model-value="(newValue) => updateRole(share, newValue)"
                 >
                   <v-list rounded="xl" class="pa-2"> </v-list>
