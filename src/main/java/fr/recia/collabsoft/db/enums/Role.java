@@ -13,23 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.collabsoft.pojo;
+package fr.recia.collabsoft.db.enums;
 
-import fr.recia.collabsoft.db.enums.Role;
-import lombok.Data;
-
-@Data
-public class JsonCollaborationBody {
-
-  private Long userId;
-  private Role role;
-
-  public boolean postDataOk() {
-    return (userId != null && role != null);
-  }
-
-  public boolean putDataOk() {
-    return (role != null);
-  }
-
+public enum Role {
+  OWNER,
+  EDITOR,
+  READONLY
 }

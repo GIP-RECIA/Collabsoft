@@ -16,6 +16,7 @@
 package fr.recia.collabsoft.db.entities;
 
 import fr.recia.collabsoft.db.entities.ids.CollaborationId;
+import fr.recia.collabsoft.db.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,8 @@ import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -53,8 +56,9 @@ public class Collaboration implements Serializable {
   @JoinColumn(name = "file_id", nullable = false)
   private File file;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "role")
-  private Integer role;
+  private Role role;
 
   @Override
   public final boolean equals(Object o) {

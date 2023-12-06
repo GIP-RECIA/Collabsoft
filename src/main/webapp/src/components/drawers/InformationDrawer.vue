@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import type { Collaboration } from '@/types/collaborationType';
+import { Role, getRole } from '@/types/enums/Role.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { format, parseISO } from 'date-fns';
 import { storeToRefs } from 'pinia';
@@ -21,19 +23,17 @@ const modelValue = computed<boolean>({
   },
 });
 
-const roles: Array<string> = [];
+const roles: Array<Role> = [Role.editor, Role.readonly];
 
 const newUser = ref<any>();
-const newRole = ref<string>();
+const newRole = ref<Role>();
 
-const updateRole = (share: any, newValue: string) => {
-  console.log(share, newValue);
-  refreshCurrentFile();
+const updateRole = (collaboration: Collaboration, newValue: Role) => {
+  if (newValue != getRole(collaboration.role)) refreshCurrentFile();
 };
 
-const updateVisibility = (newValue: boolean) => {
-  console.log(newValue);
-  refreshCurrentFile();
+const updateVisibility = (newValue: boolean | null) => {
+  if (typeof newValue == 'boolean') refreshCurrentFile();
 };
 
 const addUser = () => {
@@ -143,13 +143,13 @@ const addUser = () => {
             @click="addUser"
           />
         </div>
-        <v-list class="pt-0">
+        <v-list v-if="currentFile.collaborations" class="pt-0">
           <v-list-item
-            v-for="(share, index) in currentFile.shared"
+            v-for="(collaboration, index) in currentFile.collaborations"
             :key="index"
             rounded="xl"
             :class="[
-              index < currentFile.shared.length - 1 ? 'mb-2' : '',
+              index < currentFile.collaborations.length - 1 ? 'mb-2' : '',
               'pr-2',
               'bg-grey-lighten-3',
               'list-item--custom',
@@ -158,10 +158,10 @@ const addUser = () => {
             <template #default>
               <div class="d-flex">
                 <div class="d-flex align-center share-item--name">
-                  {{ share.name }}
+                  {{ collaboration.user.displayName }}
                 </div>
                 <v-select
-                  :model-value="share.role"
+                  :model-value="getRole(collaboration.role)"
                   :items="roles"
                   variant="solo"
                   density="compact"
@@ -171,7 +171,7 @@ const addUser = () => {
                   hide-details
                   hide-no-data
                   class="share-item--role"
-                  @update:model-value="(newValue) => updateRole(share, newValue)"
+                  @update:model-value="(newValue) => updateRole(collaboration, newValue)"
                 >
                   <v-list rounded="xl" class="pa-2"> </v-list>
                   <template #item="{ props }">
@@ -192,12 +192,13 @@ const addUser = () => {
           density="compact"
           inset
           hide-details
+          readonly
           @update:model-value="updateVisibility"
         />
       </v-window-item>
 
       <v-window-item :value="Tabs.Histories">
-        <v-list class="py-0">
+        <v-list v-if="currentFile.histories" class="py-0">
           <v-list-item
             v-for="(history, index) in currentFile.histories"
             :key="index"
