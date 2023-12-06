@@ -9,9 +9,12 @@ import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
+import { useDisplay } from 'vuetify';
 
 const route = useRoute();
 const router = useRouter();
+
+const { mobile } = useDisplay();
 
 if (route.name == 'home') router.replace({ name: Navigation.projects });
 
@@ -23,7 +26,7 @@ const { files } = storeToRefs(configurationStore);
   <v-layout full-height>
     <navigation-drawer />
     <v-main>
-      <v-container fluid class="h-100 overflow-y-auto">
+      <v-container fluid :class="['h-100', 'overflow-y-auto', mobile ? 'pa-0' : '']">
         <div class="h-0">
           <router-view />
           <files-layout :files="files" />
