@@ -1,4 +1,4 @@
-import viteConfig from './vite.config';
+import viteConfig from './vite.config.ts';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { configDefaults, defineConfig, mergeConfig } from 'vitest/config';

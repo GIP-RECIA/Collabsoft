@@ -42,9 +42,9 @@ export default ({ mode }: { mode: string }) => {
     build: {
       rollupOptions: {
         output: {
-          assetFileNames: 'assets/collabsoft-[name].[ext]',
-          entryFileNames: 'assets/collabsoft-[name].js',
-          chunkFileNames: 'assets/collabsoft-[name].js',
+          assetFileNames: 'assets/[name].[ext]',
+          entryFileNames: 'assets/[name].js',
+          chunkFileNames: 'assets/[name].js',
         },
       },
     },

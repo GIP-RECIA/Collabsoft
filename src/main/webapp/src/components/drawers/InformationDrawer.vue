@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import type { Collaboration } from '@/types/collaborationType';
+import type { Collaboration } from '@/types/collaborationType.ts';
 import { Role, getRole } from '@/types/enums/Role.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { format, parseISO } from 'date-fns';
