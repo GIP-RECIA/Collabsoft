@@ -20,7 +20,7 @@
 
   <scm>
     <connection>scm:git:ssh://git@github.com:GIP-RECIA/Collabsoft.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:GIP-RECIA/Collabsoft.git</developerConnection>
+    <developerConnection>scm:git:ssh://git@github.com/GIP-RECIA/Collabsoft.git</developerConnection>
     <tag>HEAD</tag>
     <url>https://github.com/GIP-RECIA/Collabsoft.git</url>
   </scm>
