@@ -25,7 +25,7 @@ router.beforeEach((to) => {
 const theme = useTheme();
 const isDark = usePreferredDark();
 
-watch(isDark, (newValue) => {
+watch(isDark, (newValue): void => {
   theme.global.name.value = !newValue ? 'light' : 'dark';
 });
 
@@ -49,7 +49,7 @@ const confirmationDelete = computed<boolean>({
   },
 });
 
-const deleteItem = async (result: Response) => {
+const deleteItem = async (result: Response): Promise<void> => {
   if (result == Response.yes && currentFile.value) {
     try {
       await deleteFile(currentFile.value.id);

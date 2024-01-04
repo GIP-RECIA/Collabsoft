@@ -39,7 +39,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const files = ref<Array<File> | undefined>();
 
-  const loadFiles = async (requestedFiles: Navigation | string) => {
+  const loadFiles = async (requestedFiles: Navigation | string): Promise<void> => {
     try {
       let response;
       switch (requestedFiles) {
@@ -62,7 +62,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     }
   };
 
-  const refresh = (instant?: boolean, loading?: boolean) => {
+  const refresh = (instant?: boolean, loading?: boolean): void => {
     if (instant || differenceInMilliseconds(new Date(), lastUpdated) > 5000) {
       if (loading) files.value = undefined;
       const launch = debounce(() => {
@@ -77,7 +77,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const currentFile = ref<File>();
 
-  const loadFile = async (fileId: number, force?: boolean) => {
+  const loadFile = async (fileId: number, force?: boolean): Promise<void> => {
     if (!currentFile.value || currentFile.value.id != fileId || force) {
       try {
         const response = await getFile(fileId);
@@ -88,7 +88,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     }
   };
 
-  const refreshCurrentFile = () => {
+  const refreshCurrentFile = (): void => {
     if (currentFile.value) loadFile(currentFile.value.id, true);
   };
 
@@ -97,7 +97,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const isConfirmation = ref<boolean>(false);
   const isNew = ref<boolean>(false);
 
-  const resetState = () => {
+  const resetState = (): void => {
     currentFile.value = undefined;
     isInfo.value = false;
     isConfirmation.value = false;

@@ -25,7 +25,7 @@ const headers = ref<Array<any>>([
   { title: '', key: 'actions', sortable: false, align: 'end' },
 ]);
 
-const addColumnEditionDate = () => {
+const addColumnEditionDate = (): void => {
   headers.value.splice(1, 0, {
     title: t('information.edited'),
     key: 'editionDate',
@@ -40,14 +40,14 @@ const addColumnEditionDate = () => {
   });
 };
 
-const removeColumnEditionDate = () => {
+const removeColumnEditionDate = (): void => {
   const index = headers.value.findIndex((header) => header.key == 'editionDate');
   if (index >= 0) headers.value.splice(index, 1);
 };
 
 watch(
   xs,
-  (newValue, oldValue) => {
+  (newValue, oldValue): void => {
     if (newValue != oldValue) newValue ? removeColumnEditionDate() : addColumnEditionDate();
   },
   { immediate: true },

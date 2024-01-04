@@ -20,11 +20,11 @@ if (!currentFile.value || currentFile.value.id != (route.params.fileId as unknow
 
 const isStarred = ref(false);
 
-const star = () => {
+const star = (): void => {
   isStarred.value = !isStarred.value;
 };
 
-const share = () => {
+const share = (): void => {
   if (currentFile.value) {
     loadFile(currentFile.value.id);
     currentTab.value = Tabs.Share;

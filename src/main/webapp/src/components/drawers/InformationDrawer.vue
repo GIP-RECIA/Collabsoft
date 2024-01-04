@@ -28,15 +28,15 @@ const roles: Array<Role> = [Role.editor, Role.readonly];
 const newUser = ref<any>();
 const newRole = ref<Role>();
 
-const updateRole = (collaboration: Collaboration, newValue: Role) => {
+const updateRole = (collaboration: Collaboration, newValue: Role): void => {
   if (newValue != getRole(collaboration.role)) refreshCurrentFile();
 };
 
-const updateVisibility = (newValue: boolean | null) => {
+const updateVisibility = (newValue: boolean | null): void => {
   if (typeof newValue == 'boolean') refreshCurrentFile();
 };
 
-const addUser = () => {
+const addUser = (): void => {
   newUser.value = undefined;
   newRole.value = undefined;
 };

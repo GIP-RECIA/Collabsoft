@@ -18,7 +18,7 @@ let token: string | undefined = undefined;
 let timeout: number | undefined = undefined;
 let renewToken: any;
 
-const init = async () => {
+const init = async (): Promise<void> => {
   try {
     const {
       decoded: { exp, iat },

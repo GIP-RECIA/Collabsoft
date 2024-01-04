@@ -13,24 +13,24 @@ defineProps<{
   size?: string | number;
 }>();
 
-const information = () => {
+const information = (): void => {
   currentTab.value = Tabs.Information;
   isInfo.value = true;
 };
 
-const share = () => {
+const share = (): void => {
   currentTab.value = Tabs.Share;
   isInfo.value = true;
 };
 
-const histories = () => {
+const histories = (): void => {
   currentTab.value = Tabs.Histories;
   isInfo.value = true;
 };
 
-const exportOnNextloud = () => {};
+const exportOnNextloud = (): void => {};
 
-const download = () => {};
+const download = (): void => {};
 </script>
 
 <template>

@@ -19,17 +19,17 @@ const props = defineProps<{
 
 const isStarred = ref(false);
 
-const star = () => {
+const star = (): void => {
   isStarred.value = !isStarred.value;
 };
 
-const share = () => {
+const share = (): void => {
   loadFile(props.file.id);
   currentTab.value = Tabs.Share;
   isInfo.value = true;
 };
 
-const filePreview = computed(() => {
+const filePreview = computed<string>(() => {
   switch (props.file.associatedApp.id) {
     case 1:
       return 'https://cdn.vuetifyjs.com/docs/images/cards/docks.jpg';

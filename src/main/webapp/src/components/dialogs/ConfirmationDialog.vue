@@ -28,17 +28,17 @@ const modelValue = computed<boolean>({
   },
 });
 
-const cancel = () => {
+const cancel = (): void => {
   modelValue.value = false;
   emit('close', Response.cancel);
 };
 
-const no = () => {
+const no = (): void => {
   modelValue.value = false;
   emit('close', Response.no);
 };
 
-const yes = () => {
+const yes = (): void => {
   modelValue.value = false;
   emit('close', Response.yes);
 };

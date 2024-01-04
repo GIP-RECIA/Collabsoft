@@ -27,12 +27,12 @@ const canSave = computed<boolean>(
   () => fileType.value != undefined && title.value != undefined && title.value.trim().length > 0,
 );
 
-const save = () => {
+const save = (): void => {
   isNew.value = false;
   addElement();
 };
 
-const addElement = async () => {
+const addElement = async (): Promise<void> => {
   if (canSave.value) {
     await saveFile({
       title: title.value!,

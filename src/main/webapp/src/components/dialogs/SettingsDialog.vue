@@ -24,7 +24,7 @@ if (theme.global.name.value == 'dark') {
   selected.value.push('dark');
 }
 
-watch(theme.global.name, (newValue) => {
+watch(theme.global.name, (newValue): void => {
   if (newValue == 'dark') selected.value.push('dark');
   else {
     const index = selected.value.indexOf('dark');
@@ -32,11 +32,11 @@ watch(theme.global.name, (newValue) => {
   }
 });
 
-const updateSelected = (newValue: Array<any>) => {
+const updateSelected = (newValue: Array<any>): void => {
   setDarkTheme(newValue.includes('dark'));
 };
 
-const setDarkTheme = (newValue: boolean) => {
+const setDarkTheme = (newValue: boolean): void => {
   theme.global.name.value = !newValue ? 'light' : 'dark';
 };
 </script>
