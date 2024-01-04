@@ -17,7 +17,8 @@ export default ({ mode }: { mode: string }) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: (tag) => ['extended-uportal-header', 'extended-uportal-footer'].includes(tag),
+            isCustomElement: (tag) =>
+              ['extended-uportal-header', 'extended-uportal-footer', 'tldraw-editor'].includes(tag),
           },
         },
       }),

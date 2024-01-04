@@ -2,11 +2,15 @@
 import FileMenu from '@/components/FileMenu.vue';
 import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import '@gip-recia/tldraw-webcomponent';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+
+const { VITE_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
 
 const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
@@ -54,6 +58,11 @@ const goBack = () => (window.history.length > 2 ? router.back() : router.push({ 
             <file-menu size="small" @click="loadFile(currentFile.id)" />
           </template>
         </v-toolbar>
+        <tldraw-editor
+          v-if="currentFile.associatedApp.slug == AppSlug.tldraw"
+          :persistance-api-url="`${VITE_API_URI}/api/file/${currentFile.id}`"
+          :user-info-api-url="VITE_USER_INFO_API_URI"
+        />
       </div>
     </v-main>
     <information-drawer />
