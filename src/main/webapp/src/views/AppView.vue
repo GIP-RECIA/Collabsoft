@@ -5,7 +5,6 @@ import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
-import '@gip-recia/tldraw-webcomponent';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
