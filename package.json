@@ -19,7 +19,7 @@
     "predev": "dotenv-checker --schema .env.example --env .env.local"
   },
   "dependencies": {
-    "@gip-recia/tldraw-webcomponent": "^1.0.0",
+    "@gip-recia/tldraw-webcomponent": "^1.1.2",
     "@vueuse/core": "^10.7.1",
     "pinia": "^2.1.7",
     "vue": "^3.4.3",

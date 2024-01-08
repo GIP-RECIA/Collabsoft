@@ -613,14 +613,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/tldraw-webcomponent@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@gip-recia/tldraw-webcomponent@npm:1.0.0"
+"@gip-recia/tldraw-webcomponent@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@gip-recia/tldraw-webcomponent@npm:1.1.2"
   dependencies:
     "@tldraw/tldraw": "npm:^1.29.2"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-  checksum: 732b417ca7df7d9e177f280d82f70ca0863b817f9164169e0511abc1105b4876b870379466a3ffa6598c05a85de3b0a79d420bf289dfcc25a1a5ce5f271a7811
+  checksum: f34ca53b573a05a33f93e7eebcc6340eeded027d94b5fff984de66cd7211eeef7a607a5d1b1c10d64cce2dbab54678bb8472a31742e1b620e6c74f7157441e8b
   languageName: node
   linkType: hard
 
@@ -3065,7 +3065,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.5.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.5.1"
     "@fortawesome/vue-fontawesome": "npm:latest-3"
-    "@gip-recia/tldraw-webcomponent": "npm:^1.0.0"
+    "@gip-recia/tldraw-webcomponent": "npm:^1.1.2"
     "@intlify/unplugin-vue-i18n": "npm:^2.0.0"
     "@playwright/test": "npm:^1.40.1"
     "@rushstack/eslint-patch": "npm:^1.6.1"
