@@ -6,6 +6,17 @@ const dateToDuration = (date: string): string => {
     end: Date.now(),
   });
 
+  if (
+    years == undefined &&
+    months == undefined &&
+    weeks == undefined &&
+    days == undefined &&
+    hours == undefined &&
+    minutes == undefined &&
+    seconds == undefined
+  )
+    return formatDuration({ seconds: 1 }, { format: ['seconds'] });
+
   if (years != undefined && years > 0) return formatDuration({ years }, { format: ['years'] });
   if (months != undefined && months > 0) return formatDuration({ months }, { format: ['months'] });
   if (weeks != undefined && weeks > 0) return formatDuration({ weeks }, { format: ['weeks'] });
