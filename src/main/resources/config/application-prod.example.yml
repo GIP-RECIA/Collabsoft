@@ -16,8 +16,8 @@ spring:
 app:
   cors:
     enable: true
-    allowed-origins: >
-      https://*.giprecia.net
+    allowed-origins:
+      - https://*.giprecia.net
 
   soffit:
     jwt-signature-key: ''
