@@ -6,6 +6,9 @@
     "file": {
       "title": "New File",
       "description": "File type"
+    },
+    "delete": {
+      "title": "Are you sure to delete?"
     }
   }
 }

@@ -7,12 +7,15 @@ import { errorHandler } from '@/utils/axiosUtils.ts';
 import { usePreferredDark } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { computed, onBeforeMount, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 
+const { t } = useI18n();
+
 const configurationStore = useConfigurationStore();
 const { refresh, resetState } = configurationStore;
-const { lastNavigation, currentFile, isConfirmation } = storeToRefs(configurationStore);
+const { lastNavigation, currentFile, isConfirmation, confirmationTitle } = storeToRefs(configurationStore);
 
 const router = useRouter();
 
@@ -94,9 +97,12 @@ const deleteItem = async (result: Response): Promise<void> => {
       <router-view />
       <confirmation-dialog
         v-model="confirmationDelete"
-        title=""
+        :title="t('dialog.delete.title')"
+        :description="confirmationTitle"
         yes-value="button.delete"
         no-value="button.cancel"
+        yes-color="error"
+        no-color="secondary"
         @close="deleteItem"
       />
     </main>

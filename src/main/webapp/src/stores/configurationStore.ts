@@ -95,6 +95,9 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const isInfo = ref<boolean>(false);
   const currentTab = ref<number>(Tabs.Information);
   const isConfirmation = ref<boolean>(false);
+  const confirmationTitle = computed<string | undefined>(() =>
+    currentFile.value ? `"${currentFile.value.title}"` : undefined,
+  );
   const isNew = ref<boolean>(false);
 
   const resetState = (): void => {
@@ -124,6 +127,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isInfo,
     currentTab,
     isConfirmation,
+    confirmationTitle,
     isNew,
     resetState,
     isGrid,

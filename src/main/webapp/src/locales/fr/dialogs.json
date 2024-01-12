@@ -6,6 +6,9 @@
     "file": {
       "title": "Nouveau fichier",
       "description": "Type de fichier"
+    },
+    "delete": {
+      "title": "Êtes-vous sûr d'effecer ?"
     }
   }
 }

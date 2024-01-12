@@ -12,6 +12,8 @@ const props = defineProps<{
   yesValue: string;
   noValue: string;
   cancelable?: boolean;
+  noColor?: string;
+  yesColor?: string;
 }>();
 
 const emit = defineEmits<{
@@ -52,8 +54,8 @@ const yes = (): void => {
       <v-card-actions>
         <v-btn v-if="cancelable" :text="t('button.cancel')" @click="cancel" />
         <v-spacer />
-        <v-btn :text="t(noValue)" @click="no" />
-        <v-btn :text="t(yesValue)" @click="yes" />
+        <v-btn :text="t(noValue)" :color="noColor" @click="no" />
+        <v-btn :text="t(yesValue)" :color="yesColor" @click="yes" />
       </v-card-actions>
     </v-card>
   </v-dialog>
