@@ -7,6 +7,8 @@ const configurationStore = useConfigurationStore();
 const { refresh } = configurationStore;
 const { isSettings } = storeToRefs(configurationStore);
 
+const isDev = import.meta.env.DEV;
+
 const { t } = useI18n();
 </script>
 
@@ -24,6 +26,7 @@ const { t } = useI18n();
           @click="refresh()"
         />
         <v-list-item
+          v-if="isDev"
           prepend-icon="fas fa-star"
           :title="t('navigation.item.favorites')"
           :to="{ name: 'favorites' }"
@@ -32,6 +35,7 @@ const { t } = useI18n();
           @click="refresh()"
         />
         <v-list-item
+          v-if="isDev"
           prepend-icon="fas fa-share-nodes"
           :title="t('navigation.item.shared')"
           :to="{ name: 'shared' }"
@@ -40,6 +44,7 @@ const { t } = useI18n();
           @click="refresh()"
         />
         <v-list-item
+          v-if="isDev"
           prepend-icon="fas fa-globe"
           :title="t('navigation.item.public')"
           :to="{ name: 'public' }"

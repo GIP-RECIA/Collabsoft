@@ -9,6 +9,8 @@ const configurationStore = useConfigurationStore();
 const { refresh } = configurationStore;
 const { isNew } = storeToRefs(configurationStore);
 
+const isDev = import.meta.env.DEV;
+
 const { t } = useI18n();
 
 const modelValue = computed<boolean>({
@@ -18,7 +20,7 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-const fileType = ref<number>();
+const fileType = ref<number | undefined>(isDev ? undefined : 1);
 const title = ref<string>();
 const description = ref<string>();
 const pub = ref<boolean>(false);
@@ -55,11 +57,13 @@ const addElement = async (): Promise<void> => {
         </template>
       </v-toolbar>
       <v-card-text>
-        <div class="ml-2 mb-2">{{ t('dialog.file.description') }}</div>
-        <v-btn-toggle v-model="fileType" mandatory class="mb-3">
-          <v-btn text="tldraw" :value="1" rounded="xl" />
-          <v-btn text="WiseMapping" :value="2" rounded="xl" />
-        </v-btn-toggle>
+        <div v-if="isDev">
+          <div class="ml-2 mb-2">{{ t('dialog.file.description') }}</div>
+          <v-btn-toggle v-model="fileType" mandatory class="mb-3">
+            <v-btn text="tldraw" :value="1" rounded="xl" />
+            <v-btn text="WiseMapping" :value="2" rounded="xl" />
+          </v-btn-toggle>
+        </div>
         <v-text-field
           v-model="title"
           :label="t('information.title')"
@@ -80,14 +84,16 @@ const addElement = async (): Promise<void> => {
           hide-details
           class="mb-3"
         />
-        <div class="ml-2 mb-1">{{ t('information.visibility') }}</div>
-        <v-switch
-          v-model="pub"
-          :label="t(`visibility.${pub ? 'public' : 'private'}`)"
-          density="compact"
-          inset
-          hide-details
-        />
+        <div v-if="isDev">
+          <div class="ml-2 mb-1">{{ t('information.visibility') }}</div>
+          <v-switch
+            v-model="pub"
+            :label="t(`visibility.${pub ? 'public' : 'private'}`)"
+            density="compact"
+            inset
+            hide-details
+          />
+        </div>
       </v-card-text>
       <v-card-actions>
         <v-spacer />

@@ -12,6 +12,8 @@ const configurationStore = useConfigurationStore();
 const { refreshCurrentFile } = configurationStore;
 const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
 
+const isDev = import.meta.env.DEV;
+
 const { t } = useI18n();
 
 const modelValue = computed<boolean>({
@@ -67,10 +69,10 @@ const addUser = (): void => {
       <v-tab :value="Tabs.Information" :title="t('navigation.title.information')">
         <v-icon icon="fas fa-circle-info" />
       </v-tab>
-      <v-tab :value="Tabs.Share" :title="t('navigation.title.share')">
+      <v-tab v-if="isDev" :value="Tabs.Share" :title="t('navigation.title.share')">
         <v-icon icon="fas fa-share-nodes" />
       </v-tab>
-      <v-tab :value="Tabs.Histories" :title="t('navigation.title.histories')">
+      <v-tab v-if="isDev" :value="Tabs.Histories" :title="t('navigation.title.histories')">
         <v-icon icon="fas fa-clock-rotate-left" />
       </v-tab>
     </v-tabs>
@@ -106,7 +108,7 @@ const addUser = (): void => {
         </div>
       </v-window-item>
 
-      <v-window-item :value="Tabs.Share">
+      <v-window-item v-if="isDev" :value="Tabs.Share">
         <div class="d-flex align-center mb-2 bg-grey-lighten-3 rounded-xl">
           <v-text-field
             v-model="newUser"
@@ -197,7 +199,7 @@ const addUser = (): void => {
         />
       </v-window-item>
 
-      <v-window-item :value="Tabs.Histories">
+      <v-window-item v-if="isDev" :value="Tabs.Histories">
         <v-list v-if="currentFile.histories" class="py-0">
           <v-list-item
             v-for="(history, index) in currentFile.histories"

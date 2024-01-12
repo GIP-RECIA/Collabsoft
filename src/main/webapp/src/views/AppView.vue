@@ -15,6 +15,8 @@ const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
 const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
 
+const isDev = import.meta.env.DEV;
+
 const route = useRoute();
 const router = useRouter();
 
@@ -48,12 +50,13 @@ const goBack = () => (window.history.length > 2 ? router.back() : router.push({ 
           </template>
           <template #append>
             <v-btn
+              v-if="isDev"
               :icon="`${isStarred ? 'fas' : 'far'} fa-star`"
               :color="isStarred ? 'yellow' : 'default'"
               size="small"
               @click="star"
             />
-            <v-btn icon="fas fa-share-nodes" size="small" @click="share" />
+            <v-btn v-if="isDev" icon="fas fa-share-nodes" size="small" @click="share" />
             <file-menu size="small" @click="loadFile(currentFile.id)" />
           </template>
         </v-toolbar>

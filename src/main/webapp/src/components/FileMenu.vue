@@ -7,6 +7,8 @@ import { useI18n } from 'vue-i18n';
 const configurationStore = useConfigurationStore();
 const { isInfo, currentTab, isConfirmation } = storeToRefs(configurationStore);
 
+const isDev = import.meta.env.DEV;
+
 const { t } = useI18n();
 
 defineProps<{
@@ -53,20 +55,34 @@ const download = (): void => {};
         rounded="xl"
         @click="information"
       />
-      <v-list-item prepend-icon="fas fa-share-nodes" :title="t('menu.item.share')" rounded="xl" @click="share" />
       <v-list-item
+        v-if="isDev"
+        prepend-icon="fas fa-share-nodes"
+        :title="t('menu.item.share')"
+        rounded="xl"
+        @click="share"
+      />
+      <v-list-item
+        v-if="isDev"
         prepend-icon="fas fa-clock-rotate-left"
         :title="t('menu.item.histories')"
         rounded="xl"
         @click="histories"
       />
       <v-list-item
+        v-if="isDev"
         prepend-icon="fas fa-cloud"
         :title="t('menu.item.exportOnNextcloud')"
         rounded="xl"
         @click="exportOnNextloud"
       />
-      <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="download" />
+      <v-list-item
+        v-if="isDev"
+        prepend-icon="fas fa-download"
+        :title="t('menu.item.download')"
+        rounded="xl"
+        @click="download"
+      />
       <v-divider class="my-2" />
       <v-list-item
         prepend-icon="fas fa-trash"

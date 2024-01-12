@@ -11,12 +11,11 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 
-const { t } = useI18n();
-
 const configurationStore = useConfigurationStore();
 const { refresh, resetState } = configurationStore;
 const { lastNavigation, currentFile, isConfirmation, confirmationTitle } = storeToRefs(configurationStore);
 
+const { t } = useI18n();
 const router = useRouter();
 
 router.beforeEach((to) => {
