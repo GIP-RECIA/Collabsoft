@@ -58,7 +58,7 @@ public class SecurityConfiguration {
 
     http.authorizeHttpRequests(authz -> authz
       .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-      .antMatchers("/health-check", "/api/config").permitAll()
+      .antMatchers("/health-check", "/api/config", "/ui/**").permitAll()
       .antMatchers("/api/**").authenticated()
       .anyRequest().denyAll()
     );
