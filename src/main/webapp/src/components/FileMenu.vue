@@ -72,6 +72,7 @@ const download = (): void => {};
         prepend-icon="fas fa-trash"
         :title="t('menu.item.delete')"
         rounded="xl"
+        base-color="error"
         @click="isConfirmation = true"
       />
     </v-list>
