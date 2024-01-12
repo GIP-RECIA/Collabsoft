@@ -4,6 +4,7 @@ import {
   fa1,
   fa2,
   faArrowLeft,
+  faCaretDown,
   faCircleInfo,
   faClockRotateLeft,
   faCloud,
@@ -13,6 +14,7 @@ import {
   faGear,
   faGlobe,
   faPlus,
+  faSave,
   faShareNodes,
   faSortDown,
   faSortUp,
@@ -28,6 +30,8 @@ const register = (app: App): void => {
   library.add(
     fa1,
     fa2,
+    faArrowLeft,
+    faCaretDown,
     faCircleInfo,
     faClockRotateLeft,
     faCloud,
@@ -37,13 +41,13 @@ const register = (app: App): void => {
     faGear,
     faGlobe,
     faPlus,
+    faSave,
     faShareNodes,
     faSortDown,
     faSortUp,
     faStar,
     faTrash,
     faXmark,
-    faArrowLeft,
   );
   app.component('font-awesome-icon', FontAwesomeIcon);
 };
