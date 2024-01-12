@@ -56,13 +56,12 @@ public class SecurityConfiguration {
       .csrf()
       .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
-    http
-      .authorizeHttpRequests(authz -> authz
-        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-        .antMatchers("/health-check", "/api/config").permitAll()
-        .antMatchers("/api/**").authenticated()
-        .anyRequest().denyAll()
-      );
+    http.authorizeHttpRequests(authz -> authz
+      .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+      .antMatchers("/health-check", "/api/config").permitAll()
+      .antMatchers("/api/**").authenticated()
+      .anyRequest().denyAll()
+    );
 
     http.sessionManagement().sessionFixation().newSession();
 
