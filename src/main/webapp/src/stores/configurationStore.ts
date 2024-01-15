@@ -39,7 +39,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const files = ref<Array<File> | undefined>();
 
-  const loadFiles = async (requestedFiles: Navigation | string): Promise<void> => {
+  const loadFiles = debounce(async (requestedFiles: Navigation | string): Promise<void> => {
     try {
       let response;
       switch (requestedFiles) {
@@ -60,18 +60,13 @@ export const useConfigurationStore = defineStore('configuration', () => {
     } catch (e) {
       errorHandler(e);
     }
-  };
+    lastUpdated = new Date();
+  }, 200);
 
   const refresh = (instant?: boolean, loading?: boolean): void => {
     if (instant || differenceInMilliseconds(new Date(), lastUpdated) > 5000) {
       if (loading) files.value = undefined;
-      const launch = debounce(() => {
-        if (lastNavigation.value != undefined) {
-          loadFiles(lastNavigation.value);
-          lastUpdated = new Date();
-        }
-      }, 200);
-      launch();
+      if (lastNavigation.value != undefined) loadFiles(lastNavigation.value);
     }
   };
 
