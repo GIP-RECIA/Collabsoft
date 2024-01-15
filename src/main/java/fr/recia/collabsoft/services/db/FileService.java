@@ -27,12 +27,14 @@ import fr.recia.collabsoft.db.repositories.AssociatedAppRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
 import fr.recia.collabsoft.pojo.JsonFileBody;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class FileService {
 
@@ -89,8 +91,12 @@ public class FileService {
   }
 
   public File saveFile(JsonFileBody body) {
-    final User user = userService.getCurrentUser();
-    if (user == null) return null;
+    User user = userService.getCurrentUser();
+    if (user == null) {
+      log.info("No user found => Create user");
+      user = userService.createUser();
+      if (user == null) return null;
+    }
     final AssociatedApp associatedApp = associatedAppRepository.findOne(
       QAssociatedApp.associatedApp.id.eq(body.getAssociatedAppId())
     ).orElse(null);

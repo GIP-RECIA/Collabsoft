@@ -19,9 +19,11 @@ import fr.recia.collabsoft.db.entities.QUser;
 import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.UserRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -44,6 +46,19 @@ public class UserService {
     return userRepository.findOne(
       QUser.user.id.eq(userId)
     ).orElse(null);
+  }
+
+  public User createUser() {
+    if (soffitHolder.getSub() != null && !soffitHolder.getSub().startsWith("guest")) {
+      User user = new User();
+      user.setCasUid(soffitHolder.getSub());
+      userRepository.saveAndFlush(user);
+
+      return getCurrentUser();
+    }
+    log.info("Unable to create user with sub \"{}\"", soffitHolder.getSub());
+
+    return null;
   }
 
 }
