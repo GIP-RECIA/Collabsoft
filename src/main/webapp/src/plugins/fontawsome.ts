@@ -1,10 +1,11 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import { faSquare as farSquare, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import {
   fa1,
   fa2,
   faArrowLeft,
   faCaretDown,
+  faCheckSquare,
   faCircleInfo,
   faClockRotateLeft,
   faCloud,
@@ -26,12 +27,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { App } from 'vue';
 
 const register = (app: App): void => {
-  library.add(farStar);
+  library.add(farSquare, farStar);
   library.add(
     fa1,
     fa2,
     faArrowLeft,
     faCaretDown,
+    faCheckSquare,
     faCircleInfo,
     faClockRotateLeft,
     faCloud,
