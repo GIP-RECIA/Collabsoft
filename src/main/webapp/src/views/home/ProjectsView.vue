@@ -10,7 +10,7 @@ const { isNew } = storeToRefs(configurationStore);
 </script>
 
 <template>
-  <div :class="[mobile ? 'ma-4' : 'mb-4']">
+  <div :class="[mobile ? 'mb-2' : 'mb-4']">
     <v-btn icon="fas fa-plus" variant="tonal" @click="isNew = true" />
   </div>
 </template>

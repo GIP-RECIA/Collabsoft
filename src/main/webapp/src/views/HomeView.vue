@@ -26,11 +26,9 @@ const { files } = storeToRefs(configurationStore);
   <v-layout full-height>
     <navigation-drawer />
     <v-main>
-      <v-container fluid :class="['h-100', 'overflow-y-auto', mobile ? 'pa-0' : '']">
-        <div class="h-0">
-          <router-view />
-          <files-layout :files="files" />
-        </div>
+      <v-container fluid :class="['h-100', 'd-flex', 'flex-column', mobile ? 'pa-2' : '']">
+        <router-view />
+        <files-layout :files="files" />
       </v-container>
     </v-main>
     <bottom-navigation />

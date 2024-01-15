@@ -13,7 +13,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <v-bottom-navigation v-if="mobile" grow color="primary" class="pa-2">
+  <v-bottom-navigation v-if="mobile" :elevation="0" grow color="primary" class="pa-2">
     <v-btn :to="{ name: 'projects' }" rounded="xl" @click="refresh">
       <v-icon icon="fas fa-folder" />
       {{ t('navigation.item.projects') }}

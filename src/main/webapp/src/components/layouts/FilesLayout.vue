@@ -69,8 +69,10 @@ watch(
     :items-per-page="-1"
     sort-asc-icon="fas fa-sort-up"
     sort-desc-icon="fas fa-sort-down"
+    height="0px"
+    fixed-header
     hover
-    class="rounded-xl mb-4"
+    class="h-100 rounded-xl"
   >
     <template v-slot:item.title="{ item }">
       <router-link
