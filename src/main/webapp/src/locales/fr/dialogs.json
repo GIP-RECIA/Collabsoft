@@ -8,7 +8,11 @@
       "description": "Type de fichier"
     },
     "delete": {
-      "title": "Êtes-vous sûr d'effecer ?"
+      "title": "Êtes-vous sûr d'effacer ?"
+    },
+    "signIn": {
+      "title": "Connexion",
+      "fail": "Impossible de se connecter"
     }
   }
 }

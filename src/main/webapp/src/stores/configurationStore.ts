@@ -29,6 +29,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isInit = computed<boolean>(() => configuration.value != undefined);
 
+  const isSoffitOk = ref<boolean>(false);
+
   /* -- Gestion de la navigation -- */
 
   const lastNavigation = ref<string | undefined>();
@@ -112,6 +114,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
   return {
     init,
     isInit,
+    isSoffitOk,
     lastNavigation,
     files,
     loadFiles,

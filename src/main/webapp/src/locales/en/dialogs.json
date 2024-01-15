@@ -9,6 +9,10 @@
     },
     "delete": {
       "title": "Are you sure to delete?"
+    },
+    "signIn": {
+      "title": "Sign in",
+      "fail": "Unable to sign in"
     }
   }
 }

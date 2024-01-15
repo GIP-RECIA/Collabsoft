@@ -1,7 +1,9 @@
 import i18n from '@/plugins/i18n.ts';
+import { useConfigurationStore } from '@/stores/configurationStore';
 import { getToken } from '@/utils/soffitUtils.ts';
 import axios from 'axios';
 import throttle from 'lodash.throttle';
+import { storeToRefs } from 'pinia';
 import { useToast } from 'vue-toastification';
 
 const { t } = i18n.global;
@@ -19,16 +21,25 @@ let timeout: number | undefined = undefined;
 let renewToken: any;
 
 const init = async (): Promise<void> => {
+  const configurationStore = useConfigurationStore();
+  const { isSoffitOk } = storeToRefs(configurationStore);
+
   try {
     const {
-      decoded: { exp, iat },
+      encoded,
+      decoded: { exp, iat, sub },
     } = await getToken();
+    token = `Bearer ${encoded}`;
     timeout = (exp - iat) * 1000 * 0.75;
     renewToken = throttle(
       async () => {
         try {
-          const { encoded } = await getToken();
+          const {
+            encoded,
+            decoded: { sub },
+          } = await getToken();
           token = `Bearer ${encoded}`;
+          isSoffitOk.value = !sub.startsWith('guest');
         } catch (e) {
           // nothing to do
         }
@@ -36,7 +47,7 @@ const init = async (): Promise<void> => {
       timeout,
       { trailing: false },
     );
-    await renewToken();
+    isSoffitOk.value = !sub.startsWith('guest');
   } catch (e) {
     // nothing to do
   }
