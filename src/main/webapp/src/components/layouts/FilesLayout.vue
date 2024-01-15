@@ -20,6 +20,12 @@ defineProps<{
   files: Array<File> | undefined;
 }>();
 
+const key = ref<number>(0);
+
+setInterval(() => {
+  key.value++;
+}, 10000);
+
 const headers = ref<Array<any>>([
   { title: t('information.title'), value: 'title', sortable: true, width: '100%' },
   { title: '', key: 'actions', sortable: false, align: 'end' },
@@ -29,7 +35,6 @@ const addColumnEditionDate = (): void => {
   headers.value.splice(1, 0, {
     title: t('information.edited'),
     key: 'editionDate',
-    value: (item: File) => t('information.duration', { duration: dateToDuration(item.editionDate) }),
     sortable: true,
     headerProps: {
       style: 'white-space: nowrap;',
@@ -75,6 +80,9 @@ watch(
         <v-icon :icon="`fas fa-${item.associatedApp.id}`" />
         <span class="ms-2">{{ item.title }}</span>
       </router-link>
+    </template>
+    <template v-slot:item.editionDate="{ item }">
+      <span :key="key">{{ t('information.duration', { duration: dateToDuration(item.editionDate) }) }}</span>
     </template>
     <template v-slot:item.actions="{ item }">
       <file-menu @click="loadFile(item.id)" />
