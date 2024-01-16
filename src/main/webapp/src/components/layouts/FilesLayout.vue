@@ -14,7 +14,7 @@ const { xs } = useDisplay();
 
 const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
-const { isGrid } = storeToRefs(configurationStore);
+const { search, isGrid } = storeToRefs(configurationStore);
 
 defineProps<{
   files: Array<File> | undefined;
@@ -27,7 +27,7 @@ setInterval(() => {
 }, 10000);
 
 const headers = ref<Array<any>>([
-  { title: t('information.title'), value: 'title', sortable: true, width: '100%' },
+  { title: t('information.title'), key: 'title', sortable: true, width: '100%' },
   { title: '', key: 'actions', sortable: false, align: 'end' },
 ]);
 
@@ -65,6 +65,8 @@ watch(
     :headers="headers"
     :items="files"
     :sort-by="[{ key: 'title', order: 'asc' }]"
+    :search="search"
+    filter-keys="title"
     :loading="files == undefined"
     :items-per-page="-1"
     sort-asc-icon="fas fa-sort-up"

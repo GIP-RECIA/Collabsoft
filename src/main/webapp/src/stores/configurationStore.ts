@@ -39,6 +39,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   let lastUpdated = new Date();
 
+  const search = ref<string | undefined>();
+
   const files = ref<Array<File> | undefined>();
 
   const loadFiles = debounce(async (requestedFiles: Navigation | string): Promise<void> => {
@@ -98,6 +100,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const isNew = ref<boolean>(false);
 
   const resetState = (): void => {
+    search.value = undefined;
     currentFile.value = undefined;
     isInfo.value = false;
     isConfirmation.value = false;
@@ -116,6 +119,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isInit,
     isSoffitOk,
     lastNavigation,
+    search,
     files,
     loadFiles,
     refresh,
