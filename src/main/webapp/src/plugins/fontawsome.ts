@@ -1,8 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSquare as farSquare, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import {
-  fa1,
-  fa2,
   faArrowLeft,
   faCaretDown,
   faCheckSquare,
@@ -32,8 +30,6 @@ import type { App } from 'vue';
 const register = (app: App): void => {
   library.add(farSquare, farStar);
   library.add(
-    fa1,
-    fa2,
     faArrowLeft,
     faCaretDown,
     faCheckSquare,

@@ -14,6 +14,8 @@ const { t } = useI18n();
 
 const { xs } = useDisplay();
 
+const { VITE_API_URI } = import.meta.env;
+
 const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
 const { search, isGrid } = storeToRefs(configurationStore);
@@ -88,7 +90,13 @@ const sortBy = useSessionStorage<Array<any>>(`${app.slug}.sort-by`, [{ key: 'tit
         :to="{ name: 'app', params: { appSlug: item.associatedApp.slug, fileId: item.id } }"
         class="d-flex align-center h-100 table-column-title"
       >
-        <v-icon :icon="`fas fa-${item.associatedApp.id}`" />
+        <v-avatar
+          :image="
+            item.associatedApp.iconPath != null
+              ? `${VITE_API_URI}${VITE_API_URI.endsWith('/') ? '' : '/'}${item.associatedApp.iconPath}`
+              : undefined
+          "
+        />
         <span class="ms-2">{{ item.title }}</span>
       </router-link>
     </template>
