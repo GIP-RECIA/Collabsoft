@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
+import { app } from '@/constants.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import type { File } from '@/types/fileType.ts';
 import { dateToDuration } from '@/utils/dateFnsUtils.ts';
+import { useSessionStorage } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -32,17 +34,20 @@ const headers = ref<Array<any>>([
 ]);
 
 const addColumnEditionDate = (): void => {
-  headers.value.splice(1, 0, {
-    title: t('information.edited'),
-    key: 'editionDate',
-    sortable: true,
-    headerProps: {
-      style: 'white-space: nowrap;',
-    },
-    cellProps: {
-      style: 'white-space: nowrap;',
-    },
-  });
+  const index = headers.value.findIndex((header) => header.key == 'editionDate');
+  if (index == -1) {
+    headers.value.splice(1, 0, {
+      title: t('information.edited'),
+      key: 'editionDate',
+      sortable: true,
+      headerProps: {
+        style: 'white-space: nowrap;',
+      },
+      cellProps: {
+        style: 'white-space: nowrap;',
+      },
+    });
+  }
 };
 
 const removeColumnEditionDate = (): void => {
@@ -57,6 +62,8 @@ watch(
   },
   { immediate: true },
 );
+
+const sortBy = useSessionStorage<Array<any>>(`${app.slug}.sort-by`, [{ key: 'title', order: 'asc' }]);
 </script>
 
 <!-- eslint-disable vue/valid-v-slot -->
@@ -64,7 +71,7 @@ watch(
   <v-data-table
     :headers="headers"
     :items="files"
-    :sort-by="[{ key: 'title', order: 'asc' }]"
+    v-model:sort-by="sortBy"
     :search="search"
     filter-keys="title"
     :loading="files == undefined"
