@@ -4,7 +4,8 @@ import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import type { Collaboration } from '@/types/collaborationType.ts';
 import { Role, getRole } from '@/types/enums/Role.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
-import type { FileBody } from '@/types/fileBodyType';
+import type { FileBody } from '@/types/fileBodyType.ts';
+import { errorHandler } from '@/utils/axiosUtils.ts';
 import { format, parseISO } from 'date-fns';
 import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
@@ -69,16 +70,16 @@ const initForm = (): void => {
   };
 };
 
-const save = (): void => {
-  updateFile();
-  isEdit.value = false;
-};
-
-const updateFile = async (): Promise<void> => {
+const save = async (): Promise<void> => {
   if (!canSave.value || currentFile.value == undefined) return;
-  await setFile(currentFile.value.id, tmp.value as FileBody);
-  refresh(true);
-  refreshCurrentFile();
+  try {
+    await setFile(currentFile.value.id, tmp.value as FileBody);
+    refresh(true);
+    refreshCurrentFile();
+    isEdit.value = false;
+  } catch (e) {
+    errorHandler(e, true);
+  }
 };
 
 const roles: Array<Role> = [Role.editor, Role.readonly];

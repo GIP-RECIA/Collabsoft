@@ -62,7 +62,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
       }
       if (response) files.value = response.data;
     } catch (e) {
-      errorHandler(e);
+      errorHandler(e, 'loadFiles');
     }
     lastUpdated = new Date();
   }, 200);
@@ -82,7 +82,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
         const response = await getFile(fileId);
         currentFile.value = response.data;
       } catch (e) {
-        errorHandler(e);
+        errorHandler(e, 'loadFile');
       }
     }
   };

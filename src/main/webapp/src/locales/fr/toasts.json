@@ -1,6 +1,8 @@
 {
   "toast": {
     "initConfigurationStore": "Impossible de charger la configuration",
+    "loadFiles": "Impossible de charger la liste des fichiers",
+    "loadFile": "Impossible de charger le fichier",
     "error": {
       "401": "Vous n'êtes pas autorisé à consulter la ressource",
       "404": "La ressource demandé n'as pas pu être trouvée",

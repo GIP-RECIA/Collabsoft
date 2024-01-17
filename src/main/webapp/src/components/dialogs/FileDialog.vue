@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { saveFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { errorHandler } from '@/utils/axiosUtils.ts';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -29,13 +30,9 @@ const canSave = computed<boolean>(
   () => fileType.value != undefined && title.value != undefined && title.value.trim().length > 0,
 );
 
-const save = (): void => {
-  isNew.value = false;
-  addElement();
-};
-
-const addElement = async (): Promise<void> => {
-  if (canSave.value) {
+const save = async (): Promise<void> => {
+  if (!canSave.value) return;
+  try {
     await saveFile({
       title: title.value!,
       description: description.value && description.value.trim().length > 0 ? description.value : null,
@@ -43,7 +40,10 @@ const addElement = async (): Promise<void> => {
       associatedAppId: fileType.value!,
       pub: pub.value,
     });
+    isNew.value = false;
     refresh(true);
+  } catch (e) {
+    errorHandler(e, true);
   }
 };
 </script>

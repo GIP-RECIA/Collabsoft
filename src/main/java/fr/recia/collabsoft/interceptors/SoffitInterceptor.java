@@ -44,7 +44,7 @@ public class SoffitInterceptor implements HandlerInterceptor {
     String token = request.getHeader("Authorization");
     if (token == null) {
       log.debug("No Authorization header found");
-      response.setStatus(HttpStatus.FORBIDDEN.value());
+      response.setStatus(HttpStatus.UNAUTHORIZED.value());
       return false;
     }
 
