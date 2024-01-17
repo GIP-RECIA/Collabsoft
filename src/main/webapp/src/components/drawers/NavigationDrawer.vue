@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { app } from '@/constants.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
@@ -15,7 +16,7 @@ const { t } = useI18n();
 <template>
   <v-navigation-drawer class="pa-2">
     <div class="d-flex flex-column h-100">
-      <h1 class="text-center my-3">Collabsoft</h1>
+      <h1 class="text-center my-3">{{ app.name }}</h1>
       <v-list color="primary">
         <v-list-item
           prepend-icon="fas fa-folder"

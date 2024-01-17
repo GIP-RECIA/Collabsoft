@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import LoginDialog from '@/components/dialogs/LoginDialog.vue';
+import { app } from '@/constants.ts';
 import { deleteFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Response } from '@/types/enums/Response.ts';
@@ -66,6 +67,8 @@ const deleteItem = async (result: Response): Promise<void> => {
     }
   }
 };
+
+document.title = app.name;
 </script>
 
 <template>
@@ -73,7 +76,7 @@ const deleteItem = async (result: Response): Promise<void> => {
     <header>
       <extended-uportal-header
         :domain="domain"
-        service-name="Collabsoft"
+        :service-name="app.name"
         context-api-url="/portail"
         sign-out-url="/portail/Logout"
         default-org-logo-path="/annuaire_images/default_banner_v1.jpg"
