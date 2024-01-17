@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import { setFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import type { Collaboration } from '@/types/collaborationType.ts';
 import { Role, getRole } from '@/types/enums/Role.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import type { FileBody } from '@/types/fileBodyType';
 import { format, parseISO } from 'date-fns';
 import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { refreshCurrentFile } = configurationStore;
+const { refresh, refreshCurrentFile } = configurationStore;
 const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
 
 const isDev = import.meta.env.DEV;
@@ -24,6 +26,60 @@ const modelValue = computed<boolean>({
     isInfo.value = false;
   },
 });
+
+const isEdit = ref<boolean>(false);
+const tmp = ref<{ title: string; description: string | null }>({ title: '', description: '' });
+
+watch(currentFile, (newValue, oldValue): void => {
+  if (newValue != oldValue) initForm();
+});
+
+watch(currentTab, (newValue, oldValue): void => {
+  if (newValue != oldValue) initForm();
+});
+
+watch(modelValue, (newValue, oldValue): void => {
+  if (newValue != oldValue) initForm();
+});
+
+const canSave = computed<boolean>(() => {
+  if (!currentFile.value) return false;
+
+  const hasTitle = tmp.value.title != undefined && tmp.value.title.trim().length > 0;
+  const titleHasChanged = tmp.value.title != currentFile.value.title;
+
+  const tmpDesctiption =
+    tmp.value.description && tmp.value.description.trim().length > 0 ? tmp.value.description : null;
+  const descriptionHasChanged = tmpDesctiption != currentFile.value?.description;
+
+  return (hasTitle && titleHasChanged) || descriptionHasChanged;
+});
+
+const edit = (): void => {
+  isEdit.value = true;
+  document.getElementById('tmp-title')?.focus();
+};
+
+const initForm = (): void => {
+  isEdit.value = false;
+  if (currentFile.value == undefined) return;
+  tmp.value = {
+    title: currentFile.value.title,
+    description: currentFile.value.description,
+  };
+};
+
+const save = (): void => {
+  updateFile();
+  isEdit.value = false;
+};
+
+const updateFile = async (): Promise<void> => {
+  if (!canSave.value || currentFile.value == undefined) return;
+  await setFile(currentFile.value.id, tmp.value as FileBody);
+  refresh(true);
+  refreshCurrentFile();
+};
 
 const roles: Array<Role> = [Role.editor, Role.readonly];
 
@@ -79,27 +135,50 @@ const addUser = (): void => {
     <v-window v-if="currentFile" v-model="currentTab" class="pa-2">
       <v-window-item :value="Tabs.Information">
         <v-text-field
-          :model-value="currentFile.title"
+          id="tmp-title"
+          v-model="tmp.title"
           :label="t('information.title')"
           :maxlength="45"
           variant="solo-filled"
           rounded="xl"
           flat
           hide-details
-          readonly
+          :readonly="!isEdit"
           class="mb-2"
         />
         <v-textarea
-          :model-value="currentFile.description"
+          v-model="tmp.description"
           :label="t('information.description')"
           :maxlength="45"
           variant="solo-filled"
           rounded="xl"
           flat
           hide-details
-          readonly
+          :readonly="!isEdit"
           class="mb-2"
         />
+        <div class="d-flex mb-2">
+          <v-spacer />
+          <v-btn v-if="!isEdit" prepend-icon="fas fa-pen" :text="t('button.edit')" variant="tonal" @click="edit" />
+          <div v-else>
+            <v-btn
+              prepend-icon="fas fa-xmark"
+              :text="t('button.cancel')"
+              variant="tonal"
+              color="secondary"
+              @click="initForm"
+              class="mr-2"
+            />
+            <v-btn
+              prepend-icon="fas fa-save"
+              :text="t('button.save')"
+              variant="tonal"
+              color="success"
+              :disabled="!canSave"
+              @click="save"
+            />
+          </div>
+        </div>
         <div class="ml-2 mb-2">
           {{ t('information.creationDate', { date: format(parseISO(currentFile.creationDate), 'Pp') }) }}
         </div>
