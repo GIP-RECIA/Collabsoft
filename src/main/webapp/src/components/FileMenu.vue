@@ -14,13 +14,13 @@ const isDev = import.meta.env.DEV;
 const { t } = useI18n();
 
 const props = defineProps<{
-  fileId?: number;
+  fileId: number;
   size?: string | number;
+  forceRefresh?: boolean;
 }>();
 
 const getFile = async (): Promise<void> => {
-  if (!props.fileId) return;
-  await loadFile(props.fileId);
+  await loadFile(props.fileId, props.forceRefresh);
 };
 
 const information = async (): Promise<void> => {
