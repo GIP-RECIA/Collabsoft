@@ -17,7 +17,6 @@ const { xs } = useDisplay();
 const { VITE_API_URI } = import.meta.env;
 
 const configurationStore = useConfigurationStore();
-const { loadFile } = configurationStore;
 const { search, isGrid } = storeToRefs(configurationStore);
 
 defineProps<{
@@ -104,7 +103,7 @@ const sortBy = useSessionStorage<Array<any>>(`${app.slug}.sort-by`, [{ key: 'tit
       <span :key="key">{{ t('information.duration', { duration: dateToDuration(item.editionDate) }) }}</span>
     </template>
     <template v-slot:item.actions="{ item }">
-      <file-menu @click="loadFile(item.id)" />
+      <file-menu :file-id="item.id" />
     </template>
     <template v-slot:loading>
       <v-skeleton-loader type="table-row@6" />

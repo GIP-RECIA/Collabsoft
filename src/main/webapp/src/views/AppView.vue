@@ -57,7 +57,7 @@ const goBack = () => (window.history.length > 2 ? router.back() : router.push({ 
               @click="star"
             />
             <v-btn v-if="isDev" icon="fas fa-share-nodes" size="small" @click="share" />
-            <file-menu size="small" @click="loadFile(currentFile.id)" />
+            <file-menu size="small" />
           </template>
         </v-toolbar>
         <tldraw-editor

@@ -1,38 +1,60 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import { downloadFileOrBlob } from '@/utils/fileUtils.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { isInfo, currentTab, isConfirmation } = storeToRefs(configurationStore);
+const { loadFile } = configurationStore;
+const { currentFile, isInfo, currentTab, isConfirmation } = storeToRefs(configurationStore);
 
 const isDev = import.meta.env.DEV;
 
 const { t } = useI18n();
 
-defineProps<{
+const props = defineProps<{
+  fileId?: number;
   size?: string | number;
 }>();
 
-const information = (): void => {
+const getFile = async (): Promise<void> => {
+  if (!props.fileId) return;
+  await loadFile(props.fileId);
+};
+
+const information = async (): Promise<void> => {
+  await getFile();
   currentTab.value = Tabs.Information;
   isInfo.value = true;
 };
 
-const share = (): void => {
+const share = async (): Promise<void> => {
+  await getFile();
   currentTab.value = Tabs.Share;
   isInfo.value = true;
 };
 
-const histories = (): void => {
+const histories = async (): Promise<void> => {
+  await getFile();
   currentTab.value = Tabs.Histories;
   isInfo.value = true;
 };
 
-const exportOnNextloud = (): void => {};
+const exportOnNextloud = async (): Promise<void> => {
+  await getFile();
+};
 
-const download = (): void => {};
+const download = async (): Promise<void> => {
+  await getFile();
+  if (!currentFile.value) return;
+  downloadFileOrBlob(
+    new File([currentFile.value.blob], currentFile.value.title, {
+      type: `application/${currentFile.value.associatedApp.type};charset=utf-8`,
+    }),
+    `${currentFile.value.title}.${currentFile.value.associatedApp.extension}`,
+  );
+};
 </script>
 
 <template>
@@ -76,13 +98,7 @@ const download = (): void => {};
         rounded="xl"
         @click="exportOnNextloud"
       />
-      <v-list-item
-        v-if="isDev"
-        prepend-icon="fas fa-download"
-        :title="t('menu.item.download')"
-        rounded="xl"
-        @click="download"
-      />
+      <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="download" />
       <v-divider class="my-2" />
       <v-list-item
         prepend-icon="fas fa-trash"
