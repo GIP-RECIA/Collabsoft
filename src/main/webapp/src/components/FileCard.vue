@@ -64,7 +64,7 @@ const filePreview = computed<string>(() => {
         />
         <v-toolbar color="rgba(255, 255, 255, 0)" :title="file.title" class="text-white">
           <template #append>
-            <file-menu @click="loadFile(file.id)" />
+            <file-menu :file-id="file.id" />
           </template>
         </v-toolbar>
       </div>
