@@ -4,6 +4,7 @@ import type { Configuration } from '@/types/configurationType.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import type { File } from '@/types/fileType.ts';
+import type { Soffit } from '@/types/soffitType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import { differenceInMilliseconds } from 'date-fns';
 import debounce from 'lodash.debounce';
@@ -29,7 +30,11 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isInit = computed<boolean>(() => configuration.value != undefined);
 
-  const isSoffitOk = ref<boolean>(false);
+  const user = ref<Soffit>({
+    sub: 'guest',
+  });
+
+  const isSoffitOk = computed<boolean>(() => !user.value.sub.startsWith('guest'));
 
   /* -- Gestion de la navigation -- */
 
@@ -117,6 +122,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
   return {
     init,
     isInit,
+    user,
     isSoffitOk,
     lastNavigation,
     search,

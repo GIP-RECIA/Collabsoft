@@ -1,5 +1,5 @@
 import i18n from '@/plugins/i18n.ts';
-import { useConfigurationStore } from '@/stores/configurationStore';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { getToken } from '@/utils/soffitUtils.ts';
 import axios from 'axios';
 import throttle from 'lodash.throttle';
@@ -22,7 +22,7 @@ let renewToken: any;
 
 const init = async (): Promise<void> => {
   const configurationStore = useConfigurationStore();
-  const { isSoffitOk } = storeToRefs(configurationStore);
+  const { user } = storeToRefs(configurationStore);
 
   try {
     const {
@@ -39,7 +39,7 @@ const init = async (): Promise<void> => {
             decoded: { sub },
           } = await getToken();
           token = `Bearer ${encoded}`;
-          isSoffitOk.value = !sub.startsWith('guest');
+          user.value = { ...user.value, sub };
         } catch (e) {
           // nothing to do
         }
@@ -47,7 +47,7 @@ const init = async (): Promise<void> => {
       timeout,
       { trailing: false },
     );
-    isSoffitOk.value = !sub.startsWith('guest');
+    user.value = { ...user.value, sub };
   } catch (e) {
     // nothing to do
   }
