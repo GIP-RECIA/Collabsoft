@@ -6,7 +6,7 @@ import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const { VITE_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
@@ -38,6 +38,22 @@ const share = (): void => {
 };
 
 const goBack = () => (window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects }));
+
+const styleObserver = new MutationObserver((mutationList: Array<MutationRecord>) => {
+  for (const mutation of mutationList) {
+    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+      document.body.removeAttribute('style');
+    }
+  }
+});
+
+onMounted(() => {
+  styleObserver.observe(document.body, { attributes: true });
+});
+
+onUnmounted(() => {
+  styleObserver.disconnect();
+});
 </script>
 
 <template>
