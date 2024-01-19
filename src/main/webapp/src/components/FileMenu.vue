@@ -2,6 +2,7 @@
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { downloadFileOrBlob } from '@/utils/fileUtils.ts';
+import { saveOnNextcloud } from '@/utils/nextcloudUtils.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
@@ -43,6 +44,13 @@ const histories = async (): Promise<void> => {
 
 const exportOnNextloud = async (): Promise<void> => {
   await getFile();
+  if (!currentFile.value) return;
+  await saveOnNextcloud(
+    new File([currentFile.value.blob], currentFile.value.title, {
+      type: `application/${currentFile.value.associatedApp.type};charset=utf-8`,
+    }),
+    currentFile.value.associatedApp.extension,
+  );
 };
 
 const download = async (): Promise<void> => {
@@ -92,7 +100,6 @@ const download = async (): Promise<void> => {
         @click="histories"
       />
       <v-list-item
-        v-if="isDev"
         prepend-icon="fas fa-cloud"
         :title="t('menu.item.exportOnNextcloud')"
         rounded="xl"

@@ -3,6 +3,12 @@
     "initConfigurationStore": "Unable to load configuration",
     "loadFiles": "Unable to load file list",
     "loadFile": "Unable to load file",
+    "nextcloud": {
+      "200": "\"{fileName}\" has been {status}\non Nextcloud",
+      "201": "created",
+      "204": "updated",
+      "401": "Connect to Nextcloud by clicking here and try again"
+    },
     "error": {
       "401": "You are not allowed to access this ressource",
       "404": "Ressource can not be found",

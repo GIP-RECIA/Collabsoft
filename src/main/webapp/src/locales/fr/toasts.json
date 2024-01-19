@@ -3,11 +3,17 @@
     "initConfigurationStore": "Impossible de charger la configuration",
     "loadFiles": "Impossible de charger la liste des fichiers",
     "loadFile": "Impossible de charger le fichier",
+    "nextcloud": {
+      "200": "\"{fileName}\" a été {status}\nsur Nextcloud",
+      "201": "crée",
+      "204": "mis à jour",
+      "401": "Connectez-vous à Nextcloud en cliquant ici et réessayez"
+    },
     "error": {
       "401": "Vous n'êtes pas autorisé à consulter la ressource",
-      "404": "La ressource demandé n'as pas pu être trouvée",
+      "404": "La ressource demandée n'a pas pu être trouvée",
       "500": "Un erreur interne au serveur est survenue",
-      "unmanaged": "Une erreur non géré est survenue",
+      "unmanaged": "Une erreur non gérée est survenue",
       "stock": "Une erreur est survenue",
       "unknown": "Une erreur inconnue est survenue"
     }

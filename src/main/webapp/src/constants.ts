@@ -3,4 +3,8 @@ const app = {
   slug: 'collabsoft',
 };
 
-export { app };
+const nextcloud = {
+  uri: '/nextcloud',
+};
+
+export { app, nextcloud };
