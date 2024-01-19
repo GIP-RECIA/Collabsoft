@@ -4,10 +4,9 @@ import { getToken } from '@/utils/soffitUtils.ts';
 import axios from 'axios';
 import throttle from 'lodash.throttle';
 import { storeToRefs } from 'pinia';
-import { useToast } from 'vue-toastification';
+import { toast } from 'vue3-toastify';
 
 const { t } = i18n.global;
-const toast = useToast();
 
 const { VITE_API_URI, VITE_AXIOS_TIMEOUT } = import.meta.env;
 

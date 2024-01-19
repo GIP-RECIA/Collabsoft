@@ -5,10 +5,9 @@ import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import axios from 'axios';
 import { storeToRefs } from 'pinia';
-import { useToast } from 'vue-toastification';
+import { toast } from 'vue3-toastify';
 
 const { t } = i18n.global;
-const toast = useToast();
 
 const { VITE_AXIOS_TIMEOUT } = import.meta.env;
 
@@ -42,7 +41,7 @@ const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
   } catch (error: any) {
     if (error.response?.status === 401) {
       toast.error(t('toast.nextcloud.401'), {
-        timeout: false,
+        autoClose: false,
         onClick: () => {
           window.open(`${nextcloud.uri}/apps/user_cas/login`, '_blank');
         },
