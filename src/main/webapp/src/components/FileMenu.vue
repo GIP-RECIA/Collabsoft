@@ -4,11 +4,12 @@ import { Tabs } from '@/types/enums/Tabs.ts';
 import { downloadFileOrBlob } from '@/utils/fileUtils.ts';
 import { saveOnNextcloud } from '@/utils/nextcloudUtils.ts';
 import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
-const { currentFile, isInfo, currentTab, isConfirmation } = storeToRefs(configurationStore);
+const { lastNavigation, currentFile, isInfo, currentTab, isConfirmation } = storeToRefs(configurationStore);
 
 const isDev = import.meta.env.DEV;
 
@@ -20,8 +21,14 @@ const props = defineProps<{
   forceRefresh?: boolean;
 }>();
 
+const isStarred = ref(false);
+
 const getFile = async (): Promise<void> => {
   await loadFile(props.fileId, props.forceRefresh);
+};
+
+const star = (): void => {
+  isStarred.value = !isStarred.value;
 };
 
 const information = async (): Promise<void> => {
@@ -80,13 +87,21 @@ const download = async (): Promise<void> => {
 
     <v-list rounded="xl" class="pa-2">
       <v-list-item
+        v-if="isDev && lastNavigation != 'app'"
+        :prepend-icon="`${isStarred ? 'fas' : 'far'} fa-star`"
+        :title="t(`menu.item.${isStarred ? 'unstar' : 'star'}`)"
+        rounded="xl"
+        @click="star"
+      />
+      <v-list-item
+        v-if="lastNavigation != 'app'"
         prepend-icon="fas fa-circle-info"
         :title="t('menu.item.information')"
         rounded="xl"
         @click="information"
       />
       <v-list-item
-        v-if="isDev"
+        v-if="isDev && lastNavigation != 'app'"
         prepend-icon="fas fa-share-nodes"
         :title="t('menu.item.share')"
         rounded="xl"
@@ -106,8 +121,9 @@ const download = async (): Promise<void> => {
         @click="exportOnNextloud"
       />
       <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="download" />
-      <v-divider class="my-2" />
+      <v-divider v-if="lastNavigation != 'app'" class="my-2" />
       <v-list-item
+        v-if="lastNavigation != 'app'"
         prepend-icon="fas fa-trash"
         :title="t('menu.item.delete')"
         rounded="xl"

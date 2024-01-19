@@ -1,6 +1,8 @@
 {
   "menu": {
     "item": {
+      "star": "Ajouter aux favoris",
+      "unstar": "Retirer des favoris",
       "information": "Informations",
       "share": "Partages",
       "histories": "Historiques",

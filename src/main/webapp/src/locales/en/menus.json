@@ -1,6 +1,8 @@
 {
   "menu": {
     "item": {
+      "star": "Add to favorites",
+      "unstar": "Remove from favorites",
       "information": "Information",
       "share": "Share",
       "histories": "Historiques",
