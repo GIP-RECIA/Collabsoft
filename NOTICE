@@ -126,7 +126,6 @@ This project includes:
   Spring Core under Apache License, Version 2.0
   Spring Data Core under Apache License, Version 2.0
   Spring Data JPA under Apache License, Version 2.0
-  Spring Data LDAP under Apache License, Version 2.0
   Spring Data REST - Core under Apache License, Version 2.0
   Spring Expression Language (SpEL) under Apache License, Version 2.0
   Spring HATEOAS under Apache License, Version 2.0
@@ -150,7 +149,6 @@ This project includes:
   spring-boot-starter-actuator under Apache License, Version 2.0
   spring-boot-starter-aop under Apache License, Version 2.0
   spring-boot-starter-data-jpa under Apache License, Version 2.0
-  spring-boot-starter-data-ldap under Apache License, Version 2.0
   spring-boot-starter-jdbc under Apache License, Version 2.0
   spring-boot-starter-json under Apache License, Version 2.0
   spring-boot-starter-logging under Apache License, Version 2.0
@@ -161,7 +159,6 @@ This project includes:
   spring-boot-starter-web under Apache License, Version 2.0
   spring-boot-test under Apache License, Version 2.0
   spring-boot-test-autoconfigure under Apache License, Version 2.0
-  spring-ldap-core under Apache License, Version 2.0
   spring-security-config under Apache License, Version 2.0
   spring-security-core under Apache License, Version 2.0
   spring-security-crypto under Apache License, Version 2.0
