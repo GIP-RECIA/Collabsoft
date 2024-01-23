@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import fr.recia.collabsoft.configuration.beans.CorsProperties;
 import fr.recia.collabsoft.configuration.beans.SecurityProperties;
 import fr.recia.collabsoft.configuration.beans.SoffitProperties;
+import fr.recia.collabsoft.configuration.beans.StorageProperties;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -40,6 +41,7 @@ public class CollabsoftProperties {
   private CorsProperties cors = new CorsProperties();
   private SecurityProperties security = new SecurityProperties();
   private SoffitProperties soffit = new SoffitProperties();
+  private StorageProperties storage = new StorageProperties();
 
   @PostConstruct
   private void init() throws JsonProcessingException {
@@ -52,6 +54,7 @@ public class CollabsoftProperties {
       + cors + ",\n"
       + security + ",\n"
       + soffit + "\n"
+      + storage
       + "\n}";
   }
 

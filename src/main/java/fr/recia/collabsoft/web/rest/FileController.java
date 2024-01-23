@@ -26,10 +26,14 @@ import fr.recia.collabsoft.services.db.CollaborationService;
 import fr.recia.collabsoft.services.db.FileHistoryService;
 import fr.recia.collabsoft.services.db.FileService;
 import fr.recia.collabsoft.services.db.MetadataService;
+import fr.recia.collabsoft.services.storage.ResourceService;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,9 +42,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -55,6 +66,8 @@ public class FileController {
   private FileHistoryService fileHistoryService;
   @Autowired
   private MetadataService metadataService;
+  @Autowired
+  private ResourceService resourceService;
 
   /*
    * File
@@ -152,6 +165,62 @@ public class FileController {
   public ResponseEntity<Object> deleteFile(@PathVariable Long id) {
     final boolean isFile = fileService.deleteFile(id);
     if (!isFile) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  /*
+   * Resource
+   */
+
+  /**
+   * Save resource
+   *
+   * @param id   File id
+   * @param file Resource
+   */
+  @PostMapping(value = "/{id}/resource")
+  public ResponseEntity<Object> postResource(@PathVariable Long id, @RequestParam("file") MultipartFile file, @Nullable @RequestParam("name") String name) {
+    final String fileName = resourceService.saveResource(id, file, name);
+    if (fileName == null) return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    Map<String, Object> data = new HashMap<>();
+    data.put("uri", fileName);
+
+    return new ResponseEntity<>(data, HttpStatus.CREATED);
+  }
+
+  /**
+   * Get resource
+   *
+   * @param id           File id
+   * @param resourceName Resource name
+   * @return
+   */
+  @GetMapping(value = "/{id}/resource/{resourceName:.+}")
+  public ResponseEntity<InputStreamResource> getResource(@PathVariable Long id, @PathVariable String resourceName) {
+    Resource resource = resourceService.getResource(id, resourceName);
+    try {
+      MediaType contentType = MediaType.parseMediaType(resource.getFile().toURL().openConnection().getContentType());
+      InputStream in = resource.getInputStream();
+
+      return ResponseEntity.ok()
+        .contentType(contentType)
+        .body(new InputStreamResource(in));
+    } catch (IOException e) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
+
+  /**
+   * Delete resource
+   *
+   * @param id           File id
+   * @param resourceName Resource name
+   */
+  @DeleteMapping(value = "/{id}/resource/{resourceName:.+}")
+  public ResponseEntity<Object> deleteResource(@PathVariable Long id, @PathVariable String resourceName) {
+    final boolean isResource = resourceService.deleteResource(id, resourceName);
+    if (!isResource) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }

@@ -9,6 +9,7 @@ import { storeToRefs } from 'pinia';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import { useTheme } from 'vuetify';
 
 const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
@@ -20,6 +21,7 @@ const isDev = import.meta.env.DEV;
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
+const theme = useTheme();
 
 if (!currentFile.value || currentFile.value.id != (route.params.fileId as unknown as number))
   loadFile(parseInt(route.params.fileId as string));
@@ -89,7 +91,9 @@ onUnmounted(() => {
         <tldraw-editor
           v-if="currentFile.associatedApp.slug == AppSlug.tldraw"
           :persistance-api-url="`${VITE_API_URI}/api/file/${currentFile.id}`"
+          :assets-api-url="`${VITE_API_URI}/api/file/${currentFile.id}/resource`"
           :user-info-api-url="VITE_USER_INFO_API_URI"
+          :dark-mode="theme.global.name.value == 'dark'"
         />
       </div>
     </v-main>
