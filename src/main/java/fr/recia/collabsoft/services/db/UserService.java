@@ -46,16 +46,22 @@ public class UserService {
   }
 
   public User createUser() {
-    if (soffitHolder.getSub() != null && !soffitHolder.getSub().startsWith("guest")) {
-      User user = new User();
-      user.setCasUid(soffitHolder.getSub());
-      userRepository.saveAndFlush(user);
+    if (soffitHolder.getSub() == null || soffitHolder.getSub().startsWith("guest")) {
+      log.info("Unable to create user with sub \"{}\"", soffitHolder.getSub());
 
-      return getCurrentUser();
+      return null;
     }
-    log.info("Unable to create user with sub \"{}\"", soffitHolder.getSub());
+    if (getCurrentUser() != null) {
+      log.info("User with sub \"{}\" already exist", soffitHolder.getSub());
 
-    return null;
+      return null;
+    }
+
+    User user = new User();
+    user.setCasUid(soffitHolder.getSub());
+    userRepository.saveAndFlush(user);
+
+    return getCurrentUser();
   }
 
 }
