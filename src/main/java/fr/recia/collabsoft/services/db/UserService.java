@@ -34,15 +34,23 @@ public class UserService {
   private SoffitHolder soffitHolder;
 
   public User getCurrentUser() {
-    return userRepository.findOne(
+    final User user = userRepository.findOne(
       QUser.user.casUid.eq(soffitHolder.getSub())
     ).orElse(null);
+
+    if (user == null) log.debug("No user found with sub \"{}\"", soffitHolder.getSub());
+
+    return user;
   }
 
   public User getUser(Long userId) {
-    return userRepository.findOne(
+    final User user = userRepository.findOne(
       QUser.user.id.eq(userId)
     ).orElse(null);
+
+    if (user == null) log.debug("No user found with id \"{}\"", userId);
+
+    return user;
   }
 
   public User createUser() {

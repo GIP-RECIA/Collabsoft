@@ -21,12 +21,14 @@ import fr.recia.collabsoft.db.entities.QCollaboration;
 import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.CollaborationRepository;
 import fr.recia.collabsoft.pojo.JsonCollaborationBody;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class CollaborationService {
 
@@ -39,21 +41,30 @@ public class CollaborationService {
   private UserService userService;
 
   public List<Collaboration> getCollaborations(Long fileId) {
-    return IteratorUtils.toList(
+    final List<Collaboration> collaborations = IteratorUtils.toList(
       collaborationRepository.findAll(QCollaboration.collaboration.file.id.eq(fileId)).iterator()
     );
+
+    if (collaborations.isEmpty()) log.debug("No collaborations found for file with id \"{}\"", fileId);
+
+    return collaborations;
   }
 
-  public Collaboration getCollaboration(Long fileId, Long userId) {
-    return collaborationRepository.findOne(
+  private Collaboration getCollaboration(Long fileId, Long userId) {
+    final Collaboration collaboration = collaborationRepository.findOne(
       QCollaboration.collaboration.file.id.eq(fileId).and(QCollaboration.collaboration.user.id.eq(userId))
     ).orElse(null);
+
+    if (collaboration == null)
+      log.debug("No collaboration found for file with id \"{}\" and user with id  \"{}\"", fileId, userId);
+
+    return collaboration;
   }
 
   public boolean saveCollaboration(Long fileId, JsonCollaborationBody body) {
     final User user = userService.getUser(body.getUserId());
     if (user == null) return false;
-    final File file = fileService.getFile(fileId);
+    final File file = fileService.getFileIfIsOwner(fileId);
     if (file == null) return false;
 
     Collaboration collaboration = new Collaboration();
@@ -66,6 +77,8 @@ public class CollaborationService {
   }
 
   public boolean updateCollaboration(Long fileId, Long userId, JsonCollaborationBody body) {
+    final File file = fileService.getFileIfIsOwner(fileId);
+    if (file == null) return false;
     final Collaboration collaboration = getCollaboration(fileId, userId);
     if (collaboration == null) return false;
     collaboration.setRole(body.getRole());
@@ -75,6 +88,8 @@ public class CollaborationService {
   }
 
   public boolean deleteCollaboration(Long fileId, Long userId) {
+    final File file = fileService.getFileIfIsOwner(fileId);
+    if (file == null) return false;
     final Collaboration collaboration = getCollaboration(fileId, userId);
     if (collaboration == null) return false;
     collaborationRepository.delete(collaboration);
@@ -83,6 +98,8 @@ public class CollaborationService {
   }
 
   public boolean deleteCollaborations(Long fileId) {
+    final File file = fileService.getFileIfIsOwner(fileId);
+    if (file == null) return false;
     final List<Collaboration> collaborations = getCollaborations(fileId);
     if (collaborations.isEmpty()) return false;
     collaborationRepository.deleteAll(collaborations);

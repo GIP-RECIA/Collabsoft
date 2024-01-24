@@ -41,18 +41,18 @@ public class FileHistoryService {
   private FileService fileService;
 
   public List<FileHistory> getHistories(Long fileId) {
-    return IteratorUtils.toList(
+    final List<FileHistory> histories = IteratorUtils.toList(
       fileHistoryRepository.findAll(QFileHistory.fileHistory.file.id.eq(fileId)).iterator()
     );
+
+    if (histories.isEmpty()) log.debug("No histories found for file with id \"{}\"", fileId);
+
+    return histories;
   }
 
   public boolean createHistory(Long fileId, JsonHistoryBody body) {
-    final File file = fileService.getFile(fileId);
-    if (file == null) {
-      log.debug("Unable to find file with id \"{}\"", fileId);
-
-      return false;
-    }
+    final File file = fileService.getFileIfIsOwner(fileId);
+    if (file == null) return false;
     FileHistory fileHistory = new FileHistory();
     fileHistory.setFile(file);
     fileHistory.setBlob(body.getBlob());
@@ -62,30 +62,31 @@ public class FileHistoryService {
   }
 
   public FileHistory getHistory(Long fileId, Long historyId) {
-    return fileHistoryRepository.findOne(
+    final FileHistory history = fileHistoryRepository.findOne(
       QFileHistory.fileHistory.file.id.eq(fileId).and(QFileHistory.fileHistory.id.eq(historyId))
     ).orElse(null);
+
+    if (history == null)
+      log.debug("No history found for file with id \"{}\" and history with id \"{}\"", fileId, historyId);
+
+    return history;
   }
 
   public boolean deleteHistory(Long fileId, Long historyId) {
+    final File file = fileService.getFileIfIsOwner(fileId);
+    if (file == null) return false;
     final FileHistory fileHistory = getHistory(fileId, historyId);
-    if (fileHistory == null) {
-      log.debug("Unable find to history for file id \"{}\" and history id \"{}\"", fileId, historyId);
-
-      return false;
-    }
+    if (fileHistory == null) return false;
     fileHistoryRepository.delete(fileHistory);
 
     return true;
   }
 
   public boolean revertHistory(Long fileId, Long historyId) {
+    File file = fileService.getFileIfIsOwner(fileId);
+    if (file == null) return false;
     final FileHistory fileHistory = getHistory(fileId, historyId);
-    if (fileHistory == null) {
-      log.debug("Unable find to history for file id \"{}\" and history id \"{}\"", fileId, historyId);
-
-      return false;
-    }
+    if (fileHistory == null) return false;
 
     // create new file history
     FileHistory newFileHistory = new FileHistory();
@@ -94,7 +95,6 @@ public class FileHistoryService {
     fileHistoryRepository.saveAndFlush(newFileHistory);
 
     // update file blob with history
-    File file = fileHistory.getFile();
     file.setBlob(fileHistory.getBlob().getBytes());
     fileRepository.saveAndFlush(file);
 
@@ -102,12 +102,10 @@ public class FileHistoryService {
   }
 
   public boolean deleteHistories(Long fileId) {
+    final File file = fileService.getFileIfIsOwner(fileId);
+    if (file == null) return false;
     final List<FileHistory> fileHistories = getHistories(fileId);
-    if (fileHistories.isEmpty()) {
-      log.debug("Unable to find histories for file id \"{}\"", fileId);
-
-      return false;
-    }
+    if (fileHistories.isEmpty()) return false;
     fileHistoryRepository.deleteAll(fileHistories);
 
     return true;

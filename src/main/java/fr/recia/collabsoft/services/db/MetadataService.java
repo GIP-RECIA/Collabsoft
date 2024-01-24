@@ -43,22 +43,14 @@ public class MetadataService {
 
   public boolean updateMetadata(Long fileId, JsonMetadataBody body) {
     final User user = userService.getCurrentUser();
-    if (user == null) {
-      log.debug("Unable to find user with sub \"{}\"", soffitHolder.getSub());
-
-      return false;
-    }
+    if (user == null) return false;
     Metadata metadata = metadataRepository.findOne(
       QMetadata.metadata.file.id.eq(fileId).and(QMetadata.metadata.user.casUid.eq(soffitHolder.getSub()))
     ).orElse(null);
     if (metadata == null) {
       log.debug("No metadata");
       final File file = fileService.getFile(fileId);
-      if (file == null) {
-         log.debug("Unable to find file with id \"{}\"", fileId);
-
-        return false;
-      }
+      if (file == null) return false;
       metadata = new Metadata();
       metadata.setUser(user);
       metadata.setFile(file);

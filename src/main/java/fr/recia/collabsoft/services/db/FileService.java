@@ -50,13 +50,17 @@ public class FileService {
   private SoffitHolder soffitHolder;
 
   public List<File> getFiles() {
-    return IteratorUtils.toList(
+    final List<File> files = IteratorUtils.toList(
       fileRepository.findAll(QFile.file.creator.casUid.eq(soffitHolder.getSub())).iterator()
     );
+
+    if (files.isEmpty()) log.debug("No files found for user with sub \"{}\"", soffitHolder.getSub());
+
+    return files;
   }
 
   public List<File> getStarredFiles() {
-    return IteratorUtils.toList(
+    final List<File> files = IteratorUtils.toList(
       fileRepository.findAll(
         QFile.file.id.in(
           JPAExpressions.select(QMetadata.metadata.file.id)
@@ -65,10 +69,14 @@ public class FileService {
         ).and(QFile.file.creator.casUid.eq(soffitHolder.getSub()))
       ).iterator()
     );
+
+    if (files.isEmpty()) log.debug("No starred files found for user with sub \"{}\"", soffitHolder.getSub());
+
+    return files;
   }
 
   public List<File> getSharedFiles() {
-    return IteratorUtils.toList(
+    final List<File> files = IteratorUtils.toList(
       fileRepository.findAll(
         QFile.file.id.in(
           JPAExpressions.select(QCollaboration.collaboration.file.id)
@@ -77,14 +85,22 @@ public class FileService {
         )
       ).iterator()
     );
+
+    if (files.isEmpty()) log.debug("No shared files found for user with sub \"{}\"", soffitHolder.getSub());
+
+    return files;
   }
 
   public List<File> getPublicFiles() {
-    return IteratorUtils.toList(
+    final List<File> files = IteratorUtils.toList(
       fileRepository.findAll(
         QFile.file.pub.eq(true)
       ).iterator()
     );
+
+    if (files.isEmpty()) log.debug("No public files found");
+
+    return files;
   }
 
   public File saveFile(JsonFileBody body) {
@@ -113,15 +129,58 @@ public class FileService {
   }
 
   public File getFile(Long id) {
-    return fileRepository.findOne(
-      QFile.file.id.eq(id)
+    File file = fileRepository.findOne(
+      QFile.file.id.eq(id).and(
+        QFile.file.creator.casUid.eq(soffitHolder.getSub()).or(
+          QFile.file.id.in(
+            JPAExpressions.select(QCollaboration.collaboration.file.id)
+              .from(QCollaboration.collaboration)
+              .where(QCollaboration.collaboration.user.casUid.eq(soffitHolder.getSub()))
+          )
+        ).or(QFile.file.pub.eq(true))
+      )
     ).orElse(null);
+
+    if (file == null)
+      log.debug("No file found for user with sub \"{}\" and file with id \"{}\"", soffitHolder.getSub(), id);
+
+    return file;
+  }
+
+  public File getFileIfIsOwner(Long id) {
+    File file = fileRepository.findOne(
+      QFile.file.id.eq(id).and(QFile.file.creator.casUid.eq(soffitHolder.getSub()))
+    ).orElse(null);
+
+    if (file == null)
+      log.debug("No file found for user with sub \"{}\" and file with id \"{}\"", soffitHolder.getSub(), id);
+
+    return file;
+  }
+
+  public File getFileIfIsOwnerOrCollaborator(Long id) {
+    File file = fileRepository.findOne(
+      QFile.file.id.eq(id).and(
+        QFile.file.creator.casUid.eq(soffitHolder.getSub()).or(
+          QFile.file.id.in(
+            JPAExpressions.select(QCollaboration.collaboration.file.id)
+            .from(QCollaboration.collaboration)
+            .where(QCollaboration.collaboration.user.casUid.eq(soffitHolder.getSub()))
+          )
+        )
+      )
+    ).orElse(null);
+
+    if (file == null)
+      log.debug("No file found for user with sub \"{}\" and file with id \"{}\"", soffitHolder.getSub(), id);
+
+    return file;
   }
 
   public File updateFile(Long id, JsonFileBody body) {
     final User user = userService.getCurrentUser();
     if (user == null) return null;
-    final File file = getFile(id);
+    final File file = getFileIfIsOwnerOrCollaborator(id);
     if (file == null) return null;
 
     if (body.getTitle() != null) file.setTitle(body.getTitle());
@@ -136,7 +195,7 @@ public class FileService {
   }
 
   public boolean deleteFile(Long id) {
-    final File file = getFile(id);
+    final File file = getFileIfIsOwner(id);
     if (file == null) return false;
 
     fileRepository.delete(file);
