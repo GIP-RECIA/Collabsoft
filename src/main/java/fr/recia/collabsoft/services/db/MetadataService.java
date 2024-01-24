@@ -36,11 +36,8 @@ public class MetadataService {
   @Autowired
   private UserService userService;
 
-  private final SoffitHolder soffitHolder;
-
-  public MetadataService(SoffitHolder soffitHolder) {
-    this.soffitHolder = soffitHolder;
-  }
+  @Autowired
+  private SoffitHolder soffitHolder;
 
   public boolean updateMetadata(Long fileId, JsonMetadataBody body) {
     final User user = userService.getCurrentUser();

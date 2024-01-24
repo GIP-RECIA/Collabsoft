@@ -30,11 +30,8 @@ public class UserService {
   @Autowired
   private UserRepository<User> userRepository;
 
-  private final SoffitHolder soffitHolder;
-
-  public UserService(SoffitHolder soffitHolder) {
-    this.soffitHolder = soffitHolder;
-  }
+  @Autowired
+  private SoffitHolder soffitHolder;
 
   public User getCurrentUser() {
     return userRepository.findOne(

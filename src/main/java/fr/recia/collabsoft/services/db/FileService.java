@@ -46,11 +46,8 @@ public class FileService {
   @Autowired
   private UserService userService;
 
-  private final SoffitHolder soffitHolder;
-
-  public FileService(SoffitHolder soffitHolder) {
-    this.soffitHolder = soffitHolder;
-  }
+  @Autowired
+  private SoffitHolder soffitHolder;
 
   public List<File> getFiles() {
     return IteratorUtils.toList(
