@@ -22,9 +22,11 @@ import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.MetadataRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
 import fr.recia.collabsoft.pojo.JsonMetadataBody;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MetadataService {
 
@@ -41,13 +43,22 @@ public class MetadataService {
 
   public boolean updateMetadata(Long fileId, JsonMetadataBody body) {
     final User user = userService.getCurrentUser();
-    if (user == null) return false;
+    if (user == null) {
+      log.debug("Unable to find user with sub \"{}\"", soffitHolder.getSub());
+
+      return false;
+    }
     Metadata metadata = metadataRepository.findOne(
       QMetadata.metadata.file.id.eq(fileId).and(QMetadata.metadata.user.casUid.eq(soffitHolder.getSub()))
     ).orElse(null);
     if (metadata == null) {
+      log.debug("No metadata");
       final File file = fileService.getFile(fileId);
-      if (file == null) return false;
+      if (file == null) {
+         log.debug("Unable to find file with id \"{}\"", fileId);
+
+        return false;
+      }
       metadata = new Metadata();
       metadata.setUser(user);
       metadata.setFile(file);

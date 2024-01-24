@@ -47,12 +47,12 @@ public class UserService {
 
   public User createUser() {
     if (soffitHolder.getSub() == null || soffitHolder.getSub().startsWith("guest")) {
-      log.info("Unable to create user with sub \"{}\"", soffitHolder.getSub());
+      log.debug("Unable to create user with sub \"{}\"", soffitHolder.getSub());
 
       return null;
     }
     if (getCurrentUser() != null) {
-      log.info("User with sub \"{}\" already exist", soffitHolder.getSub());
+      log.debug("User with sub \"{}\" already exist", soffitHolder.getSub());
 
       return null;
     }
