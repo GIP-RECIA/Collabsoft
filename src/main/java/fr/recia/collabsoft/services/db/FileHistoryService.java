@@ -21,12 +21,14 @@ import fr.recia.collabsoft.db.entities.QFileHistory;
 import fr.recia.collabsoft.db.repositories.FileHistoryRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
 import fr.recia.collabsoft.pojo.JsonHistoryBody;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class FileHistoryService {
 
@@ -46,7 +48,11 @@ public class FileHistoryService {
 
   public boolean createHistory(Long fileId, JsonHistoryBody body) {
     final File file = fileService.getFile(fileId);
-    if (file == null) return false;
+    if (file == null) {
+      log.debug("Unable to find file with id \"{}\"", fileId);
+
+      return false;
+    }
     FileHistory fileHistory = new FileHistory();
     fileHistory.setFile(file);
     fileHistory.setBlob(body.getBlob());
@@ -63,7 +69,11 @@ public class FileHistoryService {
 
   public boolean deleteHistory(Long fileId, Long historyId) {
     final FileHistory fileHistory = getHistory(fileId, historyId);
-    if (fileHistory == null) return false;
+    if (fileHistory == null) {
+      log.debug("Unable find to history for file id \"{}\" and history id \"{}\"", fileId, historyId);
+
+      return false;
+    }
     fileHistoryRepository.delete(fileHistory);
 
     return true;
@@ -71,7 +81,11 @@ public class FileHistoryService {
 
   public boolean revertHistory(Long fileId, Long historyId) {
     final FileHistory fileHistory = getHistory(fileId, historyId);
-    if (fileHistory == null) return false;
+    if (fileHistory == null) {
+      log.debug("Unable find to history for file id \"{}\" and history id \"{}\"", fileId, historyId);
+
+      return false;
+    }
 
     // create new file history
     FileHistory newFileHistory = new FileHistory();
@@ -89,7 +103,11 @@ public class FileHistoryService {
 
   public boolean deleteHistories(Long fileId) {
     final List<FileHistory> fileHistories = getHistories(fileId);
-    if (fileHistories.isEmpty()) return false;
+    if (fileHistories.isEmpty()) {
+      log.debug("Unable to find histories for file id \"{}\"", fileId);
+
+      return false;
+    }
     fileHistoryRepository.deleteAll(fileHistories);
 
     return true;
