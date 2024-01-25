@@ -25,17 +25,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static fr.recia.collabsoft.test.TestConstants.file1Id;
-import static fr.recia.collabsoft.test.TestConstants.file2Id;
-import static fr.recia.collabsoft.test.TestConstants.file3Id;
-import static fr.recia.collabsoft.test.TestConstants.file4Id;
-import static fr.recia.collabsoft.test.TestConstants.fileUnknownId;
-import static fr.recia.collabsoft.test.TestConstants.user1Sub;
-import static fr.recia.collabsoft.test.TestConstants.user2Id;
-import static fr.recia.collabsoft.test.TestConstants.user2Sub;
-import static fr.recia.collabsoft.test.TestConstants.user3Id;
-import static fr.recia.collabsoft.test.TestConstants.user3Sub;
-import static fr.recia.collabsoft.test.TestConstants.userUnknownId;
+import static fr.recia.collabsoft.test.DatabaseUtils.file1Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.file2Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.file3Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.file4Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.fileUnknownId;
+import static fr.recia.collabsoft.test.DatabaseUtils.user1Sub;
+import static fr.recia.collabsoft.test.DatabaseUtils.user2Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.user2Sub;
+import static fr.recia.collabsoft.test.DatabaseUtils.user3Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.user3Sub;
+import static fr.recia.collabsoft.test.DatabaseUtils.userUnknownId;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

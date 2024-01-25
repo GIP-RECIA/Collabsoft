@@ -21,12 +21,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static fr.recia.collabsoft.test.TestConstants.file1Id;
-import static fr.recia.collabsoft.test.TestConstants.file3Id;
-import static fr.recia.collabsoft.test.TestConstants.file4Id;
-import static fr.recia.collabsoft.test.TestConstants.fileUnknownId;
-import static fr.recia.collabsoft.test.TestConstants.user1Sub;
-import static fr.recia.collabsoft.test.TestConstants.userGuestSub;
+import static fr.recia.collabsoft.test.DatabaseUtils.file1Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.file3Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.file4Id;
+import static fr.recia.collabsoft.test.DatabaseUtils.fileUnknownId;
+import static fr.recia.collabsoft.test.DatabaseUtils.user1Sub;
+import static fr.recia.collabsoft.test.DatabaseUtils.userGuestSub;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
