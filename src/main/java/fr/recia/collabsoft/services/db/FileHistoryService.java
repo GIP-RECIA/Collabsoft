@@ -20,6 +20,7 @@ import fr.recia.collabsoft.db.entities.FileHistory;
 import fr.recia.collabsoft.db.entities.QFileHistory;
 import fr.recia.collabsoft.db.repositories.FileHistoryRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
+import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.pojo.JsonHistoryBody;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
@@ -51,7 +52,7 @@ public class FileHistoryService {
   }
 
   public boolean createHistory(Long fileId, JsonHistoryBody body) {
-    final File file = fileService.getFileIfIsOwner(fileId);
+    final File file = fileService.getFile(fileId, Authority.OWNER);
     if (file == null) return false;
     FileHistory fileHistory = new FileHistory();
     fileHistory.setFile(file);
@@ -73,7 +74,7 @@ public class FileHistoryService {
   }
 
   public boolean deleteHistory(Long fileId, Long historyId) {
-    final File file = fileService.getFileIfIsOwner(fileId);
+    final File file = fileService.getFile(fileId, Authority.OWNER);
     if (file == null) return false;
     final FileHistory fileHistory = getHistory(fileId, historyId);
     if (fileHistory == null) return false;
@@ -83,7 +84,7 @@ public class FileHistoryService {
   }
 
   public boolean revertHistory(Long fileId, Long historyId) {
-    File file = fileService.getFileIfIsOwner(fileId);
+    File file = fileService.getFile(fileId, Authority.OWNER);
     if (file == null) return false;
     final FileHistory fileHistory = getHistory(fileId, historyId);
     if (fileHistory == null) return false;
@@ -102,7 +103,7 @@ public class FileHistoryService {
   }
 
   public boolean deleteHistories(Long fileId) {
-    final File file = fileService.getFileIfIsOwner(fileId);
+    final File file = fileService.getFile(fileId, Authority.OWNER);
     if (file == null) return false;
     final List<FileHistory> fileHistories = getHistories(fileId);
     if (fileHistories.isEmpty()) return false;

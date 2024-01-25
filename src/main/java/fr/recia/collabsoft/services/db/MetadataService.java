@@ -21,6 +21,7 @@ import fr.recia.collabsoft.db.entities.QMetadata;
 import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.MetadataRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.pojo.JsonMetadataBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class MetadataService {
     ).orElse(null);
     if (metadata == null) {
       log.debug("No metadata");
-      final File file = fileService.getFile(fileId);
+      final File file = fileService.getFile(fileId, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
       if (file == null) return false;
       metadata = new Metadata();
       metadata.setUser(user);

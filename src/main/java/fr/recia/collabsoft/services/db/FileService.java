@@ -15,6 +15,7 @@
  */
 package fr.recia.collabsoft.services.db;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.JPAExpressions;
 import fr.recia.collabsoft.db.entities.AssociatedApp;
 import fr.recia.collabsoft.db.entities.File;
@@ -26,6 +27,7 @@ import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.AssociatedAppRepository;
 import fr.recia.collabsoft.db.repositories.FileRepository;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.pojo.JsonFileBody;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
@@ -128,48 +130,37 @@ public class FileService {
     return file;
   }
 
-  public File getFile(Long id) {
-    File file = fileRepository.findOne(
-      QFile.file.id.eq(id).and(
-        QFile.file.creator.casUid.eq(soffitHolder.getSub()).or(
-          QFile.file.id.in(
-            JPAExpressions.select(QCollaboration.collaboration.file.id)
-              .from(QCollaboration.collaboration)
-              .where(QCollaboration.collaboration.user.casUid.eq(soffitHolder.getSub()))
+  public File getFile(Long id, Authority authority) {
+    final Predicate predicate;
+    switch (authority) {
+      case OWNER:
+        predicate = QFile.file.id.eq(id).and(QFile.file.creator.casUid.eq(soffitHolder.getSub()));
+        break;
+      case OWNER_OR_COLLABORATOR:
+        predicate = QFile.file.id.eq(id).and(
+          QFile.file.creator.casUid.eq(soffitHolder.getSub()).or(
+            QFile.file.id.in(
+              JPAExpressions.select(QCollaboration.collaboration.file.id)
+                .from(QCollaboration.collaboration)
+                .where(QCollaboration.collaboration.user.casUid.eq(soffitHolder.getSub()))
+            )
           )
-        ).or(QFile.file.pub.eq(true))
-      )
-    ).orElse(null);
-
-    if (file == null)
-      log.debug("No file found for user with sub \"{}\" and file with id \"{}\"", soffitHolder.getSub(), id);
-
-    return file;
-  }
-
-  public File getFileIfIsOwner(Long id) {
-    File file = fileRepository.findOne(
-      QFile.file.id.eq(id).and(QFile.file.creator.casUid.eq(soffitHolder.getSub()))
-    ).orElse(null);
-
-    if (file == null)
-      log.debug("No file found for user with sub \"{}\" and file with id \"{}\"", soffitHolder.getSub(), id);
-
-    return file;
-  }
-
-  public File getFileIfIsOwnerOrCollaborator(Long id) {
-    File file = fileRepository.findOne(
-      QFile.file.id.eq(id).and(
-        QFile.file.creator.casUid.eq(soffitHolder.getSub()).or(
-          QFile.file.id.in(
-            JPAExpressions.select(QCollaboration.collaboration.file.id)
-            .from(QCollaboration.collaboration)
-            .where(QCollaboration.collaboration.user.casUid.eq(soffitHolder.getSub()))
-          )
-        )
-      )
-    ).orElse(null);
+        );
+        break;
+      case OWNER_OR_COLLABORATOR_OR_PUBLIC:
+      default:
+        predicate = QFile.file.id.eq(id).and(
+          QFile.file.creator.casUid.eq(soffitHolder.getSub()).or(
+            QFile.file.id.in(
+              JPAExpressions.select(QCollaboration.collaboration.file.id)
+                .from(QCollaboration.collaboration)
+                .where(QCollaboration.collaboration.user.casUid.eq(soffitHolder.getSub()))
+            )
+          ).or(QFile.file.pub.eq(true))
+        );
+        break;
+    }
+    final File file = fileRepository.findOne(predicate).orElse(null);
 
     if (file == null)
       log.debug("No file found for user with sub \"{}\" and file with id \"{}\"", soffitHolder.getSub(), id);
@@ -180,7 +171,7 @@ public class FileService {
   public File updateFile(Long id, JsonFileBody body) {
     final User user = userService.getCurrentUser();
     if (user == null) return null;
-    final File file = getFileIfIsOwnerOrCollaborator(id);
+    final File file = getFile(id, Authority.OWNER_OR_COLLABORATOR);
     if (file == null) return null;
 
     if (body.getTitle() != null) file.setTitle(body.getTitle());
@@ -195,7 +186,7 @@ public class FileService {
   }
 
   public boolean deleteFile(Long id) {
-    final File file = getFileIfIsOwner(id);
+    final File file = getFile(id, Authority.OWNER);
     if (file == null) return false;
 
     fileRepository.delete(file);

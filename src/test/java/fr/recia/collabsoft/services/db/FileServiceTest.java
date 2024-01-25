@@ -17,6 +17,7 @@ package fr.recia.collabsoft.services.db;
 
 import fr.recia.collabsoft.db.entities.File;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.pojo.JsonFileBody;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,14 +143,14 @@ class FileServiceTest {
   @Test
   void getFile_ShouldBeNull_becauseFileDoesNotExist() {
     soffitHolder.setSub(user1Sub);
-    final File file = fileService.getFile(fileUnknownId);
+    final File file = fileService.getFile(fileUnknownId, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNull(file);
   }
 
   @Test
   void getFile_ShouldBeNull_becauseUserIsNotTheOwnerOrCollaboratorOrFileIsNotPublic() {
     soffitHolder.setSub(user1Sub);
-    final File file = fileService.getFile(file6Id);
+    final File file = fileService.getFile(file6Id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNull(file);
   }
 
@@ -158,15 +159,15 @@ class FileServiceTest {
     soffitHolder.setSub(user1Sub);
 
     // Owned file
-    File file = fileService.getFile(file1Id);
+    File file = fileService.getFile(file1Id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNotNull(file);
 
     // Collaborate file
-    file = fileService.getFile(file3Id);
+    file = fileService.getFile(file3Id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNotNull(file);
 
     // Public file
-    file = fileService.getFile(file4Id);
+    file = fileService.getFile(file4Id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNotNull(file);
   }
 

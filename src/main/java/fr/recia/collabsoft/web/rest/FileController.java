@@ -18,6 +18,7 @@ package fr.recia.collabsoft.web.rest;
 import fr.recia.collabsoft.db.entities.Collaboration;
 import fr.recia.collabsoft.db.entities.File;
 import fr.recia.collabsoft.db.entities.FileHistory;
+import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.pojo.JsonCollaborationBody;
 import fr.recia.collabsoft.pojo.JsonFileBody;
 import fr.recia.collabsoft.pojo.JsonHistoryBody;
@@ -135,7 +136,7 @@ public class FileController {
    */
   @GetMapping(value = "/{id}")
   public ResponseEntity<File> getFile(@PathVariable Long id) {
-    final File file = fileService.getFile(id);
+    final File file = fileService.getFile(id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     if (file == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     return new ResponseEntity<>(file, HttpStatus.OK);

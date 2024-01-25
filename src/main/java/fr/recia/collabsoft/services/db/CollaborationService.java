@@ -20,6 +20,7 @@ import fr.recia.collabsoft.db.entities.File;
 import fr.recia.collabsoft.db.entities.QCollaboration;
 import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.db.repositories.CollaborationRepository;
+import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.pojo.JsonCollaborationBody;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
@@ -64,7 +65,7 @@ public class CollaborationService {
   public boolean saveCollaboration(Long fileId, JsonCollaborationBody body) {
     final User user = userService.getUser(body.getUserId());
     if (user == null) return false;
-    final File file = fileService.getFileIfIsOwner(fileId);
+    final File file = fileService.getFile(fileId, Authority.OWNER);
     if (file == null) return false;
 
     Collaboration collaboration = new Collaboration();
@@ -77,7 +78,7 @@ public class CollaborationService {
   }
 
   public boolean updateCollaboration(Long fileId, Long userId, JsonCollaborationBody body) {
-    final File file = fileService.getFileIfIsOwner(fileId);
+    final File file = fileService.getFile(fileId, Authority.OWNER);
     if (file == null) return false;
     final Collaboration collaboration = getCollaboration(fileId, userId);
     if (collaboration == null) return false;
@@ -88,7 +89,7 @@ public class CollaborationService {
   }
 
   public boolean deleteCollaboration(Long fileId, Long userId) {
-    final File file = fileService.getFileIfIsOwner(fileId);
+    final File file = fileService.getFile(fileId, Authority.OWNER);
     if (file == null) return false;
     final Collaboration collaboration = getCollaboration(fileId, userId);
     if (collaboration == null) return false;
@@ -98,7 +99,7 @@ public class CollaborationService {
   }
 
   public boolean deleteCollaborations(Long fileId) {
-    final File file = fileService.getFileIfIsOwner(fileId);
+    final File file = fileService.getFile(fileId, Authority.OWNER);
     if (file == null) return false;
     final List<Collaboration> collaborations = getCollaborations(fileId);
     if (collaborations.isEmpty()) return false;
