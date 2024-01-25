@@ -24,8 +24,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static fr.recia.collabsoft.test.DatabaseUtils.user1Id;
 import static fr.recia.collabsoft.test.DatabaseUtils.user1Sub;
 import static fr.recia.collabsoft.test.DatabaseUtils.user4Sub;
-import static fr.recia.collabsoft.test.DatabaseUtils.userUnknownId;
 import static fr.recia.collabsoft.test.DatabaseUtils.userGuestSub;
+import static fr.recia.collabsoft.test.DatabaseUtils.userUnknownId;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 

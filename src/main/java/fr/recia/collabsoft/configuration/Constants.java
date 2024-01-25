@@ -17,16 +17,15 @@ package fr.recia.collabsoft.configuration;
 
 public class Constants {
 
-  private Constants() {
-    throw new IllegalStateException("Utility class");
-  }
-
   public static final String PROPERTIES_TO_JSON_DELIMITER = "\", \"";
   public static final String PROPERTIES_TO_JSON_PREFIX = "[ \"";
   public static final String PROPERTIES_TO_JSON_SUFFIX = "\" ]";
-
   public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
   public static final String SPRING_PROFILE_PRODUCTION = "prod";
   public static final String SPRING_PROFILE_TEST = "test";
+
+  private Constants() {
+    throw new IllegalStateException("Utility class");
+  }
 
 }

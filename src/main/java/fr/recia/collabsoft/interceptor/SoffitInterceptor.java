@@ -58,6 +58,7 @@ public class SoffitInterceptor implements HandlerInterceptor {
       });
       soffitHolder.setSub(soffit.get("sub"));
     } catch (IOException ignored) {
+      log.error("Unable to read soffit");
     }
     log.debug("Soffit : {}", soffit);
     return true;

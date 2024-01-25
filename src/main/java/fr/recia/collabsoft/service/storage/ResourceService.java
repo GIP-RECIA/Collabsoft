@@ -74,8 +74,7 @@ public class ResourceService {
     File file = new File(path);
 
     if (file.exists()) {
-      final boolean isDeleted = file.delete();
-      if (!isDeleted) {
+      if (!file.delete()) {
         log.error("Tried to delete the file {} failed, track errors!", path);
         return false;
       } else return true;
