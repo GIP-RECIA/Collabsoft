@@ -15,11 +15,17 @@
  */
 package fr.recia.collabsoft.services.db;
 
+import fr.recia.collabsoft.db.entities.User;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static fr.recia.collabsoft.test.TestConstants.user1Id;
+import static fr.recia.collabsoft.test.TestConstants.user1Sub;
+import static fr.recia.collabsoft.test.TestConstants.user4Sub;
+import static fr.recia.collabsoft.test.TestConstants.userUnknownId;
+import static fr.recia.collabsoft.test.TestConstants.userGuestSub;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -34,37 +40,49 @@ class UserServiceTest {
 
   @Test
   void getCurrentUser_ShouldBeNull_becauseUserDoesNotExist() {
-    assertNull(null);
+    soffitHolder.setSub(userGuestSub);
+    final User user = userService.getCurrentUser();
+    assertNull(user);
   }
 
   @Test
   void getCurrentUser_ShouldNotBeNull() {
-    assertNotNull(true);
+    soffitHolder.setSub(user1Sub);
+    final User user = userService.getCurrentUser();
+    assertNotNull(user);
   }
 
   @Test
   void getUser_ShouldBeNull_becauseUserIdDoesNotExist() {
-    assertNull(null);
+    final User user = userService.getUser(userUnknownId);
+    assertNull(user);
   }
 
   @Test
   void getUser_ShouldNotBeNull() {
-    assertNotNull(true);
+    final User user = userService.getUser(user1Id);
+    assertNotNull(user);
   }
 
   @Test
   void createUser_ShouldBeNull_becauseSoffitHolderSubStartWithGuest() {
-    assertNull(null);
+    soffitHolder.setSub(userGuestSub);
+    final User user = userService.createUser();
+    assertNull(user);
   }
 
   @Test
   void createUser_ShouldBeNull_becauseUserAlreadyExist() {
-    assertNull(null);
+    soffitHolder.setSub(user1Sub);
+    final User user = userService.createUser();
+    assertNull(user);
   }
 
   @Test
   void createUser_ShouldNotBeNull() {
-    assertNotNull(true);
+    soffitHolder.setSub(user4Sub);
+    final User user = userService.createUser();
+    assertNotNull(user);
   }
 
 }

@@ -15,11 +15,27 @@
  */
 package fr.recia.collabsoft.services.db;
 
+import fr.recia.collabsoft.db.entities.File;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import fr.recia.collabsoft.pojo.JsonFileBody;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static fr.recia.collabsoft.test.TestConstants.associatedApp1Id;
+import static fr.recia.collabsoft.test.TestConstants.associatedAppUnknownId;
+import static fr.recia.collabsoft.test.TestConstants.file1Id;
+import static fr.recia.collabsoft.test.TestConstants.file2Id;
+import static fr.recia.collabsoft.test.TestConstants.file3Id;
+import static fr.recia.collabsoft.test.TestConstants.file4Id;
+import static fr.recia.collabsoft.test.TestConstants.file6Id;
+import static fr.recia.collabsoft.test.TestConstants.fileUnknownId;
+import static fr.recia.collabsoft.test.TestConstants.user1Sub;
+import static fr.recia.collabsoft.test.TestConstants.user2Sub;
+import static fr.recia.collabsoft.test.TestConstants.user3Sub;
+import static fr.recia.collabsoft.test.TestConstants.userGuestSub;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -35,98 +51,180 @@ class FileServiceTest {
   private SoffitHolder soffitHolder;
 
   @Test
-  void getFiles_ShouldBeEmpty() {
-    assertTrue(true);
-  }
-
-  @Test
   void getFiles_ShouldNotBeEmpty() {
-    assertTrue(true);
+    soffitHolder.setSub(user1Sub);
+    final List<File> files = fileService.getFiles();
+    assertTrue(files.isEmpty());
   }
 
   @Test
   void getStarredFiles_ShouldBeEmpty() {
-    assertTrue(true);
+    soffitHolder.setSub(user2Sub);
+    final List<File> files = fileService.getStarredFiles();
+    assertTrue(files.isEmpty());
   }
 
   @Test
   void getStarredFiles_ShouldNotBeEmpty() {
-    assertTrue(true);
+    soffitHolder.setSub(user1Sub);
+    final List<File> files = fileService.getStarredFiles();
+    assertTrue(files.isEmpty());
   }
 
   @Test
   void getSharedFiles_ShouldBeEmpty() {
-    assertTrue(true);
+    soffitHolder.setSub(user3Sub);
+    final List<File> files = fileService.getSharedFiles();
+    assertTrue(files.isEmpty());
   }
 
   @Test
   void getSharedFiles_ShouldNotBeEmpty() {
-    assertTrue(true);
+    soffitHolder.setSub(user1Sub);
+    final List<File> files = fileService.getSharedFiles();
+    assertTrue(files.isEmpty());
   }
 
   @Test
   void getPublicFiles_ShouldNotBeEmpty() {
-    assertTrue(true);
+    final List<File> files = fileService.getPublicFiles();
+    assertTrue(files.isEmpty());
   }
 
   @Test
   void saveFile_ShouldBeNull_becauseUserCreationFail() {
-    assertNull(null);
+    final JsonFileBody body = new JsonFileBody();
+    body.setTitle("TEST SAVE");
+    body.setDescription(null);
+    body.setBlob("this is a blob");
+    body.setAssociatedAppId(associatedApp1Id);
+    body.setPub(false);
+
+    soffitHolder.setSub(userGuestSub);
+    final File file = fileService.saveFile(body);
+    assertNull(file);
   }
 
   @Test
   void saveFile_ShouldBeNull_becauseAssociatedAppDoesNotExist() {
-    assertNull(null);
+    final JsonFileBody body = new JsonFileBody();
+    body.setTitle("TEST SAVE");
+    body.setDescription(null);
+    body.setBlob("this is a blob");
+    body.setAssociatedAppId(associatedAppUnknownId);
+    body.setPub(false);
+
+    soffitHolder.setSub(user1Sub);
+    final File file = fileService.saveFile(body);
+    assertNull(file);
   }
 
   @Test
   void saveFile_ShouldNotBeNull() {
-    assertNotNull(true);
+    final JsonFileBody body = new JsonFileBody();
+    body.setTitle("TEST SAVE");
+    body.setDescription(null);
+    body.setBlob("this is a blob");
+    body.setAssociatedAppId(associatedApp1Id);
+    body.setPub(false);
+
+    // Already exist user
+    soffitHolder.setSub(user1Sub);
+    File file = fileService.saveFile(body);
+    assertNotNull(file);
+
+    // New user
+    soffitHolder.setSub(user1Sub);
+    file = fileService.saveFile(body);
+    assertNotNull(file);
   }
 
   @Test
   void getFile_ShouldBeNull_becauseFileDoesNotExist() {
-    assertNull(null);
+    soffitHolder.setSub(user1Sub);
+    final File file = fileService.getFile(fileUnknownId);
+    assertNull(file);
   }
 
   @Test
   void getFile_ShouldBeNull_becauseUserIsNotTheOwnerOrCollaboratorOrFileIsNotPublic() {
-    assertNull(null);
+    soffitHolder.setSub(user1Sub);
+    final File file = fileService.getFile(file6Id);
+    assertNull(file);
   }
 
   @Test
   void getFile_ShouldNotBeNull() {
-    assertTrue(true);
+    soffitHolder.setSub(user1Sub);
+
+    // Owned file
+    File file = fileService.getFile(file1Id);
+    assertNotNull(file);
+
+    // Collaborate file
+    file = fileService.getFile(file3Id);
+    assertNotNull(file);
+
+    // Public file
+    file = fileService.getFile(file4Id);
+    assertNotNull(file);
   }
 
   @Test
   void updateFile_ShouldBeNull_becauseFileDoesNotExist() {
-    assertNull(null);
+    final JsonFileBody body = new JsonFileBody();
+    body.setTitle("UPDATED");
+
+    soffitHolder.setSub(user1Sub);
+    final File file = fileService.updateFile(fileUnknownId, body);
+    assertNull(file);
   }
 
   @Test
   void updateFile_ShouldBeNull_becauseUserIsNotTheOwnerOrCollaborator() {
-    assertNull(null);
+    final JsonFileBody body = new JsonFileBody();
+    body.setTitle("UPDATED");
+
+    soffitHolder.setSub(user3Sub);
+    final File file = fileService.updateFile(file1Id, body);
+    assertNull(file);
   }
 
   @Test
   void updateFile_ShouldNotBeNull() {
-    assertNotNull(true);
+    final JsonFileBody body = new JsonFileBody();
+    body.setTitle("UPDATED");
+
+    // Owner
+    soffitHolder.setSub(user1Sub);
+    File file = fileService.updateFile(file1Id, body);
+    assertNotNull(file);
+
+    // Collaborator
+    soffitHolder.setSub(user2Sub);
+    file = fileService.updateFile(file2Id, body);
+    assertNotNull(file);
   }
 
   @Test
   void deleteFile_ShouldBeFalse_becauseFileDoesNotExist() {
-    assertFalse(false);
+    soffitHolder.setSub(user1Sub);
+    final boolean result = fileService.deleteFile(fileUnknownId);
+    assertFalse(result);
   }
 
   @Test
   void deleteFile_ShouldBeFalse_becauseUserIsNotTheOwner() {
-    assertFalse(false);
+    soffitHolder.setSub(user2Sub);
+    final boolean result = fileService.deleteFile(file2Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteFile_ShouldBeTrue() {
-    assertTrue(true);
+    soffitHolder.setSub(user1Sub);
+    final boolean result = fileService.deleteFile(file1Id);
+    assertTrue(result);
   }
 
 }

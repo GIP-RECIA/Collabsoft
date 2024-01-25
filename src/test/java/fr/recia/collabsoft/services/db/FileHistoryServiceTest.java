@@ -15,11 +15,28 @@
  */
 package fr.recia.collabsoft.services.db;
 
+import fr.recia.collabsoft.db.entities.FileHistory;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import fr.recia.collabsoft.pojo.JsonHistoryBody;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static fr.recia.collabsoft.test.TestConstants.file1Id;
+import static fr.recia.collabsoft.test.TestConstants.file2Id;
+import static fr.recia.collabsoft.test.TestConstants.file3Id;
+import static fr.recia.collabsoft.test.TestConstants.file4Id;
+import static fr.recia.collabsoft.test.TestConstants.file5Id;
+import static fr.recia.collabsoft.test.TestConstants.file6Id;
+import static fr.recia.collabsoft.test.TestConstants.fileUnknownId;
+import static fr.recia.collabsoft.test.TestConstants.history1Id;
+import static fr.recia.collabsoft.test.TestConstants.history2Id;
+import static fr.recia.collabsoft.test.TestConstants.history3Id;
+import static fr.recia.collabsoft.test.TestConstants.historyUnknownId;
+import static fr.recia.collabsoft.test.TestConstants.user1Sub;
+import static fr.recia.collabsoft.test.TestConstants.user3Sub;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -36,92 +53,161 @@ class FileHistoryServiceTest {
 
   @Test
   void getHistories_ShouldBeEmpty_becauseFileHasNoHistories() {
-    assertTrue(true);
+    soffitHolder.setSub(user3Sub);
+    final List<FileHistory> histories = fileHistoryService.getHistories(file6Id);
+    assertTrue(histories.isEmpty());
   }
 
   @Test
   void getHistories_ShouldBeEmpty_becauseUserIsNotTheOwnerOrCollaboratorOrFileIsNotPublic() {
-    assertTrue(true);
+    soffitHolder.setSub(user1Sub);
+    final List<FileHistory> histories = fileHistoryService.getHistories(file5Id);
+    assertTrue(histories.isEmpty());
   }
 
   @Test
-  void getHistories_ShouldNotBeEmpty_becauseFileHasHistories() {
-    assertFalse(false);
+  void getHistories_ShouldNotBeEmpty() {
+    // Owned
+    soffitHolder.setSub(user3Sub);
+    List<FileHistory> histories = fileHistoryService.getHistories(file5Id);
+    assertFalse(histories.isEmpty());
+
+    // Public
+    soffitHolder.setSub(user3Sub);
+    histories = fileHistoryService.getHistories(file4Id);
+    assertFalse(histories.isEmpty());
   }
 
   @Test
   void createHistory_ShouldBeFalse_becauseFileDoesNotExist() {
-    assertFalse(false);
+    final JsonHistoryBody body = new JsonHistoryBody();
+    body.setBlob("history".getBytes());
+
+    soffitHolder.setSub(user1Sub);
+    final boolean result = fileHistoryService.createHistory(fileUnknownId, body);
+    assertFalse(result);
   }
 
   @Test
   void createHistory_ShouldBeFalse_becauseUserIsNotTheOwner() {
-    assertFalse(false);
+    final JsonHistoryBody body = new JsonHistoryBody();
+    body.setBlob("history".getBytes());
+
+    soffitHolder.setSub(user1Sub);
+    final boolean result = fileHistoryService.createHistory(file3Id, body);
+    assertFalse(result);
   }
 
   @Test
   void createHistory_ShouldBeTrue() {
-    assertTrue(true);
+    final JsonHistoryBody body = new JsonHistoryBody();
+    body.setBlob("history".getBytes());
+
+    soffitHolder.setSub(user1Sub);
+    final boolean result = fileHistoryService.createHistory(file1Id, body);
+    assertTrue(result);
   }
 
   @Test
   void getHistory_ShouldBeNull_becauseHistoryDoesNotExist() {
-    assertNull(null);
+    soffitHolder.setSub(user3Sub);
+
+    // fileId does not exist or match with historyId
+    FileHistory fileHistory = fileHistoryService.getHistory(file6Id, history2Id);
+    assertNull(fileHistory);
+
+    // historyId does not exist or match with fileId
+    fileHistory = fileHistoryService.getHistory(file5Id, historyUnknownId);
+    assertNull(fileHistory);
   }
 
   @Test
   void getHistory_ShouldBeNull_becauseUserIsNotTheOwnerOrCollaboratorOrFileIsNotPublic() {
-    assertNull(null);
+    soffitHolder.setSub(user3Sub);
+    final FileHistory fileHistory = fileHistoryService.getHistory(file2Id, history3Id);
+    assertNull(fileHistory);
   }
 
   @Test
   void getHistory_ShouldNotBeNull() {
-    assertNotNull(true);
+    soffitHolder.setSub(user3Sub);
+    final FileHistory fileHistory = fileHistoryService.getHistory(file5Id, history1Id);
+    assertNotNull(fileHistory);
   }
 
   @Test
   void deleteHistory_ShouldBeFalse_becauseHistoryDoesNotExist() {
-    assertFalse(false);
+    soffitHolder.setSub(user3Sub);
+
+    // fileId does not exist or match with historyId
+    boolean result = fileHistoryService.deleteHistory(file6Id, history2Id);
+    assertFalse(result);
+
+    // historyId does not exist or match with fileId
+    result = fileHistoryService.deleteHistory(file5Id, history3Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteHistory_ShouldBeFalse_becauseUserIsNotTheOwner() {
-    assertFalse(false);
+    soffitHolder.setSub(user3Sub);
+    final boolean result = fileHistoryService.deleteHistory(file2Id, history3Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteHistory_ShouldBeTrue() {
-    assertTrue(true);
+    soffitHolder.setSub(user3Sub);
+    final boolean result = fileHistoryService.deleteHistory(file5Id, history1Id);
+    assertTrue(result);
   }
 
   @Test
   void revertHistory_ShouldBeFalse_becauseUserIsNotTheOwner() {
-    assertFalse(false);
+    soffitHolder.setSub(user3Sub);
+    final boolean result = fileHistoryService.revertHistory(file2Id, history3Id);
+    assertFalse(result);
   }
 
   @Test
   void revertHistory_ShouldBeFalse_becauseThereIsNoHistory() {
-    assertFalse(false);
+    soffitHolder.setSub(user3Sub);
+
+    // fileId does not exist or match with historyId
+    boolean result = fileHistoryService.revertHistory(file6Id, history2Id);
+    assertFalse(result);
+
+    // historyId does not exist or match with fileId
+    result = fileHistoryService.revertHistory(file5Id, history3Id);
+    assertFalse(result);
   }
 
   @Test
   void revertHistory_ShouldBeTrue() {
-    assertTrue(true);
+    soffitHolder.setSub(user3Sub);
+    final boolean result = fileHistoryService.revertHistory(file5Id, history1Id);
+    assertTrue(result);
   }
 
   @Test
   void deleteHistories_ShouldBeFalse_becauseUserIsNotTheOwner() {
-    assertFalse(false);
+    soffitHolder.setSub(user3Sub);
+    final boolean result = fileHistoryService.deleteHistories(file2Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteHistories_ShouldBeFalse_becauseThereIsNoHistories() {
-    assertFalse(false);
+    soffitHolder.setSub(user3Sub);
+    final boolean result = fileHistoryService.deleteHistories(file6Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteHistories_ShouldBeTrue() {
-    assertTrue(true);
+    soffitHolder.setSub(user3Sub);
+    final boolean result = fileHistoryService.deleteHistories(file5Id);
+    assertTrue(result);
   }
 
 }

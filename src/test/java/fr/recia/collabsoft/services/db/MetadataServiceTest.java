@@ -16,10 +16,17 @@
 package fr.recia.collabsoft.services.db;
 
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import fr.recia.collabsoft.pojo.JsonMetadataBody;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static fr.recia.collabsoft.test.TestConstants.file1Id;
+import static fr.recia.collabsoft.test.TestConstants.file3Id;
+import static fr.recia.collabsoft.test.TestConstants.file4Id;
+import static fr.recia.collabsoft.test.TestConstants.fileUnknownId;
+import static fr.recia.collabsoft.test.TestConstants.user1Sub;
+import static fr.recia.collabsoft.test.TestConstants.userGuestSub;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -34,12 +41,37 @@ class MetadataServiceTest {
 
   @Test
   void updateMetadata_ShouldBeFalse_becauseUserOrFileDoesNotExist() {
-    assertFalse(false);
+    final JsonMetadataBody body = new JsonMetadataBody();
+    body.setStarred(true);
+
+    // Incorrect sub
+    soffitHolder.setSub(userGuestSub);
+    boolean result = metadataService.updateMetadata(file1Id, body);
+    assertFalse(result);
+
+    // Incorrect file id
+    soffitHolder.setSub(user1Sub);
+    result = metadataService.updateMetadata(fileUnknownId, body);
+    assertFalse(result);
   }
 
   @Test
   void updateMetadata_ShouldBeTrue() {
-    assertTrue(true);
+    final JsonMetadataBody body = new JsonMetadataBody();
+    body.setStarred(true);
+    soffitHolder.setSub(user1Sub);
+
+    // Owned
+    boolean result = metadataService.updateMetadata(file1Id, body);
+    assertTrue(result);
+
+    // Collaborate
+    result = metadataService.updateMetadata(file3Id, body);
+    assertTrue(result);
+
+    // Public
+    result = metadataService.updateMetadata(file4Id, body);
+    assertTrue(result);
   }
 
 }

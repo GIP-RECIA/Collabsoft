@@ -15,14 +15,28 @@
  */
 package fr.recia.collabsoft.services.db;
 
+import fr.recia.collabsoft.db.entities.Collaboration;
+import fr.recia.collabsoft.db.enums.Role;
 import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import fr.recia.collabsoft.pojo.JsonCollaborationBody;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static fr.recia.collabsoft.test.TestConstants.file1Id;
+import static fr.recia.collabsoft.test.TestConstants.file2Id;
+import static fr.recia.collabsoft.test.TestConstants.file3Id;
+import static fr.recia.collabsoft.test.TestConstants.file4Id;
+import static fr.recia.collabsoft.test.TestConstants.fileUnknownId;
+import static fr.recia.collabsoft.test.TestConstants.user1Sub;
+import static fr.recia.collabsoft.test.TestConstants.user2Id;
+import static fr.recia.collabsoft.test.TestConstants.user2Sub;
+import static fr.recia.collabsoft.test.TestConstants.user3Id;
+import static fr.recia.collabsoft.test.TestConstants.user3Sub;
+import static fr.recia.collabsoft.test.TestConstants.userUnknownId;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -36,97 +50,152 @@ class CollaborationServiceTest {
 
   @Test
   void getCollaborations_ShouldBeEmpty_becauseFileDoesNotExist() {
-    assertTrue(true);
+    final List<Collaboration> collaborations = collaborationService.getCollaborations(fileUnknownId);
+    assertTrue(collaborations.isEmpty());
   }
 
   @Test
   void getCollaborations_ShouldBeEmpty_becauseThereAreNoCollaborations() {
-    assertTrue(true);
+    final List<Collaboration> collaborations = collaborationService.getCollaborations(file4Id);
+    assertTrue(collaborations.isEmpty());
   }
 
   @Test
   void getCollaborations_ShouldNotBeEmpty() {
-    assertFalse(false);
-  }
-
-  @Test
-  void getCollaboration_ShouldBeNull_becauseUserOrFileDoesNotExist() {
-    assertNull(null);
-  }
-
-  @Test
-  void getCollaboration_ShouldNotBeNull() {
-    assertNotNull(true);
+    final List<Collaboration> collaborations = collaborationService.getCollaborations(file2Id);
+    assertFalse(collaborations.isEmpty());
   }
 
   @Test
   void saveCollaboration_ShouldBeFalse_becauseUserOrFileDoesNotExist() {
-    assertFalse(false);
+    final JsonCollaborationBody body = new JsonCollaborationBody();
+    body.setUserId(userUnknownId);
+    body.setRole(Role.EDITOR);
+
+    soffitHolder.setSub(user2Sub);
+    final boolean result = collaborationService.saveCollaboration(file4Id, body);
+    assertFalse(result);
   }
 
   @Test
   void saveCollaboration_ShouldBeFalse_becauseRoleIsIncorrect() {
-    assertFalse(false);
+    final JsonCollaborationBody body = new JsonCollaborationBody();
+    body.setUserId(user3Id);
+    body.setRole(Role.OWNER);
+
+    soffitHolder.setSub(user2Sub);
+    final boolean result = collaborationService.saveCollaboration(file4Id, body);
+    assertFalse(result);
   }
 
   @Test
   void saveCollaboration_ShouldBeFalse_becauseUserIsNotTheOwner() {
-    assertFalse(false);
+    final JsonCollaborationBody body = new JsonCollaborationBody();
+    body.setUserId(user3Id);
+    body.setRole(Role.EDITOR);
+
+    soffitHolder.setSub(user3Sub);
+    final boolean result = collaborationService.saveCollaboration(file4Id, body);
+    assertFalse(result);
   }
 
   @Test
   void saveCollaboration_ShouldBeTrue() {
-    assertTrue(true);
+    final JsonCollaborationBody body = new JsonCollaborationBody();
+    body.setUserId(user3Id);
+    body.setRole(Role.EDITOR);
+
+    soffitHolder.setSub(user2Sub);
+    final boolean result = collaborationService.saveCollaboration(file4Id, body);
+    assertTrue(result);
   }
 
   @Test
   void updateCollaboration_ShouldBeFalse_becauseUserOrFileDoesNotExist() {
-    assertFalse(false);
+    final JsonCollaborationBody body = new JsonCollaborationBody();
+    body.setRole(Role.READONLY);
+
+    soffitHolder.setSub(user1Sub);
+    final boolean result = collaborationService.updateCollaboration(fileUnknownId, user2Id, body);
+    assertFalse(result);
   }
 
   @Test
   void updateCollaboration_ShouldBeFalse_becauseRoleIsIncorrect() {
-    assertFalse(false);
+    final JsonCollaborationBody body = new JsonCollaborationBody();
+    body.setRole(Role.OWNER);
+
+    soffitHolder.setSub(user1Sub);
+    final boolean result = collaborationService.updateCollaboration(file2Id, user2Id, body);
+    assertFalse(result);
   }
 
   @Test
   void updateCollaboration_ShouldBeFalse_becauseUserIsNotOwner() {
-    assertFalse(false);
+    final JsonCollaborationBody body = new JsonCollaborationBody();
+    body.setRole(Role.READONLY);
+
+    soffitHolder.setSub(user2Sub);
+    final boolean result = collaborationService.updateCollaboration(file2Id, user2Id, body);
+    assertFalse(result);
   }
 
   @Test
   void updateCollaboration_ShouldBeTrue() {
-    assertTrue(true);
+    final JsonCollaborationBody body = new JsonCollaborationBody();
+    body.setRole(Role.READONLY);
+
+    soffitHolder.setSub(user1Sub);
+    final boolean result = collaborationService.updateCollaboration(file2Id, user2Id, body);
+    assertTrue(result);
   }
 
   @Test
   void deleteCollaboration_ShouldBeFalse_becauseUserOrFileDoesNotExist() {
-    assertFalse(false);
+    soffitHolder.setSub(user1Sub);
+    final boolean result = collaborationService.deleteCollaboration(fileUnknownId, user2Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteCollaboration_ShouldBeFalse_becauseUserIsNotTheOwnerOrSelf() {
-    assertFalse(false);
+    soffitHolder.setSub(user3Sub);
+    final boolean result = collaborationService.deleteCollaboration(file2Id, user2Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteCollaboration_ShouldBeTrue() {
-    assertTrue(true);
+    // Owner
+    soffitHolder.setSub(user1Sub);
+    boolean result = collaborationService.deleteCollaboration(file2Id, user2Id);
+    assertTrue(result);
+
+    // Self
+    soffitHolder.setSub(user1Sub);
+    result = collaborationService.deleteCollaboration(file3Id, user2Id);
+    assertTrue(result);
   }
 
   @Test
   void deleteCollaborations_ShouldBeFalse_becauseThereAreNoCollaborations() {
-    assertFalse(false);
+    soffitHolder.setSub(user1Sub);
+    final boolean result = collaborationService.deleteCollaborations(file1Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteCollaborations_ShouldBeFalse_becauseUserIsNotTheOwner() {
-    assertFalse(false);
+    soffitHolder.setSub(user1Sub);
+    final boolean result = collaborationService.deleteCollaborations(file3Id);
+    assertFalse(result);
   }
 
   @Test
   void deleteCollaborations_ShouldBeTrue() {
-    assertTrue(true);
+    soffitHolder.setSub(user1Sub);
+    final boolean result = collaborationService.deleteCollaborations(file2Id);
+    assertTrue(result);
   }
 
 }
