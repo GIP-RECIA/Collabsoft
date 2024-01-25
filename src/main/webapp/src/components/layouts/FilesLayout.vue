@@ -86,7 +86,7 @@ const sortBy = useSessionStorage<Array<any>>(`${app.slug}.sort-by`, [{ key: 'tit
   >
     <template v-slot:item.title="{ item }">
       <router-link
-        :to="{ name: 'app', params: { appSlug: item.associatedApp.slug, fileId: item.id } }"
+        :to="{ name: item.associatedApp.slug, params: { fileId: item.id } }"
         class="d-flex align-center h-100 table-column-title"
       >
         <v-avatar

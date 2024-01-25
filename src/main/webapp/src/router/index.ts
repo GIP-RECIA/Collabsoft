@@ -1,3 +1,4 @@
+import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -34,9 +35,33 @@ const router = createRouter({
       ],
     },
     {
-      path: '/app/:appSlug/:fileId',
-      name: 'app',
+      path: '/app',
+      redirect: () => {
+        return { name: Navigation.projects };
+      },
       component: () => import('@/views/AppView.vue'),
+      children: [
+        {
+          path: `${AppSlug.tldraw}/:fileId(\\d+)`,
+          name: AppSlug.tldraw,
+          component: () => import('@/views/app/tldraw/TldrawView.vue'),
+        },
+        {
+          path: `${AppSlug.tldraw}/:joinId(\\w{6})`,
+          name: `join-${AppSlug.tldraw}`,
+          component: () => import('@/views/app/tldraw/JoinTldrawView.vue'),
+        },
+        {
+          path: `${AppSlug.wisemapping}/:fileId(\\d+)`,
+          name: AppSlug.wisemapping,
+          component: () => import('@/views/app/wisemapping/WisemappingView.vue'),
+        },
+        {
+          path: `${AppSlug.wisemapping}/:joinId(\\w{6})`,
+          name: `join-${AppSlug.wisemapping}`,
+          component: () => import('@/views/app/wisemapping/JoinWisemappingView.vue'),
+        },
+      ],
     },
     {
       path: '/:pathName(.*)',
