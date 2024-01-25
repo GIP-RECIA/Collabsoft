@@ -44,9 +44,9 @@ const share = async (): Promise<void> => {
 const goBack = () => (window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects }));
 
 const title = computed<string>(() => {
-  const joinId: string = route.params.joinId != undefined ? (route.params.joinId as string) : '';
+  const joinCode: string = route.params.joinCode != undefined ? (route.params.joinCode as string) : '';
 
-  return currentFile.value ? currentFile.value.title : joinId;
+  return currentFile.value ? currentFile.value.title : joinCode;
 });
 </script>
 

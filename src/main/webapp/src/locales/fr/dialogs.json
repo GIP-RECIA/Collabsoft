@@ -13,6 +13,9 @@
     "signIn": {
       "title": "Connexion",
       "fail": "Impossible de se connecter"
+    },
+    "join": {
+      "title": "Rejoindre"
     }
   }
 }

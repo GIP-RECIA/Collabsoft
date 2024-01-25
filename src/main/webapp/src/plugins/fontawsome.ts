@@ -2,6 +2,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSquare as farSquare, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import {
   faArrowLeft,
+  faArrowRightToBracket,
   faCaretDown,
   faCheckSquare,
   faCircleInfo,
@@ -31,6 +32,7 @@ const register = (app: App): void => {
   library.add(farSquare, farStar);
   library.add(
     faArrowLeft,
+    faArrowRightToBracket,
     faCaretDown,
     faCheckSquare,
     faCircleInfo,

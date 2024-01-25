@@ -13,6 +13,9 @@
     "signIn": {
       "title": "Sign in",
       "fail": "Unable to sign in"
+    },
+    "join": {
+      "title": "Join"
     }
   }
 }
