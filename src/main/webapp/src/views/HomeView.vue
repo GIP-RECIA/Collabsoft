@@ -6,17 +6,10 @@ import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
 import FilesLayout from '@/components/layouts/FilesLayout.vue';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { Navigation } from '@/types/enums/Navigation.ts';
 import { storeToRefs } from 'pinia';
-import { useRoute, useRouter } from 'vue-router';
 import { useDisplay } from 'vuetify';
 
-const route = useRoute();
-const router = useRouter();
-
 const { mobile } = useDisplay();
-
-if (route.name == 'home') router.replace({ name: Navigation.projects });
 
 const configurationStore = useConfigurationStore();
 const { files } = storeToRefs(configurationStore);

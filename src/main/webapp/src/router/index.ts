@@ -6,7 +6,9 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      redirect: () => {
+        return { name: Navigation.projects };
+      },
       component: () => import('@/views/HomeView.vue'),
       children: [
         {
@@ -35,6 +37,12 @@ const router = createRouter({
       path: '/app/:appSlug/:fileId',
       name: 'app',
       component: () => import('@/views/AppView.vue'),
+    },
+    {
+      path: '/:pathName(.*)',
+      redirect: () => {
+        return { name: Navigation.projects };
+      },
     },
   ],
 });
