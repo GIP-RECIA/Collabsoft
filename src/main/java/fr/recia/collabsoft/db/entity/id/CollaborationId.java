@@ -13,14 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.collabsoft.configuration;
+package fr.recia.collabsoft.db.entity.id;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-@Configuration
-@EnableJpaRepositories(basePackages = "fr.recia.collabsoft.db.repository")
-@Slf4j
-public class JpaConfiguration {
+import java.io.Serializable;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+public class CollaborationId implements Serializable {
+
+  private Long user;
+  private Long file;
+
 }

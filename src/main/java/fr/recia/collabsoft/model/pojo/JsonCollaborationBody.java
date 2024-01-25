@@ -13,14 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.collabsoft.configuration;
+package fr.recia.collabsoft.model.pojo;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import fr.recia.collabsoft.db.enums.Role;
+import lombok.Data;
 
-@Configuration
-@EnableJpaRepositories(basePackages = "fr.recia.collabsoft.db.repository")
-@Slf4j
-public class JpaConfiguration {
+@Data
+public class JsonCollaborationBody {
+
+  private Long userId;
+  private Role role;
+
+  public boolean postDataOk() {
+    return (userId != null && role != null);
+  }
+
+  public boolean putDataOk() {
+    return (role != null);
+  }
+
 }

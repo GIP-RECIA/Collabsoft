@@ -15,19 +15,19 @@
  */
 package fr.recia.collabsoft.test;
 
-import fr.recia.collabsoft.db.entities.AssociatedApp;
-import fr.recia.collabsoft.db.entities.Collaboration;
-import fr.recia.collabsoft.db.entities.File;
-import fr.recia.collabsoft.db.entities.FileHistory;
-import fr.recia.collabsoft.db.entities.Metadata;
-import fr.recia.collabsoft.db.entities.User;
+import fr.recia.collabsoft.db.entity.AssociatedApp;
+import fr.recia.collabsoft.db.entity.Collaboration;
+import fr.recia.collabsoft.db.entity.File;
+import fr.recia.collabsoft.db.entity.FileHistory;
+import fr.recia.collabsoft.db.entity.Metadata;
+import fr.recia.collabsoft.db.entity.User;
 import fr.recia.collabsoft.db.enums.Role;
-import fr.recia.collabsoft.db.repositories.AssociatedAppRepository;
-import fr.recia.collabsoft.db.repositories.CollaborationRepository;
-import fr.recia.collabsoft.db.repositories.FileHistoryRepository;
-import fr.recia.collabsoft.db.repositories.FileRepository;
-import fr.recia.collabsoft.db.repositories.MetadataRepository;
-import fr.recia.collabsoft.db.repositories.UserRepository;
+import fr.recia.collabsoft.db.repository.AssociatedAppRepository;
+import fr.recia.collabsoft.db.repository.CollaborationRepository;
+import fr.recia.collabsoft.db.repository.FileHistoryRepository;
+import fr.recia.collabsoft.db.repository.FileRepository;
+import fr.recia.collabsoft.db.repository.MetadataRepository;
+import fr.recia.collabsoft.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

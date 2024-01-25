@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.collabsoft.configuration;
+package fr.recia.collabsoft.db.repository;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import fr.recia.collabsoft.db.entity.Metadata;
+import fr.recia.collabsoft.db.entity.id.MetadataId;
 
-@Configuration
-@EnableJpaRepositories(basePackages = "fr.recia.collabsoft.db.repository")
-@Slf4j
-public class JpaConfiguration {
+public interface MetadataRepository<T extends Metadata> extends AbstractRepository<T, MetadataId> {
 }

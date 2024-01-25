@@ -15,19 +15,19 @@
  */
 package fr.recia.collabsoft.web.rest;
 
-import fr.recia.collabsoft.db.entities.Collaboration;
-import fr.recia.collabsoft.db.entities.File;
-import fr.recia.collabsoft.db.entities.FileHistory;
+import fr.recia.collabsoft.db.entity.Collaboration;
+import fr.recia.collabsoft.db.entity.File;
+import fr.recia.collabsoft.db.entity.FileHistory;
 import fr.recia.collabsoft.model.enums.Authority;
-import fr.recia.collabsoft.pojo.JsonCollaborationBody;
-import fr.recia.collabsoft.pojo.JsonFileBody;
-import fr.recia.collabsoft.pojo.JsonHistoryBody;
-import fr.recia.collabsoft.pojo.JsonMetadataBody;
-import fr.recia.collabsoft.services.db.CollaborationService;
-import fr.recia.collabsoft.services.db.FileHistoryService;
-import fr.recia.collabsoft.services.db.FileService;
-import fr.recia.collabsoft.services.db.MetadataService;
-import fr.recia.collabsoft.services.storage.ResourceService;
+import fr.recia.collabsoft.model.pojo.JsonCollaborationBody;
+import fr.recia.collabsoft.model.pojo.JsonFileBody;
+import fr.recia.collabsoft.model.pojo.JsonHistoryBody;
+import fr.recia.collabsoft.model.pojo.JsonMetadataBody;
+import fr.recia.collabsoft.service.db.CollaborationService;
+import fr.recia.collabsoft.service.db.FileHistoryService;
+import fr.recia.collabsoft.service.db.FileService;
+import fr.recia.collabsoft.service.db.MetadataService;
+import fr.recia.collabsoft.service.storage.ResourceService;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

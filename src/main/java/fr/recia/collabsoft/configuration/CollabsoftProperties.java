@@ -16,10 +16,10 @@
 package fr.recia.collabsoft.configuration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import fr.recia.collabsoft.configuration.beans.CorsProperties;
-import fr.recia.collabsoft.configuration.beans.SecurityProperties;
-import fr.recia.collabsoft.configuration.beans.SoffitProperties;
-import fr.recia.collabsoft.configuration.beans.StorageProperties;
+import fr.recia.collabsoft.configuration.bean.CorsProperties;
+import fr.recia.collabsoft.configuration.bean.SecurityProperties;
+import fr.recia.collabsoft.configuration.bean.SoffitProperties;
+import fr.recia.collabsoft.configuration.bean.StorageProperties;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;

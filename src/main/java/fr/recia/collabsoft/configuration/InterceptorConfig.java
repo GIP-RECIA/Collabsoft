@@ -15,8 +15,8 @@
  */
 package fr.recia.collabsoft.configuration;
 
-import fr.recia.collabsoft.interceptors.SoffitInterceptor;
-import fr.recia.collabsoft.interceptors.beans.SoffitHolder;
+import fr.recia.collabsoft.interceptor.SoffitInterceptor;
+import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
