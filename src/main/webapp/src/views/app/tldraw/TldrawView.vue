@@ -34,7 +34,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <tldraw-editor
+  <tldraw-singleplayer
     v-if="currentFile"
     :persistance-api-url="`${VITE_API_URI}/api/file/${currentFile.id}`"
     :assets-api-url="`${VITE_API_URI}/api/file/${currentFile.id}/resource`"

@@ -113,6 +113,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isJoin = ref<boolean>(false);
 
+  const isWsOk = ref<boolean>(true);
+
   /* -- Gestion de l'affichage -- */
 
   const isGrid = ref<boolean>(false);
@@ -141,6 +143,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isNew,
     resetState,
     isJoin,
+    isWsOk,
     isGrid,
     isSettings,
   };
