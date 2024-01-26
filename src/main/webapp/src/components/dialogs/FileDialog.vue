@@ -2,6 +2,7 @@
 import { saveFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
+import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -40,12 +41,24 @@ const save = async (): Promise<void> => {
       associatedAppId: fileType.value!,
       pub: pub.value,
     });
-    isNew.value = false;
     refresh(true);
+    close();
   } catch (e) {
     errorHandler(e, true);
   }
 };
+
+const close = (): void => {
+  isNew.value = false;
+  reset();
+};
+
+const reset = debounce((): void => {
+  fileType.value = isDev ? undefined : 1;
+  title.value = undefined;
+  description.value = undefined;
+  pub.value = false;
+}, 200);
 </script>
 
 <template>
@@ -53,7 +66,7 @@ const save = async (): Promise<void> => {
     <v-card rounded="xl">
       <v-toolbar :title="t('dialog.file.title')" color="rgba(255, 255, 255, 0)">
         <template #append>
-          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="isNew = false" />
+          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="close" />
         </template>
       </v-toolbar>
       <v-card-text>
