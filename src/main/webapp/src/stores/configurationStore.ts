@@ -40,6 +40,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const lastNavigation = ref<string | undefined>();
 
+  const isApp = ref<boolean>(false);
+
   /* -- Gestion des fichier -- */
 
   let lastUpdated = new Date();
@@ -129,6 +131,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     user,
     isSoffitOk,
     lastNavigation,
+    isApp,
     search,
     files,
     loadFiles,

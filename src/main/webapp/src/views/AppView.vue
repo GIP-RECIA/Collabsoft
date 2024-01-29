@@ -5,13 +5,13 @@ import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
 const configurationStore = useConfigurationStore();
 const { loadFile } = configurationStore;
-const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
+const { isApp, currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
 
 const isDev = import.meta.env.DEV;
 
@@ -47,6 +47,14 @@ const title = computed<string>(() => {
   const joinCode: string = route.params.joinCode != undefined ? (route.params.joinCode as string) : '';
 
   return currentFile.value ? currentFile.value.title : joinCode;
+});
+
+onMounted(() => {
+  isApp.value = true;
+});
+
+onUnmounted(() => {
+  isApp.value = false;
 });
 </script>
 
