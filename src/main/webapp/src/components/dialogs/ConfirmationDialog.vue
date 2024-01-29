@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { Response } from '@/types/enums/Response.ts';
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
-const props = defineProps<{
-  modelValue: boolean;
+defineProps<{
   title: string;
   description?: string;
   yesValue: string;
@@ -16,19 +14,9 @@ const props = defineProps<{
   yesColor?: string;
 }>();
 
-const emit = defineEmits<{
-  (event: 'update:modelValue', payload: boolean): void;
-  (event: 'close', payload: Response): void;
-}>();
+const modelValue = defineModel<boolean>();
 
-const modelValue = computed<boolean>({
-  get() {
-    return props.modelValue;
-  },
-  set(newValue) {
-    emit('update:modelValue', newValue);
-  },
-});
+const emit = defineEmits<(event: 'close', payload: Response) => void>();
 
 const onCancel = (): void => {
   modelValue.value = false;
