@@ -58,8 +58,8 @@ const removeColumnEditionDate = (): void => {
 
 watch(
   xs,
-  (newValue, oldValue): void => {
-    if (newValue != oldValue) newValue ? removeColumnEditionDate() : addColumnEditionDate();
+  (newValue): void => {
+    newValue ? removeColumnEditionDate() : addColumnEditionDate();
   },
   { immediate: true },
 );

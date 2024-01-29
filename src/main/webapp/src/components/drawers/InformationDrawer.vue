@@ -35,16 +35,16 @@ const modelValue = computed<boolean>({
 const isEdit = ref<boolean>(false);
 const tmp = ref<{ title: string; description: string | null }>({ title: '', description: '' });
 
-watch(currentFile, (newValue, oldValue): void => {
-  if (newValue != oldValue) initForm();
+watch(currentFile, (): void => {
+  initForm();
 });
 
-watch(currentTab, (newValue, oldValue): void => {
-  if (newValue != oldValue) initForm();
+watch(currentTab, (): void => {
+  initForm();
 });
 
-watch(modelValue, (newValue, oldValue): void => {
-  if (newValue != oldValue) initForm();
+watch(modelValue, (): void => {
+  initForm();
 });
 
 const canSave = computed<boolean>(() => {

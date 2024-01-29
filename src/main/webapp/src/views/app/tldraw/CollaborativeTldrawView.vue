@@ -19,10 +19,8 @@ const joinCode: string = route.params.joinCode != undefined ? (route.params.join
 
 watchOnce(
   isWsOk,
-  (newValue, oldValue) => {
-    if (newValue != oldValue && !newValue) {
-      router.go(0);
-    }
+  () => {
+    router.go(0);
   },
   { immediate: true },
 );
