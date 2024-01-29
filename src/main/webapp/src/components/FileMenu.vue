@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { downloadFileOrBlob } from '@/utils/fileUtils.ts';
 import { saveOnNextcloud } from '@/utils/nextcloudUtils.ts';
@@ -8,8 +9,11 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { loadFile } = configurationStore;
-const { isApp, currentFile, isInfo, currentTab, isConfirmation } = storeToRefs(configurationStore);
+const { isApp, isInfo, currentTab, isConfirmation } = storeToRefs(configurationStore);
+
+const fileStore = useFileStore();
+const { loadFile } = fileStore;
+const { currentFile } = storeToRefs(fileStore);
 
 const isDev = import.meta.env.DEV;
 

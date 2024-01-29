@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
-const configurationStore = useConfigurationStore();
-const { refresh } = configurationStore;
+const fileStore = useFileStore();
+const { refresh } = fileStore;
 
 const isDev = import.meta.env.DEV;
 

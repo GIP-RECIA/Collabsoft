@@ -2,6 +2,7 @@
 import FileMenu from '@/components/FileMenu.vue';
 import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
@@ -10,8 +11,11 @@ import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
 const configurationStore = useConfigurationStore();
-const { loadFile } = configurationStore;
-const { isApp, currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
+const { isApp, isInfo, currentTab } = storeToRefs(configurationStore);
+
+const fileStore = useFileStore();
+const { loadFile } = fileStore;
+const { currentFile } = storeToRefs(fileStore);
 
 const isDev = import.meta.env.DEV;
 

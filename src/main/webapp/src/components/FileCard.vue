@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import type { File } from '@/types/fileType.ts';
 import { storeToRefs } from 'pinia';
@@ -8,8 +9,10 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { loadFile } = configurationStore;
 const { isInfo, currentTab } = storeToRefs(configurationStore);
+
+const fileStore = useFileStore();
+const { loadFile } = fileStore;
 
 const { t } = useI18n();
 

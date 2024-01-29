@@ -1,17 +1,17 @@
 import { getConfiguration } from '@/services/configurationService.ts';
-import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/fileService.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import type { Configuration } from '@/types/configurationType.ts';
-import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
-import type { File } from '@/types/fileType.ts';
 import type { Soffit } from '@/types/soffitType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
-import { differenceInMilliseconds } from 'date-fns';
-import debounce from 'lodash.debounce';
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 
 export const useConfigurationStore = defineStore('configuration', () => {
+  const fileStore = useFileStore();
+
+  /* -- Configuration store -- */
+
   const configuration = ref<Configuration | undefined>();
 
   /**
@@ -44,69 +44,21 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   /* -- Gestion des fichier -- */
 
-  let lastUpdated = new Date();
-
   const search = ref<string | undefined>();
-
-  const files = ref<Array<File> | undefined>();
-
-  const loadFiles = debounce(async (requestedFiles: Navigation | string): Promise<void> => {
-    try {
-      let response;
-      switch (requestedFiles) {
-        case Navigation.projects:
-          response = await getFiles();
-          break;
-        case Navigation.favorites:
-          response = await getStarred();
-          break;
-        case Navigation.shared:
-          response = await getShared();
-          break;
-        case Navigation.public:
-          response = await getPublic();
-          break;
-      }
-      if (response) files.value = response.data;
-    } catch (e) {
-      errorHandler(e, 'loadFiles');
-    }
-    lastUpdated = new Date();
-  }, 200);
-
-  const refresh = (instant?: boolean, loading?: boolean): void => {
-    if (instant || differenceInMilliseconds(new Date(), lastUpdated) > 5000) {
-      if (loading) files.value = undefined;
-      if (lastNavigation.value != undefined) loadFiles(lastNavigation.value);
-    }
-  };
-
-  const currentFile = ref<File>();
-
-  const loadFile = async (fileId: number, force?: boolean): Promise<void> => {
-    if (!currentFile.value || currentFile.value.id != fileId || force) {
-      try {
-        const response = await getFile(fileId);
-        currentFile.value = response.data;
-      } catch (e) {
-        errorHandler(e, 'loadFile');
-      }
-    }
-  };
-
-  const refreshCurrentFile = (): void => {
-    if (currentFile.value) loadFile(currentFile.value.id, true);
-  };
 
   const isInfo = ref<boolean>(false);
   const currentTab = ref<number>(Tabs.Information);
   const isConfirmation = ref<boolean>(false);
-  const confirmationTitle = computed<string | undefined>(() =>
-    currentFile.value ? `"${currentFile.value.title}"` : undefined,
-  );
+  const confirmationTitle = computed<string | undefined>(() => {
+    const { currentFile } = storeToRefs(fileStore);
+
+    return currentFile.value ? `"${currentFile.value.title}"` : undefined;
+  });
   const isNew = ref<boolean>(false);
 
   const resetState = (): void => {
+    const { currentFile } = storeToRefs(fileStore);
+
     search.value = undefined;
     currentFile.value = undefined;
     isInfo.value = false;
@@ -133,12 +85,6 @@ export const useConfigurationStore = defineStore('configuration', () => {
     lastNavigation,
     isApp,
     search,
-    files,
-    loadFiles,
-    refresh,
-    currentFile,
-    loadFile,
-    refreshCurrentFile,
     isInfo,
     currentTab,
     isConfirmation,

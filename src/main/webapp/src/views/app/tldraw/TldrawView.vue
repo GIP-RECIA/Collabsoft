@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import { storeToRefs } from 'pinia';
 import { onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useTheme } from 'vuetify';
 
-const configurationStore = useConfigurationStore();
-const { loadFile } = configurationStore;
-const { currentFile } = storeToRefs(configurationStore);
+const fileStore = useFileStore();
+const { loadFile } = fileStore;
+const { currentFile } = storeToRefs(fileStore);
 
 const { VITE_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
 

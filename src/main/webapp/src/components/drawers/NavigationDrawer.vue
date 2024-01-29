@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { app } from '@/constants.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { refresh } = configurationStore;
 const { isSettings } = storeToRefs(configurationStore);
+
+const fileStore = useFileStore();
+const { refresh } = fileStore;
 
 const isDev = import.meta.env.DEV;
 

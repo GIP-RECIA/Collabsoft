@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { saveFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
@@ -8,8 +9,10 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { refresh } = configurationStore;
 const { isNew } = storeToRefs(configurationStore);
+
+const fileStore = useFileStore();
+const { refresh } = fileStore;
 
 const isDev = import.meta.env.DEV;
 

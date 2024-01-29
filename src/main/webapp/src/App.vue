@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFileStore } from './stores/fileStore.ts';
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import LoginDialog from '@/components/dialogs/LoginDialog.vue';
 import { app } from '@/constants.ts';
@@ -14,8 +15,12 @@ import { useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 
 const configurationStore = useConfigurationStore();
-const { refresh, resetState } = configurationStore;
-const { isSoffitOk, lastNavigation, currentFile, isConfirmation, confirmationTitle } = storeToRefs(configurationStore);
+const { resetState } = configurationStore;
+const { isSoffitOk, lastNavigation, isConfirmation, confirmationTitle } = storeToRefs(configurationStore);
+
+const fileStore = useFileStore();
+const { refresh } = fileStore;
+const { currentFile } = storeToRefs(fileStore);
 
 const { t } = useI18n();
 const router = useRouter();

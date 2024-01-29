@@ -6,14 +6,14 @@ import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
 import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
 import FilesLayout from '@/components/layouts/FilesLayout.vue';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import { storeToRefs } from 'pinia';
 import { useDisplay } from 'vuetify';
 
 const { mobile } = useDisplay();
 
-const configurationStore = useConfigurationStore();
-const { files } = storeToRefs(configurationStore);
+const fileStore = useFileStore();
+const { files } = storeToRefs(fileStore);
 </script>
 
 <template>

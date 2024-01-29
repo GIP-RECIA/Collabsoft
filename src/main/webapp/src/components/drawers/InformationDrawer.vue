@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { setFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import type { Collaboration } from '@/types/collaborationType.ts';
 import { Role, getRole } from '@/types/enums/Role.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
@@ -12,8 +13,11 @@ import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
-const { refresh, refreshCurrentFile } = configurationStore;
-const { currentFile, isInfo, currentTab } = storeToRefs(configurationStore);
+const { isInfo, currentTab } = storeToRefs(configurationStore);
+
+const fileStore = useFileStore();
+const { refresh, refreshCurrentFile } = fileStore;
+const { currentFile } = storeToRefs(fileStore);
 
 const isDev = import.meta.env.DEV;
 
