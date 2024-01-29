@@ -49,7 +49,7 @@ const router = createRouter({
         {
           path: `${AppSlug.tldraw}/:joinCode(\\w{6})`,
           name: `join-${AppSlug.tldraw}`,
-          component: () => import('@/views/app/tldraw/JoinTldrawView.vue'),
+          component: () => import('@/views/app/tldraw/CollaborativeTldrawView.vue'),
         },
         {
           path: `${AppSlug.wisemapping}/:fileId(\\d+)`,
@@ -59,7 +59,7 @@ const router = createRouter({
         {
           path: `${AppSlug.wisemapping}/:joinCode(\\w{6})`,
           name: `join-${AppSlug.wisemapping}`,
-          component: () => import('@/views/app/wisemapping/JoinWisemappingView.vue'),
+          component: () => import('@/views/app/wisemapping/CollaborativeWisemappingView.vue'),
         },
       ],
     },
