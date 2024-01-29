@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
@@ -17,7 +17,9 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-init();
+onMounted(() => {
+  init();
+});
 </script>
 
 <template>

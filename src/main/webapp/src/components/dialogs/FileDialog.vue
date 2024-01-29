@@ -34,7 +34,7 @@ const canSave = computed<boolean>(
   () => fileType.value != undefined && title.value != undefined && title.value.trim().length > 0,
 );
 
-const save = async (): Promise<void> => {
+const onSave = async (): Promise<void> => {
   if (!canSave.value) return;
   try {
     await saveFile({
@@ -51,7 +51,7 @@ const save = async (): Promise<void> => {
   }
 };
 
-const close = (): void => {
+const onClose = (): void => {
   isNew.value = false;
   reset();
 };
@@ -69,7 +69,7 @@ const reset = debounce((): void => {
     <v-card rounded="xl">
       <v-toolbar :title="t('dialog.file.title')" color="rgba(255, 255, 255, 0)">
         <template #append>
-          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="close" />
+          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
         </template>
       </v-toolbar>
       <v-card-text>
@@ -113,7 +113,13 @@ const reset = debounce((): void => {
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn prepend-icon="fas fa-save" :text="t('button.save')" color="success" :disabled="!canSave" @click="save" />
+        <v-btn
+          prepend-icon="fas fa-save"
+          :text="t('button.save')"
+          color="success"
+          :disabled="!canSave"
+          @click="onSave"
+        />
       </v-card-actions>
     </v-card>
   </v-dialog>

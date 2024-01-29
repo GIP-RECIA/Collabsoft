@@ -30,6 +30,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isInit = computed<boolean>(() => configuration.value != undefined);
 
+  /* -- Gestion de l'utilisateur -- */
+
   const user = ref<Soffit>({
     sub: 'guest',
   });
@@ -42,19 +44,26 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isApp = ref<boolean>(false);
 
-  /* -- Gestion des fichier -- */
+  const isWsOk = ref<boolean>(true);
+
+  /* -- Gestion de l'accueil -- */
 
   const search = ref<string | undefined>();
 
   const isInfo = ref<boolean>(false);
+
   const currentTab = ref<number>(Tabs.Information);
+
+  const isNew = ref<boolean>(false);
+
+  const isJoin = ref<boolean>(false);
+
   const isConfirmation = ref<boolean>(false);
   const confirmationTitle = computed<string | undefined>(() => {
     const { currentFile } = storeToRefs(fileStore);
 
     return currentFile.value ? `"${currentFile.value.title}"` : undefined;
   });
-  const isNew = ref<boolean>(false);
 
   const resetState = (): void => {
     const { currentFile } = storeToRefs(fileStore);
@@ -63,13 +72,9 @@ export const useConfigurationStore = defineStore('configuration', () => {
     currentFile.value = undefined;
     isInfo.value = false;
     isConfirmation.value = false;
+    isNew.value = false;
+    isJoin.value = false;
   };
-
-  const isJoin = ref<boolean>(false);
-
-  const isWsOk = ref<boolean>(true);
-
-  /* -- Gestion de l'affichage -- */
 
   const isGrid = ref<boolean>(false);
 
@@ -84,15 +89,15 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isSoffitOk,
     lastNavigation,
     isApp,
+    isWsOk,
     search,
     isInfo,
     currentTab,
+    isNew,
+    isJoin,
     isConfirmation,
     confirmationTitle,
-    isNew,
     resetState,
-    isJoin,
-    isWsOk,
     isGrid,
     isSettings,
   };

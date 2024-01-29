@@ -30,17 +30,17 @@ const modelValue = computed<boolean>({
   },
 });
 
-const cancel = (): void => {
+const onCancel = (): void => {
   modelValue.value = false;
   emit('close', Response.cancel);
 };
 
-const no = (): void => {
+const onNo = (): void => {
   modelValue.value = false;
   emit('close', Response.no);
 };
 
-const yes = (): void => {
+const onYes = (): void => {
   modelValue.value = false;
   emit('close', Response.yes);
 };
@@ -52,10 +52,10 @@ const yes = (): void => {
       <v-card-text v-if="description">{{ description }}</v-card-text>
 
       <v-card-actions>
-        <v-btn v-if="cancelable" :text="t('button.cancel')" @click="cancel" />
+        <v-btn v-if="cancelable" :text="t('button.cancel')" @click="onCancel" />
         <v-spacer />
-        <v-btn :text="t(noValue)" :color="noColor" @click="no" />
-        <v-btn :text="t(yesValue)" :color="yesColor" @click="yes" />
+        <v-btn :text="t(noValue)" :color="noColor" @click="onNo" />
+        <v-btn :text="t(yesValue)" :color="yesColor" @click="onYes" />
       </v-card-actions>
     </v-card>
   </v-dialog>

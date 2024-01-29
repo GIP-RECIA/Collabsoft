@@ -39,6 +39,10 @@ const updateSelected = (newValue: Array<any>): void => {
 const setDarkTheme = (newValue: boolean): void => {
   theme.global.name.value = !newValue ? 'light' : 'dark';
 };
+
+const onClose = (): void => {
+  isSettings.value = false;
+};
 </script>
 
 <template>
@@ -46,13 +50,7 @@ const setDarkTheme = (newValue: boolean): void => {
     <v-card rounded="xl">
       <v-toolbar :title="t('navigation.item.settings')" color="rgba(255, 255, 255, 0)">
         <template #append>
-          <v-btn
-            icon="fas fa-xmark"
-            color="default"
-            variant="plain"
-            :alt="t('button.close')"
-            @click="isSettings = false"
-          />
+          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
         </template>
       </v-toolbar>
       <v-list v-model:selected="selected" select-strategy="classic" @update:selected="updateSelected">

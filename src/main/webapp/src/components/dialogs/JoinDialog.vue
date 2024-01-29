@@ -24,12 +24,12 @@ const joinCode = ref<string>('');
 
 const canJoin = computed<boolean>(() => joinCode.value.trim().length == 6);
 
-const join = (): void => {
+const onJoin = (): void => {
   router.push({ name: `join-${AppSlug.tldraw}`, params: { joinCode: joinCode.value } });
   close();
 };
 
-const close = (): void => {
+const onClose = (): void => {
   isJoin.value = false;
   reset();
 };
@@ -44,7 +44,7 @@ const reset = debounce((): void => {
     <v-card rounded="xl">
       <v-toolbar :title="t('dialog.join.title')" color="rgba(255, 255, 255, 0)">
         <template #append>
-          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="close" />
+          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
         </template>
       </v-toolbar>
       <v-card-text>
@@ -57,7 +57,7 @@ const reset = debounce((): void => {
           :text="t('button.join')"
           color="success"
           :disabled="!canJoin"
-          @click="join"
+          @click="onJoin"
         />
       </v-card-actions>
     </v-card>

@@ -29,17 +29,17 @@ const getFile = async (): Promise<void> => {
   if (currentFile.value) await loadFile(currentFile.value.id);
 };
 
-const star = (): void => {
+const onStar = (): void => {
   isStarred.value = !isStarred.value;
 };
 
-const information = async (): Promise<void> => {
+const onInformation = async (): Promise<void> => {
   await getFile();
   currentTab.value = Tabs.Information;
   isInfo.value = true;
 };
 
-const share = async (): Promise<void> => {
+const onShare = async (): Promise<void> => {
   await getFile();
   currentTab.value = Tabs.Share;
   isInfo.value = true;
@@ -76,10 +76,10 @@ onUnmounted(() => {
               :icon="`${isStarred ? 'fas' : 'far'} fa-star`"
               size="small"
               :alt="t(`menu.item.${isStarred ? 'unstar' : 'star'}`)"
-              @click="star"
+              @click="onStar"
             />
-            <v-btn icon="fas fa-circle-info" size="small" :alt="t('menu.item.information')" @click="information" />
-            <v-btn v-if="isDev" icon="fas fa-share-nodes" :alt="t('menu.item.share')" size="small" @click="share" />
+            <v-btn icon="fas fa-circle-info" size="small" :alt="t('menu.item.information')" @click="onInformation" />
+            <v-btn v-if="isDev" icon="fas fa-share-nodes" :alt="t('menu.item.share')" size="small" @click="onShare" />
             <file-menu :file-id="currentFile.id" size="small" force-refresh />
           </template>
         </v-toolbar>

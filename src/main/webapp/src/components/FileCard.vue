@@ -22,11 +22,11 @@ const props = defineProps<{
 
 const isStarred = ref(false);
 
-const star = (): void => {
+const onStar = (): void => {
   isStarred.value = !isStarred.value;
 };
 
-const share = (): void => {
+const onShare = (): void => {
   loadFile(props.file.id);
   currentTab.value = Tabs.Share;
   isInfo.value = true;
@@ -54,11 +54,11 @@ const filePreview = computed<string>(() => {
               :icon="`${isStarred ? 'fas' : 'far'} fa-star`"
               :color="isStarred ? 'yellow' : 'default'"
               :alt="t(`button.${isStarred ? 'unstar' : 'star'}`)"
-              @click="star"
+              @click="onStar"
             />
           </template>
           <template #append>
-            <v-btn icon="fas fa-share-nodes" :alt="t('button.share')" @click="share" />
+            <v-btn icon="fas fa-share-nodes" :alt="t('button.share')" @click="onShare" />
           </template>
         </v-toolbar>
         <router-link

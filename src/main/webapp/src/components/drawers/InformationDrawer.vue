@@ -103,19 +103,17 @@ const addUser = (): void => {
   newUser.value = undefined;
   newRole.value = undefined;
 };
+
+const onClose = (): void => {
+  modelValue.value = false;
+};
 </script>
 
 <template>
   <v-navigation-drawer v-model="modelValue" location="right" :width="460">
     <v-toolbar :title="t('navigation.title.information')" color="rgba(255, 255, 255, 0)">
       <template #append>
-        <v-btn
-          icon="fas fa-xmark"
-          color="default"
-          variant="plain"
-          :alt="t('button.close')"
-          @click="modelValue = false"
-        />
+        <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
       </template>
     </v-toolbar>
     <v-tabs
