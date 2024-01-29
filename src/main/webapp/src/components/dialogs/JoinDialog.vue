@@ -26,7 +26,7 @@ const canJoin = computed<boolean>(() => joinCode.value.trim().length == 6);
 
 const onJoin = (): void => {
   router.push({ name: `join-${AppSlug.tldraw}`, params: { joinCode: joinCode.value } });
-  close();
+  onClose();
 };
 
 const onClose = (): void => {

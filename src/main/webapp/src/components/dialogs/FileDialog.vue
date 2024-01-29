@@ -45,7 +45,7 @@ const onSave = async (): Promise<void> => {
       pub: pub.value,
     });
     refresh(true);
-    close();
+    onClose();
   } catch (e) {
     errorHandler(e, true);
   }
