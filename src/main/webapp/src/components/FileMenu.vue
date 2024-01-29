@@ -27,29 +27,29 @@ const getFile = async (): Promise<void> => {
   await loadFile(props.fileId, props.forceRefresh);
 };
 
-const star = (): void => {
+const onStar = (): void => {
   isStarred.value = !isStarred.value;
 };
 
-const information = async (): Promise<void> => {
+const onInformation = async (): Promise<void> => {
   await getFile();
   currentTab.value = Tabs.Information;
   isInfo.value = true;
 };
 
-const share = async (): Promise<void> => {
+const onShare = async (): Promise<void> => {
   await getFile();
   currentTab.value = Tabs.Share;
   isInfo.value = true;
 };
 
-const histories = async (): Promise<void> => {
+const onHistories = async (): Promise<void> => {
   await getFile();
   currentTab.value = Tabs.Histories;
   isInfo.value = true;
 };
 
-const exportOnNextloud = async (): Promise<void> => {
+const onExport = async (): Promise<void> => {
   await getFile();
   if (!currentFile.value) return;
   await saveOnNextcloud(
@@ -60,7 +60,7 @@ const exportOnNextloud = async (): Promise<void> => {
   );
 };
 
-const download = async (): Promise<void> => {
+const onDownload = async (): Promise<void> => {
   await getFile();
   if (!currentFile.value) return;
   downloadFileOrBlob(
@@ -69,6 +69,11 @@ const download = async (): Promise<void> => {
     }),
     `${currentFile.value.title}.${currentFile.value.associatedApp.extension}`,
   );
+};
+
+const onDelete = async (): Promise<void> => {
+  await getFile();
+  isConfirmation.value = true;
 };
 </script>
 
@@ -91,36 +96,36 @@ const download = async (): Promise<void> => {
         :prepend-icon="`${isStarred ? 'fas' : 'far'} fa-star`"
         :title="t(`menu.item.${isStarred ? 'unstar' : 'star'}`)"
         rounded="xl"
-        @click="star"
+        @click="onStar"
       />
       <v-list-item
         v-if="!isApp"
         prepend-icon="fas fa-circle-info"
         :title="t('menu.item.information')"
         rounded="xl"
-        @click="information"
+        @click="onInformation"
       />
       <v-list-item
         v-if="isDev && !isApp"
         prepend-icon="fas fa-share-nodes"
         :title="t('menu.item.share')"
         rounded="xl"
-        @click="share"
+        @click="onShare"
       />
       <v-list-item
         v-if="isDev"
         prepend-icon="fas fa-clock-rotate-left"
         :title="t('menu.item.histories')"
         rounded="xl"
-        @click="histories"
+        @click="onHistories"
       />
       <v-list-item
         prepend-icon="fas fa-cloud"
         :title="t('menu.item.exportOnNextcloud')"
         rounded="xl"
-        @click="exportOnNextloud"
+        @click="onExport"
       />
-      <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="download" />
+      <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="onDownload" />
       <v-divider v-if="!isApp" class="my-2" />
       <v-list-item
         v-if="!isApp"
@@ -128,7 +133,7 @@ const download = async (): Promise<void> => {
         :title="t('menu.item.delete')"
         rounded="xl"
         base-color="error"
-        @click="isConfirmation = true"
+        @click="onDelete"
       />
     </v-list>
   </v-menu>
