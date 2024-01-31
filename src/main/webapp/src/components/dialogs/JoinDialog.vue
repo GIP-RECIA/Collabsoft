@@ -22,10 +22,10 @@ const modelValue = computed<boolean>({
 
 const joinCode = ref<string>('');
 
-const canJoin = computed<boolean>(() => joinCode.value.trim().length == 6);
+const canJoin = computed<boolean>(() => /^[a-zA-Z]{6}$/.test(joinCode.value));
 
 const onJoin = (): void => {
-  router.push({ name: `join-${AppSlug.tldraw}`, params: { joinCode: joinCode.value } });
+  router.push({ name: `join-${AppSlug.tldraw}`, params: { joinCode: joinCode.value.toUpperCase() } });
   onClose();
 };
 
@@ -48,7 +48,7 @@ const reset = debounce((): void => {
         </template>
       </v-toolbar>
       <v-card-text>
-        <v-otp-input id="join-code" v-model="joinCode" type="text" rounded="xl" />
+        <v-otp-input v-model="joinCode" type="text" />
       </v-card-text>
       <v-card-actions>
         <v-spacer />
@@ -63,3 +63,9 @@ const reset = debounce((): void => {
     </v-card>
   </v-dialog>
 </template>
+
+<style lang="scss">
+.v-otp-input__field {
+  text-transform: uppercase;
+}
+</style>
