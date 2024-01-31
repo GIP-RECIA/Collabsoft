@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { useFileStore } from './stores/fileStore.ts';
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import LoginDialog from '@/components/dialogs/LoginDialog.vue';
+import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
 import { deleteFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useFileStore } from '@/stores/fileStore.ts';
 import type { Confirmation } from '@/types/confirmationType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
-import { usePreferredDark, watchOnce } from '@vueuse/core';
+import { watchOnce } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { computed, onBeforeMount, watch } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
-import { useTheme } from 'vuetify';
 
 const configurationStore = useConfigurationStore();
 const { resetState } = configurationStore;
@@ -24,9 +24,7 @@ const { currentFile } = storeToRefs(fileStore);
 const { VITE_APP_NAME } = import.meta.env;
 
 const { t } = useI18n();
-const isDark = usePreferredDark();
 const router = useRouter();
-const theme = useTheme();
 
 router.beforeEach((to) => {
   resetState();
@@ -36,10 +34,6 @@ router.beforeEach((to) => {
 
 watchOnce(isSoffitOk, (newValue) => {
   if (newValue) refresh(true, true);
-});
-
-watch(isDark, (newValue): void => {
-  theme.global.name.value = !newValue ? 'light' : 'dark';
 });
 
 onBeforeMount(() => {
@@ -108,6 +102,7 @@ const domain = window.location.hostname;
     <main class="h-100">
       <router-view v-if="isSoffitOk" />
       <login-dialog />
+      <settings-dialog />
       <confirmation-dialog
         v-model="confirmationDelete"
         :title="t('dialog.delete.title')"

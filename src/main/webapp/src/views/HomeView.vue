@@ -2,7 +2,6 @@
 import BottomNavigation from '@/components/BottomNavigation.vue';
 import FileDialog from '@/components/dialogs/FileDialog.vue';
 import JoinDialog from '@/components/dialogs/JoinDialog.vue';
-import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
 import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
 import FilesLayout from '@/components/layouts/FilesLayout.vue';
@@ -29,6 +28,5 @@ const { files } = storeToRefs(fileStore);
     <information-drawer />
     <file-dialog />
     <join-dialog />
-    <settings-dialog />
   </v-layout>
 </template>
