@@ -4,7 +4,7 @@ import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import LoginDialog from '@/components/dialogs/LoginDialog.vue';
 import { deleteFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { Response } from '@/types/enums/Response.ts';
+import type { Confirmation } from '@/types/confirmationType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import { usePreferredDark, watchOnce } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
@@ -62,8 +62,8 @@ const confirmationDelete = computed<boolean>({
   },
 });
 
-const deleteItem = async (result: Response): Promise<void> => {
-  if (result == Response.yes && currentFile.value) {
+const deleteItem = async (result: Confirmation): Promise<void> => {
+  if (result === 'yes' && currentFile.value) {
     try {
       await deleteFile(currentFile.value.id);
       refresh(true);

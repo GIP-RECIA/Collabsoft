@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Response } from '@/types/enums/Response.ts';
+import type { Confirmation } from '@/types/confirmationType.ts';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -16,21 +16,25 @@ defineProps<{
 
 const modelValue = defineModel<boolean>();
 
-const emit = defineEmits<(event: 'close', payload: Response) => void>();
+const emit = defineEmits({
+  close(payload: Confirmation): boolean {
+    return !!payload;
+  },
+});
 
 const onCancel = (): void => {
   modelValue.value = false;
-  emit('close', Response.cancel);
+  emit('close', 'cancel');
 };
 
 const onNo = (): void => {
   modelValue.value = false;
-  emit('close', Response.no);
+  emit('close', 'no');
 };
 
 const onYes = (): void => {
   modelValue.value = false;
-  emit('close', Response.yes);
+  emit('close', 'yes');
 };
 </script>
 
