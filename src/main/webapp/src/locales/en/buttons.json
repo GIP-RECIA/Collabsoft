@@ -12,6 +12,8 @@
     "star": "Star",
     "unstar": "Unstar",
     "share": "Share",
-    "join": "Join"
+    "join": "Join",
+    "rooms": "Rooms",
+    "create": "Create"
   }
 }

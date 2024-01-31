@@ -14,8 +14,8 @@
       "title": "Sign in",
       "fail": "Unable to sign in"
     },
-    "join": {
-      "title": "Join"
+    "room": {
+      "title": "Create or join a room"
     }
   }
 }

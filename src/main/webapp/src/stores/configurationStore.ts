@@ -54,7 +54,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isNew = ref<boolean>(false);
 
-  const isJoin = ref<boolean>(false);
+  const isRoom = ref<boolean>(false);
 
   const isConfirmation = ref<boolean>(false);
   const confirmationTitle = computed<string | undefined>(() => {
@@ -71,7 +71,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isInfo.value = false;
     isConfirmation.value = false;
     isNew.value = false;
-    isJoin.value = false;
+    isRoom.value = false;
   };
 
   const isGrid = ref<boolean>(false);
@@ -91,7 +91,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isInfo,
     currentTab,
     isNew,
-    isJoin,
+    isRoom,
     isConfirmation,
     confirmationTitle,
     resetState,

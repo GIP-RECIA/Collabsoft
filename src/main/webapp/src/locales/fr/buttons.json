@@ -12,6 +12,8 @@
     "star": "Favoris",
     "unstar": "Retirer des favoris",
     "share": "Partager",
-    "join": "Rejoindre"
+    "join": "Rejoindre",
+    "rooms": "Salles",
+    "create": "Créer"
   }
 }

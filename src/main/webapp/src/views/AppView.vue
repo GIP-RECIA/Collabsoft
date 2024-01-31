@@ -48,9 +48,9 @@ const onShare = async (): Promise<void> => {
 const goBack = () => (window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects }));
 
 const title = computed<string>(() => {
-  const joinCode: string = route.params.joinCode != undefined ? (route.params.joinCode as string) : '';
+  const roomId: string = route.params.roomId != undefined ? (route.params.roomId as string) : '';
 
-  return currentFile.value ? currentFile.value.title : joinCode;
+  return currentFile.value ? currentFile.value.title : roomId;
 });
 
 onMounted(() => {

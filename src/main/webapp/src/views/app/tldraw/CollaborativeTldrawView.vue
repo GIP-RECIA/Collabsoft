@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
@@ -9,7 +10,7 @@ const route = useRoute();
 const router = useRouter();
 const theme = useTheme();
 
-const joinCode: string = route.params.joinCode != undefined ? (route.params.joinCode as string) : '';
+const roomId: string = route.params.roomId != undefined ? (route.params.roomId as string) : '';
 
 const styleObserver = new MutationObserver((mutationList: Array<MutationRecord>) => {
   for (const mutation of mutationList) {
@@ -32,7 +33,7 @@ onUnmounted(() => {
 <template>
   <tldraw-multiplayer
     :websocket-api-url="VITE_WEBSOCKET_API_URL"
-    :room-id="joinCode"
+    :room-id="`${roomId}-${AppSlug.tldraw}`"
     :user-info-api-url="VITE_USER_INFO_API_URI"
     :dark-mode="theme.global.name.value == 'dark'"
   />

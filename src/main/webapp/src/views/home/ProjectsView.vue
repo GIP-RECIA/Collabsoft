@@ -5,9 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
 const configurationStore = useConfigurationStore();
-const { search, isNew, isJoin } = storeToRefs(configurationStore);
-
-const isDev = import.meta.env.DEV;
+const { search, isNew, isRoom } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 const { mobile } = useDisplay();
@@ -18,12 +16,11 @@ const { mobile } = useDisplay();
     <div>
       <v-btn icon="fas fa-plus" variant="tonal" size="small" @click="isNew = true" />
       <v-btn
-        v-if="isDev"
-        prepend-icon="fas fa-arrow-right-to-bracket"
+        prepend-icon="fas fa-chalkboard-user"
         variant="tonal"
-        :text="t('button.join')"
+        :text="t('button.rooms')"
         :class="[mobile ? 'ml-2' : 'ml-4', 'custom-height']"
-        @click="isJoin = true"
+        @click="isRoom = true"
       />
     </div>
     <v-text-field

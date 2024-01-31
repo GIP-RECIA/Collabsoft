@@ -14,8 +14,8 @@
       "title": "Connexion",
       "fail": "Impossible de se connecter"
     },
-    "join": {
-      "title": "Rejoindre"
+    "room": {
+      "title": "Créer ou rejoindre une salle"
     }
   }
 }
