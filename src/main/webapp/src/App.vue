@@ -2,7 +2,6 @@
 import { useFileStore } from './stores/fileStore.ts';
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import LoginDialog from '@/components/dialogs/LoginDialog.vue';
-import { app } from '@/constants.ts';
 import { deleteFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Response } from '@/types/enums/Response.ts';
@@ -22,8 +21,12 @@ const fileStore = useFileStore();
 const { refresh } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
 
+const { VITE_APP_NAME } = import.meta.env;
+
 const { t } = useI18n();
+const isDark = usePreferredDark();
 const router = useRouter();
+const theme = useTheme();
 
 router.beforeEach((to) => {
   resetState();
@@ -35,14 +38,13 @@ watchOnce(isSoffitOk, (newValue) => {
   if (newValue) refresh(true, true);
 });
 
-const theme = useTheme();
-const isDark = usePreferredDark();
-
 watch(isDark, (newValue): void => {
   theme.global.name.value = !newValue ? 'light' : 'dark';
 });
 
 onBeforeMount(() => {
+  document.title = VITE_APP_NAME;
+
   let extendedUportalHeaderScript = document.createElement('script');
   extendedUportalHeaderScript.setAttribute('src', '/commun/extended-uportal-header.min.js');
   document.head.appendChild(extendedUportalHeaderScript);
@@ -50,8 +52,6 @@ onBeforeMount(() => {
   extendedUportalFooterScript.setAttribute('src', '/commun/extended-uportal-footer.min.js');
   document.head.appendChild(extendedUportalFooterScript);
 });
-
-const domain = window.location.hostname;
 
 const confirmationDelete = computed<boolean>({
   get() {
@@ -73,7 +73,7 @@ const deleteItem = async (result: Response): Promise<void> => {
   }
 };
 
-document.title = app.name;
+const domain = window.location.hostname;
 </script>
 
 <template>
@@ -81,7 +81,7 @@ document.title = app.name;
     <header>
       <extended-uportal-header
         :domain="domain"
-        :service-name="app.name"
+        :service-name="VITE_APP_NAME"
         context-api-url="/portail"
         sign-out-url="/portail/Logout"
         default-org-logo-path="/annuaire_images/default_banner_v1.jpg"

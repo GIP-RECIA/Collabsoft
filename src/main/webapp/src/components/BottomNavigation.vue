@@ -8,8 +8,8 @@ const { refresh } = fileStore;
 
 const isDev = import.meta.env.DEV;
 
-const { mobile } = useDisplay();
 const { t } = useI18n();
+const { mobile } = useDisplay();
 </script>
 
 <template>

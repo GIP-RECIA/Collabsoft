@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { app } from '@/constants.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { storeToRefs } from 'pinia';
@@ -11,6 +10,7 @@ const { isSettings } = storeToRefs(configurationStore);
 const fileStore = useFileStore();
 const { refresh } = fileStore;
 
+const { VITE_APP_NAME } = import.meta.env;
 const isDev = import.meta.env.DEV;
 
 const { t } = useI18n();
@@ -19,7 +19,7 @@ const { t } = useI18n();
 <template>
   <v-navigation-drawer class="pa-2">
     <div class="d-flex flex-column h-100">
-      <h1 class="text-center my-3">{{ app.name }}</h1>
+      <h1 class="text-center my-3">{{ VITE_APP_NAME }}</h1>
       <v-list color="primary">
         <v-list-item
           prepend-icon="fas fa-folder"

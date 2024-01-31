@@ -10,8 +10,8 @@ import { useRouter } from 'vue-router';
 const configurationStore = useConfigurationStore();
 const { isJoin } = storeToRefs(configurationStore);
 
-const router = useRouter();
 const { t } = useI18n();
+const router = useRouter();
 
 const modelValue = computed<boolean>({
   get() {

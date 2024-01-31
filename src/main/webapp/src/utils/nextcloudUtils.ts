@@ -1,4 +1,3 @@
-import { nextcloud } from '@/constants.ts';
 import i18n from '@/plugins/i18n.ts';
 import { saveNcFile } from '@/services/nextcloudService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
@@ -9,10 +8,10 @@ import { toast } from 'vue3-toastify';
 
 const { t } = i18n.global;
 
-const { VITE_AXIOS_TIMEOUT } = import.meta.env;
+const { VITE_NEXTCLOUD_URI, VITE_AXIOS_TIMEOUT } = import.meta.env;
 
 const instance = axios.create({
-  baseURL: `${nextcloud.uri}/remote.php/dav/files/`,
+  baseURL: `${VITE_NEXTCLOUD_URI}/remote.php/dav/files/`,
   timeout: VITE_AXIOS_TIMEOUT,
   headers: {
     Authorization: 'Bearer null',
@@ -33,7 +32,7 @@ const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
         }),
         {
           onClick: () => {
-            window.open(`${nextcloud.uri}/`, '_blank');
+            window.open(`${VITE_NEXTCLOUD_URI}/`, '_blank');
           },
         },
       );
@@ -43,7 +42,7 @@ const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
       toast.error(t('toast.nextcloud.401'), {
         autoClose: false,
         onClick: () => {
-          window.open(`${nextcloud.uri}/apps/user_cas/login`, '_blank');
+          window.open(`${VITE_NEXTCLOUD_URI}/apps/user_cas/login`, '_blank');
         },
       });
     } else errorHandler(error, true);

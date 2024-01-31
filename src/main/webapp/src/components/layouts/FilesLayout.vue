@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
-import { app } from '@/constants.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import type { File } from '@/types/fileType.ts';
 import { dateToDuration } from '@/utils/dateFnsUtils.ts';
@@ -11,10 +10,9 @@ import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
 const { t } = useI18n();
-
 const { xs } = useDisplay();
 
-const { VITE_API_URI } = import.meta.env;
+const { VITE_APP_SLUG, VITE_API_URI } = import.meta.env;
 
 const configurationStore = useConfigurationStore();
 const { search, isGrid } = storeToRefs(configurationStore);
@@ -64,7 +62,7 @@ watch(
   { immediate: true },
 );
 
-const sortBy = useSessionStorage<Array<any>>(`${app.slug}.sort-by`, [{ key: 'title', order: 'asc' }]);
+const sortBy = useSessionStorage<Array<any>>(`${VITE_APP_SLUG}.sort-by`, [{ key: 'title', order: 'asc' }]);
 </script>
 
 <!-- eslint-disable vue/valid-v-slot -->
