@@ -44,8 +44,6 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isApp = ref<boolean>(false);
 
-  const isWsOk = ref<boolean>(true);
-
   /* -- Gestion de l'accueil -- */
 
   const search = ref<string | undefined>();
@@ -89,7 +87,6 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isSoffitOk,
     lastNavigation,
     isApp,
-    isWsOk,
     search,
     isInfo,
     currentTab,
