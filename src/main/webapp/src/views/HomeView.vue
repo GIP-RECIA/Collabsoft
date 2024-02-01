@@ -2,8 +2,8 @@
 import BottomNavigation from '@/components/BottomNavigation.vue';
 import FileDialog from '@/components/dialogs/FileDialog.vue';
 import RoomDialog from '@/components/dialogs/RoomDialog.vue';
-import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
 import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
+import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
 import FilesLayout from '@/components/layouts/FilesLayout.vue';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { storeToRefs } from 'pinia';

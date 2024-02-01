@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
-import InformationDrawer from '@/components/drawers/InformationDrawer.vue';
+import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
