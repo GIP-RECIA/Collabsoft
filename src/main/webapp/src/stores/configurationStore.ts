@@ -17,24 +17,27 @@ export const useConfigurationStore = defineStore('configuration', () => {
   /**
    * Initialise `configuration`
    */
-  const init = async (): Promise<void> => {
+  const init = async (): Promise<boolean> => {
     if (!isInit.value) {
       try {
         const response = await getConfiguration();
         configuration.value = response.data;
+
+        return true;
       } catch (e) {
         errorHandler(e, 'initConfigurationStore');
       }
     }
+    return false;
   };
 
   const isInit = computed<boolean>(() => configuration.value != undefined);
 
+  const isReady = computed<boolean>(() => isInit.value && isSoffitOk.value);
+
   /* -- Gestion de l'utilisateur -- */
 
-  const user = ref<Soffit>({
-    sub: 'guest',
-  });
+  const user = ref<Soffit>({ sub: 'guest' });
 
   const isSoffitOk = computed<boolean>(() => !user.value.sub.startsWith('guest'));
 
@@ -82,9 +85,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   return {
     init,
-    isInit,
+    isReady,
     user,
-    isSoffitOk,
     lastNavigation,
     isApp,
     search,

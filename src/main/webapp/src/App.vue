@@ -15,7 +15,7 @@ import { useRouter } from 'vue-router';
 
 const configurationStore = useConfigurationStore();
 const { resetState } = configurationStore;
-const { isSoffitOk, lastNavigation, isConfirmation, confirmationTitle } = storeToRefs(configurationStore);
+const { isReady, lastNavigation, isConfirmation, confirmationTitle } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refresh } = fileStore;
@@ -29,10 +29,10 @@ const router = useRouter();
 router.beforeEach((to) => {
   resetState();
   if (to.name != undefined && to.name != null) lastNavigation.value = to.name as string;
-  if (isSoffitOk.value) refresh(true, true);
+  if (isReady.value) refresh(true, true);
 });
 
-watchOnce(isSoffitOk, (newValue) => {
+watchOnce(isReady, (newValue) => {
   if (newValue) refresh(true, true);
 });
 
@@ -100,7 +100,7 @@ const domain = window.location.hostname;
       />
     </header>
     <main class="h-100">
-      <router-view v-if="isSoffitOk" />
+      <router-view v-if="isReady" />
       <login-dialog />
       <settings-dialog />
       <confirmation-dialog
