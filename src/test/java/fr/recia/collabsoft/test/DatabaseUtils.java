@@ -178,7 +178,7 @@ public class DatabaseUtils {
 
     final Collaboration collaboration1 = new Collaboration(user2, file2, Role.EDITOR);
     final Collaboration collaboration2 = new Collaboration(user1, file2, Role.EDITOR);
-    collaborationRepository.saveAllAndFlush(List.of());
+    collaborationRepository.saveAllAndFlush(List.of(collaboration1, collaboration2));
   }
 
 }
