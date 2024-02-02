@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useFileStore } from '@/stores/fileStore.ts';
+import { headObserver, styleObserver } from '@/utils/tldrawUtils.ts';
 import { storeToRefs } from 'pinia';
 import { onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -16,20 +17,14 @@ const theme = useTheme();
 
 if (!currentFile.value && route.params.fileId != undefined) loadFile(parseInt(route.params.fileId as string));
 
-const styleObserver = new MutationObserver((mutationList: Array<MutationRecord>) => {
-  for (const mutation of mutationList) {
-    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-      document.body.removeAttribute('style');
-    }
-  }
-});
-
 onMounted(() => {
   styleObserver.observe(document.body, { attributes: true });
+  headObserver.observe(document.head, { childList: true });
 });
 
 onUnmounted(() => {
   styleObserver.disconnect();
+  headObserver.disconnect();
 });
 </script>
 

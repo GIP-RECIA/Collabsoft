@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useCollaborativeStore } from '@/stores/collaborativeStore';
 import { AppSlug } from '@/types/enums/AppSlug.ts';
+import { headObserver, styleObserver } from '@/utils/tldrawUtils.ts';
 import { storeToRefs } from 'pinia';
 import { onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -17,21 +18,15 @@ const theme = useTheme();
 
 const roomId: string = route.params.roomId != undefined ? (route.params.roomId as string) : '';
 
-const styleObserver = new MutationObserver((mutationList: Array<MutationRecord>) => {
-  for (const mutation of mutationList) {
-    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-      document.body.removeAttribute('style');
-    }
-  }
-});
-
 onMounted(() => {
   styleObserver.observe(document.body, { attributes: true });
+  headObserver.observe(document.head, { childList: true });
 });
 
 onUnmounted(() => {
   initFileId.value = undefined;
   styleObserver.disconnect();
+  headObserver.disconnect();
   router.go(0); // force page reload to disconnect websocket
 });
 </script>
