@@ -6,7 +6,7 @@ import type { FileBody } from '@/types/fileBodyType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import { format, parseISO } from 'date-fns';
 import { storeToRefs } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
@@ -20,31 +20,6 @@ const { t } = useI18n();
 
 const isEdit = ref<boolean>(false);
 const tmp = ref<{ title: string; description: string | null }>({ title: '', description: '' });
-
-watch(currentFile, (): void => {
-  initForm();
-});
-
-watch(currentTab, (): void => {
-  initForm();
-});
-
-watch(isInfo, (): void => {
-  initForm();
-});
-
-const canSave = computed<boolean>(() => {
-  if (!currentFile.value) return false;
-
-  const hasTitle = tmp.value.title != undefined && tmp.value.title.trim().length > 0;
-  const titleHasChanged = tmp.value.title != currentFile.value.title;
-
-  const tmpDesctiption =
-    tmp.value.description && tmp.value.description.trim().length > 0 ? tmp.value.description : null;
-  const descriptionHasChanged = tmpDesctiption != currentFile.value?.description;
-
-  return (hasTitle && titleHasChanged) || descriptionHasChanged;
-});
 
 const initForm = (): void => {
   isEdit.value = false;
@@ -60,6 +35,19 @@ const edit = (): void => {
   document.getElementById('tmp-title')?.focus();
 };
 
+const canSave = computed<boolean>(() => {
+  if (!currentFile.value) return false;
+
+  const hasTitle = tmp.value.title != undefined && tmp.value.title.trim().length > 0;
+  const titleHasChanged = tmp.value.title != currentFile.value.title;
+
+  const tmpDesctiption =
+    tmp.value.description && tmp.value.description.trim().length > 0 ? tmp.value.description : null;
+  const descriptionHasChanged = tmpDesctiption != currentFile.value?.description;
+
+  return (hasTitle && titleHasChanged) || descriptionHasChanged;
+});
+
 const save = async (): Promise<void> => {
   if (!canSave.value || currentFile.value == undefined) return;
   try {
@@ -71,6 +59,22 @@ const save = async (): Promise<void> => {
     errorHandler(e, true);
   }
 };
+
+watch(currentFile, (): void => {
+  initForm();
+});
+
+watch(currentTab, (): void => {
+  initForm();
+});
+
+watch(isInfo, (): void => {
+  initForm();
+});
+
+onMounted(() => {
+  initForm();
+});
 </script>
 
 <template>
