@@ -7,14 +7,14 @@ import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+const isDev = import.meta.env.DEV;
+
 const configurationStore = useConfigurationStore();
 const { isShareInRoom } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refreshCurrentFile } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
-
-const isDev = import.meta.env.DEV;
 
 const { t } = useI18n();
 

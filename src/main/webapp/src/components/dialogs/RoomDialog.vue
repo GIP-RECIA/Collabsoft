@@ -9,10 +9,10 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+const isDev = import.meta.env.DEV;
+
 const configurationStore = useConfigurationStore();
 const { isRoom } = storeToRefs(configurationStore);
-
-const isDev = import.meta.env.DEV;
 
 const { t } = useI18n();
 const router = useRouter();

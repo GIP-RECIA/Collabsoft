@@ -4,22 +4,23 @@ import { useFileStore } from '@/stores/fileStore.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
+const isDev = import.meta.env.DEV;
+
 const configurationStore = useConfigurationStore();
 const { isSettings } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refresh } = fileStore;
 
-const { VITE_APP_NAME } = import.meta.env;
-const isDev = import.meta.env.DEV;
-
 const { t } = useI18n();
+
+const appName = __APP_NAME__;
 </script>
 
 <template>
   <v-navigation-drawer class="pa-2">
     <div class="d-flex flex-column h-100">
-      <h1 class="text-center my-3">{{ VITE_APP_NAME }}</h1>
+      <h1 class="text-center my-3">{{ appName }}</h1>
       <v-list color="primary">
         <v-list-item
           prepend-icon="fas fa-folder"

@@ -6,9 +6,9 @@ import axios from 'axios';
 import { storeToRefs } from 'pinia';
 import { toast } from 'vue3-toastify';
 
-const { t } = i18n.global;
-
 const { VITE_NEXTCLOUD_URI, VITE_AXIOS_TIMEOUT } = import.meta.env;
+
+const { t } = i18n.global;
 
 const instance = axios.create({
   baseURL: `${VITE_NEXTCLOUD_URI}/remote.php/dav/files/`,

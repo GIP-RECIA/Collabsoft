@@ -31,3 +31,5 @@ app.use(router);
 app.use(Vue3Toasity, { limit: 0, newestOnTop: true, theme: 'colored' } as ToastContainerOptions);
 
 app.mount('#app');
+
+console.info("Version", __BACK_VERSION__);

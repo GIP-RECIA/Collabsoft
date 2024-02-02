@@ -8,13 +8,13 @@ import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+const isDev = import.meta.env.DEV;
+
 const configurationStore = useConfigurationStore();
 const { isNew } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refresh } = fileStore;
-
-const isDev = import.meta.env.DEV;
 
 const { t } = useI18n();
 

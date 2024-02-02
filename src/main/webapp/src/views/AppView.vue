@@ -10,14 +10,14 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
+const isDev = import.meta.env.DEV;
+
 const configurationStore = useConfigurationStore();
 const { isApp, isInfo, currentTab } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
-
-const isDev = import.meta.env.DEV;
 
 const route = useRoute();
 const router = useRouter();

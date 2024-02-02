@@ -6,10 +6,10 @@ import { onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 
+const { VITE_API_URI, VITE_WEBSOCKET_API_URL, VITE_USER_INFO_API_URI } = import.meta.env;
+
 const collaborativeStore = useCollaborativeStore();
 const { initFileId } = storeToRefs(collaborativeStore);
-
-const { VITE_API_URI, VITE_WEBSOCKET_API_URL, VITE_USER_INFO_API_URI } = import.meta.env;
 
 const route = useRoute();
 const router = useRouter();

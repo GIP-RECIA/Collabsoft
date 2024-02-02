@@ -9,10 +9,10 @@ import { useFileStore } from '@/stores/fileStore.ts';
 import { storeToRefs } from 'pinia';
 import { useDisplay } from 'vuetify';
 
-const { mobile } = useDisplay();
-
 const fileStore = useFileStore();
 const { files } = storeToRefs(fileStore);
+
+const { mobile } = useDisplay();
 </script>
 
 <template>

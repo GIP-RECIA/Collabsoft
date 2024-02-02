@@ -9,13 +9,13 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
-const { t } = useI18n();
-const { xs } = useDisplay();
-
-const { VITE_APP_SLUG, VITE_API_URI } = import.meta.env;
+const { VITE_API_URI } = import.meta.env;
 
 const configurationStore = useConfigurationStore();
 const { search, isGrid } = storeToRefs(configurationStore);
+
+const { t } = useI18n();
+const { xs } = useDisplay();
 
 defineProps<{
   files: Array<File> | undefined;
@@ -62,7 +62,7 @@ watch(
   { immediate: true },
 );
 
-const sortBy = useSessionStorage<Array<any>>(`${VITE_APP_SLUG}.sort-by`, [{ key: 'title', order: 'asc' }]);
+const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 'title', order: 'asc' }]);
 </script>
 
 <!-- eslint-disable vue/valid-v-slot -->

@@ -3,10 +3,10 @@ import { useFileStore } from '@/stores/fileStore.ts';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
+const isDev = import.meta.env.DEV;
+
 const fileStore = useFileStore();
 const { refresh } = fileStore;
-
-const isDev = import.meta.env.DEV;
 
 const { t } = useI18n();
 const { mobile } = useDisplay();

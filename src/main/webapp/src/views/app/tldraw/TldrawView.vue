@@ -5,11 +5,11 @@ import { onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useTheme } from 'vuetify';
 
+const { VITE_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
+
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
-
-const { VITE_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
 
 const route = useRoute();
 const theme = useTheme();

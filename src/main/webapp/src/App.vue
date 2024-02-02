@@ -21,8 +21,6 @@ const fileStore = useFileStore();
 const { refresh } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
 
-const { VITE_APP_NAME } = import.meta.env;
-
 const { t } = useI18n();
 const router = useRouter();
 
@@ -37,7 +35,7 @@ watchOnce(isReady, (newValue) => {
 });
 
 onBeforeMount(() => {
-  document.title = VITE_APP_NAME;
+  document.title = __APP_NAME__;
 
   let extendedUportalHeaderScript = document.createElement('script');
   extendedUportalHeaderScript.setAttribute('src', '/commun/extended-uportal-header.min.js');
@@ -67,6 +65,7 @@ const deleteItem = async (result: Confirmation): Promise<void> => {
   }
 };
 
+const appName = __APP_NAME__;
 const domain = window.location.hostname;
 </script>
 
@@ -75,7 +74,7 @@ const domain = window.location.hostname;
     <header>
       <extended-uportal-header
         :domain="domain"
-        :service-name="VITE_APP_NAME"
+        :service-name="appName"
         context-api-url="/portail"
         sign-out-url="/portail/Logout"
         default-org-logo-path="/annuaire_images/default_banner_v1.jpg"
