@@ -1,8 +1,5 @@
 {
   "dialog": {
-    "share": {
-      "title": "Partager"
-    },
     "file": {
       "title": "Nouveau fichier",
       "description": "Type de fichier"
@@ -16,6 +13,10 @@
     },
     "room": {
       "title": "Créer ou rejoindre une salle"
+    },
+    "shareInRoom": {
+      "title": "Partager dans une salle",
+      "description": "Le code sera :"
     }
   }
 }

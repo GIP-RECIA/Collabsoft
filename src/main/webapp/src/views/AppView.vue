@@ -79,7 +79,7 @@ onUnmounted(() => {
               @click="onStar"
             />
             <v-btn icon="fas fa-circle-info" size="small" :alt="t('menu.item.information')" @click="onInformation" />
-            <v-btn v-if="isDev" icon="fas fa-share-nodes" :alt="t('menu.item.share')" size="small" @click="onShare" />
+            <v-btn icon="fas fa-share-nodes" :alt="t('menu.item.share')" size="small" @click="onShare" />
             <file-menu :file-id="currentFile.id" size="small" force-refresh />
           </template>
         </v-toolbar>

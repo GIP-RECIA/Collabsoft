@@ -1,5 +1,5 @@
 export enum Tabs {
-  Information,
-  Share,
-  Histories,
+  Information = 'information',
+  Share = 'share',
+  Histories = 'histories',
 }

@@ -14,6 +14,8 @@
     "share": "Partager",
     "join": "Rejoindre",
     "rooms": "Salles",
-    "create": "Créer"
+    "create": "Créer",
+    "shareInRoom": "Dans une salle",
+    "createAndJoin": "Créer et rejoindre"
   }
 }

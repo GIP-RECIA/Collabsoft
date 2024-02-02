@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { useCollaborativeStore } from '@/stores/collaborativeStore';
 import { AppSlug } from '@/types/enums/AppSlug.ts';
+import { storeToRefs } from 'pinia';
 import { onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 
-const { VITE_WEBSOCKET_API_URL, VITE_USER_INFO_API_URI } = import.meta.env;
+const collaborativeStore = useCollaborativeStore();
+const { initFileId } = storeToRefs(collaborativeStore);
+
+const { VITE_API_URI, VITE_WEBSOCKET_API_URL, VITE_USER_INFO_API_URI } = import.meta.env;
 
 const route = useRoute();
 const router = useRouter();
@@ -25,6 +30,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  initFileId.value = undefined;
   styleObserver.disconnect();
   router.go(0); // force page reload to disconnect websocket
 });
@@ -34,6 +40,7 @@ onUnmounted(() => {
   <tldraw-multiplayer
     :websocket-api-url="VITE_WEBSOCKET_API_URL"
     :room-id="`${roomId}-${AppSlug.tldraw}`"
+    :init-url="initFileId ? `${VITE_API_URI}/api/file/${initFileId}` : ''"
     :user-info-api-url="VITE_USER_INFO_API_URI"
     :dark-mode="theme.global.name.value == 'dark'"
   />

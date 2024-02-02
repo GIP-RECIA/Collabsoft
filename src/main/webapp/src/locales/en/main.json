@@ -2,5 +2,6 @@
   "visibility": {
     "public": "Public",
     "private": "Private"
-  }
+  },
+  "shareOptions": "Share options"
 }

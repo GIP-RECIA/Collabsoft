@@ -14,6 +14,8 @@
     "share": "Share",
     "join": "Join",
     "rooms": "Rooms",
-    "create": "Create"
+    "create": "Create",
+    "shareInRoom": "In a room",
+    "createAndJoin": "Create and join"
   }
 }

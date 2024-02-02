@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import type { Collaboration } from '@/types/collaborationType.ts';
 import { Role, getRole } from '@/types/enums/Role.ts';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+const configurationStore = useConfigurationStore();
+const { isShareInRoom } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refreshCurrentFile } = fileStore;
@@ -125,8 +129,19 @@ watch(visibility, (newValue) => {
     </v-list-item>
   </v-list>
 
+  <div :class="[isDev ? 'my-2' : '']">
+    <div class="ml-2 mb-1">{{ t('shareOptions') }}</div>
+    <v-btn
+      prepend-icon="fas fa-chalkboard-user"
+      :text="t('button.shareInRoom')"
+      variant="tonal"
+      block
+      @click="isShareInRoom = true"
+    />
+  </div>
+
   <div v-if="isDev">
-    <div class="ml-2 mb-1">{{ t('information.visibility') }}</div>
+    <div class="ml-2 my-1">{{ t('information.visibility') }}</div>
     <v-switch
       v-model="visibility"
       :label="t(`visibility.${visibility ? 'public' : 'private'}`)"

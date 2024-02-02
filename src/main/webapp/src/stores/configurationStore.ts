@@ -53,11 +53,13 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isInfo = ref<boolean>(false);
 
-  const currentTab = ref<number>(Tabs.Information);
+  const currentTab = ref<string>(Tabs.Information);
 
   const isNew = ref<boolean>(false);
 
   const isRoom = ref<boolean>(false);
+
+  const isShareInRoom = ref<boolean>(false);
 
   const isConfirmation = ref<boolean>(false);
   const confirmationTitle = computed<string | undefined>(() => {
@@ -94,6 +96,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     currentTab,
     isNew,
     isRoom,
+    isShareInRoom,
     isConfirmation,
     confirmationTitle,
     resetState,

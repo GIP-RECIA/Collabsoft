@@ -110,7 +110,7 @@ const onDelete = async (): Promise<void> => {
         @click="onInformation"
       />
       <v-list-item
-        v-if="isDev && !isApp"
+        v-if="!isApp"
         prepend-icon="fas fa-share-nodes"
         :title="t('menu.item.share')"
         rounded="xl"
