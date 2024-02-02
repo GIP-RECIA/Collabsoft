@@ -93,7 +93,7 @@ onMounted(() => {
   <v-textarea
     v-model="tmp.description"
     :label="t('information.description')"
-    :maxlength="45"
+    :maxlength="255"
     variant="solo-filled"
     rounded="xl"
     flat

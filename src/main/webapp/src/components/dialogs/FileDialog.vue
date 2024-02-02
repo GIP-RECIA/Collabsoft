@@ -93,7 +93,7 @@ const reset = debounce((): void => {
         <v-textarea
           v-model="description"
           :label="t('information.description')"
-          :maxlength="45"
+          :maxlength="255"
           variant="solo-filled"
           rounded="xl"
           flat
