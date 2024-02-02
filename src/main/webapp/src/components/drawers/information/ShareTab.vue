@@ -3,12 +3,14 @@ import { useFileStore } from '@/stores/fileStore.ts';
 import type { Collaboration } from '@/types/collaborationType.ts';
 import { Role, getRole } from '@/types/enums/Role.ts';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const fileStore = useFileStore();
 const { refreshCurrentFile } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
+
+const isDev = import.meta.env.DEV;
 
 const { t } = useI18n();
 
@@ -21,18 +23,29 @@ const updateRole = (collaboration: Collaboration, newValue: Role): void => {
   if (newValue != getRole(collaboration.role)) refreshCurrentFile();
 };
 
-const updateVisibility = (newValue: boolean | null): void => {
-  if (typeof newValue == 'boolean') refreshCurrentFile();
-};
-
 const addUser = (): void => {
   newUser.value = undefined;
   newRole.value = undefined;
 };
+
+const visibility = ref<boolean>(false);
+
+watch(
+  () => currentFile.value?.pub,
+  (newValue) => {
+    if (newValue == undefined) return;
+    visibility.value = newValue;
+  },
+  { immediate: true },
+);
+
+watch(visibility, (newValue) => {
+  refreshCurrentFile();
+});
 </script>
 
 <template>
-  <div class="d-flex align-center mb-2 bg-grey-lighten-3 rounded-xl">
+  <div v-if="isDev" class="d-flex align-center mb-2 bg-grey-lighten-3 rounded-xl">
     <v-text-field
       v-model="newUser"
       variant="solo"
@@ -112,15 +125,14 @@ const addUser = (): void => {
     </v-list-item>
   </v-list>
 
-  <div class="ml-2 mb-1">{{ t('information.visibility') }}</div>
-  <v-switch
-    v-if="currentFile"
-    :model-value="currentFile.pub"
-    :label="t(`visibility.${currentFile.pub ? 'public' : 'private'}`)"
-    density="compact"
-    inset
-    hide-details
-    readonly
-    @update:model-value="updateVisibility"
-  />
+  <div v-if="isDev">
+    <div class="ml-2 mb-1">{{ t('information.visibility') }}</div>
+    <v-switch
+      v-model="visibility"
+      :label="t(`visibility.${visibility ? 'public' : 'private'}`)"
+      density="compact"
+      inset
+      hide-details
+    />
+  </div>
 </template>
