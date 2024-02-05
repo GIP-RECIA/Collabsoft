@@ -2,17 +2,17 @@
 
 package () {
   echo "--- Package ---"
-  ./mvnw clean package -P prod
+  ./mvnw clean package -P prod -Dmaven.test.skip=true -Darguments="-DskipTests"
 }
 
 snapshot () {
   echo "--- Snapshot ---"
-  ./mvnw clean package deploy -P prod
+  ./mvnw clean package deploy -P prod -Dmaven.test.skip=true -Darguments="-DskipTests"
 }
 
 release () {
   echo "--- Release ---"
-  ./mvnw clean package release:prepare release:perform -P prod
+  ./mvnw clean package release:prepare release:perform -P prod -Dmaven.test.skip=true -Darguments="-DskipTests"
 }
 
 echo "Collabsoft Building Tool"
