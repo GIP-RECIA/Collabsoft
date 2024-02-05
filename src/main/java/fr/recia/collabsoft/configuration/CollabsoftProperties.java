@@ -17,6 +17,7 @@ package fr.recia.collabsoft.configuration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import fr.recia.collabsoft.configuration.bean.CorsProperties;
+import fr.recia.collabsoft.configuration.bean.FrontProperties;
 import fr.recia.collabsoft.configuration.bean.SecurityProperties;
 import fr.recia.collabsoft.configuration.bean.SoffitProperties;
 import fr.recia.collabsoft.configuration.bean.StorageProperties;
@@ -39,6 +40,7 @@ import javax.annotation.PostConstruct;
 public class CollabsoftProperties {
 
   private CorsProperties cors = new CorsProperties();
+  private FrontProperties front = new FrontProperties();
   private SecurityProperties security = new SecurityProperties();
   private SoffitProperties soffit = new SoffitProperties();
   private StorageProperties storage = new StorageProperties();
@@ -52,6 +54,7 @@ public class CollabsoftProperties {
   public String toString() {
     return "{\n"
       + cors + ",\n"
+      + front + ",\n"
       + security + ",\n"
       + soffit + "\n"
       + storage

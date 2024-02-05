@@ -86,6 +86,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const isSettings = ref<boolean>(false);
 
   return {
+    configuration,
     init,
     isReady,
     user,

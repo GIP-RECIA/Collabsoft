@@ -21,3 +21,10 @@ app:
 
   soffit:
     jwt-signature-key: ''
+
+  storage:
+    location: ''
+
+  front:
+    websocket:
+      url: ''

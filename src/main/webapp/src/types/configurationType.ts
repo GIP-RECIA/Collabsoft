@@ -1,1 +1,3 @@
-export type Configuration = {};
+export type Configuration = {
+  websocketApiUrl: string;
+};

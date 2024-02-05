@@ -15,21 +15,32 @@
  */
 package fr.recia.collabsoft.web.rest;
 
+import fr.recia.collabsoft.configuration.CollabsoftProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/config")
 public class ConfigurationController {
 
+  @Autowired
+  private CollabsoftProperties collabsoftProperties;
+
   @GetMapping
   public ResponseEntity<Object> getConfiguration() {
-    return new ResponseEntity<>(HttpStatus.OK);
+    Map<String, Object> data = new HashMap<>();
+    data.put("websocketApiUrl", collabsoftProperties.getFront().getWebsocket().getUrl());
+
+    return new ResponseEntity<>(data, HttpStatus.OK);
   }
 
 }
