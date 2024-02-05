@@ -1,3 +1,4 @@
+import { slugify } from './src/main/webapp/src/utils/stringUtils.ts';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
 import { readFileSync } from 'fs';
@@ -11,6 +12,10 @@ import { parseString } from 'xml2js';
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
+  const appName = JSON.stringify(process.env.VITE_APP_NAME);
+
+  const appSlug = JSON.stringify(process.env.VITE_APP_SLUG ? process.env.VITE_APP_SLUG : slugify(appName));
+
   const backVersion = (): string => {
     let version;
     const pomXml = readFileSync('./pom.xml', 'utf8');
@@ -21,21 +26,6 @@ export default ({ mode }: { mode: string }) => {
 
     return JSON.stringify(version);
   };
-
-  const slugify = (value: string): string => {
-    return JSON.stringify(
-      String(value)
-        .normalize('NFKD') // split accented characters into their base characters and diacritical marks
-        .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
-        .trim() // trim leading or trailing whitespace
-        .toLowerCase() // convert to lowercase
-        .replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
-        .replace(/\s+/g, '-') // replace spaces with hyphens
-        .replace(/-+/g, '-'), // remove consecutive hyphens
-    );
-  };
-
-  const appName = JSON.stringify(process.env.VITE_APP_NAME);
 
   return defineConfig({
     base: process.env.VITE_BASE_URI + '/ui',
@@ -87,7 +77,7 @@ export default ({ mode }: { mode: string }) => {
     },
     define: {
       __APP_NAME__: appName,
-      __APP_SLUG__: slugify(appName),
+      __APP_SLUG__: appSlug,
       __BACK_VERSION__: backVersion(),
     },
   });
