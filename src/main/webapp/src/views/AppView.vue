@@ -55,6 +55,7 @@ const title = computed<string>(() => {
 
 onMounted(() => {
   isApp.value = true;
+  if (!currentFile.value && route.params.fileId != undefined) loadFile(parseInt(route.params.fileId as string));
 });
 
 onUnmounted(() => {
