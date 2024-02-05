@@ -42,9 +42,13 @@ watch(
   { immediate: true },
 );
 
-watch(isDark, (newValue): void => {
-  setDarkTheme(newValue);
-});
+watch(
+  isDark,
+  (newValue): void => {
+    setDarkTheme(newValue);
+  },
+  { immediate: true },
+);
 
 const onClose = (): void => {
   isSettings.value = false;
