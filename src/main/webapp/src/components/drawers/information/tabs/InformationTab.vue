@@ -45,7 +45,7 @@ const canSave = computed<boolean>(() => {
     tmp.value.description && tmp.value.description.trim().length > 0 ? tmp.value.description : null;
   const descriptionHasChanged = tmpDesctiption != currentFile.value?.description;
 
-  return (hasTitle && titleHasChanged) || descriptionHasChanged;
+  return hasTitle && (titleHasChanged || descriptionHasChanged);
 });
 
 const save = async (): Promise<void> => {
