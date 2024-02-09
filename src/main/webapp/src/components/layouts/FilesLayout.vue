@@ -86,7 +86,7 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
     hover
     class="h-100 rounded-xl"
   >
-    <template v-slot:item.title="{ item }">
+    <template #item.title="{ item }">
       <router-link
         :to="{ name: item.associatedApp.slug, params: { fileId: item.id } }"
         class="d-flex align-center h-100 table-column-title"
@@ -101,16 +101,16 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
         <span class="ms-2">{{ item.title }}</span>
       </router-link>
     </template>
-    <template v-slot:item.editionDate="{ item }">
+    <template #item.editionDate="{ item }">
       <span :key="key">{{ t('information.duration', { duration: dateToDuration(item.editionDate) }) }}</span>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template #item.actions="{ item }">
       <file-menu :file-id="item.id" />
     </template>
-    <template v-slot:loading>
+    <template #loading>
       <v-skeleton-loader type="table-row@6" />
     </template>
-    <template v-slot:bottom></template>
+    <template #bottom></template>
   </v-data-table>
 </template>
 
