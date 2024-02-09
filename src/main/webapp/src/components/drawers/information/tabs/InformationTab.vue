@@ -111,7 +111,7 @@ onMounted(() => {
         variant="tonal"
         color="secondary"
         @click="initForm"
-        class="mr-2"
+        class="me-2"
       />
       <v-btn
         prepend-icon="fas fa-save"
@@ -123,10 +123,10 @@ onMounted(() => {
       />
     </div>
   </div>
-  <div class="ml-2 mb-2">
+  <div class="ms-2 mb-2">
     {{ t('information.creationDate', { date: currentFile ? format(parseISO(currentFile.creationDate), 'Pp') : '' }) }}
   </div>
-  <div class="ml-2 mb-2">
+  <div class="ms-2 mb-2">
     {{ t('information.editionDate', { date: currentFile ? format(parseISO(currentFile.editionDate), 'Pp') : '' }) }}
   </div>
 </template>

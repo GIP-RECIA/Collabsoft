@@ -74,7 +74,7 @@ const reset = debounce((): void => {
       </v-toolbar>
       <v-card-text>
         <div v-if="isDev">
-          <div class="ml-2 mb-2">{{ t('dialog.file.description') }}</div>
+          <div class="ms-2 mb-2">{{ t('dialog.file.description') }}</div>
           <v-btn-toggle v-model="fileType" mandatory class="mb-3">
             <v-btn text="tldraw" :value="1" rounded="xl" />
             <v-btn text="WiseMapping" :value="2" rounded="xl" />
@@ -101,7 +101,7 @@ const reset = debounce((): void => {
           class="mb-3"
         />
         <div v-if="isDev">
-          <div class="ml-2 mb-1">{{ t('information.visibility') }}</div>
+          <div class="ms-2 mb-1">{{ t('information.visibility') }}</div>
           <v-switch
             v-model="pub"
             :label="t(`visibility.${pub ? 'public' : 'private'}`)"

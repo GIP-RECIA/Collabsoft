@@ -93,7 +93,7 @@ watch(visibility, (newValue) => {
       rounded="xl"
       :class="[
         index < currentFile.collaborations.length - 1 ? 'mb-2' : '',
-        'pr-2',
+        'pe-2',
         'bg-grey-lighten-3',
         'list-item--custom',
       ]"
@@ -130,7 +130,7 @@ watch(visibility, (newValue) => {
   </v-list>
 
   <div :class="[isDev ? 'my-2' : '']">
-    <div class="ml-2 mb-1">{{ t('shareOptions') }}</div>
+    <div class="ms-2 mb-1">{{ t('shareOptions') }}</div>
     <v-btn
       prepend-icon="fas fa-chalkboard-user"
       :text="t('button.shareInRoom')"
@@ -141,7 +141,7 @@ watch(visibility, (newValue) => {
   </div>
 
   <div v-if="isDev">
-    <div class="ml-2 my-1">{{ t('information.visibility') }}</div>
+    <div class="ms-2 my-1">{{ t('information.visibility') }}</div>
     <v-switch
       v-model="visibility"
       :label="t(`visibility.${visibility ? 'public' : 'private'}`)"

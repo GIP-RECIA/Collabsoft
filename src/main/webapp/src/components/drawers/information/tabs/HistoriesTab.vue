@@ -19,7 +19,7 @@ const { t } = useI18n();
       rounded="xl"
       :class="[
         index < currentFile.histories.length - 1 ? 'mb-2' : '',
-        'pr-2',
+        'pe-2',
         'bg-grey-lighten-3',
         'list-item--custom',
       ]"

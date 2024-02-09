@@ -31,7 +31,7 @@ onMounted(async () => {
       <v-toolbar color="rgba(255, 255, 255, 0)">
         <v-toolbar-title :text="t('dialog.signIn.title')" class="text-h6" />
         <v-spacer />
-        <v-progress-circular v-show="isLoading" class="mr-4" indeterminate />
+        <v-progress-circular v-show="isLoading" class="me-4" indeterminate />
       </v-toolbar>
       <v-card-text v-if="!isLoading && !isReady">{{ t('dialog.signIn.fail') }}</v-card-text>
     </v-card>

@@ -19,7 +19,7 @@ const { mobile } = useDisplay();
         prepend-icon="fas fa-chalkboard-user"
         variant="tonal"
         :text="t('button.rooms')"
-        :class="[mobile ? 'ml-2' : 'ml-4', 'custom-height']"
+        :class="[mobile ? 'ms-2' : 'ms-4', 'custom-height']"
         @click="isRoom = true"
       />
     </div>
@@ -33,7 +33,7 @@ const { mobile } = useDisplay();
       hide-details
       single-line
       clearable
-      :class="[mobile ? 'ml-2' : 'ml-4', 'max-width']"
+      :class="[mobile ? 'ms-2' : 'ms-4', 'max-width']"
     />
   </div>
 </template>
