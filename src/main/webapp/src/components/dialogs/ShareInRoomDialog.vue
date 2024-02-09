@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCollaborativeStore } from '@/stores/collaborativeStore.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import { charOTP } from '@/utils/stringUtils.ts';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
@@ -9,14 +9,14 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-const configurationStore = useConfigurationStore();
-const { isShareInRoom } = storeToRefs(configurationStore);
+const collaborativeStore = useCollaborativeStore();
+const { initFileId } = storeToRefs(collaborativeStore);
 
 const fileStore = useFileStore();
 const { currentFile } = storeToRefs(fileStore);
 
-const collaborativeStore = useCollaborativeStore();
-const { initFileId } = storeToRefs(collaborativeStore);
+const homeStore = useHomeStore();
+const { isShareInRoom } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 const router = useRouter();

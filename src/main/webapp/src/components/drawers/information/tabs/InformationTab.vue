@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { setFile } from '@/services/fileService.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import type { FileBody } from '@/types/fileBodyType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import { format, parseISO } from 'date-fns';
@@ -9,12 +9,12 @@ import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const configurationStore = useConfigurationStore();
-const { isInfo, currentTab } = storeToRefs(configurationStore);
-
 const fileStore = useFileStore();
 const { refresh, refreshCurrentFile } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
+
+const homeStore = useHomeStore();
+const { isInfo, currentTab } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 

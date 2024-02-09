@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import type { Collaboration } from '@/types/collaborationType.ts';
 import { Role, getRole } from '@/types/enums/Role.ts';
 import { storeToRefs } from 'pinia';
@@ -9,12 +9,12 @@ import { useI18n } from 'vue-i18n';
 
 const isDev = import.meta.env.DEV;
 
-const configurationStore = useConfigurationStore();
-const { isShareInRoom } = storeToRefs(configurationStore);
-
 const fileStore = useFileStore();
 const { refreshCurrentFile } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
+
+const homeStore = useHomeStore();
+const { isShareInRoom } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 

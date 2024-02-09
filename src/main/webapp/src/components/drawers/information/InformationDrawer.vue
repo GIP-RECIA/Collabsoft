@@ -3,8 +3,8 @@ import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue';
 import HistoriesTab from '@/components/drawers/information/tabs/HistoriesTab.vue';
 import InformationTab from '@/components/drawers/information/tabs/InformationTab.vue';
 import ShareTab from '@/components/drawers/information/tabs/ShareTab.vue';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
@@ -12,11 +12,11 @@ import { useI18n } from 'vue-i18n';
 
 const isDev = import.meta.env.DEV;
 
-const configurationStore = useConfigurationStore();
-const { isInfo, currentTab } = storeToRefs(configurationStore);
-
 const fileStore = useFileStore();
 const { currentFile } = storeToRefs(fileStore);
+
+const homeStore = useHomeStore();
+const { isInfo, currentTab } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 

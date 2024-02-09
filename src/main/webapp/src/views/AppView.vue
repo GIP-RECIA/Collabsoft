@@ -3,6 +3,7 @@ import FileMenu from '@/components/FileMenu.vue';
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
@@ -13,11 +14,14 @@ import { useRoute, useRouter } from 'vue-router';
 const isDev = import.meta.env.DEV;
 
 const configurationStore = useConfigurationStore();
-const { isApp, isInfo, currentTab } = storeToRefs(configurationStore);
+const { isApp } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
+
+const homeStore = useHomeStore();
+const { isInfo, currentTab } = storeToRefs(homeStore);
 
 const route = useRoute();
 const router = useRouter();

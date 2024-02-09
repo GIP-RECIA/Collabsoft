@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
-const configurationStore = useConfigurationStore();
-const { search, isNew, isRoom } = storeToRefs(configurationStore);
+const homeStore = useHomeStore();
+const { search, isNew, isRoom } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 const { mobile } = useDisplay();

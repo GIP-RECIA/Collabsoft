@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+// import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import type { File } from '@/types/fileType.ts';
 import { dateToDuration } from '@/utils/dateFnsUtils.ts';
 import { useSessionStorage } from '@vueuse/core';
@@ -11,8 +12,11 @@ import { useDisplay } from 'vuetify';
 
 const { VITE_API_URI } = import.meta.env;
 
-const configurationStore = useConfigurationStore();
-const { search, isGrid } = storeToRefs(configurationStore);
+// const configurationStore = useConfigurationStore();
+// const { isGrid } = storeToRefs(configurationStore);
+
+const homeStore = useHomeStore();
+const { search } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 const { xs } = useDisplay();

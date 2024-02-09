@@ -15,9 +15,15 @@ export const useFileStore = defineStore('file', () => {
 
   let lastUpdated = new Date();
 
+  /**
+   * List of files
+   */
   const files = ref<Array<File> | undefined>();
 
-  const loadFiles = debounce(async (requestedFiles: Navigation | string): Promise<void> => {
+  /**
+   * Load files for a Navigation
+   */
+  const loadFiles = debounce(async (requestedFiles: Navigation): Promise<void> => {
     try {
       let response;
       switch (requestedFiles) {
@@ -41,18 +47,27 @@ export const useFileStore = defineStore('file', () => {
     lastUpdated = new Date();
   }, 200);
 
-  const refresh = (instant?: boolean, loading?: boolean): void => {
+  /**
+   * Refresh files
+   */
+  const refresh = (instant: boolean = false, loading: boolean = false): void => {
     const { lastNavigation } = storeToRefs(configurationStore);
 
     if (instant || differenceInMilliseconds(new Date(), lastUpdated) > 5000) {
       if (loading) files.value = undefined;
-      if (lastNavigation.value != undefined) loadFiles(lastNavigation.value);
+      if (lastNavigation.value != undefined) loadFiles(lastNavigation.value as Navigation);
     }
   };
 
+  /**
+   * Current selected file
+   */
   const currentFile = ref<File>();
 
-  const loadFile = async (fileId: number, force?: boolean): Promise<void> => {
+  /**
+   * Load current file
+   */
+  const loadFile = async (fileId: number, force: boolean = false): Promise<void> => {
     if (!currentFile.value || currentFile.value.id != fileId || force) {
       try {
         const response = await getFile(fileId);
@@ -63,6 +78,9 @@ export const useFileStore = defineStore('file', () => {
     }
   };
 
+  /**
+   * Refresh current file
+   */
   const refreshCurrentFile = (): void => {
     if (currentFile.value) loadFile(currentFile.value.id, true);
   };

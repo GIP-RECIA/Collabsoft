@@ -1,24 +1,18 @@
 import { getConfiguration } from '@/services/configurationService.ts';
-import { useFileStore } from '@/stores/fileStore.ts';
 import type { Configuration } from '@/types/configurationType.ts';
-import { Tabs } from '@/types/enums/Tabs.ts';
 import type { Soffit } from '@/types/soffitType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
-import { defineStore, storeToRefs } from 'pinia';
+import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
 export const useConfigurationStore = defineStore('configuration', () => {
-  const fileStore = useFileStore();
-
-  /* -- Configuration store -- */
-
   const configuration = ref<Configuration | undefined>();
 
   /**
    * Initialise `configuration`
    */
-  const init = async (): Promise<boolean> => {
-    if (!isInit.value) {
+  const init = async (force: boolean = false): Promise<boolean> => {
+    if (force || !isInit.value) {
       try {
         const response = await getConfiguration();
         configuration.value = response.data;
@@ -45,44 +39,14 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const lastNavigation = ref<string | undefined>();
 
+  /**
+   * App context state
+   */
   const isApp = ref<boolean>(false);
 
-  /* -- Gestion de l'accueil -- */
-
-  const search = ref<string | undefined>();
-
-  const isInfo = ref<boolean>(false);
-
-  const currentTab = ref<string>(Tabs.Information);
-
-  const isNew = ref<boolean>(false);
-
-  const isRoom = ref<boolean>(false);
-
-  const isShareInRoom = ref<boolean>(false);
-
-  const isConfirmation = ref<boolean>(false);
-  const confirmationTitle = computed<string | undefined>(() => {
-    const { currentFile } = storeToRefs(fileStore);
-
-    return currentFile.value ? `"${currentFile.value.title}"` : undefined;
-  });
-
-  const resetState = (): void => {
-    const { currentFile } = storeToRefs(fileStore);
-
-    search.value = undefined;
-    currentFile.value = undefined;
-    isInfo.value = false;
-    isConfirmation.value = false;
-    isNew.value = false;
-    isRoom.value = false;
-  };
-
-  const isGrid = ref<boolean>(false);
-
-  /* -- Gestion des paramètres -- */
-
+  /**
+   * Dialog settings state
+   */
   const isSettings = ref<boolean>(false);
 
   return {
@@ -92,16 +56,6 @@ export const useConfigurationStore = defineStore('configuration', () => {
     user,
     lastNavigation,
     isApp,
-    search,
-    isInfo,
-    currentTab,
-    isNew,
-    isRoom,
-    isShareInRoom,
-    isConfirmation,
-    confirmationTitle,
-    resetState,
-    isGrid,
     isSettings,
   };
 });

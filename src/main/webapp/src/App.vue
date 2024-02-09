@@ -5,6 +5,7 @@ import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
 import { deleteFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import type { Confirmation } from '@/types/confirmationType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import { watchOnce } from '@vueuse/core';
@@ -14,12 +15,15 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 const configurationStore = useConfigurationStore();
-const { resetState } = configurationStore;
-const { isReady, lastNavigation, isConfirmation, confirmationTitle } = storeToRefs(configurationStore);
+const { isReady, lastNavigation } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refresh } = fileStore;
 const { currentFile } = storeToRefs(fileStore);
+
+const homeStore = useHomeStore();
+const { resetState } = homeStore;
+const { isConfirmation, confirmationTitle } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 const router = useRouter();

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useHomeStore } from '@/stores/homeStore.ts';
 import { AppSlug } from '@/types/enums/AppSlug.ts';
 import type { RoomAction } from '@/types/roomActionType.ts';
 import { charOTP } from '@/utils/stringUtils.ts';
@@ -11,8 +11,8 @@ import { useRouter } from 'vue-router';
 
 const isDev = import.meta.env.DEV;
 
-const configurationStore = useConfigurationStore();
-const { isRoom } = storeToRefs(configurationStore);
+const homeStore = useHomeStore();
+const { isRoom } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 const router = useRouter();
