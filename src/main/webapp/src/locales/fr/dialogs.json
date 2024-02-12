@@ -8,8 +8,7 @@
       "title": "Êtes-vous sûr d'effacer ?"
     },
     "signIn": {
-      "title": "Connexion",
-      "fail": "Impossible de se connecter"
+      "title": "Connexion"
     },
     "room": {
       "title": "Créer ou rejoindre une salle"

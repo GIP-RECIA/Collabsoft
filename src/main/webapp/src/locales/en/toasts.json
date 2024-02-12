@@ -1,6 +1,5 @@
 {
   "toast": {
-    "initConfigurationStore": "Unable to load configuration",
     "loadFiles": "Unable to load file list",
     "loadFile": "Unable to load file",
     "nextcloud": {

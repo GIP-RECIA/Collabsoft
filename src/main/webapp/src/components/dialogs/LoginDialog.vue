@@ -6,7 +6,7 @@ import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
 const { init } = configurationStore;
-const { isReady } = storeToRefs(configurationStore);
+const { isReady, isSoffitOk } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 
@@ -18,7 +18,12 @@ const modelValue = computed<boolean>({
 });
 
 const response = ref<boolean>();
-const isLoading = computed<boolean>(() => !isReady.value && response.value == undefined);
+const isLoading = computed<boolean>(() => response.value == undefined);
+const errorMessage = computed<string>(() => {
+  if (!response.value) return 'config';
+  if (!isSoffitOk.value) return 'soffit';
+  return 'unknown';
+});
 
 onMounted(async () => {
   response.value = await init();
@@ -33,7 +38,7 @@ onMounted(async () => {
         <v-spacer />
         <v-progress-circular v-show="isLoading" class="me-4" indeterminate />
       </v-toolbar>
-      <v-card-text v-if="!isLoading && !isReady">{{ t('dialog.signIn.fail') }}</v-card-text>
+      <v-card-text v-if="!isLoading && !isReady">{{ t(`error.signIn.${errorMessage}`) }}</v-card-text>
     </v-card>
   </v-dialog>
 </template>

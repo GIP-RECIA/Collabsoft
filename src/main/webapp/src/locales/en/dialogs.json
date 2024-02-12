@@ -8,8 +8,7 @@
       "title": "Are you sure to delete?"
     },
     "signIn": {
-      "title": "Sign in",
-      "fail": "Unable to sign in"
+      "title": "Sign in"
     },
     "room": {
       "title": "Create or join a room"

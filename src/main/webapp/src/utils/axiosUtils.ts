@@ -19,7 +19,7 @@ let token: string | undefined = undefined;
 let timeout: number | undefined = undefined;
 let renewToken: any;
 
-const init = async (): Promise<void> => {
+const initToken = async (userInfoApiUrl: string): Promise<void> => {
   const configurationStore = useConfigurationStore();
   const { user } = storeToRefs(configurationStore);
 
@@ -27,7 +27,7 @@ const init = async (): Promise<void> => {
     const {
       encoded,
       decoded: { exp, iat, sub },
-    } = await getToken();
+    } = await getToken(userInfoApiUrl);
     token = `Bearer ${encoded}`;
     timeout = (exp - iat) * 1000 * 0.75;
     renewToken = throttle(
@@ -36,7 +36,7 @@ const init = async (): Promise<void> => {
           const {
             encoded,
             decoded: { sub },
-          } = await getToken();
+          } = await getToken(userInfoApiUrl);
           token = `Bearer ${encoded}`;
           user.value = { ...user.value, sub };
         } catch (e) {
@@ -53,8 +53,9 @@ const init = async (): Promise<void> => {
 };
 
 instance.interceptors.request.use(async (config) => {
-  if (timeout == undefined) await init();
-  else await renewToken();
+  if (config.url == '/api/config') return config;
+
+  await renewToken();
   config.headers['Authorization'] = token;
 
   return config;
@@ -81,4 +82,4 @@ const errorHandler = (e: any, toastOrI18n?: boolean | string): void => {
   }
 };
 
-export { instance, errorHandler };
+export { instance, initToken, errorHandler };

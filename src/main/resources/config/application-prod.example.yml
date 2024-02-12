@@ -26,6 +26,8 @@ app:
     location: ''
 
   front:
+    user-info-api-url: ''
+
     collaboration:
       websocket-api-url: ''
       user-info-api-url: ''

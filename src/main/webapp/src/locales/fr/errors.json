@@ -1,0 +1,9 @@
+{
+  "error": {
+    "signIn": {
+      "config": "Impossible de charger la configuration",
+      "soffit": "Impossible de se connecter",
+      "unknown": "Une erreur inconnue est survenue"
+    }
+  }
+}

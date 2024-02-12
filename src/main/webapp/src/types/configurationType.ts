@@ -1,5 +1,6 @@
 export type Configuration = {
   front: {
+    userInfoApiUrl: string;
     collaboration: {
       websocketApiUrl: string;
       userInfoApiUrl: string;

@@ -20,6 +20,7 @@ import lombok.Data;
 @Data
 public class FrontProperties {
 
+  private String userInfoApiUrl;
   private CollaborationProperties collaboration = new CollaborationProperties();
   private ExtendedUportalHeaderProperties extendedUportalHeader = new ExtendedUportalHeaderProperties();
   private ExtendedUportalFooterProperties extendedUportalFooter = new ExtendedUportalFooterProperties();
@@ -109,6 +110,7 @@ public class FrontProperties {
   @Override
   public String toString() {
     return "\"FrontProperties\": {" +
+      "\n\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"," +
       "\n\t\"collaboration\": \"" + collaboration + "\"," +
       "\n\t\"extendedUportalHeader\": \"" + extendedUportalHeader + "\"," +
       "\n\t\"extendedUportalFooter\": \"" + extendedUportalFooter + "\"" +
