@@ -38,7 +38,7 @@ public class ConfigurationController {
   @GetMapping
   public ResponseEntity<Object> getConfiguration() {
     Map<String, Object> data = new HashMap<>();
-    data.put("websocketApiUrl", collabsoftProperties.getFront().getWebsocket().getUrl());
+    data.put("front", collabsoftProperties.getFront());
 
     return new ResponseEntity<>(data, HttpStatus.OK);
   }

@@ -15,7 +15,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 const configurationStore = useConfigurationStore();
-const { isReady, lastNavigation } = storeToRefs(configurationStore);
+const { configuration, isInit, isReady, lastNavigation } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refresh } = fileStore;
@@ -77,29 +77,30 @@ const domain = window.location.hostname;
   <v-app class="app-container">
     <header>
       <extended-uportal-header
+        v-if="isInit"
         :domain="domain"
         :service-name="appName"
-        context-api-url="/portail"
-        sign-out-url="/portail/Logout"
-        default-org-logo-path="/annuaire_images/default_banner_v1.jpg"
-        default-avatar-path="/images/icones/noPictureUser.svg"
-        default-org-icon-path="/images/partners/netocentre-simple.svg"
-        favorite-api-url="/portail/api/layout"
-        layout-api-url="/portail/api/v4-3/dlm/layout.json"
-        organization-api-url="/change-etablissement/rest/v2/structures/structs/"
-        portlet-api-url="/portail/api/v4-3/dlm/portletRegistry.json?category=All%20categories"
-        user-info-api-url="/portail/api/v5-1/userinfo?claims=private,picture,name,ESCOSIRENCourant,ESCOSIREN&groups="
-        user-info-portlet-url="/portail/p/ESCO-MCE"
-        session-api-url="/portail/api/session.json"
-        template-api-path="/commun/portal_template_api.tpl.json"
-        switch-org-portlet-url="/portail/p/etablissement-swapper"
-        favorites-portlet-card-size="small"
-        grid-portlet-card-size="auto"
-        hide-action-mode="never"
-        show-favorites-in-slider="true"
-        return-home-title="Aller à l'accueil"
-        return-home-target="_self"
-        icon-type="nine-square"
+        :context-api-url="configuration?.front.extendedUportalHeader.contextApiUrl"
+        :sign-out-url="configuration?.front.extendedUportalHeader.signOutUrl"
+        :default-org-logo-path="configuration?.front.extendedUportalHeader.defaultOrgLogoPath"
+        :default-avatar-path="configuration?.front.extendedUportalHeader.defaultAvatarPath"
+        :default-org-icon-path="configuration?.front.extendedUportalHeader.defaultOrgIconPath"
+        :favorite-api-url="configuration?.front.extendedUportalHeader.favoriteApiUrl"
+        :layout-api-url="configuration?.front.extendedUportalHeader.layoutApiUrl"
+        :organization-api-url="configuration?.front.extendedUportalHeader.organizationApiUrl"
+        :portlet-api-url="configuration?.front.extendedUportalHeader.portletApiUrl"
+        :user-info-api-url="configuration?.front.extendedUportalHeader.userInfoApiUrl"
+        :user-info-portlet-url="configuration?.front.extendedUportalHeader.userInfoPortletUrl"
+        :session-api-url="configuration?.front.extendedUportalHeader.sessionApiUrl"
+        :template-api-path="configuration?.front.extendedUportalHeader.templateApiPath"
+        :switch-org-portlet-url="configuration?.front.extendedUportalHeader.switchOrgPortletUrl"
+        :favorites-portlet-card-size="configuration?.front.extendedUportalHeader.favoritesPortletCardSize"
+        :grid-portlet-card-size="configuration?.front.extendedUportalHeader.gridPortletCardSize"
+        :hide-action-mode="configuration?.front.extendedUportalHeader.hideActionMode"
+        :show-favorites-in-slider="configuration?.front.extendedUportalHeader.showFavoritesInSlider"
+        :return-home-title="configuration?.front.extendedUportalHeader.returnHomeTitle"
+        :return-home-target="configuration?.front.extendedUportalHeader.returnHomeTarget"
+        :icon-type="configuration?.front.extendedUportalHeader.iconType"
       />
     </header>
     <main class="h-100">
@@ -118,7 +119,11 @@ const domain = window.location.hostname;
       />
     </main>
     <footer>
-      <extended-uportal-footer :domain="domain" template-api-path="/commun/portal_template_api.tpl.json" />
+      <extended-uportal-footer
+        v-if="isInit"
+        :domain="domain"
+        :template-api-path="configuration?.front.extendedUportalFooter.templateApiPath"
+      />
     </footer>
   </v-app>
 </template>

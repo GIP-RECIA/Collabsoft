@@ -52,6 +52,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
   return {
     configuration,
     init,
+    isInit,
     isReady,
     user,
     lastNavigation,

@@ -21,6 +21,8 @@ import lombok.Data;
 public class FrontProperties {
 
   private WebsocketProperties websocket = new WebsocketProperties();
+  private ExtendedUportalHeader extendedUportalHeader = new ExtendedUportalHeader();
+  private ExtendedUportalFooter extendedUportalFooter = new ExtendedUportalFooter();
 
   @Data
   public static class WebsocketProperties {
@@ -31,15 +33,83 @@ public class FrontProperties {
     public String toString() {
       return "{" +
         "\n\t\t\"url\": \"" + url + "\"" +
-        "\n}";
+        "\n\t}";
     }
 
+  }
+
+  @Data
+  public static class ExtendedUportalHeader {
+
+    private String contextApiUrl;
+    private String signOutUrl;
+    private String defaultOrgLogoPath;
+    private String defaultAvatarPath;
+    private String defaultOrgIconPath;
+    private String favoriteApiUrl;
+    private String layoutApiUrl;
+    private String organizationApiUrl;
+    private String portletApiUrl;
+    private String userInfoApiUrl;
+    private String userInfoPortletUrl;
+    private String sessionApiUrl;
+    private String templateApiPath;
+    private String switchOrgPortletUrl;
+    private String favoritesPortletCardSize;
+    private String gridPortletCardSize;
+    private String hideActionMode;
+    private String showFavoritesInSlider;
+    private String returnHomeTitle;
+    private String returnHomeTarget;
+    private String iconType;
+
+    @Override
+    public String toString() {
+      return "{" +
+        "\n\t\t\"contextApiUrl\": \"" + contextApiUrl + "\"," +
+        "\n\t\t\"signOutUrl\": \"" + signOutUrl + "\"," +
+        "\n\t\t\"defaultOrgLogoPath\": \"" + defaultOrgLogoPath + "\"," +
+        "\n\t\t\"defaultAvatarPath\": \"" + defaultAvatarPath + "\"," +
+        "\n\t\t\"defaultOrgIconPath\": \"" + defaultOrgIconPath + "\"," +
+        "\n\t\t\"favoriteApiUrl\": \"" + favoriteApiUrl + "\"," +
+        "\n\t\t\"layoutApiUrl\": \"" + layoutApiUrl + "\"," +
+        "\n\t\t\"organizationApiUrl\": \"" + organizationApiUrl + "\"," +
+        "\n\t\t\"portletApiUrl\": \"" + portletApiUrl + "\"," +
+        "\n\t\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"," +
+        "\n\t\t\"userInfoPortletUrl\": \"" + userInfoPortletUrl + "\"," +
+        "\n\t\t\"sessionApiUrl\": \"" + sessionApiUrl + "\"," +
+        "\n\t\t\"templateApiPath\": \"" + templateApiPath + "\"," +
+        "\n\t\t\"switchOrgPortletUrl\": \"" + switchOrgPortletUrl + "\"," +
+        "\n\t\t\"favoritesPortletCardSize\": \"" + favoritesPortletCardSize + "\"," +
+        "\n\t\t\"gridPortletCardSize\": \"" + gridPortletCardSize + "\"," +
+        "\n\t\t\"hideActionMode\": \"" + hideActionMode + "\"," +
+        "\n\t\t\"showFavoritesInSlider\": \"" + showFavoritesInSlider + "\"," +
+        "\n\t\t\"returnHomeTitle\": \"" + returnHomeTitle + "\"," +
+        "\n\t\t\"returnHomeTarget\": \"" + returnHomeTarget + "\"," +
+        "\n\t\t\"iconType\": \"" + iconType + "\"" +
+        "\n\t}";
+    }
+  }
+
+  @Data
+  public static class ExtendedUportalFooter {
+
+    private String templateApiPath;
+
+    @Override
+    public String toString() {
+      return "{" +
+        "\n\t\t\"templateApiPath\": \"" + templateApiPath + "\"" +
+        "\n\t}";
+    }
   }
 
   @Override
   public String toString() {
     return "\"FrontProperties\": {" +
-      "\n\t\"websocket\": \"" + websocket + "\"" +
+      "\n\t\"websocket\": \"" + websocket + "\"," +
+      "\n\t\"extendedUportalHeader\": \"" + extendedUportalHeader + "\"," +
+      "\n\t\"extendedUportalFooter\": \"" + extendedUportalFooter + "\"" +
       "\n}";
   }
 

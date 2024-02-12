@@ -37,7 +37,7 @@ onUnmounted(() => {
 
 <template>
   <tldraw-multiplayer
-    :websocket-api-url="configuration?.websocketApiUrl"
+    :websocket-api-url="configuration?.front.websocket.url"
     :room-id="`${roomId}-${AppSlug.tldraw}`"
     :init-url="initFileId ? `${VITE_API_URI}/api/file/${initFileId}` : ''"
     :user-info-api-url="VITE_USER_INFO_API_URI"
