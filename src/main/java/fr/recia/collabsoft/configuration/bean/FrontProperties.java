@@ -44,6 +44,7 @@ public class FrontProperties {
   @Data
   public static class ExtendedUportalHeaderProperties {
 
+    private String componentPath;
     private String contextApiUrl;
     private String signOutUrl;
     private String defaultOrgLogoPath;
@@ -69,6 +70,7 @@ public class FrontProperties {
     @Override
     public String toString() {
       return "{" +
+        "\n\t\t\"componentPath\": \"" + componentPath + "\"," +
         "\n\t\t\"contextApiUrl\": \"" + contextApiUrl + "\"," +
         "\n\t\t\"signOutUrl\": \"" + signOutUrl + "\"," +
         "\n\t\t\"defaultOrgLogoPath\": \"" + defaultOrgLogoPath + "\"," +
@@ -92,19 +94,23 @@ public class FrontProperties {
         "\n\t\t\"iconType\": \"" + iconType + "\"" +
         "\n\t}";
     }
+
   }
 
   @Data
   public static class ExtendedUportalFooterProperties {
 
+    private String componentPath;
     private String templateApiPath;
 
     @Override
     public String toString() {
       return "{" +
+        "\n\t\t\"componentPath\": \"" + componentPath + "\"," +
         "\n\t\t\"templateApiPath\": \"" + templateApiPath + "\"" +
         "\n\t}";
     }
+
   }
 
   @Override

@@ -6,6 +6,7 @@ export type Configuration = {
       userInfoApiUrl: string;
     };
     extendedUportalHeader: {
+      componentPath: string;
       contextApiUrl: string;
       signOutUrl: string;
       defaultOrgLogoPath: string;
@@ -29,6 +30,7 @@ export type Configuration = {
       iconType: string;
     };
     extendedUportalFooter: {
+      componentPath: string;
       templateApiPath: string;
     };
   };

@@ -76,6 +76,7 @@ app:
       user-info-api-url: ''
 
     extended-uportal-header:
+      component-path: ''
       context-api-url: ''
       sign-out-url: ''
       default-org-logo-path: ''
@@ -99,4 +100,5 @@ app:
       icon-type: ''
 
     extended-uportal-footer:
+      component-path: ''
       template-api-path: ''
