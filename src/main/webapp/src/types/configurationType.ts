@@ -1,7 +1,8 @@
 export type Configuration = {
   front: {
-    websocket: {
-      url: string;
+    collaboration: {
+      websocketApiUrl: string;
+      userInfoApiUrl: string;
     };
     extendedUportalHeader: {
       contextApiUrl: string;

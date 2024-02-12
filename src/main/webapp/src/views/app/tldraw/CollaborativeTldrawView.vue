@@ -8,7 +8,7 @@ import { onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 
-const { VITE_API_URI, VITE_USER_INFO_API_URI } = import.meta.env;
+const { VITE_API_URI } = import.meta.env;
 
 const configurationStore = useConfigurationStore();
 const { configuration } = configurationStore;
@@ -37,10 +37,10 @@ onUnmounted(() => {
 
 <template>
   <tldraw-multiplayer
-    :websocket-api-url="configuration?.front.websocket.url"
+    :websocket-api-url="configuration?.front.collaboration.websocketApiUrl"
     :room-id="`${roomId}-${AppSlug.tldraw}`"
     :init-url="initFileId ? `${VITE_API_URI}/api/file/${initFileId}` : ''"
-    :user-info-api-url="VITE_USER_INFO_API_URI"
+    :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
   />
 </template>

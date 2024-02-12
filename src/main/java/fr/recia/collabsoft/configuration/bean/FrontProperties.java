@@ -20,26 +20,28 @@ import lombok.Data;
 @Data
 public class FrontProperties {
 
-  private WebsocketProperties websocket = new WebsocketProperties();
-  private ExtendedUportalHeader extendedUportalHeader = new ExtendedUportalHeader();
-  private ExtendedUportalFooter extendedUportalFooter = new ExtendedUportalFooter();
+  private CollaborationProperties collaboration = new CollaborationProperties();
+  private ExtendedUportalHeaderProperties extendedUportalHeader = new ExtendedUportalHeaderProperties();
+  private ExtendedUportalFooterProperties extendedUportalFooter = new ExtendedUportalFooterProperties();
 
   @Data
-  public static class WebsocketProperties {
+  public static class CollaborationProperties {
 
-    private String url;
+    private String websocketApiUrl;
+    private String userInfoApiUrl;
 
     @Override
     public String toString() {
       return "{" +
-        "\n\t\t\"url\": \"" + url + "\"" +
+        "\n\t\t\"websocketApiUrl\": \"" + websocketApiUrl + "\"," +
+        "\n\t\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"" +
         "\n\t}";
     }
 
   }
 
   @Data
-  public static class ExtendedUportalHeader {
+  public static class ExtendedUportalHeaderProperties {
 
     private String contextApiUrl;
     private String signOutUrl;
@@ -92,7 +94,7 @@ public class FrontProperties {
   }
 
   @Data
-  public static class ExtendedUportalFooter {
+  public static class ExtendedUportalFooterProperties {
 
     private String templateApiPath;
 
@@ -107,7 +109,7 @@ public class FrontProperties {
   @Override
   public String toString() {
     return "\"FrontProperties\": {" +
-      "\n\t\"websocket\": \"" + websocket + "\"," +
+      "\n\t\"collaboration\": \"" + collaboration + "\"," +
       "\n\t\"extendedUportalHeader\": \"" + extendedUportalHeader + "\"," +
       "\n\t\"extendedUportalFooter\": \"" + extendedUportalFooter + "\"" +
       "\n}";

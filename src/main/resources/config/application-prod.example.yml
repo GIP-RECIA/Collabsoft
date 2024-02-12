@@ -26,8 +26,9 @@ app:
     location: ''
 
   front:
-    websocket:
-      url: ''
+    collaboration:
+      websocket-api-url: ''
+      user-info-api-url: ''
 
     extended-uportal-header:
       context-api-url: ''
