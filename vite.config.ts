@@ -57,7 +57,7 @@ export default ({ mode }: { mode: string }) => {
     },
     server: {
       proxy: {
-        '^(?:/.*)?/api': {
+        '^(?:/[a-zA-Z0-9_-]+)?/api': {
           target: process.env.VITE_PROXY_API_URL,
           changeOrigin: true,
         },
