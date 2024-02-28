@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/appStore.ts';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
@@ -13,6 +14,9 @@ const isDev = import.meta.env.DEV;
 
 const appStore = useAppStore();
 const { isApp } = storeToRefs(appStore);
+
+const configurationStore = useConfigurationStore();
+const { isSettings } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
@@ -124,7 +128,7 @@ const onDelete = async (): Promise<void> => {
         @click="onExport"
       />
       <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="onDownload" />
-      <v-divider v-if="!isApp" class="my-2" />
+      <v-divider class="my-2" />
       <v-list-item
         v-if="!isApp"
         prepend-icon="fas fa-trash"
@@ -132,6 +136,13 @@ const onDelete = async (): Promise<void> => {
         rounded="xl"
         base-color="error"
         @click="onDelete"
+      />
+      <v-list-item
+        v-if="isApp"
+        prepend-icon="fas fa-gear"
+        :title="t('navigation.item.settings')"
+        rounded="xl"
+        @click="isSettings = true"
       />
     </v-list>
   </v-menu>
