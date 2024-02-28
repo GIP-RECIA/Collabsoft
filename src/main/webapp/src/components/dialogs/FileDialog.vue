@@ -11,7 +11,7 @@ import { useI18n } from 'vue-i18n';
 const isDev = import.meta.env.DEV;
 
 const fileStore = useFileStore();
-const { refresh } = fileStore;
+const { refreshFiles } = fileStore;
 
 const homeStore = useHomeStore();
 const { isNew } = storeToRefs(homeStore);
@@ -26,8 +26,8 @@ const modelValue = computed<boolean>({
 });
 
 const fileType = ref<number | undefined>(isDev ? undefined : 1);
-const title = ref<string>();
-const description = ref<string>();
+const title = ref<string | undefined>();
+const description = ref<string | undefined>();
 const pub = ref<boolean>(false);
 
 const canSave = computed<boolean>(
@@ -44,7 +44,7 @@ const onSave = async (): Promise<void> => {
       associatedAppId: fileType.value!,
       pub: pub.value,
     });
-    refresh(true);
+    refreshFiles(true);
     onClose();
   } catch (e) {
     errorHandler(e, true);

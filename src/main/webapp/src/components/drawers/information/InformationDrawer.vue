@@ -13,19 +13,19 @@ import { useI18n } from 'vue-i18n';
 const isDev = import.meta.env.DEV;
 
 const fileStore = useFileStore();
-const { currentFile } = storeToRefs(fileStore);
+const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
-const { isInfo, currentTab } = storeToRefs(homeStore);
+const { isDrawer, drawerTab } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 
 const modelValue = computed<boolean>({
   get() {
-    return currentFile.value != undefined && isInfo.value;
+    return file.value != undefined && isDrawer.value;
   },
   set() {
-    isInfo.value = false;
+    isDrawer.value = false;
   },
 });
 
@@ -36,13 +36,13 @@ const onClose = (): void => {
 
 <template>
   <v-navigation-drawer v-model="modelValue" location="right" :width="460">
-    <v-toolbar :title="t(`navigation.title.${currentTab}`)" color="rgba(255, 255, 255, 0)">
+    <v-toolbar :title="t(`navigation.title.${drawerTab}`)" color="rgba(255, 255, 255, 0)">
       <template #append>
         <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
       </template>
     </v-toolbar>
     <v-tabs
-      v-model="currentTab"
+      v-model="drawerTab"
       align-tabs="center"
       :show-arrows="false"
       hide-slider
@@ -60,7 +60,7 @@ const onClose = (): void => {
         <v-icon icon="fas fa-clock-rotate-left" />
       </v-tab>
     </v-tabs>
-    <v-window v-model="currentTab" class="pa-2">
+    <v-window v-model="drawerTab" class="pa-2">
       <v-window-item :value="Tabs.Information">
         <information-tab />
       </v-window-item>

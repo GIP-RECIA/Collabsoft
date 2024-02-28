@@ -10,11 +10,11 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const fileStore = useFileStore();
-const { refresh, refreshCurrentFile } = fileStore;
-const { currentFile } = storeToRefs(fileStore);
+const { refreshFiles, refreshFile } = fileStore;
+const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
-const { isInfo, currentTab } = storeToRefs(homeStore);
+const { isDrawer, drawerTab } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 
@@ -23,10 +23,10 @@ const tmp = ref<{ title: string; description: string | null }>({ title: '', desc
 
 const initForm = (): void => {
   isEdit.value = false;
-  if (currentFile.value == undefined) return;
+  if (file.value == undefined) return;
   tmp.value = {
-    title: currentFile.value.title,
-    description: currentFile.value.description,
+    title: file.value.title,
+    description: file.value.description,
   };
 };
 
@@ -36,45 +36,37 @@ const edit = (): void => {
 };
 
 const canSave = computed<boolean>(() => {
-  if (!currentFile.value) return false;
+  if (!file.value) return false;
 
   const hasTitle = tmp.value.title != undefined && tmp.value.title.trim().length > 0;
-  const titleHasChanged = tmp.value.title != currentFile.value.title;
+  const titleHasChanged = tmp.value.title != file.value.title;
 
   const tmpDesctiption =
     tmp.value.description && tmp.value.description.trim().length > 0 ? tmp.value.description : null;
-  const descriptionHasChanged = tmpDesctiption != currentFile.value?.description;
+  const descriptionHasChanged = tmpDesctiption != file.value?.description;
 
   return hasTitle && (titleHasChanged || descriptionHasChanged);
 });
 
 const save = async (): Promise<void> => {
-  if (!canSave.value || currentFile.value == undefined) return;
+  if (!canSave.value || file.value == undefined) return;
   try {
-    await setFile(currentFile.value.id, tmp.value as FileBody);
-    refresh(true);
-    refreshCurrentFile();
+    await setFile(file.value.id, tmp.value as FileBody);
+    refreshFiles(true);
+    refreshFile();
     isEdit.value = false;
   } catch (e) {
     errorHandler(e, true);
   }
 };
 
-watch(currentFile, (): void => {
-  initForm();
-});
+watch(file, (): void => initForm());
 
-watch(currentTab, (): void => {
-  initForm();
-});
+watch(drawerTab, (): void => initForm());
 
-watch(isInfo, (): void => {
-  initForm();
-});
+watch(isDrawer, (): void => initForm());
 
-onMounted(() => {
-  initForm();
-});
+onMounted((): void => initForm());
 </script>
 
 <template>
@@ -124,9 +116,9 @@ onMounted(() => {
     </div>
   </div>
   <div class="ms-2 mb-2">
-    {{ t('information.creationDate', { date: currentFile ? format(parseISO(currentFile.creationDate), 'Pp') : '' }) }}
+    {{ t('information.creationDate', { date: file ? format(parseISO(file.creationDate), 'Pp') : '' }) }}
   </div>
   <div class="ms-2 mb-2">
-    {{ t('information.editionDate', { date: currentFile ? format(parseISO(currentFile.editionDate), 'Pp') : '' }) }}
+    {{ t('information.editionDate', { date: file ? format(parseISO(file.editionDate), 'Pp') : '' }) }}
   </div>
 </template>

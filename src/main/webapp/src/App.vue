@@ -18,20 +18,20 @@ const configurationStore = useConfigurationStore();
 const { configuration, isInit, isReady, lastNavigation } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
-const { refresh } = fileStore;
-const { currentFile } = storeToRefs(fileStore);
+const { refreshFiles } = fileStore;
+const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
-const { resetState } = homeStore;
-const { isConfirmation, confirmationTitle } = storeToRefs(homeStore);
+const { reset: resetHome } = homeStore;
+const { isDelete, deleteTitle } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 const router = useRouter();
 
 router.beforeEach((to) => {
-  resetState();
+  resetHome();
   if (to.name != undefined && to.name != null) lastNavigation.value = to.name as string;
-  if (isReady.value) refresh(true, true);
+  if (isReady.value) refreshFiles(true, true);
 });
 
 watchOnce(isInit, (newValue) => {
@@ -46,7 +46,7 @@ watchOnce(isInit, (newValue) => {
 });
 
 watchOnce(isReady, (newValue) => {
-  if (newValue) refresh(true, true);
+  if (newValue) refreshFiles(true, true);
 });
 
 onBeforeMount(() => {
@@ -55,18 +55,18 @@ onBeforeMount(() => {
 
 const confirmationDelete = computed<boolean>({
   get() {
-    return currentFile.value != undefined && isConfirmation.value;
+    return file.value != undefined && isDelete.value;
   },
   set(newValue) {
-    isConfirmation.value = newValue;
+    isDelete.value = newValue;
   },
 });
 
 const deleteItem = async (result: Confirmation): Promise<void> => {
-  if (result === 'yes' && currentFile.value) {
+  if (result === 'yes' && file.value) {
     try {
-      await deleteFile(currentFile.value.id);
-      refresh(true);
+      await deleteFile(file.value.id);
+      refreshFiles(true);
     } catch (e) {
       errorHandler(e);
     }
@@ -114,7 +114,7 @@ const domain = window.location.hostname;
       <confirmation-dialog
         v-model="confirmationDelete"
         :title="t('dialog.delete.title')"
-        :description="confirmationTitle"
+        :description="deleteTitle"
         yes-value="button.delete"
         no-value="button.cancel"
         yes-color="error"

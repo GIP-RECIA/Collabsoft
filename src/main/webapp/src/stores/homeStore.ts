@@ -6,20 +6,19 @@ import { computed, ref } from 'vue';
 export const useHomeStore = defineStore('home', () => {
   const fileStore = useFileStore();
 
-  /**
-   * Search input value
-   */
-  const search = ref<string | undefined>();
+  /* -- Drawer -- */
 
   /**
    * Information drawer state
    */
-  const isInfo = ref<boolean>(false);
+  const isDrawer = ref<boolean>(false);
 
   /**
    * Drawer tab state
    */
-  const currentTab = ref<Tabs>(Tabs.Information);
+  const drawerTab = ref<Tabs>(Tabs.Information);
+
+  /* -- Dialogs -- */
 
   /**
    * Dialog new file state
@@ -39,44 +38,60 @@ export const useHomeStore = defineStore('home', () => {
   /**
    * Dialog confirmation delete state
    */
-  const isConfirmation = ref<boolean>(false);
-  const confirmationTitle = computed<string | undefined>(() => {
-    const { currentFile } = storeToRefs(fileStore);
+  const isDelete = ref<boolean>(false);
+  const deleteTitle = computed<string | undefined>(() => {
+    const { file } = storeToRefs(fileStore);
 
-    return currentFile.value ? `"${currentFile.value.title}"` : undefined;
+    return file.value ? `"${file.value.title}"` : undefined;
   });
 
-  /**
-   * Reset all values before this function and current file
-   */
-  const resetState = (): void => {
-    const { currentFile } = storeToRefs(fileStore);
+  /* -- Display -- */
 
-    currentFile.value = undefined;
-    search.value = undefined;
-    isInfo.value = false;
-    currentTab.value = Tabs.Information;
-    isNew.value = false;
-    isRoom.value = false;
-    isShareInRoom.value = false;
-    isConfirmation.value = false;
-  };
+  /**
+   * Search input value
+   */
+  const search = ref<string | undefined>();
 
   /**
    * Files diplay state
    */
   const isGrid = ref<boolean>(false);
 
+  /* -- Store actions -- */
+
+  /**
+   * Reset home
+   */
+  const reset = (): void => {
+    const { file } = storeToRefs(fileStore);
+
+    // Clear current file
+    file.value = undefined;
+
+    // Close and reset drawer tab
+    isDrawer.value = false;
+    drawerTab.value = Tabs.Information;
+
+    // Close dialogs
+    isNew.value = false;
+    isRoom.value = false;
+    isShareInRoom.value = false;
+    isDelete.value = false;
+
+    // Clear search
+    search.value = undefined;
+  };
+
   return {
-    search,
-    isInfo,
-    currentTab,
+    isDrawer,
+    drawerTab,
     isNew,
     isRoom,
     isShareInRoom,
-    isConfirmation,
-    confirmationTitle,
-    resetState,
+    isDelete,
+    deleteTitle,
+    search,
     isGrid,
+    reset,
   };
 });

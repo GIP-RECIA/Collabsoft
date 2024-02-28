@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
 const homeStore = useHomeStore();
-const { search, isNew, isRoom } = storeToRefs(homeStore);
+const { isNew, isRoom, search } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 const { mobile } = useDisplay();

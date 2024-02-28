@@ -18,10 +18,10 @@ const { isApp } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
-const { currentFile } = storeToRefs(fileStore);
+const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
-const { isInfo, currentTab } = storeToRefs(homeStore);
+const { isDrawer, drawerTab } = storeToRefs(homeStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -30,7 +30,7 @@ const { t } = useI18n();
 const isStarred = ref(false);
 
 const getFile = async (): Promise<void> => {
-  if (currentFile.value) await loadFile(currentFile.value.id);
+  if (file.value) await loadFile(file.value.id);
 };
 
 const onStar = (): void => {
@@ -39,14 +39,14 @@ const onStar = (): void => {
 
 const onInformation = async (): Promise<void> => {
   await getFile();
-  currentTab.value = Tabs.Information;
-  isInfo.value = true;
+  drawerTab.value = Tabs.Information;
+  isDrawer.value = true;
 };
 
 const onShare = async (): Promise<void> => {
   await getFile();
-  currentTab.value = Tabs.Share;
-  isInfo.value = true;
+  drawerTab.value = Tabs.Share;
+  isDrawer.value = true;
 };
 
 const goBack = () => (window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects }));
@@ -54,12 +54,12 @@ const goBack = () => (window.history.length > 2 ? router.back() : router.push({ 
 const title = computed<string>(() => {
   const roomId: string = route.params.roomId != undefined ? (route.params.roomId as string) : '';
 
-  return currentFile.value ? currentFile.value.title : roomId;
+  return file.value ? file.value.title : roomId;
 });
 
 onMounted(() => {
   isApp.value = true;
-  if (!currentFile.value && route.params.fileId != undefined) loadFile(parseInt(route.params.fileId as string));
+  if (!file.value && route.params.fileId != undefined) loadFile(parseInt(route.params.fileId as string));
 });
 
 onUnmounted(() => {
@@ -75,7 +75,7 @@ onUnmounted(() => {
           <template #prepend>
             <v-btn icon="fas fa-arrow-left" size="small" @click="goBack" />
           </template>
-          <template v-if="currentFile" #append>
+          <template v-if="file" #append>
             <v-btn
               v-if="isDev"
               :icon="`${isStarred ? 'fas' : 'far'} fa-star`"
@@ -85,12 +85,12 @@ onUnmounted(() => {
             />
             <v-btn icon="fas fa-circle-info" size="small" :alt="t('menu.item.information')" @click="onInformation" />
             <v-btn icon="fas fa-share-nodes" :alt="t('menu.item.share')" size="small" @click="onShare" />
-            <file-menu :file-id="currentFile.id" size="small" force-refresh />
+            <file-menu :file-id="file.id" size="small" force-refresh />
           </template>
         </v-toolbar>
         <router-view />
       </div>
     </v-main>
-    <information-drawer v-if="currentFile" />
+    <information-drawer v-if="file" />
   </v-layout>
 </template>

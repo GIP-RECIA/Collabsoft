@@ -10,7 +10,7 @@ const configurationStore = useConfigurationStore();
 const { isSettings } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
-const { refresh } = fileStore;
+const { refreshFiles } = fileStore;
 
 const { t } = useI18n();
 
@@ -28,7 +28,7 @@ const appName = __APP_NAME__;
           :to="{ name: 'projects' }"
           rounded="xl"
           class="mb-2"
-          @click="refresh()"
+          @click="refreshFiles()"
         />
         <v-list-item
           v-if="isDev"
@@ -37,7 +37,7 @@ const appName = __APP_NAME__;
           :to="{ name: 'favorites' }"
           rounded="xl"
           class="mb-2"
-          @click="refresh()"
+          @click="refreshFiles()"
         />
         <v-list-item
           v-if="isDev"
@@ -46,7 +46,7 @@ const appName = __APP_NAME__;
           :to="{ name: 'shared' }"
           rounded="xl"
           class="mb-2"
-          @click="refresh()"
+          @click="refreshFiles()"
         />
         <v-list-item
           v-if="isDev"
@@ -55,7 +55,7 @@ const appName = __APP_NAME__;
           :to="{ name: 'public' }"
           rounded="xl"
           class="mb-2"
-          @click="refresh()"
+          @click="refreshFiles()"
         />
       </v-list>
       <div class="flex-grow-1"></div>

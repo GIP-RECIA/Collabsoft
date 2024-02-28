@@ -11,7 +11,7 @@ import { ref } from 'vue';
 export const useFileStore = defineStore('file', () => {
   const configurationStore = useConfigurationStore();
 
-  /* -- File store -- */
+  /* -- Files -- */
 
   let lastUpdated = new Date();
 
@@ -50,7 +50,7 @@ export const useFileStore = defineStore('file', () => {
   /**
    * Refresh files
    */
-  const refresh = (instant: boolean = false, loading: boolean = false): void => {
+  const refreshFiles = (instant: boolean = false, loading: boolean = false): void => {
     const { lastNavigation } = storeToRefs(configurationStore);
 
     if (instant || differenceInMilliseconds(new Date(), lastUpdated) > 5000) {
@@ -59,19 +59,21 @@ export const useFileStore = defineStore('file', () => {
     }
   };
 
+  /* -- File -- */
+
   /**
    * Current selected file
    */
-  const currentFile = ref<File>();
+  const file = ref<File>();
 
   /**
    * Load current file
    */
   const loadFile = async (fileId: number, force: boolean = false): Promise<void> => {
-    if (!currentFile.value || currentFile.value.id != fileId || force) {
+    if (!file.value || file.value.id != fileId || force) {
       try {
         const response = await getFile(fileId);
-        currentFile.value = response.data;
+        file.value = response.data;
       } catch (e) {
         errorHandler(e, 'loadFile');
       }
@@ -81,16 +83,15 @@ export const useFileStore = defineStore('file', () => {
   /**
    * Refresh current file
    */
-  const refreshCurrentFile = (): void => {
-    if (currentFile.value) loadFile(currentFile.value.id, true);
+  const refreshFile = (): void => {
+    if (file.value) loadFile(file.value.id, true);
   };
 
   return {
     files,
-    loadFiles,
-    refresh,
-    currentFile,
+    refreshFiles,
+    file,
     loadFile,
-    refreshCurrentFile,
+    refreshFile,
   };
 });

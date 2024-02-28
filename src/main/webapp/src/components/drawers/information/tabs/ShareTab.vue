@@ -10,8 +10,8 @@ import { useI18n } from 'vue-i18n';
 const isDev = import.meta.env.DEV;
 
 const fileStore = useFileStore();
-const { refreshCurrentFile } = fileStore;
-const { currentFile } = storeToRefs(fileStore);
+const { refreshFile } = fileStore;
+const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
 const { isShareInRoom } = storeToRefs(homeStore);
@@ -24,7 +24,7 @@ const newUser = ref<any>();
 const newRole = ref<Role>();
 
 const updateRole = (collaboration: Collaboration, newValue: Role): void => {
-  if (newValue != getRole(collaboration.role)) refreshCurrentFile();
+  if (newValue != getRole(collaboration.role)) refreshFile();
 };
 
 const addUser = (): void => {
@@ -35,17 +35,15 @@ const addUser = (): void => {
 const visibility = ref<boolean>(false);
 
 watch(
-  () => currentFile.value?.pub,
-  (newValue) => {
+  () => file.value?.pub,
+  (newValue): void => {
     if (newValue == undefined) return;
     visibility.value = newValue;
   },
   { immediate: true },
 );
 
-watch(visibility, (newValue) => {
-  refreshCurrentFile();
-});
+watch(visibility, (): void => refreshFile());
 </script>
 
 <template>
@@ -86,17 +84,12 @@ watch(visibility, (newValue) => {
     />
   </div>
 
-  <v-list v-if="currentFile?.collaborations" class="pt-0">
+  <v-list v-if="file?.collaborations" class="pt-0">
     <v-list-item
-      v-for="(collaboration, index) in currentFile.collaborations"
+      v-for="(collaboration, index) in file.collaborations"
       :key="index"
       rounded="xl"
-      :class="[
-        index < currentFile.collaborations.length - 1 ? 'mb-2' : '',
-        'pe-2',
-        'bg-grey-lighten-3',
-        'list-item--custom',
-      ]"
+      :class="[index < file.collaborations.length - 1 ? 'mb-2' : '', 'pe-2', 'bg-grey-lighten-3', 'list-item--custom']"
     >
       <template #default>
         <div class="d-flex">

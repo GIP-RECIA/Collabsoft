@@ -13,7 +13,7 @@ const collaborativeStore = useCollaborativeStore();
 const { initFileId } = storeToRefs(collaborativeStore);
 
 const fileStore = useFileStore();
-const { currentFile } = storeToRefs(fileStore);
+const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
 const { isShareInRoom } = storeToRefs(homeStore);
@@ -31,9 +31,9 @@ const modelValue = computed<boolean>({
 const joinCode = ref<string>(charOTP());
 
 const onCreateAndJoin = (): void => {
-  if (currentFile.value == undefined) return;
-  initFileId.value = currentFile.value.id;
-  router.push({ name: `collaborative-${currentFile.value.associatedApp.slug}`, params: { roomId: joinCode.value } });
+  if (file.value == undefined) return;
+  initFileId.value = file.value.id;
+  router.push({ name: `collaborative-${file.value.associatedApp.slug}`, params: { roomId: joinCode.value } });
   onClose();
 };
 

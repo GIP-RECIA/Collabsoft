@@ -25,7 +25,7 @@ const errorMessage = computed<string>(() => {
   return 'unknown';
 });
 
-onMounted(async () => {
+onMounted(async (): Promise<void> => {
   response.value = await init();
 });
 </script>

@@ -3,7 +3,7 @@ import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
-import { downloadFileOrBlob } from '@/utils/fileUtils.ts';
+import { downloadFileOrBlob, toFile } from '@/utils/fileUtils.ts';
 import { saveOnNextcloud } from '@/utils/nextcloudUtils.ts';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
@@ -16,10 +16,10 @@ const { isApp } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
-const { currentFile } = storeToRefs(fileStore);
+const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
-const { isInfo, currentTab, isConfirmation } = storeToRefs(homeStore);
+const { isDrawer, drawerTab, isDelete } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 
@@ -41,47 +41,37 @@ const onStar = (): void => {
 
 const onInformation = async (): Promise<void> => {
   await getFile();
-  currentTab.value = Tabs.Information;
-  isInfo.value = true;
+  drawerTab.value = Tabs.Information;
+  isDrawer.value = true;
 };
 
 const onShare = async (): Promise<void> => {
   await getFile();
-  currentTab.value = Tabs.Share;
-  isInfo.value = true;
+  drawerTab.value = Tabs.Share;
+  isDrawer.value = true;
 };
 
 const onHistories = async (): Promise<void> => {
   await getFile();
-  currentTab.value = Tabs.Histories;
-  isInfo.value = true;
+  drawerTab.value = Tabs.Histories;
+  isDrawer.value = true;
 };
 
 const onExport = async (): Promise<void> => {
   await getFile();
-  if (!currentFile.value) return;
-  await saveOnNextcloud(
-    new File([currentFile.value.blob], currentFile.value.title, {
-      type: `application/${currentFile.value.associatedApp.type};charset=utf-8`,
-    }),
-    currentFile.value.associatedApp.extension,
-  );
+  if (!file.value) return;
+  await saveOnNextcloud(toFile(file.value), file.value.associatedApp.extension);
 };
 
 const onDownload = async (): Promise<void> => {
   await getFile();
-  if (!currentFile.value) return;
-  downloadFileOrBlob(
-    new File([currentFile.value.blob], currentFile.value.title, {
-      type: `application/${currentFile.value.associatedApp.type};charset=utf-8`,
-    }),
-    `${currentFile.value.title}.${currentFile.value.associatedApp.extension}`,
-  );
+  if (!file.value) return;
+  downloadFileOrBlob(toFile(file.value), `${file.value.title}.${file.value.associatedApp.extension}`);
 };
 
 const onDelete = async (): Promise<void> => {
   await getFile();
-  isConfirmation.value = true;
+  isDelete.value = true;
 };
 </script>
 

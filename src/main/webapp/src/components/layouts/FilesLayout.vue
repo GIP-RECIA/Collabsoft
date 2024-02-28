@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
-// import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { File } from '@/types/fileType.ts';
 import { dateToDuration } from '@/utils/dateFnsUtils.ts';
@@ -11,9 +10,6 @@ import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
 const { VITE_API_URI } = import.meta.env;
-
-// const configurationStore = useConfigurationStore();
-// const { isGrid } = storeToRefs(configurationStore);
 
 const homeStore = useHomeStore();
 const { search } = storeToRefs(homeStore);
@@ -27,7 +23,7 @@ defineProps<{
 
 const key = ref<number>(0);
 
-setInterval(() => {
+setInterval((): void => {
   key.value++;
 }, 10000);
 
@@ -58,13 +54,7 @@ const removeColumnEditionDate = (): void => {
   if (index >= 0) headers.value.splice(index, 1);
 };
 
-watch(
-  xs,
-  (newValue): void => {
-    newValue ? removeColumnEditionDate() : addColumnEditionDate();
-  },
-  { immediate: true },
-);
+watch(xs, (newValue): void => (newValue ? removeColumnEditionDate() : addColumnEditionDate()), { immediate: true });
 
 const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 'title', order: 'asc' }]);
 </script>

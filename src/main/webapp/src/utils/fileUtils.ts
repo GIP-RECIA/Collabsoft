@@ -1,3 +1,5 @@
+import type { File as cFile } from '@/types/fileType';
+
 const downloadFileOrBlob = (fileOrBlob: File | Blob, filename: string): void => {
   const link = document.createElement('a');
 
@@ -17,4 +19,10 @@ const downloadFileOrBlob = (fileOrBlob: File | Blob, filename: string): void => 
   document.body.removeChild(link);
 };
 
-export { downloadFileOrBlob };
+const toFile = (file: cFile): File => {
+  return new File([file.blob], file.title, {
+    type: `application/${file.associatedApp.type};charset=utf-8`,
+  });
+};
+
+export { downloadFileOrBlob, toFile };

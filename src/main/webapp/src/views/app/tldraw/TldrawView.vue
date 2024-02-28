@@ -12,7 +12,7 @@ const configurationStore = useConfigurationStore();
 const { configuration } = configurationStore;
 
 const fileStore = useFileStore();
-const { currentFile } = storeToRefs(fileStore);
+const { file } = storeToRefs(fileStore);
 
 const theme = useTheme();
 
@@ -29,9 +29,9 @@ onUnmounted(() => {
 
 <template>
   <tldraw-singleplayer
-    v-if="currentFile"
-    :persistance-api-url="`${VITE_API_URI}/api/file/${currentFile.id}`"
-    :assets-api-url="`${VITE_API_URI}/api/file/${currentFile.id}/resource`"
+    v-if="file"
+    :persistance-api-url="`${VITE_API_URI}/api/file/${file.id}`"
+    :assets-api-url="`${VITE_API_URI}/api/file/${file.id}/resource`"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
   />
