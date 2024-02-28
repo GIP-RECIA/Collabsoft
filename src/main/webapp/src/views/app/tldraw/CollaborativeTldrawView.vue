@@ -14,8 +14,7 @@ const configurationStore = useConfigurationStore();
 const { configuration } = configurationStore;
 
 const appStore = useAppStore();
-const { reset: resetApp } = appStore;
-const { initFileId } = storeToRefs(appStore);
+const { initRoomFileId } = storeToRefs(appStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -29,7 +28,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  resetApp();
   styleObserver.disconnect();
   headObserver.disconnect();
   router.go(0); // force page reload to disconnect websocket
@@ -40,7 +38,7 @@ onUnmounted(() => {
   <tldraw-multiplayer
     :websocket-api-url="configuration?.front.collaboration.websocketApiUrl"
     :room-id="`${roomId}-${AppSlug.tldraw}`"
-    :init-url="initFileId ? `${VITE_API_URI}/api/file/${initFileId}` : ''"
+    :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : ''"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
   />

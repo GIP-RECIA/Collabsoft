@@ -7,14 +7,15 @@ import { useHomeStore } from '@/stores/homeStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { onUnmounted, ref, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
 const isDev = import.meta.env.DEV;
 
 const appStore = useAppStore();
-const { isApp } = storeToRefs(appStore);
+const { initAppContext, exitAppContext } = appStore;
+const { isRoom, title } = storeToRefs(appStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
@@ -49,21 +50,16 @@ const onShare = async (): Promise<void> => {
   isDrawer.value = true;
 };
 
-const goBack = () => (window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects }));
+const goBack = (): void => {
+  window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects });
+};
 
-const title = computed<string>(() => {
-  const roomId: string = route.params.roomId != undefined ? (route.params.roomId as string) : '';
-
-  return file.value ? file.value.title : roomId;
-});
-
-onMounted(() => {
-  isApp.value = true;
-  if (!file.value && route.params.fileId != undefined) loadFile(parseInt(route.params.fileId as string));
+watchEffect(() => {
+  initAppContext(route.params.roomId as string, parseInt(route.params.fileId as string), route.name as string);
 });
 
 onUnmounted(() => {
-  isApp.value = false;
+  exitAppContext();
 });
 </script>
 
