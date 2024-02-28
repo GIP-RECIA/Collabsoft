@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import LoginDialog from '@/components/dialogs/LoginDialog.vue';
 import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
-import { deleteFile } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
-import type { Confirmation } from '@/types/confirmationType.ts';
-import { errorHandler } from '@/utils/axiosUtils.ts';
 import { watchOnce } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { computed, onBeforeMount } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 
 const configurationStore = useConfigurationStore();
@@ -19,13 +14,9 @@ const { configuration, isInit, isReady, lastNavigation } = storeToRefs(configura
 
 const fileStore = useFileStore();
 const { refreshFiles } = fileStore;
-const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
 const { reset: resetHome } = homeStore;
-const { isDelete, deleteTitle } = storeToRefs(homeStore);
-
-const { t } = useI18n();
 const router = useRouter();
 
 router.beforeEach((to) => {
@@ -52,26 +43,6 @@ watchOnce(isReady, (newValue) => {
 onBeforeMount(() => {
   document.title = __APP_NAME__;
 });
-
-const confirmationDelete = computed<boolean>({
-  get() {
-    return file.value != undefined && isDelete.value;
-  },
-  set(newValue) {
-    isDelete.value = newValue;
-  },
-});
-
-const deleteItem = async (result: Confirmation): Promise<void> => {
-  if (result === 'yes' && file.value) {
-    try {
-      await deleteFile(file.value.id);
-      refreshFiles(true);
-    } catch (e) {
-      errorHandler(e);
-    }
-  }
-};
 
 const appName = __APP_NAME__;
 const domain = window.location.hostname;
@@ -111,16 +82,6 @@ const domain = window.location.hostname;
       <router-view v-if="isReady" />
       <login-dialog />
       <settings-dialog />
-      <confirmation-dialog
-        v-model="confirmationDelete"
-        :title="t('dialog.delete.title')"
-        :description="deleteTitle"
-        yes-value="button.delete"
-        no-value="button.cancel"
-        yes-color="error"
-        no-color="secondary"
-        @close="deleteItem"
-      />
     </main>
     <footer>
       <extended-uportal-footer
