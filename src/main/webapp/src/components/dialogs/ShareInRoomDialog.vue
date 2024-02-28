@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { useCollaborativeStore } from '@/stores/collaborativeStore.ts';
+import { useAppStore } from '@/stores/appStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
+import type { AppSlug } from '@/types/enums/AppSlug.ts';
 import { charOTP } from '@/utils/stringUtils.ts';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
-const collaborativeStore = useCollaborativeStore();
-const { initFileId } = storeToRefs(collaborativeStore);
+const appStore = useAppStore();
+const { initRoom } = appStore;
 
 const fileStore = useFileStore();
 const { file } = storeToRefs(fileStore);
@@ -19,7 +19,6 @@ const homeStore = useHomeStore();
 const { isShareInRoom } = storeToRefs(homeStore);
 
 const { t } = useI18n();
-const router = useRouter();
 
 const modelValue = computed<boolean>({
   get() {
@@ -32,9 +31,8 @@ const joinCode = ref<string>(charOTP());
 
 const onCreateAndJoin = (): void => {
   if (file.value == undefined) return;
-  initFileId.value = file.value.id;
-  router.push({ name: `collaborative-${file.value.associatedApp.slug}`, params: { roomId: joinCode.value } });
   onClose();
+  initRoom(joinCode.value, file.value.associatedApp.slug as AppSlug, file.value.id, false);
 };
 
 const onClose = (): void => {

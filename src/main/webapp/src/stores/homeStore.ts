@@ -1,5 +1,6 @@
 import { useFileStore } from '@/stores/fileStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import { useSessionStorage } from '@vueuse/core';
 import { defineStore, storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 
@@ -55,7 +56,7 @@ export const useHomeStore = defineStore('home', () => {
   /**
    * Files diplay state
    */
-  const isGrid = ref<boolean>(false);
+  const isGrid = useSessionStorage<boolean>(`${__APP_SLUG__}.is-grid`, false);
 
   /* -- Store actions -- */
 

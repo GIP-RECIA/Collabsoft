@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useAppStore } from '@/stores/appStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
@@ -11,8 +11,8 @@ import { useI18n } from 'vue-i18n';
 
 const isDev = import.meta.env.DEV;
 
-const configurationStore = useConfigurationStore();
-const { isApp } = storeToRefs(configurationStore);
+const appStore = useAppStore();
+const { isApp } = storeToRefs(appStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;

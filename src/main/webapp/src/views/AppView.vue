@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useAppStore } from '@/stores/appStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
@@ -13,8 +13,8 @@ import { useRoute, useRouter } from 'vue-router';
 
 const isDev = import.meta.env.DEV;
 
-const configurationStore = useConfigurationStore();
-const { isApp } = storeToRefs(configurationStore);
+const appStore = useAppStore();
+const { isApp } = storeToRefs(appStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;

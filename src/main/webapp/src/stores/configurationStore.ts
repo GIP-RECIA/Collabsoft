@@ -41,11 +41,6 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const lastNavigation = ref<string | undefined>();
 
   /**
-   * App context state
-   */
-  const isApp = ref<boolean>(false);
-
-  /**
    * Dialog settings state
    */
   const isSettings = ref<boolean>(false);
@@ -58,7 +53,6 @@ export const useConfigurationStore = defineStore('configuration', () => {
     user,
     isSoffitOk,
     lastNavigation,
-    isApp,
     isSettings,
   };
 });

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCollaborativeStore } from '@/stores/collaborativeStore.ts';
+import { useAppStore } from '@/stores/appStore.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { headObserver, styleObserver } from '@/utils/tldrawUtils.ts';
@@ -13,8 +13,9 @@ const { VITE_API_URI } = import.meta.env;
 const configurationStore = useConfigurationStore();
 const { configuration } = configurationStore;
 
-const collaborativeStore = useCollaborativeStore();
-const { initFileId } = storeToRefs(collaborativeStore);
+const appStore = useAppStore();
+const { reset: resetApp } = appStore;
+const { initFileId } = storeToRefs(appStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -28,7 +29,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  initFileId.value = undefined;
+  resetApp();
   styleObserver.disconnect();
   headObserver.disconnect();
   router.go(0); // force page reload to disconnect websocket
