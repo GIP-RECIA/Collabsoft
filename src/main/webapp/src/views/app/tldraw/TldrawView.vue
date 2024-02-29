@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAppStore } from '@/stores/appStore.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { headObserver, styleObserver } from '@/utils/tldrawUtils.ts';
@@ -7,6 +8,9 @@ import { onMounted, onUnmounted } from 'vue';
 import { useTheme } from 'vuetify';
 
 const { VITE_API_URI } = import.meta.env;
+
+const appStore = useAppStore();
+const { isAutoSave, canAutoSave } = storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
 const { configuration } = configurationStore;
@@ -34,5 +38,6 @@ onUnmounted(() => {
     :assets-api-url="`${VITE_API_URI}/api/file/${file.id}/resource`"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
+    :auto-save="canAutoSave && isAutoSave"
   />
 </template>

@@ -37,6 +37,27 @@ export const useAppStore = defineStore('app', () => {
     return isRoom.value ? _roomId.value! : fileName;
   });
 
+  /**
+   * Auto save state
+   */
+  const _autoSave = ref<boolean>(true);
+  const isAutoSave = computed<boolean>({
+    get() {
+      return _room.value ? _room.value.saveOnFile : _autoSave.value;
+    },
+    set(value) {
+      if (canAutoSave.value) _autoSave.value = value;
+      if (_room.value?.fileId) _room.value.saveOnFile = value;
+    },
+  });
+
+  /**
+   * Auto save is available state
+   */
+  const canAutoSave = computed<boolean>(() => {
+    return !isRoom.value ? true : _room.value?.fileId != undefined;
+  });
+
   /* -- File -- */
 
   /**
@@ -59,13 +80,16 @@ export const useAppStore = defineStore('app', () => {
   >(`${__APP_SLUG__}.owned-rooms`, []);
 
   /**
+   * Room information if owner
+   */
+  const _room = computed(() =>
+    _ownedRooms.value.find((room) => room.roomId == _roomId.value && room.appType == _appType.value),
+  );
+
+  /**
    * Chech if user is the owner of the room
    */
-  const isRoomOwner = computed<boolean>(() => {
-    const room = _ownedRooms.value.find((room) => room.roomId == _roomId.value && room.appType == _appType.value);
-
-    return room != undefined;
-  });
+  const isRoomOwner = computed<boolean>(() => _room.value != undefined);
 
   /**
    * Id of file to load in the room
@@ -75,7 +99,12 @@ export const useAppStore = defineStore('app', () => {
   /**
    * Initialize room and navigate to it
    */
-  const initRoom = (roomId: string, appType: AppSlug, fileId: number | undefined, saveOnFile: boolean): void => {
+  const initRoom = (
+    roomId: string,
+    appType: AppSlug,
+    fileId: number | undefined,
+    saveOnFile: boolean = false,
+  ): void => {
     initRoomFileId.value = fileId;
     _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile });
     const route: RouteLocationRaw = { name: `collaborative-${appType}`, params: { roomId } };
@@ -98,7 +127,9 @@ export const useAppStore = defineStore('app', () => {
       ? (routeName.substring('collaborative-'.length) as AppSlug)
       : (routeName as AppSlug);
 
-    if (!file.value && fileId != undefined) loadFile(fileId);
+    if (fileId != undefined) {
+      if (!file.value) loadFile(fileId);
+    } else file.value = undefined;
   };
 
   /**
@@ -116,7 +147,9 @@ export const useAppStore = defineStore('app', () => {
     isApp,
     isRoom,
     title,
-    roomId: _roomId,
+    isAutoSave,
+    canAutoSave,
+    roomId: computed<string | undefined>(() => _roomId.value),
     isRoomOwner,
     initRoomFileId,
     initRoom,

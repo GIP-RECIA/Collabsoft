@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAppStore } from '@/stores/appStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { AppSlug } from '@/types/enums/AppSlug.ts';
 import type { RoomAction } from '@/types/roomActionType.ts';
@@ -7,15 +8,16 @@ import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
 const isDev = import.meta.env.DEV;
+
+const appStore = useAppStore();
+const { initRoom } = appStore;
 
 const homeStore = useHomeStore();
 const { isRoom } = storeToRefs(homeStore);
 
 const { t } = useI18n();
-const router = useRouter();
 
 const modelValue = computed<boolean>({
   get() {
@@ -47,7 +49,7 @@ const button = computed<{ i18n: string; icon: string; disabled: boolean; action:
 
 const onAction = (action: RoomAction): void => {
   const roomId = action == 'create' ? charOTP() : joinCode.value.toUpperCase();
-  router.push({ name: `collaborative-${appType.value}`, params: { roomId } });
+  initRoom(roomId, appType.value as AppSlug, undefined);
   onClose();
 };
 

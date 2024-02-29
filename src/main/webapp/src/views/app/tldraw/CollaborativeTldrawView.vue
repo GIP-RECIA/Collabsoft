@@ -10,11 +10,11 @@ import { useTheme } from 'vuetify';
 
 const { VITE_API_URI } = import.meta.env;
 
+const appStore = useAppStore();
+const { isAutoSave, canAutoSave, initRoomFileId } = storeToRefs(appStore);
+
 const configurationStore = useConfigurationStore();
 const { configuration } = configurationStore;
-
-const appStore = useAppStore();
-const { initRoomFileId } = storeToRefs(appStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -41,5 +41,6 @@ onUnmounted(() => {
     :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : ''"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
+    :auto-save="canAutoSave && isAutoSave"
   />
 </template>

@@ -32,7 +32,7 @@ const joinCode = ref<string>(charOTP());
 const onCreateAndJoin = (): void => {
   if (file.value == undefined) return;
   onClose();
-  initRoom(joinCode.value, file.value.associatedApp.slug as AppSlug, file.value.id, false);
+  initRoom(joinCode.value, file.value.associatedApp.slug as AppSlug, file.value.id);
 };
 
 const onClose = (): void => {

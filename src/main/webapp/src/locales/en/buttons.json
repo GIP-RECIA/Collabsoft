@@ -9,13 +9,15 @@
     "revert": "Revert",
     "view": "View",
     "options": "Options",
-    "star": "Star",
-    "unstar": "Unstar",
     "share": "Share",
     "join": "Join",
     "rooms": "Rooms",
     "create": "Create",
     "shareInRoom": "In a room",
-    "createAndJoin": "Create and join"
+    "createAndJoin": "Create and join",
+    "autoSave": {
+      "enabled": "Auto save enabled",
+      "disabled": "Auto save disabled"
+    }
   }
 }

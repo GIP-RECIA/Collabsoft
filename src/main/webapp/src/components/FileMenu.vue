@@ -93,42 +93,39 @@ const onDelete = async (): Promise<void> => {
     </template>
 
     <v-list rounded="xl" class="pa-2">
-      <v-list-item
-        v-if="isDev && !isApp"
-        :prepend-icon="`${isStarred ? 'fas' : 'far'} fa-star`"
-        :title="t(`menu.item.${isStarred ? 'unstar' : 'star'}`)"
-        rounded="xl"
-        @click="onStar"
-      />
-      <v-list-item
-        v-if="!isApp"
-        prepend-icon="fas fa-circle-info"
-        :title="t('menu.item.information')"
-        rounded="xl"
-        @click="onInformation"
-      />
-      <v-list-item
-        v-if="!isApp"
-        prepend-icon="fas fa-share-nodes"
-        :title="t('menu.item.share')"
-        rounded="xl"
-        @click="onShare"
-      />
-      <v-list-item
-        v-if="isDev"
-        prepend-icon="fas fa-clock-rotate-left"
-        :title="t('menu.item.histories')"
-        rounded="xl"
-        @click="onHistories"
-      />
-      <v-list-item
-        prepend-icon="fas fa-cloud"
-        :title="t('menu.item.exportOnNextcloud')"
-        rounded="xl"
-        @click="onExport"
-      />
-      <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="onDownload" />
-      <v-divider class="my-2" />
+      <div v-if="!isApp">
+        <v-list-item
+          v-if="isDev"
+          :prepend-icon="`${isStarred ? 'fas' : 'far'} fa-star`"
+          :title="t(`menu.item.${isStarred ? 'unstar' : 'star'}`)"
+          rounded="xl"
+          @click="onStar"
+        />
+        <v-list-item
+          prepend-icon="fas fa-circle-info"
+          :title="t('menu.item.information')"
+          rounded="xl"
+          @click="onInformation"
+        />
+        <v-list-item prepend-icon="fas fa-share-nodes" :title="t('menu.item.share')" rounded="xl" @click="onShare" />
+      </div>
+      <div v-if="fileId > -1">
+        <v-list-item
+          v-if="isDev"
+          prepend-icon="fas fa-clock-rotate-left"
+          :title="t('menu.item.histories')"
+          rounded="xl"
+          @click="onHistories"
+        />
+        <v-list-item
+          prepend-icon="fas fa-cloud"
+          :title="t('menu.item.exportOnNextcloud')"
+          rounded="xl"
+          @click="onExport"
+        />
+        <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="onDownload" />
+      </div>
+      <v-divider v-if="fileId > -1" class="my-2" />
       <v-list-item
         v-if="!isApp"
         prepend-icon="fas fa-trash"

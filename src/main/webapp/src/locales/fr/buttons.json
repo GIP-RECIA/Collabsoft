@@ -9,13 +9,15 @@
     "revert": "Rétablir",
     "view": "Voir",
     "options": "Options",
-    "star": "Favoris",
-    "unstar": "Retirer des favoris",
     "share": "Partager",
     "join": "Rejoindre",
     "rooms": "Salles",
     "create": "Créer",
     "shareInRoom": "Dans une salle",
-    "createAndJoin": "Créer et rejoindre"
+    "createAndJoin": "Créer et rejoindre",
+    "autoSave": {
+      "enabled": "Sauvegarde automatique activée",
+      "disabled": "Sauvegarde automatique désactivée"
+    }
   }
 }
