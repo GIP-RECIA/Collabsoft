@@ -32,12 +32,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <tldraw-singleplayer
+  <tldraw-editor
     v-if="file"
+    mode="single"
     :persistance-api-url="`${VITE_API_URI}/api/file/${file.id}`"
     :assets-api-url="`${VITE_API_URI}/api/file/${file.id}/resource`"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
     :auto-save="canAutoSave && isAutoSave"
+    :open="true"
   />
 </template>

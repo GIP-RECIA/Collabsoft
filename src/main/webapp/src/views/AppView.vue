@@ -9,12 +9,12 @@ import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
 import { onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router';
 
 const isDev = import.meta.env.DEV;
 
 const appStore = useAppStore();
-const { initAppContext, exitAppContext } = appStore;
+const { destroyRoom, initAppContext, exitAppContext } = appStore;
 const { isRoom, title, isAutoSave, canAutoSave, isRoomOwner } = storeToRefs(appStore);
 
 const fileStore = useFileStore();
@@ -51,7 +51,7 @@ const onShare = async (): Promise<void> => {
 };
 
 const onAutoSave = (): void => {
-  isAutoSave.value = !isAutoSave.value;
+  if (canAutoSave.value) isAutoSave.value = !isAutoSave.value;
 };
 
 const goBack = (): void => {
@@ -66,6 +66,10 @@ watch(
   },
   { immediate: true, deep: true },
 );
+
+onBeforeRouteLeave(() => {
+  destroyRoom();
+});
 
 onUnmounted(() => {
   exitAppContext();

@@ -839,17 +839,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/tldraw-webcomponent@npm:^1.8.0":
-  version: 1.8.0
-  resolution: "@gip-recia/tldraw-webcomponent@npm:1.8.0"
+"@gip-recia/tldraw-webcomponent@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@gip-recia/tldraw-webcomponent@npm:3.1.0"
   dependencies:
     "@gip-recia/tldraw-v1": "npm:^1.29.2-recia-1.0.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     y-presence: "npm:^0.2.3"
-    y-websocket: "npm:^1.5.3"
-    yjs: "npm:^13.6.11"
-  checksum: 10/01b9960ba25741d3f993014d283fe0255f2086e1c9e9f45869c85ce256c4fc3992b31629ee088ffadf36ac19defd1368b48e47804b3d70557ebc671790f900f1
+    y-websocket: "npm:^1.5.4"
+    yjs: "npm:^13.6.14"
+  checksum: 10/e8b8c64aae2f3fa051d600a5147d537eadaed6e1a3d131e18bed6ec26dd407d69c879041fd29e3bcc421acd0937a984e77e8bffbc6219d4c7d03ba25e4548642
   languageName: node
   linkType: hard
 
@@ -3381,7 +3381,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.5.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.5.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.6"
-    "@gip-recia/tldraw-webcomponent": "npm:^1.8.0"
+    "@gip-recia/tldraw-webcomponent": "npm:^3.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^2.0.0"
     "@playwright/test": "npm:^1.42.1"
     "@rushstack/eslint-patch": "npm:^1.7.2"
@@ -8996,9 +8996,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"y-websocket@npm:^1.5.3":
-  version: 1.5.3
-  resolution: "y-websocket@npm:1.5.3"
+"y-websocket@npm:^1.5.4":
+  version: 1.5.4
+  resolution: "y-websocket@npm:1.5.4"
   dependencies:
     lib0: "npm:^0.2.52"
     lodash.debounce: "npm:^4.0.8"
@@ -9015,7 +9015,7 @@ __metadata:
   bin:
     y-websocket: bin/server.js
     y-websocket-server: bin/server.js
-  checksum: 10/aedbf8f69e53747bc60df117df64f0044b86f034fb0269b908438259197dde70babdbe65909e86fe14b0d75dc3d99db02e5302ae7a75ec282b6b2be3a8f201a0
+  checksum: 10/42e1f65f1ebd1044a90d35e8335f355b28cffbb5d740a5525495d31874ea09544fad81ec6f1296ff486eed6a60aa82aa3f738c7b784f9e5e4f86768f6c179d43
   languageName: node
   linkType: hard
 
@@ -9095,12 +9095,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yjs@npm:^13.6.11":
-  version: 13.6.11
-  resolution: "yjs@npm:13.6.11"
+"yjs@npm:^13.6.14":
+  version: 13.6.14
+  resolution: "yjs@npm:13.6.14"
   dependencies:
     lib0: "npm:^0.2.86"
-  checksum: 10/59cdd1c79668ef7eb8c7d037aaf507b802b1c53c8cdca8574578426e40f4a44931de5b0f703ae26a66cae8f31abe8681cbfb6cac04e33e85d7c62c04b9f70b1a
+  checksum: 10/aa277393aea2524bf80d014b570a2949a6fe930fb9809dbdb38c04fe6086385f3abba8daf4cce2ddfa421c2f8c450c7beede9972106dece405071e0dc5664a11
   languageName: node
   linkType: hard
 

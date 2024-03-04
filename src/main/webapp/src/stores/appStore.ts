@@ -2,7 +2,7 @@ import { useFileStore } from '@/stores/fileStore.ts';
 import type { AppSlug } from '@/types/enums/AppSlug.ts';
 import { useSessionStorage } from '@vueuse/core';
 import { defineStore, storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, readonly, ref } from 'vue';
 import { type RouteLocationRaw, useRouter } from 'vue-router';
 
 export const useAppStore = defineStore('app', () => {
@@ -43,11 +43,11 @@ export const useAppStore = defineStore('app', () => {
   const _autoSave = ref<boolean>(true);
   const isAutoSave = computed<boolean>({
     get() {
-      return _room.value ? _room.value.saveOnFile : _autoSave.value;
+      return room.value ? room.value.saveOnFile : _autoSave.value;
     },
     set(value) {
       if (canAutoSave.value) _autoSave.value = value;
-      if (_room.value?.fileId) _room.value.saveOnFile = value;
+      if (room.value?.fileId) room.value.saveOnFile = value;
     },
   });
 
@@ -55,7 +55,7 @@ export const useAppStore = defineStore('app', () => {
    * Auto save is available state
    */
   const canAutoSave = computed<boolean>(() => {
-    return !isRoom.value ? true : _room.value?.fileId != undefined;
+    return !isRoom.value ? true : room.value?.fileId != undefined;
   });
 
   /* -- File -- */
@@ -82,14 +82,14 @@ export const useAppStore = defineStore('app', () => {
   /**
    * Room information if owner
    */
-  const _room = computed(() =>
+  const room = computed(() =>
     _ownedRooms.value.find((room) => room.roomId == _roomId.value && room.appType == _appType.value),
   );
 
   /**
    * Chech if user is the owner of the room
    */
-  const isRoomOwner = computed<boolean>(() => _room.value != undefined);
+  const isRoomOwner = computed<boolean>(() => room.value != undefined);
 
   /**
    * Id of file to load in the room
@@ -109,6 +109,18 @@ export const useAppStore = defineStore('app', () => {
     _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile });
     const route: RouteLocationRaw = { name: `collaborative-${appType}`, params: { roomId } };
     isApp.value ? router.replace(route) : router.push(route);
+  };
+
+  /**
+   * Destroy yjs session
+   */
+  const _destroy = ref<boolean>(false);
+  const destroyRoom = (): void => {
+    if (!isApp.value || !isRoom.value) return;
+    _destroy.value = true;
+    setTimeout(() => {
+      _destroy.value = false;
+    }, 200);
   };
 
   /* -- Store actions -- */
@@ -149,10 +161,13 @@ export const useAppStore = defineStore('app', () => {
     title,
     isAutoSave,
     canAutoSave,
-    roomId: computed<string | undefined>(() => _roomId.value),
+    roomId: readonly(_roomId),
+    room,
     isRoomOwner,
     initRoomFileId,
     initRoom,
+    destroy: readonly(_destroy),
+    destroyRoom,
     initAppContext,
     exitAppContext,
   };

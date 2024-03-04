@@ -5,22 +5,17 @@ import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { headObserver, styleObserver } from '@/utils/tldrawUtils.ts';
 import { storeToRefs } from 'pinia';
 import { onMounted, onUnmounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 
 const { VITE_API_URI } = import.meta.env;
 
 const appStore = useAppStore();
-const { isAutoSave, canAutoSave, initRoomFileId } = storeToRefs(appStore);
+const { isAutoSave, canAutoSave, roomId, room, isRoomOwner, initRoomFileId, destroy } = storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
 const { configuration } = configurationStore;
 
-const route = useRoute();
-const router = useRouter();
 const theme = useTheme();
-
-const roomId: string = route.params.roomId != undefined ? (route.params.roomId as string) : '';
 
 onMounted(() => {
   styleObserver.observe(document.body, { attributes: true });
@@ -30,17 +25,21 @@ onMounted(() => {
 onUnmounted(() => {
   styleObserver.disconnect();
   headObserver.disconnect();
-  router.go(0); // force page reload to disconnect websocket
 });
 </script>
 
 <template>
-  <tldraw-multiplayer
-    :websocket-api-url="configuration?.front.collaboration.websocketApiUrl"
-    :room-id="`${roomId}-${AppSlug.tldraw}`"
-    :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : ''"
+  <tldraw-editor
+    mode="multi"
+    :ws-destroy="destroy"
+    :persistance-api-url="room?.fileId ? `${VITE_API_URI}/api/file/${room.fileId}` : undefined"
+    :assets-api-url="room?.fileId ? `${VITE_API_URI}/api/file/${room.fileId}/resource` : undefined"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
     :auto-save="canAutoSave && isAutoSave"
+    :open="isRoomOwner"
+    :websocket-api-url="configuration?.front.collaboration.websocketApiUrl"
+    :room-id="`${roomId ?? ''}-${AppSlug.tldraw}`"
+    :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : undefined"
   />
 </template>
