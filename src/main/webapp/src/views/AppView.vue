@@ -147,23 +147,21 @@ onUnmounted(() => {
                 </template>
               </v-tooltip>
             </div>
-            <div v-if="isRoomOwner && isDev">
-              <v-tooltip
-                v-if="canAutoSave"
-                :text="t(`button.autoSave.${isAutoSave ? 'enabled' : 'disabled'}`)"
-                location="bottom center"
-              >
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    v-bind="props"
-                    icon="fas fa-arrows-rotate"
-                    size="small"
-                    :class="[isAutoSave ? '' : 'text-disabled']"
-                    @click="onAutoSave"
-                  />
-                </template>
-              </v-tooltip>
-            </div>
+            <v-tooltip
+              v-if="isRoomOwner && canAutoSave"
+              :text="t(`button.autoSave.${isAutoSave ? 'enabled' : 'disabled'}`)"
+              location="bottom center"
+            >
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  v-bind="props"
+                  icon="fas fa-arrows-rotate"
+                  size="small"
+                  :class="[isAutoSave ? '' : 'text-disabled']"
+                  @click="onAutoSave"
+                />
+              </template>
+            </v-tooltip>
             <file-menu :file-id="file?.id ?? -1" size="small" force-refresh />
           </template>
         </v-toolbar>
