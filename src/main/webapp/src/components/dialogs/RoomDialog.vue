@@ -12,7 +12,7 @@ import { useI18n } from 'vue-i18n';
 const isDev = import.meta.env.DEV;
 
 const appStore = useAppStore();
-const { initRoom } = appStore;
+const { initRoom, joinRoom } = appStore;
 
 const homeStore = useHomeStore();
 const { isRoom } = storeToRefs(homeStore);
@@ -48,8 +48,8 @@ const button = computed<{ i18n: string; icon: string; disabled: boolean; action:
 });
 
 const onAction = (action: RoomAction): void => {
-  const roomId = action == 'create' ? charOTP() : joinCode.value.toUpperCase();
-  initRoom(roomId, appType.value as AppSlug, undefined);
+  if (action == 'create') initRoom(charOTP(), appType.value as AppSlug, undefined);
+  else joinRoom(joinCode.value.toUpperCase(), appType.value as AppSlug);
   onClose();
 };
 

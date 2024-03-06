@@ -106,7 +106,12 @@ export const useAppStore = defineStore('app', () => {
     saveOnFile: boolean = false,
   ): void => {
     initRoomFileId.value = fileId;
+    _autoSave.value = false;
     _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile });
+    joinRoom(roomId, appType);
+  };
+
+  const joinRoom = (roomId: string, appType: AppSlug): void => {
     const route: RouteLocationRaw = { name: `collaborative-${appType}`, params: { roomId } };
     isApp.value ? router.replace(route) : router.push(route);
   };
@@ -166,6 +171,7 @@ export const useAppStore = defineStore('app', () => {
     isRoomOwner,
     initRoomFileId,
     initRoom,
+    joinRoom,
     destroy: readonly(_destroy),
     destroyRoom,
     initAppContext,
