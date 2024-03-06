@@ -41,5 +41,6 @@ onUnmounted(() => {
     :websocket-api-url="configuration?.front.collaboration.websocketApiUrl"
     :room-id="`${roomId ?? ''}-${AppSlug.tldraw}`"
     :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : undefined"
+    :owner="isRoomOwner"
   />
 </template>
