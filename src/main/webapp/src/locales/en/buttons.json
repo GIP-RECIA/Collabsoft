@@ -18,6 +18,7 @@
     "autoSave": {
       "enabled": "Auto save enabled",
       "disabled": "Auto save disabled"
-    }
+    },
+    "leave": "Leave"
   }
 }

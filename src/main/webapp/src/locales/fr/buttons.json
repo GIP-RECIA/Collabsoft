@@ -18,6 +18,7 @@
     "autoSave": {
       "enabled": "Sauvegarde automatique activée",
       "disabled": "Sauvegarde automatique désactivée"
-    }
+    },
+    "leave": "Quitter"
   }
 }

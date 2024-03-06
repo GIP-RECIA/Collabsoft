@@ -4,7 +4,7 @@ import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { headObserver, styleObserver } from '@/utils/tldrawUtils.ts';
 import { storeToRefs } from 'pinia';
-import { onMounted, onUnmounted } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { useTheme } from 'vuetify';
 
 const { VITE_API_URI } = import.meta.env;
@@ -19,6 +19,10 @@ const fileStore = useFileStore();
 const { file } = storeToRefs(fileStore);
 
 const theme = useTheme();
+
+const apiUrl = computed<string | undefined>(() =>
+  file.value ? `${VITE_API_URI}/api/file/${file.value.id}` : undefined,
+);
 
 onMounted(() => {
   styleObserver.observe(document.body, { attributes: true });
@@ -35,8 +39,8 @@ onUnmounted(() => {
   <tldraw-editor
     v-if="file"
     mode="single"
-    :persistance-api-url="`${VITE_API_URI}/api/file/${file.id}`"
-    :assets-api-url="`${VITE_API_URI}/api/file/${file.id}/resource`"
+    :persistance-api-url="apiUrl"
+    :assets-api-url="`${apiUrl}/resource`"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
     :auto-save="canAutoSave && isAutoSave"

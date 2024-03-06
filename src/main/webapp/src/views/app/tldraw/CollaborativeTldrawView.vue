@@ -4,7 +4,7 @@ import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { headObserver, styleObserver } from '@/utils/tldrawUtils.ts';
 import { storeToRefs } from 'pinia';
-import { onMounted, onUnmounted } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { useTheme } from 'vuetify';
 
 const { VITE_API_URI } = import.meta.env;
@@ -16,6 +16,10 @@ const configurationStore = useConfigurationStore();
 const { configuration } = configurationStore;
 
 const theme = useTheme();
+
+const apiUrl = computed<string | undefined>(() =>
+  room.value?.fileId ? `${VITE_API_URI}/api/file/${room.value.fileId}` : undefined,
+);
 
 onMounted(() => {
   styleObserver.observe(document.body, { attributes: true });
@@ -32,8 +36,8 @@ onUnmounted(() => {
   <tldraw-editor
     mode="multi"
     :ws-destroy="destroy"
-    :persistance-api-url="room?.fileId ? `${VITE_API_URI}/api/file/${room.fileId}` : undefined"
-    :assets-api-url="room?.fileId ? `${VITE_API_URI}/api/file/${room.fileId}/resource` : undefined"
+    :persistance-api-url="apiUrl"
+    :assets-api-url="`${apiUrl}/resource`"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
     :auto-save="canAutoSave && isAutoSave"

@@ -16,6 +16,20 @@
     "shareInRoom": {
       "title": "Share in a room",
       "description": "The code will be :"
+    },
+    "leave": {
+      "title": "Are you sure to leave",
+      "app": {
+        "title": "@:dialog.leave.title ?",
+        "description": ""
+      },
+      "room": {
+        "title": "@:dialog.leave.title the room ?",
+        "description": "",
+        "owner": {
+          "description": "Changes made by your peers will no longer be saved."
+        }
+      }
     }
   }
 }

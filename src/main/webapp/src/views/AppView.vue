@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import FileMenu from '@/components/FileMenu.vue';
+import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
 import { useAppStore } from '@/stores/appStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
+import type { Confirmation } from '@/types/confirmationType.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
@@ -58,6 +60,31 @@ const goBack = (): void => {
   window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects });
 };
 
+const canLeave = ref<boolean>(false);
+
+const exit = (): void => {
+  canLeave.value = true;
+  goBack();
+  setTimeout(() => (canLeave.value = false), 200);
+};
+
+const confirmationLeave = ref<boolean>(false);
+
+const leave = (result: Confirmation): void => {
+  confirmationLeave.value = false;
+
+  const leaveApp = (): void => {
+    exit();
+  };
+
+  const leaveRoom = (): void => {
+    destroyRoom();
+    setTimeout(() => exit(), 200);
+  };
+
+  if (result === 'yes') isRoom.value ? leaveRoom() : leaveApp();
+};
+
 watch(
   () => route,
   () => {
@@ -68,7 +95,10 @@ watch(
 );
 
 onBeforeRouteLeave(() => {
-  destroyRoom();
+  if (!canLeave.value) {
+    if (!confirmationLeave.value) confirmationLeave.value = true;
+    return false;
+  } else return true;
 });
 
 onUnmounted(() => {
@@ -82,7 +112,7 @@ onUnmounted(() => {
       <div class="d-flex flex-column h-100">
         <v-toolbar :title="title" density="compact">
           <template #prepend>
-            <v-btn icon="fas fa-arrow-left" size="small" @click="goBack" />
+            <v-btn icon="fas fa-arrow-left" size="small" @click="isRoom ? goBack() : exit()" />
           </template>
           <template #append>
             <div v-if="!isRoom">
@@ -132,5 +162,15 @@ onUnmounted(() => {
       </div>
     </v-main>
     <information-drawer v-if="!isRoom" />
+    <confirmation-dialog
+      v-model="confirmationLeave"
+      :title="t(`dialog.leave.${isRoom ? 'room' : 'app'}.title`)"
+      :description="t(`dialog.leave.${isRoom ? `room${isRoomOwner ? '.owner' : ''}` : 'app'}.description`)"
+      yes-value="button.leave"
+      no-value="button.cancel"
+      yes-color="error"
+      no-color="secondary"
+      @close="leave"
+    />
   </v-layout>
 </template>

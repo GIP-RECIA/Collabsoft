@@ -16,6 +16,20 @@
     "shareInRoom": {
       "title": "Partager dans une salle",
       "description": "Le code sera :"
+    },
+    "leave": {
+      "title": "Êtes-vous sûr de vouloir quitter",
+      "app": {
+        "title": "@:dialog.leave.title ?",
+        "description": ""
+      },
+      "room": {
+        "title": "@:dialog.leave.title la salle ?",
+        "description": "",
+        "owner": {
+          "description": "Les modifications apportés par vos paires ne seront plus enregistrées."
+        }
+      }
     }
   }
 }
