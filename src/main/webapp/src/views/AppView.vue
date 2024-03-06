@@ -9,7 +9,7 @@ import type { Confirmation } from '@/types/confirmationType.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
-import { onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router';
 
@@ -101,7 +101,16 @@ onBeforeRouteLeave(() => {
   } else return true;
 });
 
+const preventExit = (e: Event): void => {
+  e.preventDefault();
+};
+
+onMounted(() => {
+  window.addEventListener('beforeunload', preventExit);
+});
+
 onUnmounted(() => {
+  window.removeEventListener('beforeunload', preventExit);
   exitAppContext();
 });
 </script>
