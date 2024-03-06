@@ -89,6 +89,7 @@ const onDelete = async (): Promise<void> => {
         icon="fas fa-ellipsis-vertical"
         :alt="t('button.options')"
         :size="size"
+        class="text-medium-emphasis"
       />
     </template>
 

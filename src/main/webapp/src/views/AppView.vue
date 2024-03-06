@@ -132,18 +132,31 @@ onUnmounted(() => {
                     v-if="isDev"
                     :icon="`${isStarred ? 'fas' : 'far'} fa-star`"
                     size="small"
+                    class="text-medium-emphasis"
                     @click="onStar"
                   />
                 </template>
               </v-tooltip>
               <v-tooltip :text="t('menu.item.information')" location="bottom center">
                 <template v-slot:activator="{ props }">
-                  <v-btn v-bind="props" icon="fas fa-circle-info" size="small" @click="onInformation" />
+                  <v-btn
+                    v-bind="props"
+                    icon="fas fa-circle-info"
+                    size="small"
+                    class="text-medium-emphasis"
+                    @click="onInformation"
+                  />
                 </template>
               </v-tooltip>
               <v-tooltip :text="t('menu.item.share')" location="bottom center">
                 <template v-slot:activator="{ props }">
-                  <v-btn v-bind="props" icon="fas fa-share-nodes" size="small" @click="onShare" />
+                  <v-btn
+                    v-bind="props"
+                    icon="fas fa-share-nodes"
+                    size="small"
+                    class="text-medium-emphasis"
+                    @click="onShare"
+                  />
                 </template>
               </v-tooltip>
             </div>
@@ -157,7 +170,7 @@ onUnmounted(() => {
                   v-bind="props"
                   icon="fas fa-arrows-rotate"
                   size="small"
-                  :class="[isAutoSave ? '' : 'text-disabled']"
+                  :class="[isAutoSave ? 'text-medium-emphasis text-info' : 'text-disabled']"
                   @click="onAutoSave"
                 />
               </template>
