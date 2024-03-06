@@ -11,10 +11,12 @@
       "title": "Connexion"
     },
     "room": {
-      "title": "Créer ou rejoindre une salle"
+      "title": "Créer ou rejoindre une salle",
+      "info": "@:alert.room.autoDelete \n@:alert.room.newEmpty"
     },
     "shareInRoom": {
       "title": "Partager dans une salle",
+      "info": "@:alert.room.autoDelete \n@:alert.room.ownerSave \n@:alert.room.autoSave",
       "description": "Le code sera :"
     },
     "leave": {

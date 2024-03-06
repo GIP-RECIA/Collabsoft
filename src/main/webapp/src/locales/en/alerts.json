@@ -1,0 +1,10 @@
+{
+  "alert": {
+    "room": {
+      "autoDelete": "Rooms are automatically deleted overnight.",
+      "newEmpty": "Creating a room from here will not save its contents in your projects.",
+      "ownerSave": "Saving is done on your original file.",
+      "autoSave": "The {icon} icon allows you to save automatically."
+    }
+  }
+}

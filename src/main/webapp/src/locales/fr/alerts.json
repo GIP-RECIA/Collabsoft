@@ -1,0 +1,10 @@
+{
+  "alert": {
+    "room": {
+      "autoDelete": "Les salles sont automatiquement effacées dans la nuit.",
+      "newEmpty": "Créer une salle d'ici ne sauvegardera pas son contenu dans vos projets.",
+      "ownerSave": "L'enregistrement s'effectue sur votre fichier d'origine.",
+      "autoSave": "L'icône {icon} permet de sauvegarder automatiquement."
+    }
+  }
+}

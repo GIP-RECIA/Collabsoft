@@ -53,9 +53,18 @@ const reset = debounce((): void => {
           <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
         </template>
       </v-toolbar>
-      <v-card-text class="d-flex flex-column align-center">
-        {{ t('dialog.shareInRoom.description') }}
-        <v-otp-input :model-value="joinCode" type="text" disabled />
+      <v-card-text class="pt-0">
+        <v-alert type="info" variant="tonal" style="white-space: preserve-breaks">
+          <i18n-t keypath="dialog.shareInRoom.info">
+            <template #icon>
+              <v-icon icon="fas fa-arrows-rotate" size="small" />
+            </template>
+          </i18n-t>
+        </v-alert>
+        <div class="d-flex flex-column align-center mt-4">
+          {{ t('dialog.shareInRoom.description') }}
+          <v-otp-input :model-value="joinCode" type="text" disabled />
+        </div>
       </v-card-text>
       <v-card-actions>
         <v-spacer />

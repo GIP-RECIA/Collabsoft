@@ -11,10 +11,12 @@
       "title": "Sign in"
     },
     "room": {
-      "title": "Create or join a room"
+      "title": "Create or join a room",
+      "info": "@:alert.room.autoDelete \n@:alert.room.newEmpty"
     },
     "shareInRoom": {
       "title": "Share in a room",
+      "info": "@:alert.room.autoDelete \n@:alert.room.ownerSave \n@:alert.room.autoSave",
       "description": "The code will be :"
     },
     "leave": {

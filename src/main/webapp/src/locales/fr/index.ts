@@ -1,3 +1,4 @@
+import alerts from './alerts.json';
 import buttons from './buttons.json';
 import dialogs from './dialogs.json';
 import errors from './errors.json';
@@ -10,6 +11,7 @@ import toasts from './toasts.json';
 import { fr } from 'vuetify/locale';
 
 export default {
+  ...alerts,
   ...buttons,
   ...dialogs,
   ...errors,
