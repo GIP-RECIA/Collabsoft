@@ -19,6 +19,7 @@ import com.google.common.io.Files;
 import fr.recia.collabsoft.configuration.CollabsoftProperties;
 import fr.recia.collabsoft.configuration.bean.StorageProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,12 @@ public class ResourceService {
     this.storageProperties = collabsoftProperties.getStorage();
   }
 
+  private String getFolderPath(Long fileId) {
+    return storageProperties.getLocation() + File.separator + fileId;
+  }
+
   private String getFilePath(Long fileId, String resourceName) {
-    return storageProperties.getLocation() + File.separator + fileId + File.separator + resourceName;
+    return getFolderPath(fileId) + File.separator + resourceName;
   }
 
   public Resource getResource(Long fileId, String resourceName) {
@@ -80,6 +85,23 @@ public class ResourceService {
       } else return true;
     }
     log.error("Tried to delete the file {} but it doesn't exist, track errors!", path);
+    return false;
+  }
+
+  public boolean deleteResources(Long fileId) {
+    final String path = getFolderPath(fileId);
+    File file = new File(path);
+
+    if (file.exists()) {
+      try {
+        FileUtils.deleteDirectory(file);
+        return true;
+      } catch (IOException e) {
+        log.error("Tried to delete the folder {} failed, track errors!", path);
+        return false;
+      }
+    }
+    log.error("Tried to delete the folder {} but it doesn't exist, track errors!", path);
     return false;
   }
 
