@@ -115,11 +115,21 @@ const preventExit = (e: Event): void => {
   e.preventDefault();
 };
 
+watch(
+  title,
+  (newValue) => {
+    if (newValue.trim() != '') document.title = `${newValue} - ${__APP_NAME__}`;
+    else if (document.title != __APP_NAME__) document.title = __APP_NAME__;
+  },
+  { immediate: true },
+);
+
 onMounted(() => {
   window.addEventListener('beforeunload', preventExit);
 });
 
 onUnmounted(() => {
+  if (document.title != __APP_NAME__) document.title = __APP_NAME__;
   window.removeEventListener('beforeunload', preventExit);
   exitAppContext();
 });
