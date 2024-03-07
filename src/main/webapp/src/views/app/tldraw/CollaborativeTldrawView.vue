@@ -37,7 +37,7 @@ onUnmounted(() => {
     mode="multi"
     :ws-destroy="destroy"
     :persistance-api-url="apiUrl"
-    :assets-api-url="`${apiUrl}/resource`"
+    :assets-api-url="apiUrl ? `${apiUrl}/resource` : undefined"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
     :dark-mode="theme.global.name.value == 'dark'"
     :auto-save="canAutoSave && isAutoSave"
