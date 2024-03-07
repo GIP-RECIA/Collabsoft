@@ -34,6 +34,7 @@ onUnmounted(() => {
 
 <template>
   <tldraw-editor
+    v-if="roomId"
     mode="multi"
     :ws-destroy="destroy"
     :persistance-api-url="apiUrl"
@@ -43,7 +44,7 @@ onUnmounted(() => {
     :auto-save="canAutoSave && isAutoSave"
     :open="isRoomOwner"
     :websocket-api-url="configuration?.front.collaboration.websocketApiUrl"
-    :room-id="`${roomId ?? ''}-${AppSlug.tldraw}`"
+    :room-id="`${roomId}-${AppSlug.tldraw}`"
     :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : undefined"
     :owner="isRoomOwner"
   />
