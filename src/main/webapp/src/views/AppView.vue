@@ -9,7 +9,7 @@ import type { Confirmation } from '@/types/confirmationType.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { storeToRefs } from 'pinia';
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router';
 
@@ -69,6 +69,16 @@ const exit = (): void => {
 };
 
 const confirmationLeave = ref<boolean>(false);
+
+const confirmationLeaveDescription = computed<string>(() => {
+  let info = 'app';
+  if (isRoom.value) {
+    info = 'room';
+    if (isRoomOwner.value && canAutoSave.value) info += '.owner';
+  }
+
+  return `dialog.leave.${info}.description`;
+});
 
 const leave = (result: Confirmation): void => {
   confirmationLeave.value = false;
@@ -185,7 +195,7 @@ onUnmounted(() => {
     <confirmation-dialog
       v-model="confirmationLeave"
       :title="t(`dialog.leave.${isRoom ? 'room' : 'app'}.title`)"
-      :description="t(`dialog.leave.${isRoom ? `room${isRoomOwner ? '.owner' : ''}` : 'app'}.description`)"
+      :description="t(confirmationLeaveDescription)"
       yes-value="button.leave"
       no-value="button.cancel"
       yes-color="error"
