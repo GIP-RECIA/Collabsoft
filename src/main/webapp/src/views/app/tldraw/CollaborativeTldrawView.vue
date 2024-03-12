@@ -36,7 +36,6 @@ onUnmounted(() => {
   <tldraw-editor
     v-if="roomId"
     mode="multi"
-    :ws-destroy="destroy"
     :persistance-api-url="apiUrl"
     :assets-api-url="apiUrl ? `${apiUrl}/resource` : undefined"
     :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
@@ -47,5 +46,7 @@ onUnmounted(() => {
     :room-id="`${roomId}-${AppSlug.tldraw}`"
     :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : undefined"
     :owner="isRoomOwner"
+    :clear-on-leave="true"
+    :leave="destroy"
   />
 </template>

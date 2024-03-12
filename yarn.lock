@@ -602,10 +602,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/tldraw-webcomponent@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "@gip-recia/tldraw-webcomponent@npm:3.2.2"
-  checksum: 10/e1598613b09318b5dfa43bb65ee70f25eab33173a1f144fb8396f153fd2bba3bf94d71eced95714339d9aeb316ac0c5fb443a643b4c3e9326c70a2afa670a71e
+"@gip-recia/tldraw-webcomponent@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "@gip-recia/tldraw-webcomponent@npm:3.3.1"
+  checksum: 10/259e4060cab75d702279fa0830fcfc3d7ec537aef3019957c144a1fc74bd83dd83b072522c2dcf72e3b1122a4f5b7622e60ef63787c3ec1c6cfa2abb0f7991bf
   languageName: node
   linkType: hard
 
@@ -2132,7 +2132,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.5.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.5.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.6"
-    "@gip-recia/tldraw-webcomponent": "npm:^3.2.2"
+    "@gip-recia/tldraw-webcomponent": "npm:^3.3.1"
     "@intlify/unplugin-vue-i18n": "npm:^3.0.1"
     "@playwright/test": "npm:^1.42.1"
     "@rushstack/eslint-patch": "npm:^1.7.2"
