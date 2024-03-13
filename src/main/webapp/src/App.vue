@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LoginDialog from '@/components/dialogs/LoginDialog.vue';
 import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
+import { useAppStore } from '@/stores/appStore.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
@@ -8,6 +9,9 @@ import { watchOnce } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
+
+const appStore = useAppStore();
+const { isApp } = storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
 const { configuration, isInit, isReady, lastNavigation } = storeToRefs(configurationStore);
@@ -86,6 +90,7 @@ const domain = window.location.hostname;
     <footer>
       <extended-uportal-footer
         v-if="isInit"
+        v-show="!isApp"
         :domain="domain"
         :template-api-path="configuration!.front.extendedUportalFooter.templateApiPath"
       />
