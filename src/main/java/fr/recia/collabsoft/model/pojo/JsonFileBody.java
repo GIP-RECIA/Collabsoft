@@ -27,11 +27,11 @@ public class JsonFileBody {
   private Boolean pub;
 
   public boolean postDataOk() {
-    return (title != null && blob != null && associatedAppId != null && pub != null);
+    return (title != null && !title.trim().isEmpty() && blob != null && associatedAppId != null && pub != null);
   }
 
   public boolean putDataOk() {
-    return (title != null || description != null || blob != null || pub != null);
+    return ((title != null && !title.trim().isEmpty()) || description != null || blob != null || pub != null);
   }
 
 }
