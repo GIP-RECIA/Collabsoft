@@ -1,6 +1,6 @@
 export type AssociatedApp = {
   id: number;
-  name: string;
+  enabled: boolean;
   slug: string;
   primaryColor: string | null;
   iconPath: string | null;

@@ -48,8 +48,8 @@ public class AssociatedApp implements Serializable {
   @ToString.Include
   private Long id;
 
-  @Column(name = "name", nullable = false)
-  private String name;
+  @Column(name = "enabled", nullable = false)
+  private Boolean enabled;
 
   @Column(name = "slug", nullable = false)
   @ToString.Include

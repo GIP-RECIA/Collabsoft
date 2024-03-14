@@ -132,7 +132,7 @@ public class DatabaseUtils {
 
   public void initDatabase() {
     final AssociatedApp associatedApp1 = new AssociatedApp(
-      associatedApp1Id, "tldraw", "tldraw", null, null, "tldr", "json"
+      associatedApp1Id, true, "tldraw", null, null, "tldr", "json"
     );
     associatedAppRepository.saveAndFlush(associatedApp1);
 
