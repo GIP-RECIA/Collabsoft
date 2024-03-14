@@ -16,6 +16,7 @@
 package fr.recia.collabsoft.db.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +39,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -54,6 +56,10 @@ public class File implements Serializable {
   @Column(name = "id", nullable = false)
   @ToString.Include
   private Long id;
+
+  @Column(name = "uuid", nullable = false)
+  @ToString.Include
+  private String uuid;
 
   @Column(name = "title", nullable = false)
   @ToString.Include

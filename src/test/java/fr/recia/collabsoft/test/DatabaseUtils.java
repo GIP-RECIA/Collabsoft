@@ -31,6 +31,7 @@ import fr.recia.collabsoft.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DatabaseUtils {
 
@@ -141,27 +142,27 @@ public class DatabaseUtils {
     userRepository.saveAllAndFlush(List.of(user1, user2, user3));
 
     final File file1 = new File(
-      file1Id, "file1", null, "".getBytes(), user1, null, user1, null,
+      file1Id, UUID.randomUUID().toString(), "file1", null, "".getBytes(), user1, null, user1, null,
       associatedApp1, false
     );
     final File file2 = new File(
-      file2Id, "file2", null, "".getBytes(), user1, null, user1, null,
+      file2Id, UUID.randomUUID().toString(), "file2", null, "".getBytes(), user1, null, user1, null,
       associatedApp1, false
     );
     final File file3 = new File(
-      file3Id, "file3", null, "".getBytes(), user2, null, user2, null,
+      file3Id, UUID.randomUUID().toString(), "file3", null, "".getBytes(), user2, null, user2, null,
       associatedApp1, false
     );
     final File file4 = new File(
-      file4Id, "file4", null, "".getBytes(), user2, null, user2, null,
+      file4Id, UUID.randomUUID().toString(), "file4", null, "".getBytes(), user2, null, user2, null,
       associatedApp1, true
     );
     final File file5 = new File(
-      file5Id, "file5", null, "".getBytes(), user3, null, user3, null,
+      file5Id, UUID.randomUUID().toString(), "file5", null, "".getBytes(), user3, null, user3, null,
       associatedApp1, false
     );
     final File file6 = new File(
-      file6Id, "file6", null, "".getBytes(), user3, null, user3, null,
+      file6Id, UUID.randomUUID().toString(), "file6", null, "".getBytes(), user3, null, user3, null,
       associatedApp1, false
     );
     fileRepository.saveAllAndFlush(List.of(file1, file2, file3, file4, file5, file6));

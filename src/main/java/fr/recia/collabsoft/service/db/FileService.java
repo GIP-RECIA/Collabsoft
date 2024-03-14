@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -118,6 +119,7 @@ public class FileService {
     if (associatedApp == null) return null;
 
     File file = new File();
+    file.setUuid(UUID.randomUUID().toString());
     file.setTitle(body.getTitle());
     file.setDescription(body.getDescription());
     file.setBlob(body.getBlob().getBytes());

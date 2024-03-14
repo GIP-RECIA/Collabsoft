@@ -5,6 +5,7 @@ import type { User } from '@/types/userType.ts';
 
 export type File = {
   id: number;
+  uuid: string;
   title: string;
   description: string | null;
   blob: any;
