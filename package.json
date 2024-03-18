@@ -72,7 +72,7 @@
     "prettier": "^3.2.5",
     "regenerator-runtime": "^0.14.1",
     "resize-observer-polyfill": "^1.5.1",
-    "sass": "^1.71.1",
+    "sass": "^1.72.0",
     "standard-version": "^9.5.0",
     "typescript": "~5.4.2",
     "uuid": "^9.0.1",
