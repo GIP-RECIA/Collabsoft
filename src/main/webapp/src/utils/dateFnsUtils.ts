@@ -1,8 +1,8 @@
-import { formatDuration, intervalToDuration, parseISO } from 'date-fns';
+import { formatDuration, intervalToDuration } from 'date-fns';
 
 const dateToDuration = (date: string): string => {
   const { years, months, weeks, days, hours, minutes, seconds } = intervalToDuration({
-    start: parseISO(date),
+    start: date,
     end: Date.now(),
   });
 

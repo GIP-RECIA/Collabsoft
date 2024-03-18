@@ -4,7 +4,7 @@ import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { FileBody } from '@/types/fileBodyType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -116,9 +116,9 @@ onMounted((): void => initForm());
     </div>
   </div>
   <div class="ms-2 mb-2">
-    {{ t('information.creationDate', { date: file ? format(parseISO(file.creationDate), 'Pp') : '' }) }}
+    {{ t('information.creationDate', { date: file ? format(file.creationDate, 'Pp') : '' }) }}
   </div>
   <div class="ms-2 mb-2">
-    {{ t('information.editionDate', { date: file ? format(parseISO(file.editionDate), 'Pp') : '' }) }}
+    {{ t('information.editionDate', { date: file ? format(file.editionDate, 'Pp') : '' }) }}
   </div>
 </template>

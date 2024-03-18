@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFileStore } from '@/stores/fileStore.ts';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
@@ -15,7 +15,7 @@ const { t } = useI18n();
     <v-list-item
       v-for="(history, index) in file.histories"
       :key="index"
-      :title="format(parseISO(history.creationDate), 'Pp')"
+      :title="format(history.creationDate, 'Pp')"
       rounded="xl"
       :class="[index < file.histories.length - 1 ? 'mb-2' : '', 'pe-2', 'bg-grey-lighten-3', 'list-item--custom']"
     >
