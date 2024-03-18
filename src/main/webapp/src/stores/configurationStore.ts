@@ -2,6 +2,7 @@ import { getConfiguration } from '@/services/configurationService.ts';
 import type { Configuration } from '@/types/configurationType.ts';
 import type { Soffit } from '@/types/soffitType.ts';
 import { errorHandler, initToken } from '@/utils/axiosUtils.ts';
+import { useEntTheme } from '@/utils/entUtils.ts';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
@@ -17,6 +18,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
         const response = await getConfiguration();
         configuration.value = response.data;
         await initToken(configuration.value!.front.userInfoApiUrl);
+        await useEntTheme(configuration.value!.front.extendedUportalHeader.templateApiPath);
 
         return true;
       } catch (e) {
