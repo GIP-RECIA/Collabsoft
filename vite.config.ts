@@ -36,7 +36,9 @@ export default ({ mode }: { mode: string }) => {
         template: {
           compilerOptions: {
             isCustomElement: (tag) =>
-              ['extended-uportal-header', 'extended-uportal-footer', 'tldraw-editor'].includes(tag),
+              ['extended-uportal-header', 'extended-uportal-footer', 'tldraw-editor', 'wisemapping-editor'].includes(
+                tag,
+              ),
           },
         },
       }),

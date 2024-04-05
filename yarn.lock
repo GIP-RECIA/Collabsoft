@@ -610,6 +610,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gip-recia/wisemapping-webcomponent@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@gip-recia/wisemapping-webcomponent@npm:0.0.2"
+  checksum: 10/d99032de3c1fe1db9ae8b55f9294323d30f6a8f4b7c08c7caaac8f69791e2677b213e30e9f04226612be5b9a581e14829bea305b797110b09aa77f493aa8fb22
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -2148,6 +2155,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.5.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.6"
     "@gip-recia/tldraw-webcomponent": "npm:^3.3.1"
+    "@gip-recia/wisemapping-webcomponent": "npm:^0.0.2"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
     "@playwright/test": "npm:^1.42.1"
     "@rushstack/eslint-patch": "npm:^1.10.1"
