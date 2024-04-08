@@ -4,6 +4,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "composite": true,
+
     "lib": [],
     "types": ["node", "jsdom"]
   }
