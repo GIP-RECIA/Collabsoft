@@ -76,7 +76,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.74.1",
     "standard-version": "^9.5.0",
-    "typescript": "~5.4.4",
+    "typescript": "~5.4.5",
     "uuid": "^9.0.1",
     "vite": "^5.2.8",
     "vite-plugin-vuetify": "^2.0.3",
