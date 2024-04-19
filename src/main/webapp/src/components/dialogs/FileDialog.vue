@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { saveFile } from '@/services/fileService.ts';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
@@ -9,6 +10,9 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const isDev = import.meta.env.DEV;
+
+const configurationStore = useConfigurationStore();
+const { availableApps } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refreshFiles } = fileStore;
@@ -25,7 +29,7 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-const fileType = ref<number | undefined>(isDev ? undefined : 1);
+const fileType = ref<number | undefined>(availableApps.value[0].id);
 const title = ref<string | undefined>();
 const description = ref<string | undefined>();
 const pub = ref<boolean>(false);
@@ -57,7 +61,7 @@ const onClose = (): void => {
 };
 
 const reset = debounce((): void => {
-  fileType.value = isDev ? undefined : 1;
+  fileType.value = availableApps.value.length > 1 ? undefined : availableApps.value[0].id;
   title.value = undefined;
   description.value = undefined;
   pub.value = false;
@@ -73,13 +77,16 @@ const reset = debounce((): void => {
         </template>
       </v-toolbar>
       <v-card-text>
-        <div v-if="isDev">
-          <div class="ms-2 mb-2">{{ t('dialog.file.description') }}</div>
-          <v-btn-toggle v-model="fileType" mandatory class="mb-3">
-            <v-btn text="tldraw" :value="1" rounded="xl" />
-            <v-btn text="WiseMapping" :value="2" rounded="xl" />
-          </v-btn-toggle>
-        </div>
+        <div class="ms-2 mb-2">{{ t('dialog.file.description') }}</div>
+        <v-btn-toggle v-model="fileType" mandatory class="mb-3">
+          <v-btn
+            v-for="(app, index) in availableApps"
+            :key="index"
+            :text="t(`application.${app.slug}`)"
+            :value="app.id"
+            rounded="xl"
+          />
+        </v-btn-toggle>
         <v-text-field
           v-model="title"
           :label="t('information.title')"

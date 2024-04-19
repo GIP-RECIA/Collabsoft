@@ -115,10 +115,15 @@ onMounted((): void => initForm());
       />
     </div>
   </div>
-  <div class="ms-2 mb-2">
-    {{ t('information.creationDate', { date: file ? format(file.creationDate, 'Pp') : '' }) }}
-  </div>
-  <div class="ms-2 mb-2">
-    {{ t('information.editionDate', { date: file ? format(file.editionDate, 'Pp') : '' }) }}
+  <div v-if="file">
+    <div class="ms-2 mb-2">
+      {{ t(`application.${file.associatedApp.slug}`) }}
+    </div>
+    <div class="ms-2 mb-2">
+      {{ t('information.creationDate', { date: format(file.creationDate, 'Pp') }) }}
+    </div>
+    <div class="ms-2 mb-2">
+      {{ t('information.editionDate', { date: format(file.editionDate, 'Pp') }) }}
+    </div>
   </div>
 </template>

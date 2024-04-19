@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/appStore.ts';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { RoomAction } from '@/types/roomActionType.ts';
 import { charOTP } from '@/utils/stringUtils.ts';
@@ -8,10 +9,11 @@ import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const isDev = import.meta.env.DEV;
-
 const appStore = useAppStore();
 const { initRoom, joinRoom } = appStore;
+
+const configurationStore = useConfigurationStore();
+const { availableApps } = storeToRefs(configurationStore);
 
 const homeStore = useHomeStore();
 const { isRoom } = storeToRefs(homeStore);
@@ -25,7 +27,7 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-const appType = ref<string | undefined>(isDev ? undefined : 'tldraw');
+const appType = ref<string | undefined>(availableApps.value[0].slug);
 const joinCode = ref<string>('');
 
 const button = computed<{ i18n: string; icon: string; disabled: boolean; action: RoomAction }>(() => {
@@ -59,7 +61,7 @@ const onClose = (): void => {
 };
 
 const reset = debounce((): void => {
-  appType.value = isDev ? undefined : 'tldraw';
+  appType.value = availableApps.value.length > 1 ? undefined : availableApps.value[0].slug;
   joinCode.value = '';
 }, 200);
 </script>
@@ -77,9 +79,14 @@ const reset = debounce((): void => {
           {{ t('dialog.room.info') }}
         </v-alert>
         <div class="d-flex flex-column align-center mt-4">
-          <v-btn-toggle v-if="isDev" v-model="appType" mandatory class="mb-3">
-            <v-btn text="tldraw" :value="AppSlug.tldraw" rounded="xl" />
-            <v-btn text="WiseMapping" :value="AppSlug.wisemapping" rounded="xl" />
+          <v-btn-toggle v-model="appType" mandatory class="mb-3">
+            <v-btn
+              v-for="(app, index) in availableApps"
+              :key="index"
+              :text="t(`application.${app.slug}`)"
+              :value="app.slug"
+              rounded="xl"
+            />
           </v-btn-toggle>
           <v-otp-input v-model="joinCode" type="text" />
         </div>
