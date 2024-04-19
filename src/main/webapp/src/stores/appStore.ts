@@ -1,5 +1,4 @@
 import { useFileStore } from '@/stores/fileStore.ts';
-import type { AppSlug } from '@/types/enums/AppSlug.ts';
 import { useSessionStorage } from '@vueuse/core';
 import { defineStore, storeToRefs } from 'pinia';
 import { computed, readonly, ref } from 'vue';
@@ -24,7 +23,7 @@ export const useAppStore = defineStore('app', () => {
   /**
    * Type of app state
    */
-  const _appType = ref<AppSlug | undefined>();
+  const _appType = ref<string | undefined>();
 
   /**
    * File / Room title
@@ -76,7 +75,7 @@ export const useAppStore = defineStore('app', () => {
    * List of owned rooms
    */
   const _ownedRooms = useSessionStorage<
-    Array<{ roomId: string; appType: AppSlug; fileId: number | undefined; saveOnFile: boolean }>
+    Array<{ roomId: string; appType: string; fileId: number | undefined; saveOnFile: boolean }>
   >(`${__APP_SLUG__}.owned-rooms`, []);
 
   /**
@@ -99,19 +98,14 @@ export const useAppStore = defineStore('app', () => {
   /**
    * Initialize room and navigate to it
    */
-  const initRoom = (
-    roomId: string,
-    appType: AppSlug,
-    fileId: number | undefined,
-    saveOnFile: boolean = false,
-  ): void => {
+  const initRoom = (roomId: string, appType: string, fileId: number | undefined, saveOnFile: boolean = false): void => {
     initRoomFileId.value = fileId;
     _autoSave.value = false;
     _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile });
     joinRoom(roomId, appType);
   };
 
-  const joinRoom = (roomId: string, appType: AppSlug): void => {
+  const joinRoom = (roomId: string, appType: string): void => {
     const route: RouteLocationRaw = { name: `collaborative-${appType}`, params: { roomId } };
     isApp.value ? router.replace(route) : router.push(route);
   };
@@ -140,9 +134,7 @@ export const useAppStore = defineStore('app', () => {
     isApp.value = true;
     _fileId.value = fileId;
     _roomId.value = roomId;
-    _appType.value = routeName.startsWith('collaborative-')
-      ? (routeName.substring('collaborative-'.length) as AppSlug)
-      : (routeName as AppSlug);
+    _appType.value = routeName.startsWith('collaborative-') ? routeName.substring('collaborative-'.length) : routeName;
 
     if (fileId != undefined) {
       if (!file.value) loadFile(fileId);

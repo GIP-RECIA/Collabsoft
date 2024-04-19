@@ -2,7 +2,6 @@
 import { useAppStore } from '@/stores/appStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
-import type { AppSlug } from '@/types/enums/AppSlug.ts';
 import { charOTP } from '@/utils/stringUtils.ts';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
@@ -32,7 +31,7 @@ const joinCode = ref<string>(charOTP());
 const onCreateAndJoin = (): void => {
   if (file.value == undefined) return;
   onClose();
-  initRoom(joinCode.value, file.value.associatedApp.slug as AppSlug, file.value.id);
+  initRoom(joinCode.value, file.value.associatedApp.slug, file.value.id);
 };
 
 const onClose = (): void => {

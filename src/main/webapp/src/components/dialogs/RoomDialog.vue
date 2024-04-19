@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/appStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
-import { AppSlug } from '@/types/enums/AppSlug.ts';
 import type { RoomAction } from '@/types/roomActionType.ts';
 import { charOTP } from '@/utils/stringUtils.ts';
 import debounce from 'lodash.debounce';
@@ -26,7 +25,7 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-const appType = ref<AppSlug | undefined>(isDev ? undefined : AppSlug.tldraw);
+const appType = ref<string | undefined>(isDev ? undefined : 'tldraw');
 const joinCode = ref<string>('');
 
 const button = computed<{ i18n: string; icon: string; disabled: boolean; action: RoomAction }>(() => {
@@ -48,8 +47,9 @@ const button = computed<{ i18n: string; icon: string; disabled: boolean; action:
 });
 
 const onAction = (action: RoomAction): void => {
-  if (action == 'create') initRoom(charOTP(), appType.value as AppSlug, undefined);
-  else joinRoom(joinCode.value.toUpperCase(), appType.value as AppSlug);
+  if (!appType.value) return;
+  if (action == 'create') initRoom(charOTP(), appType.value, undefined);
+  else joinRoom(joinCode.value.toUpperCase(), appType.value);
   onClose();
 };
 
@@ -59,7 +59,7 @@ const onClose = (): void => {
 };
 
 const reset = debounce((): void => {
-  appType.value = isDev ? undefined : AppSlug.tldraw;
+  appType.value = isDev ? undefined : 'tldraw';
   joinCode.value = '';
 }, 200);
 </script>
