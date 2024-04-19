@@ -15,7 +15,10 @@
  */
 package fr.recia.collabsoft.web.rest;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.recia.collabsoft.configuration.CollabsoftProperties;
+import fr.recia.collabsoft.service.db.AssociatedAppService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,11 +37,17 @@ public class ConfigurationController {
 
   @Autowired
   private CollabsoftProperties collabsoftProperties;
+  @Autowired
+  private AssociatedAppService associatedAppService;
 
   @GetMapping
   public ResponseEntity<Object> getConfiguration() {
     Map<String, Object> data = new HashMap<>();
-    data.put("front", collabsoftProperties.getFront());
+    ObjectMapper objectMapper = new ObjectMapper();
+    Map<String, Object> front = objectMapper.convertValue(collabsoftProperties.getFront(), new TypeReference<>() {
+    });
+    front.put("apps", associatedAppService.getApps());
+    data.put("front", front);
 
     return new ResponseEntity<>(data, HttpStatus.OK);
   }

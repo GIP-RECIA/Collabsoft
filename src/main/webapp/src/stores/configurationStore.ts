@@ -1,8 +1,10 @@
 import { getConfiguration } from '@/services/configurationService.ts';
+import type { AssociatedApp } from '@/types/associatedAppType.ts';
 import type { Configuration } from '@/types/configurationType.ts';
 import type { Soffit } from '@/types/soffitType.ts';
 import { errorHandler, initToken } from '@/utils/axiosUtils.ts';
 import { useEntTheme } from '@/utils/entUtils.ts';
+import { initAppsRoutes } from '@/utils/routerUtils.ts';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
@@ -19,6 +21,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
         configuration.value = response.data;
         await initToken(configuration.value!.front.userInfoApiUrl);
         await useEntTheme(configuration.value!.front.extendedUportalHeader.templateApiPath);
+        await initAppsRoutes(configuration.value!.front.apps);
 
         return true;
       } catch (e) {
@@ -47,6 +50,12 @@ export const useConfigurationStore = defineStore('configuration', () => {
    */
   const isSettings = ref<boolean>(false);
 
+  /* -- Apps -- */
+
+  const availableApps = computed<Array<AssociatedApp>>(() =>
+    configuration.value!.front.apps.filter((app) => app.enabled),
+  );
+
   return {
     configuration,
     init,
@@ -56,5 +65,6 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isSoffitOk,
     lastNavigation,
     isSettings,
+    availableApps,
   };
 });

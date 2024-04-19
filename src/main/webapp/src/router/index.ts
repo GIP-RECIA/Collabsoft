@@ -1,15 +1,16 @@
-import { AppSlug } from '@/types/enums/AppSlug.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
-import { createRouter, createWebHistory } from 'vue-router';
+import { type RouteRecordRedirectOption, createRouter, createWebHistory } from 'vue-router';
+
+const redirect: RouteRecordRedirectOption = () => {
+  return { name: Navigation.projects };
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      redirect: () => {
-        return { name: Navigation.projects };
-      },
+      redirect,
       component: () => import('@/views/HomeView.vue'),
       children: [
         {
@@ -36,38 +37,14 @@ const router = createRouter({
     },
     {
       path: '/app',
-      redirect: () => {
-        return { name: Navigation.projects };
-      },
+      name: 'app',
+      redirect,
       component: () => import('@/views/AppView.vue'),
-      children: [
-        {
-          path: `${AppSlug.tldraw}/:fileId(\\d+)`,
-          name: AppSlug.tldraw,
-          component: () => import('@/views/app/tldraw/TldrawView.vue'),
-        },
-        {
-          path: `${AppSlug.tldraw}/:roomId([A-Z]{6})`,
-          name: `collaborative-${AppSlug.tldraw}`,
-          component: () => import('@/views/app/tldraw/CollaborativeTldrawView.vue'),
-        },
-        {
-          path: `${AppSlug.wisemapping}/:fileId(\\d+)`,
-          name: AppSlug.wisemapping,
-          component: () => import('@/views/app/wisemapping/WisemappingView.vue'),
-        },
-        {
-          path: `${AppSlug.wisemapping}/:roomId([A-Z]{6})`,
-          name: `collaborative-${AppSlug.wisemapping}`,
-          component: () => import('@/views/app/wisemapping/CollaborativeWisemappingView.vue'),
-        },
-      ],
+      children: [],
     },
     {
       path: '/:pathName(.*)',
-      redirect: () => {
-        return { name: Navigation.projects };
-      },
+      redirect,
     },
   ],
 });

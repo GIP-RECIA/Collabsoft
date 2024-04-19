@@ -1,3 +1,5 @@
+import type { AssociatedApp } from '@/types/associatedAppType.ts';
+
 export type Configuration = {
   front: {
     userInfoApiUrl: string;
@@ -33,5 +35,6 @@ export type Configuration = {
       componentPath: string;
       templateApiPath: string;
     };
+    apps: Array<AssociatedApp>;
   };
 };
