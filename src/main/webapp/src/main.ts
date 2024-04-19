@@ -1,8 +1,5 @@
 import 'regenerator-runtime/runtime.js';
 
-import '@gip-recia/tldraw-webcomponent';
-import '@gip-recia/wisemapping-webcomponent';
-
 import { createApp } from 'vue';
 
 import { register as registerDirectives } from '@/directives/index.ts';
