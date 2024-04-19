@@ -25,6 +25,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Base64;
 import java.util.Map;
 
@@ -51,16 +52,23 @@ public class SoffitInterceptor implements HandlerInterceptor {
     Base64.Decoder decoder = Base64.getUrlDecoder();
     String payload = new String(decoder.decode(token.replace("Bearer ", "").split("\\.")[1]));
 
-    Map<String, String> soffit = null;
+    Map<String, String> soffit;
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       soffit = objectMapper.readValue(payload, new TypeReference<>() {
       });
+      log.debug("Soffit : {}", soffit);
+      if (Long.parseLong(soffit.get("exp")) < Instant.now().getEpochSecond()) {
+        log.debug("Token has expired");
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return false;
+      }
       soffitHolder.setSub(soffit.get("sub"));
     } catch (IOException ignored) {
       log.error("Unable to read soffit");
+      response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      return false;
     }
-    log.debug("Soffit : {}", soffit);
     return true;
   }
 
