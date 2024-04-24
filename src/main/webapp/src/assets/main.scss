@@ -24,3 +24,9 @@
   height: 100vh !important;
   overflow: hidden;
 }
+
+.text-truncated {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

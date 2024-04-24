@@ -6,9 +6,12 @@ import ShareTab from '@/components/drawers/information/tabs/ShareTab.vue';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import { dateToDuration } from '@/utils/dateFnsUtils.ts';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+const { VITE_API_URI } = import.meta.env;
 
 const isDev = import.meta.env.DEV;
 
@@ -37,10 +40,32 @@ const onClose = (): void => {
 <template>
   <v-navigation-drawer v-model="modelValue" location="right" :width="460">
     <v-toolbar :title="t(`navigation.title.${drawerTab}`)" color="rgba(255, 255, 255, 0)">
+      <template #title v-if="file">
+        <div class="d-flex align-center">
+          <v-avatar
+            icon="fas fa-file"
+            :image="
+              file.associatedApp.iconPath != null
+                ? `${VITE_API_URI}${VITE_API_URI.endsWith('/') ? '' : '/'}${file.associatedApp.iconPath}`
+                : undefined
+            "
+            class="me-2"
+          />
+          <div class="overflow-hidden">
+            <div class="text-body-1 font-weight-bold text-truncated">
+              {{ file.title }}
+            </div>
+            <div class="text-caption text-medium-emphasis">
+              {{ t('information.duration', { duration: dateToDuration(file.editionDate) }) }}
+            </div>
+          </div>
+        </div>
+      </template>
       <template #append>
         <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
       </template>
     </v-toolbar>
+
     <v-tabs
       v-model="drawerTab"
       align-tabs="center"

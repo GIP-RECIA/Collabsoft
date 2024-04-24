@@ -82,13 +82,14 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
         class="d-flex align-center h-100 table-column-title"
       >
         <v-avatar
+          icon="fas fa-file"
           :image="
             item.associatedApp.iconPath != null
               ? `${VITE_API_URI}${VITE_API_URI.endsWith('/') ? '' : '/'}${item.associatedApp.iconPath}`
               : undefined
           "
         />
-        <span class="ms-2">{{ item.title }}</span>
+        <span class="text-truncated ms-2">{{ item.title }}</span>
       </router-link>
     </template>
     <template #item.editionDate="{ item }">
@@ -106,14 +107,19 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
 
 <style scoped lang="scss">
 .table-column-title {
-  white-space: nowrap;
+  width: 0;
+  flex-grow: 1;
   text-decoration: none;
   color: inherit;
 }
 </style>
 
 <style lang="scss">
-.v-data-table-header__content > span {
+thead > tr > th > .v-data-table-header__content > span {
   margin-right: 4px;
+}
+
+tbody > tr.v-data-table__tr > td:nth-child(1) {
+  display: flex;
 }
 </style>

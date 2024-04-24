@@ -116,13 +116,13 @@ onMounted((): void => initForm());
     </div>
   </div>
   <div v-if="file">
-    <div class="ms-2 mb-2">
+    <div class="text-body-2 ms-2 mb-1">
       {{ t(`application.${file.associatedApp.slug}`) }}
     </div>
-    <div class="ms-2 mb-2">
+    <div class="text-body-2 ms-2 mb-1">
       {{ t('information.creationDate', { date: format(file.creationDate, 'Pp') }) }}
     </div>
-    <div class="ms-2 mb-2">
+    <div class="text-body-2 ms-2 mb-1">
       {{ t('information.editionDate', { date: format(file.editionDate, 'Pp') }) }}
     </div>
   </div>
