@@ -3,6 +3,7 @@ import { faSquare as farSquare, faStar as farStar } from '@fortawesome/free-regu
 import {
   faArrowLeft,
   faArrowRightToBracket,
+  faArrowRotateRight,
   faArrowsRotate,
   faCaretDown,
   faChalkboardUser,
@@ -18,6 +19,7 @@ import {
   faMagnifyingGlass,
   faPen,
   faPlus,
+  faRightToBracket,
   faSave,
   faShareNodes,
   faSortDown,
@@ -35,6 +37,7 @@ const register = (app: App): void => {
   library.add(
     faArrowLeft,
     faArrowRightToBracket,
+    faArrowRotateRight,
     faArrowsRotate,
     faCaretDown,
     faChalkboardUser,
@@ -50,6 +53,7 @@ const register = (app: App): void => {
     faMagnifyingGlass,
     faPen,
     faPlus,
+    faRightToBracket,
     faSave,
     faShareNodes,
     faSortDown,

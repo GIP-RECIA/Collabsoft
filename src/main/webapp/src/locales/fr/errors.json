@@ -2,7 +2,7 @@
   "error": {
     "signIn": {
       "config": "Impossible de charger la configuration",
-      "soffit": "Impossible de se connecter",
+      "soffit": "Vous n'êtes pas connecté ! \nConnectez vous et réessayez",
       "unknown": "Une erreur inconnue est survenue"
     }
   }

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { initToken } from '@/utils/axiosUtils.ts';
+import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const configurationStore = useConfigurationStore();
 const { init } = configurationStore;
-const { isReady, isSoffitOk } = storeToRefs(configurationStore);
+const { configuration, isReady, isSoffitOk } = storeToRefs(configurationStore);
 
 const { t } = useI18n();
 
@@ -24,21 +26,55 @@ const errorMessage = computed<string>(() => {
   if (!isSoffitOk.value) return 'soffit';
   return 'unknown';
 });
+const canRetry = ref<boolean>(true);
 
 onMounted(async (): Promise<void> => {
   response.value = await init();
 });
+
+const login = (): void => {
+  window.open(`${window.location.protocol}//${window.location.hostname}`, '_blank');
+};
+
+const retry = async (): Promise<void> => {
+  const timeout: number = 5000;
+  const execute = debounce(
+    async () => {
+      canRetry.value = false;
+      setTimeout(() => (canRetry.value = true), timeout);
+      response.value = undefined;
+      await initToken(configuration.value!.front.userInfoApiUrl);
+      response.value = true;
+    },
+    timeout,
+    { leading: true },
+  );
+  execute();
+};
 </script>
 
 <template>
   <v-dialog v-model="modelValue" :max-width="300">
-    <v-card>
+    <v-card rounded="xl">
       <v-toolbar color="rgba(255, 255, 255, 0)">
         <v-toolbar-title :text="t('dialog.signIn.title')" class="text-h6" />
         <v-spacer />
         <v-progress-circular v-show="isLoading" class="me-4" indeterminate />
       </v-toolbar>
-      <v-card-text v-if="!isLoading && !isReady">{{ t(`error.signIn.${errorMessage}`) }}</v-card-text>
+      <v-card-text v-if="!isLoading && !isReady" style="white-space: preserve-breaks">{{
+        t(`error.signIn.${errorMessage}`)
+      }}</v-card-text>
+      <v-card-actions v-if="errorMessage === 'soffit'">
+        <v-spacer />
+        <v-btn color="primary" prepend-icon="fas fa-right-to-bracket" :text="t('button.signIn')" @click="login" />
+        <v-btn
+          color="primary"
+          prepend-icon="fas fa-arrow-rotate-right"
+          :text="t('button.retry')"
+          :disabled="!canRetry"
+          @click="retry"
+        />
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>

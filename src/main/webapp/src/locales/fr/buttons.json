@@ -19,6 +19,8 @@
       "enabled": "Sauvegarde automatique activée",
       "disabled": "Sauvegarde automatique désactivée"
     },
-    "leave": "Quitter"
+    "leave": "Quitter",
+    "signIn": "Connexion",
+    "retry": "Réessayer"
   }
 }

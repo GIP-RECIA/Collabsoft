@@ -19,6 +19,8 @@
       "enabled": "Auto save enabled",
       "disabled": "Auto save disabled"
     },
-    "leave": "Leave"
+    "leave": "Leave",
+    "signIn": "Sign in",
+    "retry": "Retry"
   }
 }
