@@ -198,7 +198,7 @@ onUnmounted(() => {
             <file-menu :file-id="file?.id ?? -1" size="small" force-refresh />
           </template>
         </v-toolbar>
-        <router-view />
+        <router-view class="app-view-container" />
       </div>
     </v-main>
     <information-drawer v-if="!isRoom" />
@@ -214,3 +214,9 @@ onUnmounted(() => {
     />
   </v-layout>
 </template>
+
+<style scoped lang="scss">
+.app-view-container {
+  z-index: 0;
+}
+</style>
