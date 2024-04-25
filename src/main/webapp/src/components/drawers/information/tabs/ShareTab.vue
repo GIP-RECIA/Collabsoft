@@ -128,6 +128,7 @@ watch(visibility, (): void => refreshFile());
       prepend-icon="fas fa-chalkboard-user"
       :text="t('button.shareInRoom')"
       variant="tonal"
+      :disabled="!file?.associatedApp.enabled"
       block
       @click="isShareInRoom = true"
     />
