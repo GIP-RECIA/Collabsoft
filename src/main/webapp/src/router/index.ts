@@ -40,6 +40,8 @@ const router = createRouter({
       children: [],
     },
   ],
+  strict: true,
+  sensitive: true,
 });
 
 export default router;
