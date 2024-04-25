@@ -1,9 +1,6 @@
 import { Navigation } from '@/types/enums/Navigation.ts';
-import { type RouteRecordRedirectOption, createRouter, createWebHistory } from 'vue-router';
-
-const redirect: RouteRecordRedirectOption = () => {
-  return { name: Navigation.projects };
-};
+import { redirect } from '@/utils/routerUtils.ts';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,10 +38,6 @@ const router = createRouter({
       redirect,
       component: () => import('@/views/AppView.vue'),
       children: [],
-    },
-    {
-      path: '/:pathName(.*)',
-      redirect,
     },
   ],
 });

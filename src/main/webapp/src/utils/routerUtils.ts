@@ -1,6 +1,11 @@
 import type { AssociatedApp } from '@/types/associatedAppType.ts';
+import { Navigation } from '@/types/enums/Navigation.ts';
 import { capitalize } from 'vue';
-import { type RouteRecordRaw, type Router } from 'vue-router';
+import { type RouteRecordRaw, type RouteRecordRedirectOption, type Router } from 'vue-router';
+
+const redirect: RouteRecordRedirectOption = () => {
+  return { name: Navigation.projects };
+};
 
 const initAppsRoutes = async (apps: Array<AssociatedApp>): Promise<void> => {
   const router: Router = (await import('@/router/index.ts')).default;
@@ -20,6 +25,10 @@ const initAppsRoutes = async (apps: Array<AssociatedApp>): Promise<void> => {
     };
     router.addRoute('app', multi);
   });
+
+  router.addRoute({ path: '/:pathName(.*)', redirect });
+
+  router.replace(router.currentRoute.value);
 };
 
-export { initAppsRoutes };
+export { redirect, initAppsRoutes };
