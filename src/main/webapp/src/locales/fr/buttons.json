@@ -16,8 +16,9 @@
     "shareInRoom": "Dans une salle",
     "createAndJoin": "Créer et rejoindre",
     "autoSave": {
-      "enabled": "Sauvegarde automatique activée",
-      "disabled": "Sauvegarde automatique désactivée"
+      "default": "Sauvegarde automatique",
+      "enabled": "@:button.autoSave.default @:enabled",
+      "disabled": "@:button.autoSave.default @:disabled"
     },
     "leave": "Quitter",
     "signIn": "Connexion",

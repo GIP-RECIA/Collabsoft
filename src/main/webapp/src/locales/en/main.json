@@ -3,5 +3,7 @@
     "public": "Public",
     "private": "Private"
   },
-  "shareOptions": "Share options"
+  "shareOptions": "Share options",
+  "enabled": "enabled",
+  "disabled": "disabled"
 }

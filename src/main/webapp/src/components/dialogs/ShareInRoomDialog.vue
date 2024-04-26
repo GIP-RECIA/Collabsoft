@@ -27,11 +27,16 @@ const modelValue = computed<boolean>({
 });
 
 const joinCode = ref<string>(charOTP());
+const autoSave = ref<boolean>(false);
 
 const onCreateAndJoin = (): void => {
   if (file.value == undefined) return;
   onClose();
-  initRoom(joinCode.value, file.value.associatedApp.slug, file.value.id);
+  initRoom(joinCode.value, file.value.associatedApp.slug, file.value.id, autoSave.value);
+};
+
+const onAutoSave = (): void => {
+  autoSave.value = !autoSave.value;
 };
 
 const onClose = (): void => {
@@ -41,6 +46,7 @@ const onClose = (): void => {
 
 const reset = debounce((): void => {
   joinCode.value = charOTP();
+  autoSave.value = false;
 }, 200);
 </script>
 
@@ -66,6 +72,13 @@ const reset = debounce((): void => {
         </div>
       </v-card-text>
       <v-card-actions>
+        <v-tooltip :text="t(`button.autoSave.${autoSave ? 'enabled' : 'disabled'}`)" location="bottom center">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" color="secondary" @click="onAutoSave">
+              <v-icon icon="fas fa-arrows-rotate" :class="[autoSave ? 'text-info' : 'text-disabled']" />
+            </v-btn>
+          </template>
+        </v-tooltip>
         <v-spacer />
         <v-btn
           prepend-icon="fas fa-arrow-right-to-bracket"

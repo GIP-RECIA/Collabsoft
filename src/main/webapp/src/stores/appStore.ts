@@ -100,7 +100,6 @@ export const useAppStore = defineStore('app', () => {
    */
   const initRoom = (roomId: string, appType: string, fileId: number | undefined, saveOnFile: boolean = false): void => {
     initRoomFileId.value = fileId;
-    _autoSave.value = false;
     _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile });
     joinRoom(roomId, appType);
   };

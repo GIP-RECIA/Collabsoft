@@ -16,8 +16,9 @@
     "shareInRoom": "In a room",
     "createAndJoin": "Create and join",
     "autoSave": {
-      "enabled": "Auto save enabled",
-      "disabled": "Auto save disabled"
+      "default": "Auto save",
+      "enabled": "@:button.autoSave.default @:enabled",
+      "disabled": "@:button.autoSave.default @:disabled"
     },
     "leave": "Leave",
     "signIn": "Sign in",
