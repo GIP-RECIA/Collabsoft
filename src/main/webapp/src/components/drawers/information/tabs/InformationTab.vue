@@ -10,7 +10,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const fileStore = useFileStore();
-const { refreshFiles, refreshFile } = fileStore;
+const { setFile: setFileFromStore } = fileStore;
 const { file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
@@ -52,8 +52,7 @@ const save = async (): Promise<void> => {
   if (!canSave.value || file.value == undefined) return;
   try {
     await setFile(file.value.id, tmp.value as FileBody);
-    refreshFiles(true);
-    refreshFile();
+    setFileFromStore('both', file.value.id, tmp.value as FileBody);
     isEdit.value = false;
   } catch (e) {
     errorHandler(e, true);

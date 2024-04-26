@@ -1,6 +1,7 @@
 import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
+import type { FileBody } from '@/types/fileBodyType.ts';
 import type { File } from '@/types/fileType.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import { differenceInMilliseconds } from 'date-fns';
@@ -59,6 +60,53 @@ export const useFileStore = defineStore('file', () => {
     }
   };
 
+  /**
+   * Add a file
+   */
+  const addFile = (file: File): void => {
+    files.value?.push(file);
+  };
+
+  /**
+   * Delete a file
+   */
+  const deleteFile = (fileId: number): void => {
+    const index = files.value?.findIndex((file) => file.id === fileId);
+    if (index && index > -1) files.value?.splice(index, 1);
+  };
+
+  /**
+   * Set a file title, description and pub form store ref files, file or both
+   */
+  const setFile = (from: 'files' | 'file' | 'both', fileId: number | undefined, value: FileBody): void => {
+    const _setFile = (file: File | undefined, value: FileBody): void => {
+      if (!file) return;
+      if (value.title) file.title = value.title;
+      if (value.description) file.description = value.description;
+      if (value.pub) file.pub = value.pub;
+      file.editionDate = new Date() as unknown as string;
+    };
+
+    switch (from) {
+      case 'files':
+        _setFile(
+          files.value?.find((file) => file.id === fileId),
+          value,
+        );
+        break;
+      case 'file':
+        _setFile(file.value, value);
+        break;
+      case 'both':
+        _setFile(
+          files.value?.find((file) => file.id === fileId),
+          value,
+        );
+        _setFile(file.value, value);
+        break;
+    }
+  };
+
   /* -- File -- */
 
   /**
@@ -90,6 +138,9 @@ export const useFileStore = defineStore('file', () => {
   return {
     files,
     refreshFiles,
+    addFile,
+    deleteFile,
+    setFile,
     file,
     loadFile,
     refreshFile,

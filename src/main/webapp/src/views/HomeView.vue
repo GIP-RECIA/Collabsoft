@@ -17,7 +17,7 @@ import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
 const fileStore = useFileStore();
-const { refreshFiles } = fileStore;
+const { deleteFile: deleteFileFromStore } = fileStore;
 const { files, file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
@@ -40,7 +40,7 @@ const deleteItem = async (result: Confirmation): Promise<void> => {
   if (result === 'yes' && file.value) {
     try {
       await deleteFile(file.value.id);
-      refreshFiles(true);
+      deleteFileFromStore(file.value.id);
     } catch (e) {
       errorHandler(e);
     }

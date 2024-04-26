@@ -15,7 +15,7 @@ const configurationStore = useConfigurationStore();
 const { availableApps } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
-const { refreshFiles } = fileStore;
+const { addFile } = fileStore;
 
 const homeStore = useHomeStore();
 const { isNew } = storeToRefs(homeStore);
@@ -41,14 +41,14 @@ const canSave = computed<boolean>(
 const onSave = async (): Promise<void> => {
   if (!canSave.value) return;
   try {
-    await saveFile({
+    const response = await saveFile({
       title: title.value!,
       description: description.value && description.value.trim().length > 0 ? description.value : null,
       blob: '',
       associatedAppId: fileType.value!,
       pub: pub.value,
     });
-    refreshFiles(true);
+    addFile(response.data);
     onClose();
   } catch (e) {
     errorHandler(e, true);

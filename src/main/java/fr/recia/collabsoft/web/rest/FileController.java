@@ -125,7 +125,7 @@ public class FileController {
     final File file = fileService.saveFile(body);
     if (file == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-    return new ResponseEntity<>(file.getId(), HttpStatus.CREATED);
+    return new ResponseEntity<>(file, HttpStatus.CREATED);
   }
 
   /**
