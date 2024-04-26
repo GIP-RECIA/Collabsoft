@@ -146,6 +146,7 @@ export const useAppStore = defineStore('app', () => {
    */
   const exitAppContext = (): void => {
     isApp.value = false;
+    _autoSave.value = true;
     _fileId.value = undefined;
     _roomId.value = undefined;
     _appType.value = undefined;
