@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { setFile } from '@/services/fileService.ts';
+import { setFile } from '@/services/api/fileService.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { FileBody } from '@/types/fileBodyType.ts';

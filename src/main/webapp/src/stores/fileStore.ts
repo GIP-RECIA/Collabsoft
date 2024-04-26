@@ -1,4 +1,4 @@
-import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/fileService.ts';
+import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/api/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import type { FileBody } from '@/types/fileBodyType.ts';

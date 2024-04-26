@@ -6,7 +6,7 @@ import RoomDialog from '@/components/dialogs/RoomDialog.vue';
 import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
 import FilesLayout from '@/components/layouts/FilesLayout.vue';
-import { deleteFile } from '@/services/fileService.ts';
+import { deleteFile } from '@/services/api/fileService.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { Confirmation } from '@/types/confirmationType.ts';

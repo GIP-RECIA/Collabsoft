@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { saveFile } from '@/services/fileService.ts';
+import { saveFile } from '@/services/api/fileService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';

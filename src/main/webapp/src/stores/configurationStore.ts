@@ -1,4 +1,4 @@
-import { getConfiguration } from '@/services/configurationService.ts';
+import { getConfiguration } from '@/services/api/configurationService.ts';
 import type { AssociatedApp } from '@/types/associatedAppType.ts';
 import type { Configuration } from '@/types/configurationType.ts';
 import type { Soffit } from '@/types/soffitType.ts';
