@@ -143,27 +143,27 @@ public class DatabaseUtils {
 
     final File file1 = new File(
       file1Id, UUID.randomUUID().toString(), "file1", null, "".getBytes(), user1, null, user1, null,
-      associatedApp1, false
+      associatedApp1, false, List.of()
     );
     final File file2 = new File(
       file2Id, UUID.randomUUID().toString(), "file2", null, "".getBytes(), user1, null, user1, null,
-      associatedApp1, false
+      associatedApp1, false, List.of()
     );
     final File file3 = new File(
       file3Id, UUID.randomUUID().toString(), "file3", null, "".getBytes(), user2, null, user2, null,
-      associatedApp1, false
+      associatedApp1, false, List.of()
     );
     final File file4 = new File(
       file4Id, UUID.randomUUID().toString(), "file4", null, "".getBytes(), user2, null, user2, null,
-      associatedApp1, true
+      associatedApp1, true, List.of()
     );
     final File file5 = new File(
       file5Id, UUID.randomUUID().toString(), "file5", null, "".getBytes(), user3, null, user3, null,
-      associatedApp1, false
+      associatedApp1, false, List.of()
     );
     final File file6 = new File(
       file6Id, UUID.randomUUID().toString(), "file6", null, "".getBytes(), user3, null, user3, null,
-      associatedApp1, false
+      associatedApp1, false, List.of()
     );
     fileRepository.saveAllAndFlush(List.of(file1, file2, file3, file4, file5, file6));
 

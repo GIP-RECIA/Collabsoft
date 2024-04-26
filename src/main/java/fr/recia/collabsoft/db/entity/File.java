@@ -16,30 +16,33 @@
 package fr.recia.collabsoft.db.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -54,52 +57,53 @@ public class File implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
-  @ToString.Include
   private Long id;
 
   @Column(name = "uuid", nullable = false)
-  @ToString.Include
   private String uuid;
 
   @Column(name = "title", nullable = false)
-  @ToString.Include
   private String title;
 
   @Column(name = "description")
+  @ToString.Exclude
   private String description;
 
   @Lob
   @Column(name = "blob_file", nullable = false)
+  @ToString.Exclude
   private byte[] blob;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "creator_id", nullable = false)
-  @ToString.Include
   private User creator;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "creation_date", nullable = false)
-  @ToString.Include
   private Date creationDate;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "last_editor_id", nullable = false)
-  @ToString.Include
   private User lastEditor;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "edition_date", nullable = false)
-  @ToString.Include
   private Date editionDate;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "associated_app_id")
-  @ToString.Include
   private AssociatedApp associatedApp;
 
   @Column(name = "public", nullable = false)
-  @ToString.Include
   private Boolean pub;
+
+  @OneToMany(
+    fetch = FetchType.EAGER,
+    mappedBy = "file",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  private List<Metadata> metadata = new ArrayList<>();
 
   public String getBlob() {
     return new String(blob);

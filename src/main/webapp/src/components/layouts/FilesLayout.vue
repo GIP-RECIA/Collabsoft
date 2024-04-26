@@ -3,6 +3,7 @@ import FileMenu from '@/components/FileMenu.vue';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { File } from '@/types/fileType.ts';
 import { dateToDuration } from '@/utils/dateFnsUtils.ts';
+import { isStarred } from '@/utils/metadataUtils.ts';
 import { useSessionStorage } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
@@ -96,7 +97,7 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
       <span :key="key">{{ t('information.duration', { duration: dateToDuration(item.editionDate) }) }}</span>
     </template>
     <template #item.actions="{ item }">
-      <file-menu :file-id="item.id" />
+      <file-menu :file-id="item.id" :is-starred="isStarred(item)" />
     </template>
     <template #loading>
       <v-skeleton-loader type="table-row@6" />

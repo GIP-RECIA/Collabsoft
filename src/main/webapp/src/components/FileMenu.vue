@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { star, unstar } from '@/services/fileService.ts';
 import { useAppStore } from '@/stores/appStore.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import { errorHandler } from '@/utils/axiosUtils.ts';
 import { downloadFileOrBlob, toFile } from '@/utils/fileUtils.ts';
+import { toggleStarredInArray } from '@/utils/metadataUtils.ts';
 import { saveOnNextcloud } from '@/utils/nextcloudUtils.ts';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const isDev = import.meta.env.DEV;
@@ -20,7 +22,7 @@ const { isSettings } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
-const { file } = storeToRefs(fileStore);
+const { files, file } = storeToRefs(fileStore);
 
 const homeStore = useHomeStore();
 const { isDrawer, drawerTab, isDelete } = storeToRefs(homeStore);
@@ -29,18 +31,23 @@ const { t } = useI18n();
 
 const props = defineProps<{
   fileId: number;
+  isStarred?: boolean;
   size?: string | number;
   forceRefresh?: boolean;
 }>();
-
-const isStarred = ref(false);
 
 const getFile = async (): Promise<void> => {
   await loadFile(props.fileId, props.forceRefresh);
 };
 
-const onStar = (): void => {
-  isStarred.value = !isStarred.value;
+const onStar = async (): Promise<void> => {
+  try {
+    await (props.isStarred ? unstar(props.fileId) : star(props.fileId));
+    if (!files.value) return;
+    toggleStarredInArray(files.value, props.fileId);
+  } catch (e) {
+    errorHandler(e);
+  }
 };
 
 const onInformation = async (): Promise<void> => {

@@ -15,6 +15,7 @@
  */
 package fr.recia.collabsoft.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.recia.collabsoft.db.entity.id.MetadataId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -44,13 +46,17 @@ public class Metadata implements Serializable {
   private static final long serialVersionUID = 5L;
 
   @Id
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
+  @ToString.Exclude
+  @JsonIgnore
   private User user;
 
   @Id
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "file_id", nullable = false)
+  @ToString.Exclude
+  @JsonIgnore
   private File file;
 
   @Column(name = "starred")

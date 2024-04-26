@@ -2,12 +2,15 @@
 import FileMenu from '@/components/FileMenu.vue';
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
+import { star, unstar } from '@/services/fileService.ts';
 import { useAppStore } from '@/stores/appStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { Confirmation } from '@/types/confirmationType.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import { errorHandler } from '@/utils/axiosUtils.ts';
+import { isStarred as isFileStarred, toggleStarred } from '@/utils/metadataUtils.ts';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -30,14 +33,20 @@ const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
 
-const isStarred = ref(false);
+const isStarred = computed<boolean>(() => isFileStarred(file.value));
 
 const getFile = async (): Promise<void> => {
   if (file.value) await loadFile(file.value.id);
 };
 
-const onStar = (): void => {
-  isStarred.value = !isStarred.value;
+const onStar = async (): Promise<void> => {
+  if (!file.value) return;
+  try {
+    await (isStarred.value ? unstar(file.value.id) : star(file.value.id));
+    toggleStarred(file.value);
+  } catch (e) {
+    errorHandler(e);
+  }
 };
 
 const onInformation = async (): Promise<void> => {

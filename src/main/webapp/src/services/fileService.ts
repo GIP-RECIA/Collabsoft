@@ -22,6 +22,10 @@ const deleteFile = async (fileId: number) => await axios.delete(`/api/file/${fil
 
 const setMetadata = async (fileId: number, body: MetadataBody) => await axios.put(`/api/file/${fileId}/metadata`, body);
 
+const star = async (fileId: number) => await setMetadata(fileId, { starred: true });
+
+const unstar = async (fileId: number) => await setMetadata(fileId, { starred: false });
+
 const getShare = async (fileId: number) => await axios.get(`/api/file/${fileId}`);
 
 const saveShare = async (fileId: number, body: CollaborationBody) =>
@@ -60,6 +64,8 @@ export {
   setFile,
   deleteFile,
   setMetadata,
+  star,
+  unstar,
   getShare,
   saveShare,
   setShare,
