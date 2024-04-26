@@ -15,15 +15,16 @@
 -->
 
 <script setup lang="ts">
+import { star, unstar } from '@/services/api'
 import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
 import { Tabs } from '@/types/enums'
-import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils'
+import { downloadFileOrBlob, errorHandler, saveOnNc, toFile, toggleStarredInArray } from '@/utils'
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   fileId: number
+  isStarred?: boolean
   size?: string | number
   forceRefresh?: boolean
 }>()
@@ -38,21 +39,27 @@ const { isNcAvailable, isSettings } = storeToRefs(configurationStore)
 
 const fileStore = useFileStore()
 const { loadFile } = fileStore
-const { file } = storeToRefs(fileStore)
+const { files, file } = storeToRefs(fileStore)
 
 const homeStore = useHomeStore()
 const { isDrawer, drawerTab, isDelete } = storeToRefs(homeStore)
 
 const { t } = useI18n()
 
-const isStarred = ref(false)
-
 async function getFile(): Promise<void> {
   await loadFile(props.fileId, props.forceRefresh)
 }
 
-function onStar(): void {
-  isStarred.value = !isStarred.value
+async function onStar(): Promise<void> {
+  try {
+    await (props.isStarred ? unstar(props.fileId) : star(props.fileId))
+    if (!files.value)
+      return
+    toggleStarredInArray(files.value, props.fileId)
+  }
+  catch (e) {
+    errorHandler(e)
+  }
 }
 
 async function onInformation(): Promise<void> {

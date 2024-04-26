@@ -19,6 +19,7 @@ import type { File } from '@/types'
 import DurationSpan from '@/components/DurationSpan.vue'
 import FileMenu from '@/components/FileMenu.vue'
 import { useHomeStore } from '@/stores'
+import { isStarred } from '@/utils'
 import { useSessionStorage } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
@@ -110,7 +111,7 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
       <DurationSpan :date="item.editionDate" />
     </template>
     <template #item.actions="{ item }">
-      <FileMenu :file-id="item.id" />
+      <FileMenu :file-id="item.id" :is-starred="isStarred(item)" />
     </template>
     <template #loading>
       <v-skeleton-loader type="table-row@6" />

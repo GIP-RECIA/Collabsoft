@@ -19,9 +19,10 @@ import type { Confirmation } from '@/types'
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue'
 import FileMenu from '@/components/FileMenu.vue'
+import { star, unstar } from '@/services/api'
 import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
 import { Navigation, Tabs } from '@/types/enums'
-import { preventExit } from '@/utils'
+import { errorHandler, isStarred as isFileStarred, preventExit, toggleStarred } from '@/utils'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -47,15 +48,23 @@ const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
 
-const isStarred = ref(false)
+const isStarred = computed<boolean>(() => isFileStarred(file.value))
 
 async function getFile(): Promise<void> {
   if (file.value)
     await loadFile(file.value.id)
 }
 
-function onStar(): void {
-  isStarred.value = !isStarred.value
+async function onStar(): Promise<void> {
+  if (!file.value)
+    return
+  try {
+    await (isStarred.value ? unstar(file.value.id) : star(file.value.id))
+    toggleStarred(file.value)
+  }
+  catch (e) {
+    errorHandler(e)
+  }
 }
 
 async function onInformation(): Promise<void> {

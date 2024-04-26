@@ -23,21 +23,26 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -69,7 +74,7 @@ public class File implements Serializable {
   @Column(name = "data", nullable = false)
   private String data;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "creator_id", nullable = false)
   @ToString.Include
   private User creator;
@@ -79,7 +84,7 @@ public class File implements Serializable {
   @ToString.Include
   private Date creationDate;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "last_editor_id", nullable = false)
   @ToString.Include
   private User lastEditor;
@@ -89,7 +94,7 @@ public class File implements Serializable {
   @ToString.Include
   private Date editionDate;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "associated_app_id")
   @ToString.Include
   private AssociatedApp associatedApp;
@@ -97,6 +102,14 @@ public class File implements Serializable {
   @Column(name = "public", nullable = false)
   @ToString.Include
   private Boolean pub;
+
+  @OneToMany(
+    fetch = FetchType.EAGER,
+    mappedBy = "file",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  private List<Metadata> metadata = new ArrayList<>();
 
   @PrePersist
   public void prePersist() {
