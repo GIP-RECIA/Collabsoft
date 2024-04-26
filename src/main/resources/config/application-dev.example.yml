@@ -1,0 +1,76 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /
+  error:
+    whitelabel.enabled: true
+    include-binding-errors: always
+    include-exception: true
+    include-message: always
+    include-stacktrace: always
+  #  tomcat:
+  #    redirect-context-root: false
+  forward-headers-strategy: NATIVE
+
+logging:
+  config: 'classpath:logback-dev.xml'
+
+spring:
+  config:
+    activate:
+      on-profile: 'dev'
+
+  jpa:
+    show-sql: true
+
+  datasource:
+    url: jdbc:mariadb://HOST:3306/DB_NAME?useUnicode=true&characterEncoding=UTF-8&autoreconnect=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris
+    username:
+    password:
+
+app:
+  cors:
+    allowed-origins:
+      - http://localhost:5173
+      - https://*.giprecia.net
+
+  soffit:
+    jwt-signature-key: ''
+
+  storage:
+    location: ''
+
+  front:
+    user-info-api-url: ''
+
+    collaboration:
+      websocket-api-url: ''
+      user-info-api-url: ''
+
+    extended-uportal-header:
+      component-path: ''
+      context-api-url: ''
+      sign-out-url: ''
+      default-org-logo-path: ''
+      default-avatar-path: ''
+      default-org-icon-path: ''
+      favorite-api-url: ''
+      layout-api-url: ''
+      organization-api-url: ''
+      portlet-api-url: ''
+      user-info-api-url: ''
+      user-info-portlet-url: ''
+      session-api-url: ''
+      template-api-path: ''
+      switch-org-portlet-url: ''
+      favorites-portlet-card-size: ''
+      grid-portlet-card-size: ''
+      hide-action-mode: ''
+      show-favorites-in-slider: ''
+      return-home-title: ''
+      return-home-target: ''
+      icon-type: ''
+
+    extended-uportal-footer:
+      component-path: ''
+      template-api-path: ''
