@@ -603,10 +603,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/tldraw-webcomponent@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "@gip-recia/tldraw-webcomponent@npm:3.3.1"
-  checksum: 10/259e4060cab75d702279fa0830fcfc3d7ec537aef3019957c144a1fc74bd83dd83b072522c2dcf72e3b1122a4f5b7622e60ef63787c3ec1c6cfa2abb0f7991bf
+"@gip-recia/tldraw-webcomponent@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@gip-recia/tldraw-webcomponent@npm:3.4.0"
+  checksum: 10/8936cb0f7171f1820f2676410cc110902ab9e039fbd394392c9345e8a941829db303c80ec09525eec3402b312cbaa232c7a03baf2212e5b41454b646137c902f
   languageName: node
   linkType: hard
 
@@ -2154,7 +2154,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.5.2"
     "@fortawesome/free-solid-svg-icons": "npm:^6.5.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.6"
-    "@gip-recia/tldraw-webcomponent": "npm:^3.3.1"
+    "@gip-recia/tldraw-webcomponent": "npm:^3.4.0"
     "@gip-recia/wisemapping-webcomponent": "npm:^0.0.2"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
     "@playwright/test": "npm:^1.44.0"

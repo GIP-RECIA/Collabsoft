@@ -13,7 +13,7 @@ const appStore = useAppStore();
 const { isAutoSave, canAutoSave, roomId, room, isRoomOwner, initRoomFileId, destroy } = storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
-const { configuration } = configurationStore;
+const { configuration, user } = storeToRefs(configurationStore);
 
 const theme = useTheme();
 
@@ -38,7 +38,7 @@ onUnmounted(() => {
     mode="multi"
     :persistance-api-url="apiUrl"
     :assets-api-url="apiUrl ? `${apiUrl}/resource` : undefined"
-    :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
+    :token="user.token"
     :dark-mode="theme.global.name.value == 'dark'"
     :auto-save="canAutoSave && isAutoSave"
     :open="isRoomOwner"

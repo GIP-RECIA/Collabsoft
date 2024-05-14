@@ -14,7 +14,7 @@ const appStore = useAppStore();
 const { isAutoSave, canAutoSave } = storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
-const { configuration } = configurationStore;
+const { user } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { file } = storeToRefs(fileStore);
@@ -42,7 +42,7 @@ onUnmounted(() => {
     mode="single"
     :persistance-api-url="apiUrl"
     :assets-api-url="`${apiUrl}/resource`"
-    :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
+    :token="user.token"
     :dark-mode="theme.global.name.value == 'dark'"
     :auto-save="canAutoSave && isAutoSave"
     :open="true"
