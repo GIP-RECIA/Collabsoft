@@ -2,9 +2,10 @@ import i18n from '@/plugins/i18n.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { getToken } from '@/utils/soffitUtils.ts';
 import axios from 'axios';
-import throttle from 'lodash.throttle';
 import { storeToRefs } from 'pinia';
 import { type ToastContainerOptions, toast } from 'vue3-toastify';
+
+const isDev = import.meta.env.DEV;
 
 const { VITE_API_URI, VITE_AXIOS_TIMEOUT } = import.meta.env;
 
@@ -16,8 +17,6 @@ const instance = axios.create({
 });
 
 let token: string | undefined = undefined;
-let timeout: number | undefined = undefined;
-let renewToken: any;
 
 const initToken = async (userInfoApiUrl: string): Promise<void> => {
   const configurationStore = useConfigurationStore();
@@ -29,33 +28,28 @@ const initToken = async (userInfoApiUrl: string): Promise<void> => {
       decoded: { exp, iat, sub },
     } = await getToken(userInfoApiUrl);
     token = `Bearer ${encoded}`;
-    timeout = (exp - iat) * 1000 * 0.75;
-    renewToken = throttle(
-      async () => {
-        try {
-          const {
-            encoded,
-            decoded: { sub },
-          } = await getToken(userInfoApiUrl);
-          token = `Bearer ${encoded}`;
-          user.value = { ...user.value, sub };
-        } catch (e) {
-          // nothing to do
-        }
-      },
-      timeout,
-      { trailing: false },
-    );
-    user.value = { ...user.value, sub };
+    const timeout = (exp - iat) * 1000 * 0.75;
+    setInterval(async () => {
+      try {
+        const {
+          encoded,
+          decoded: { sub },
+        } = await getToken(userInfoApiUrl);
+        token = `Bearer ${encoded}`;
+        user.value = { sub, token };
+        if (isDev) console.debug('Token has been renewed');
+      } catch (e) {
+        console.error('Unable to renew token', e);
+      }
+    }, timeout);
+    user.value = { sub, token };
   } catch (e) {
-    // nothing to do
+    throw new Error(`Unable to init token : ${e}`);
   }
 };
 
 instance.interceptors.request.use(async (config) => {
   if (config.url == '/api/config') return config;
-
-  await renewToken();
   config.headers['Authorization'] = token;
 
   return config;

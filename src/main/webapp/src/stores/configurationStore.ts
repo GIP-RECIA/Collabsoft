@@ -37,7 +37,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   /* -- Gestion de l'utilisateur -- */
 
-  const user = ref<Soffit>({ sub: 'guest' });
+  const user = ref<Soffit>({ sub: 'guest', token: undefined });
 
   const isSoffitOk = computed<boolean>(() => !user.value.sub.startsWith('guest'));
 
