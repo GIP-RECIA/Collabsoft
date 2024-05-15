@@ -10,23 +10,15 @@ const dateToDuration = (date: string): Duration => {
 const formatedDuration = (duration: Duration): string => {
   const { years, months, weeks, days, hours, minutes, seconds } = duration;
 
-  if (
-    years == undefined &&
-    months == undefined &&
-    weeks == undefined &&
-    days == undefined &&
-    hours == undefined &&
-    minutes == undefined &&
-    seconds == undefined
-  )
+  if (!years && !months && !weeks && !days && !hours && !minutes && !seconds)
     return formatDuration({ seconds: 1 }, { format: ['seconds'] });
 
-  if (years != undefined && years > 0) return formatDuration({ years }, { format: ['years'] });
-  if (months != undefined && months > 0) return formatDuration({ months }, { format: ['months'] });
-  if (weeks != undefined && weeks > 0) return formatDuration({ weeks }, { format: ['weeks'] });
-  if (days != undefined && days > 0) return formatDuration({ days }, { format: ['days'] });
-  if (hours != undefined && hours > 0) return formatDuration({ hours }, { format: ['hours'] });
-  if (minutes != undefined && minutes > 0) return formatDuration({ minutes }, { format: ['minutes'] });
+  if (years && years > 0) return formatDuration({ years }, { format: ['years'] });
+  if (months && months > 0) return formatDuration({ months }, { format: ['months'] });
+  if (weeks && weeks > 0) return formatDuration({ weeks }, { format: ['weeks'] });
+  if (days && days > 0) return formatDuration({ days }, { format: ['days'] });
+  if (hours && hours > 0) return formatDuration({ hours }, { format: ['hours'] });
+  if (minutes && minutes > 0) return formatDuration({ minutes }, { format: ['minutes'] });
   return formatDuration({ seconds }, { format: ['seconds'] });
 };
 
