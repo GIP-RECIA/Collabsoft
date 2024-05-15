@@ -3,6 +3,8 @@ import { Navigation } from '@/types/enums/Navigation.ts';
 import { capitalize } from 'vue';
 import { type RouteRecordRaw, type RouteRecordRedirectOption, type Router } from 'vue-router';
 
+const isDev = import.meta.env.DEV;
+
 const redirect: RouteRecordRedirectOption = () => {
   return { name: Navigation.projects };
 };
@@ -11,7 +13,7 @@ const initAppsRoutes = async (apps: Array<AssociatedApp>): Promise<void> => {
   const router: Router = (await import('@/router/index.ts')).default;
 
   apps
-    .filter((app) => app.enabled)
+    .filter((app) => app.enabled || isDev)
     .forEach((app) => {
       const solo: RouteRecordRaw = {
         path: `${app.slug}/:fileId(\\d+)`,

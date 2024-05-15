@@ -9,6 +9,8 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 
+const isDev = import.meta.env.DEV;
+
 const { VITE_API_URI } = import.meta.env;
 
 const homeStore = useHomeStore();
@@ -72,7 +74,7 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
   >
     <template #item.title="{ item }">
       <router-link
-        :to="item.associatedApp.enabled ? { name: item.associatedApp.slug, params: { fileId: item.id } } : ''"
+        :to="item.associatedApp.enabled || isDev ? { name: item.associatedApp.slug, params: { fileId: item.id } } : ''"
         class="d-flex align-center h-100 table-column-title"
       >
         <v-avatar
