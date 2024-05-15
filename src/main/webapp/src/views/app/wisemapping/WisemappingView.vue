@@ -23,7 +23,7 @@ const apiUrl = computed<string | undefined>(() => (file.value ? `${VITE_API_URI}
     v-if="isDev && file"
     :persistance-api-url="apiUrl"
     :file-id="file.id"
-    :user-info-api-url="configuration?.front.collaboration.userInfoApiUrl"
+    :user-info-api-url="configuration?.front.userInfoApiUrl"
     mode="edition-owner"
   />
 </template>

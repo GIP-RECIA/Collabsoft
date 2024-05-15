@@ -73,7 +73,6 @@ app:
 
     collaboration:
       websocket-api-url: ''
-      user-info-api-url: ''
 
     extended-uportal-header:
       component-path: ''

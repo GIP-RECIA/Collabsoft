@@ -5,7 +5,6 @@ export type Configuration = {
     userInfoApiUrl: string;
     collaboration: {
       websocketApiUrl: string;
-      userInfoApiUrl: string;
     };
     extendedUportalHeader: {
       componentPath: string;

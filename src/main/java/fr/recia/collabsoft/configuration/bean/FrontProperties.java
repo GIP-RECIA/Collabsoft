@@ -29,13 +29,11 @@ public class FrontProperties {
   public static class CollaborationProperties {
 
     private String websocketApiUrl;
-    private String userInfoApiUrl;
 
     @Override
     public String toString() {
       return "{" +
-        "\n\t\t\"websocketApiUrl\": \"" + websocketApiUrl + "\"," +
-        "\n\t\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"" +
+        "\n\t\t\"websocketApiUrl\": \"" + websocketApiUrl + "\"" +
         "\n\t}";
     }
 
