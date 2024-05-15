@@ -56,7 +56,7 @@ const domain = window.location.hostname;
   <v-app class="app-container">
     <header>
       <extended-uportal-header
-        v-if="isInit"
+        v-if="isInit && isReady"
         :domain="domain"
         :service-name="appName"
         :context-api-url="configuration!.front.extendedUportalHeader.contextApiUrl"
@@ -90,7 +90,7 @@ const domain = window.location.hostname;
     <footer>
       <extended-uportal-footer
         v-if="isInit"
-        v-show="!isApp"
+        v-show="!isApp && isReady"
         :domain="domain"
         :template-api-path="configuration!.front.extendedUportalFooter.templateApiPath"
       />
