@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DurationSpan from '@/components/DurationSpan.vue';
 import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue';
 import HistoriesTab from '@/components/drawers/information/tabs/HistoriesTab.vue';
 import InformationTab from '@/components/drawers/information/tabs/InformationTab.vue';
@@ -6,7 +7,6 @@ import ShareTab from '@/components/drawers/information/tabs/ShareTab.vue';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
-import { dateToDuration } from '@/utils/dateFnsUtils.ts';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -56,7 +56,7 @@ const onClose = (): void => {
               {{ file.title }}
             </div>
             <div class="text-caption text-medium-emphasis">
-              {{ t('information.duration', { duration: dateToDuration(file.editionDate) }) }}
+              <duration-span :date="file.editionDate" />
             </div>
           </div>
         </div>

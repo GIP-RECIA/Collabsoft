@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import DurationSpan from '@/components/DurationSpan.vue';
 import FileMenu from '@/components/FileMenu.vue';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { File } from '@/types/fileType.ts';
-import { dateToDuration } from '@/utils/dateFnsUtils.ts';
 import { useSessionStorage } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
@@ -20,12 +20,6 @@ const { xs } = useDisplay();
 defineProps<{
   files: Array<File> | undefined;
 }>();
-
-const key = ref<number>(0);
-
-setInterval((): void => {
-  key.value++;
-}, 10000);
 
 const headers = ref<Array<any>>([
   { title: t('information.title'), key: 'title', sortable: true, width: '100%' },
@@ -93,7 +87,7 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
       </router-link>
     </template>
     <template #item.editionDate="{ item }">
-      <span :key="key">{{ t('information.duration', { duration: dateToDuration(item.editionDate) }) }}</span>
+      <duration-span :date="item.editionDate" />
     </template>
     <template #item.actions="{ item }">
       <file-menu :file-id="item.id" />

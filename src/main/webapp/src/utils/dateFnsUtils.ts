@@ -1,10 +1,14 @@
-import { formatDuration, intervalToDuration } from 'date-fns';
+import { type Duration, formatDuration, intervalToDuration } from 'date-fns';
 
-const dateToDuration = (date: string): string => {
-  const { years, months, weeks, days, hours, minutes, seconds } = intervalToDuration({
+const dateToDuration = (date: string): Duration => {
+  return intervalToDuration({
     start: date,
     end: Date.now(),
   });
+};
+
+const formatedDuration = (duration: Duration): string => {
+  const { years, months, weeks, days, hours, minutes, seconds } = duration;
 
   if (
     years == undefined &&
@@ -26,4 +30,4 @@ const dateToDuration = (date: string): string => {
   return formatDuration({ seconds }, { format: ['seconds'] });
 };
 
-export { dateToDuration };
+export { dateToDuration, formatedDuration };
