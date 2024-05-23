@@ -1,4 +1,5 @@
 import i18n from '@/plugins/i18n.ts';
+import { handshake } from '@/services/api/handshakeService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { getToken } from '@/utils/soffitUtils.ts';
 import axios from 'axios';
@@ -43,6 +44,7 @@ const initToken = async (userInfoApiUrl: string): Promise<void> => {
       }
     }, timeout);
     user.value = { sub, token };
+    await handshake();
   } catch (e) {
     throw new Error(`Unable to init token : ${e}`);
   }
