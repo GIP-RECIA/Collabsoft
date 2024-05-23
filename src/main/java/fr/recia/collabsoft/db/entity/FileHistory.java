@@ -65,18 +65,13 @@ public class FileHistory implements Serializable {
   @ToString.Include
   private File file;
 
-  @Lob
-  @Column(name = "blob_file", nullable = false)
-  private byte[] blob;
+  @Column(name = "data", nullable = false)
+  private String data;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "creation_date", nullable = false)
   @ToString.Include
   private Date creationDate;
-
-  public String getBlob() {
-    return new String(blob);
-  }
 
   @PrePersist
   public void prePersist() {

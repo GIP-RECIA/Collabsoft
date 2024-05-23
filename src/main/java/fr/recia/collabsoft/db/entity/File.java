@@ -68,9 +68,8 @@ public class File implements Serializable {
   @Column(name = "description")
   private String description;
 
-  @Lob
-  @Column(name = "blob_file", nullable = false)
-  private byte[] blob;
+  @Column(name = "data", nullable = false)
+  private String data;
 
   @ManyToOne
   @JoinColumn(name = "creator_id", nullable = false)
@@ -100,10 +99,6 @@ public class File implements Serializable {
   @Column(name = "public", nullable = false)
   @ToString.Include
   private Boolean pub;
-
-  public String getBlob() {
-    return new String(blob);
-  }
 
   @PrePersist
   public void prePersist() {

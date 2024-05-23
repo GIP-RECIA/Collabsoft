@@ -8,7 +8,7 @@ export type File = {
   uuid: string;
   title: string;
   description: string | null;
-  blob: any;
+  data: any;
   creator: User;
   creationDate: string;
   lastEditor: User;

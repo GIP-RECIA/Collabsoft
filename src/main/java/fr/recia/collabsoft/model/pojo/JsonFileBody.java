@@ -22,16 +22,16 @@ public class JsonFileBody {
 
   private String title;
   private String description;
-  private String blob;
+  private String data;
   private Long associatedAppId;
   private Boolean pub;
 
   public boolean postDataOk() {
-    return (title != null && !title.trim().isEmpty() && blob != null && associatedAppId != null && pub != null);
+    return (title != null && !title.trim().isEmpty() && data != null && associatedAppId != null && pub != null);
   }
 
   public boolean putDataOk() {
-    return ((title != null && !title.trim().isEmpty()) || description != null || blob != null || pub != null);
+    return ((title != null && !title.trim().isEmpty()) || description != null || data != null || pub != null);
   }
 
 }

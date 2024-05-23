@@ -44,7 +44,7 @@ const onSave = async (): Promise<void> => {
     const response = await saveFile({
       title: title.value!,
       description: description.value && description.value.trim().length > 0 ? description.value : null,
-      blob: '',
+      data: '',
       associatedAppId: fileType.value!,
       pub: pub.value,
     });

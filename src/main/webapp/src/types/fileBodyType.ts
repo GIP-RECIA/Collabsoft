@@ -1,7 +1,7 @@
 export type FileBody = {
   title: string;
   description: string | null;
-  blob: any;
+  data: any;
   associatedAppId: number;
   pub: boolean;
 };

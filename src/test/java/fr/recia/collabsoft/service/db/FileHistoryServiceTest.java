@@ -81,7 +81,7 @@ class FileHistoryServiceTest {
   @Test
   void createHistory_ShouldBeFalse_becauseFileDoesNotExist() {
     final JsonHistoryBody body = new JsonHistoryBody();
-    body.setBlob("history".getBytes());
+    body.setData("history");
 
     soffitHolder.setSub(user1Sub);
     final boolean result = fileHistoryService.createHistory(fileUnknownId, body);
@@ -91,7 +91,7 @@ class FileHistoryServiceTest {
   @Test
   void createHistory_ShouldBeFalse_becauseUserIsNotTheOwner() {
     final JsonHistoryBody body = new JsonHistoryBody();
-    body.setBlob("history".getBytes());
+    body.setData("history");
 
     soffitHolder.setSub(user1Sub);
     final boolean result = fileHistoryService.createHistory(file3Id, body);
@@ -101,7 +101,7 @@ class FileHistoryServiceTest {
   @Test
   void createHistory_ShouldBeTrue() {
     final JsonHistoryBody body = new JsonHistoryBody();
-    body.setBlob("history".getBytes());
+    body.setData("history");
 
     soffitHolder.setSub(user1Sub);
     final boolean result = fileHistoryService.createHistory(file1Id, body);

@@ -20,10 +20,10 @@ import lombok.Data;
 @Data
 public class JsonHistoryBody {
 
-  private byte[] blob;
+  private String data;
 
   public boolean postDataOk() {
-    return (blob != null);
+    return (data != null);
   }
 
 }

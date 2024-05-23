@@ -20,7 +20,7 @@ const downloadFileOrBlob = (fileOrBlob: File | Blob, filename: string): void => 
 };
 
 const toFile = (file: cFile): File => {
-  return new File([file.blob], file.title, {
+  return new File([file.data], file.title, {
     type: `application/${file.associatedApp.type};charset=utf-8`,
   });
 };

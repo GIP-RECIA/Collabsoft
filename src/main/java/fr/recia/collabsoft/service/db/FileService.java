@@ -122,7 +122,7 @@ public class FileService {
     file.setUuid(UUID.randomUUID().toString());
     file.setTitle(body.getTitle());
     file.setDescription(body.getDescription());
-    file.setBlob(body.getBlob().getBytes());
+    file.setData(body.getData());
     file.setCreator(user);
     file.setLastEditor(user);
     file.setAssociatedApp(associatedApp);
@@ -179,7 +179,7 @@ public class FileService {
     if (body.getTitle() != null) file.setTitle(body.getTitle());
     if (body.getDescription() != null)
       file.setDescription(body.getDescription().isEmpty() ? null : body.getDescription());
-    if (body.getBlob() != null) file.setBlob(body.getBlob().getBytes());
+    if (body.getData() != null) file.setData(body.getData());
     if (user != file.getLastEditor()) file.setLastEditor(user);
     if (body.getPub() != null) file.setPub(body.getPub());
     fileRepository.saveAndFlush(file);

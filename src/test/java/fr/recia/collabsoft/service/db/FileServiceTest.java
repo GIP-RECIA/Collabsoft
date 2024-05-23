@@ -97,7 +97,7 @@ class FileServiceTest {
     final JsonFileBody body = new JsonFileBody();
     body.setTitle("TEST SAVE");
     body.setDescription(null);
-    body.setBlob("this is a blob");
+    body.setData("some data");
     body.setAssociatedAppId(associatedApp1Id);
     body.setPub(false);
 
@@ -111,7 +111,7 @@ class FileServiceTest {
     final JsonFileBody body = new JsonFileBody();
     body.setTitle("TEST SAVE");
     body.setDescription(null);
-    body.setBlob("this is a blob");
+    body.setData("some data");
     body.setAssociatedAppId(associatedAppUnknownId);
     body.setPub(false);
 
@@ -125,7 +125,7 @@ class FileServiceTest {
     final JsonFileBody body = new JsonFileBody();
     body.setTitle("TEST SAVE");
     body.setDescription(null);
-    body.setBlob("this is a blob");
+    body.setData("some data");
     body.setAssociatedAppId(associatedApp1Id);
     body.setPub(false);
 

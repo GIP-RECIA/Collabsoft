@@ -56,7 +56,7 @@ public class FileHistoryService {
     if (file == null) return false;
     FileHistory fileHistory = new FileHistory();
     fileHistory.setFile(file);
-    fileHistory.setBlob(body.getBlob());
+    fileHistory.setData(body.getData());
     fileHistoryRepository.saveAndFlush(fileHistory);
 
     return true;
@@ -92,11 +92,11 @@ public class FileHistoryService {
     // create new file history
     FileHistory newFileHistory = new FileHistory();
     newFileHistory.setFile(fileHistory.getFile());
-    newFileHistory.setBlob(fileHistory.getFile().getBlob().getBytes());
+    newFileHistory.setData(fileHistory.getFile().getData());
     fileHistoryRepository.saveAndFlush(newFileHistory);
 
     // update file blob with history
-    file.setBlob(fileHistory.getBlob().getBytes());
+    file.setData(fileHistory.getData());
     fileRepository.saveAndFlush(file);
 
     return true;
