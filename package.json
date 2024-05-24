@@ -23,7 +23,7 @@
     "release:major": "standard-version --release-as major"
   },
   "dependencies": {
-    "@gip-recia/tldraw-webcomponent": "^3.5.3",
+    "@gip-recia/tldraw-webcomponent": "^3.6.0",
     "@gip-recia/wisemapping-webcomponent": "^0.0.2",
     "@vueuse/core": "^10.9.0",
     "pinia": "^2.1.7",
