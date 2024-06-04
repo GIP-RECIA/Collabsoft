@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Base64;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -41,7 +42,16 @@ public class SoffitInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     String path = request.getRequestURI().substring(request.getContextPath().length());
-    if (!path.startsWith("/api/file") || path.matches("^/api/file/\\d+/resource/.+$")) return true;
+
+    if (path.startsWith("/api")) {
+      List<String> excludedPaths = List.of("^/api/config$", "^/api/file/\\d+/resource/.+$");
+      if (excludedPaths.stream().anyMatch(path::matches)) {
+        log.debug("Path {} start with /api but is excluded form SoffitInterceptor", path);
+
+        return true;
+      }
+    } else return true;
+
     String token = request.getHeader("Authorization");
     if (token == null) {
       log.debug("No Authorization header found");
