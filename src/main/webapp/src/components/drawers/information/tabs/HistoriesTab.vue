@@ -17,7 +17,8 @@ const { t } = useI18n();
       :key="index"
       :title="format(history.creationDate, 'Pp')"
       rounded="xl"
-      :class="[index < file.histories.length - 1 ? 'mb-2' : '', 'pe-2', 'bg-grey-lighten-3', 'list-item--custom']"
+      class="pe-2 bg-grey-lighten-3 list-item--custom"
+      :class="[index < file.histories.length - 1 ? 'mb-2' : '']"
     >
       <template #append>
         <v-btn icon="fas fa-eye" color="info" variant="text" size="small" :alt="t('button.view')" />

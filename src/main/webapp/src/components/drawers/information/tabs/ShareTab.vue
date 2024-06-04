@@ -89,7 +89,8 @@ watch(visibility, (): void => refreshFile());
       v-for="(collaboration, index) in file.collaborations"
       :key="index"
       rounded="xl"
-      :class="[index < file.collaborations.length - 1 ? 'mb-2' : '', 'pe-2', 'bg-grey-lighten-3', 'list-item--custom']"
+      class="pe-2 bg-grey-lighten-3 list-item--custom"
+      :class="[index < file.collaborations.length - 1 ? 'mb-2' : '']"
     >
       <template #default>
         <div class="d-flex">

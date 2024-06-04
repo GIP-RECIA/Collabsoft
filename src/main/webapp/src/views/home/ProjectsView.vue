@@ -12,14 +12,15 @@ const { mobile } = useDisplay();
 </script>
 
 <template>
-  <div :class="['d-flex', 'align-center', ' justify-space-between', mobile ? 'mb-2' : 'mb-4']">
+  <div class="d-flex align-center justify-space-between" :class="[mobile ? 'mb-2' : 'mb-4']">
     <div>
       <v-btn icon="fas fa-plus" variant="tonal" size="small" @click="isNew = true" />
       <v-btn
         prepend-icon="fas fa-chalkboard-user"
         variant="tonal"
         :text="t('button.rooms')"
-        :class="[mobile ? 'ms-2' : 'ms-4', 'custom-height']"
+        class="custom-height"
+        :class="[mobile ? 'ms-2' : 'ms-4']"
         @click="isRoom = true"
       />
     </div>
@@ -33,7 +34,8 @@ const { mobile } = useDisplay();
       hide-details
       single-line
       clearable
-      :class="[mobile ? 'ms-2' : 'ms-4', 'max-width']"
+      class="max-width"
+      :class="[mobile ? 'ms-2' : 'ms-4']"
     />
   </div>
 </template>

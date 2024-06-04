@@ -52,7 +52,7 @@ const deleteItem = async (result: Confirmation): Promise<void> => {
   <v-layout full-height>
     <navigation-drawer />
     <v-main>
-      <v-container fluid :class="['h-100', 'd-flex', 'flex-column', mobile ? 'pa-2' : '']">
+      <v-container fluid class="h-100 d-flex flex-column" :class="[mobile ? 'pa-2' : '']">
         <router-view />
         <files-layout :files="files" />
       </v-container>
