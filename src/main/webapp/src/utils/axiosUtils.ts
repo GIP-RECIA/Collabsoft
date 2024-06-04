@@ -58,13 +58,15 @@ instance.interceptors.request.use(async (config) => {
 });
 
 const errorHandler = (e: any, toastOrI18n?: boolean | string): void => {
-  const showToast: boolean = typeof toastOrI18n == 'boolean' && toastOrI18n;
+  let showToast: boolean = typeof toastOrI18n == 'boolean' && toastOrI18n;
   const i18nHandled: Array<number> = [401, 404, 500];
   let message: string, error: any;
 
   if (axios.isAxiosError(e)) {
-    if (typeof toastOrI18n == 'string') message = `toast.${toastOrI18n}`;
-    else {
+    if (typeof toastOrI18n == 'string' && toastOrI18n.trim().length > 0) {
+      message = `toast.${toastOrI18n}`;
+      showToast = true;
+    } else {
       message = i18nHandled.includes(e.response?.status ?? -1)
         ? `toast.error.${e.response!.status}`
         : 'toast.error.unmanaged';
