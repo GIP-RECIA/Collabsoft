@@ -71,8 +71,9 @@ export const useFileStore = defineStore('file', () => {
    * Delete a file
    */
   const deleteFile = (fileId: number): void => {
-    const index = files.value?.findIndex((file) => file.id === fileId);
-    if (index && index > -1) files.value?.splice(index, 1);
+    if (!files.value) return;
+    const index = files.value.findIndex((file) => file.id === fileId);
+    if (index > -1) files.value.splice(index, 1);
   };
 
   /**
