@@ -1,7 +1,3 @@
-const capitalize = (value: string): string => {
-  return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-};
-
 const charOTP = (length: number = 6) => {
   let otp = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -31,4 +27,4 @@ const interpolate = (input: string, params: Object): string => {
   return new Function(...names, `return \`${input}\`;`)(...vals);
 };
 
-export { capitalize, charOTP, slugify, interpolate };
+export { charOTP, slugify, interpolate };
