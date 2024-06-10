@@ -4,6 +4,7 @@ import type { Configuration } from '@/types/configurationType.ts';
 import type { Soffit } from '@/types/soffitType.ts';
 import { errorHandler, initToken } from '@/utils/axiosUtils.ts';
 import { useEntTheme } from '@/utils/entUtils.ts';
+import { setNextcloudUri } from '@/utils/nextcloudUtils.ts';
 import { initAppsRoutes } from '@/utils/routerUtils.ts';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
@@ -19,9 +20,11 @@ export const useConfigurationStore = defineStore('configuration', () => {
       try {
         const response = await getConfiguration();
         configuration.value = response.data;
-        await initToken(configuration.value!.front.userInfoApiUrl);
-        await useEntTheme(configuration.value!.front.extendedUportalHeader.templateApiPath);
-        await initAppsRoutes(configuration.value!.front.apps);
+        if (!configuration.value) return false;
+        if (isNextcloudAvailable.value) setNextcloudUri(configuration.value.front.nextcloudUri);
+        await initToken(configuration.value.front.userInfoApiUrl);
+        await useEntTheme(configuration.value.front.extendedUportalHeader.templateApiPath);
+        await initAppsRoutes(configuration.value.front.apps);
 
         return true;
       } catch (e) {
@@ -34,6 +37,10 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const isInit = computed<boolean>(() => configuration.value != undefined);
 
   const isReady = computed<boolean>(() => isInit.value && isSoffitOk.value);
+
+  /* -- Gestion de nextcloud -- */
+
+  const isNextcloudAvailable = computed<boolean>(() => (configuration.value?.front.nextcloudUri ?? '').length > 0);
 
   /* -- Gestion de l'utilisateur -- */
 
@@ -61,6 +68,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     init,
     isInit,
     isReady,
+    isNextcloudAvailable,
     user,
     isSoffitOk,
     lastNavigation,

@@ -48,6 +48,8 @@ app:
   front:
     user-info-api-url: ''
 
+    nextcloud-uri: '' # You can use domain variable in case of subdomain hosting (ex: 'https://nc.${domain}')
+
     collaboration:
       websocket-api-url: ''
 

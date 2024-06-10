@@ -2,21 +2,29 @@ import i18n from '@/plugins/i18n.ts';
 import { saveNcFile } from '@/services/api/nextcloudService.ts';
 import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
+import { interpolate } from '@/utils/stringUtils.ts';
 import axios from 'axios';
 import { storeToRefs } from 'pinia';
 import { toast } from 'vue3-toastify';
 
-const { VITE_NEXTCLOUD_URI, VITE_AXIOS_TIMEOUT } = import.meta.env;
+const { VITE_AXIOS_TIMEOUT } = import.meta.env;
 
 const { t } = i18n.global;
 
+let nextcloudBaseUri: string | undefined;
+
 const instance = axios.create({
-  baseURL: `${VITE_NEXTCLOUD_URI}/remote.php/dav/files/`,
   timeout: VITE_AXIOS_TIMEOUT,
   headers: {
     Authorization: 'Bearer null',
   },
 });
+
+const setNextcloudUri = (uri: string): void => {
+  if (uri.length <= 0) return;
+  nextcloudBaseUri = interpolate(uri, { domain: window.location.hostname });
+  instance.defaults.baseURL = `${nextcloudBaseUri}/remote.php/dav/files/`;
+};
 
 const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
   const configurationStore = useConfigurationStore();
@@ -32,7 +40,7 @@ const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
         }),
         {
           onClick: () => {
-            window.open(`${VITE_NEXTCLOUD_URI}/`, '_blank');
+            window.open(`${nextcloudBaseUri}/`, '_blank');
           },
         },
       );
@@ -42,11 +50,11 @@ const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
       toast.error(t('toast.nextcloud.401'), {
         autoClose: false,
         onClick: () => {
-          window.open(`${VITE_NEXTCLOUD_URI}/apps/user_cas/login`, '_blank');
+          window.open(`${nextcloudBaseUri}/apps/user_cas/login`, '_blank');
         },
       });
     } else errorHandler(error, true);
   }
 };
 
-export { instance, saveOnNextcloud };
+export { instance, setNextcloudUri, saveOnNextcloud };

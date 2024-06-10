@@ -71,6 +71,8 @@ app:
   front:
     user-info-api-url: ''
 
+    nextcloud-uri: ''
+
     collaboration:
       websocket-api-url: ''
 

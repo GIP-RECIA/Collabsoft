@@ -24,4 +24,11 @@ const slugify = (value: string): string => {
     .replace(/-+/g, '-'); // remove consecutive hyphens
 };
 
-export { capitalize, charOTP, slugify };
+const interpolate = (input: string, params: Object): string => {
+  const names = Object.keys(params);
+  const vals = Object.values(params);
+
+  return new Function(...names, `return \`${input}\`;`)(...vals);
+};
+
+export { capitalize, charOTP, slugify, interpolate };

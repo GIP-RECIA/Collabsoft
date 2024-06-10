@@ -16,7 +16,7 @@ const appStore = useAppStore();
 const { isApp } = storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
-const { isSettings } = storeToRefs(configurationStore);
+const { isNextcloudAvailable, isSettings } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
@@ -63,7 +63,7 @@ const onHistories = async (): Promise<void> => {
 
 const onExport = async (): Promise<void> => {
   await getFile();
-  if (!file.value) return;
+  if (!file.value || !isNextcloudAvailable.value) return;
   await saveOnNextcloud(toFile(file.value), file.value.associatedApp.extension);
 };
 
@@ -119,6 +119,7 @@ const onDelete = async (): Promise<void> => {
           @click="onHistories"
         />
         <v-list-item
+          v-if="isNextcloudAvailable"
           prepend-icon="fas fa-cloud"
           :title="t('menu.item.exportOnNextcloud')"
           rounded="xl"

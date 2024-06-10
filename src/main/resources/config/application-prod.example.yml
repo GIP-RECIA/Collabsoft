@@ -22,7 +22,7 @@ app:
   cors:
     enable: true
     allowed-origins:
-      - https://*.giprecia.net
+      -
 
   soffit:
     jwt-signature-key: ''
@@ -32,6 +32,8 @@ app:
 
   front:
     user-info-api-url: ''
+
+    nextcloud-uri: ''
 
     collaboration:
       websocket-api-url: ''

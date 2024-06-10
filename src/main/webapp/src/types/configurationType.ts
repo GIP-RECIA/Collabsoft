@@ -3,6 +3,7 @@ import type { AssociatedApp } from '@/types/associatedAppType.ts';
 export type Configuration = {
   front: {
     userInfoApiUrl: string;
+    nextcloudUri: string;
     collaboration: {
       websocketApiUrl: string;
     };

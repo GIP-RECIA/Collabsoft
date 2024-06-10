@@ -21,6 +21,7 @@ import lombok.Data;
 public class FrontProperties {
 
   private String userInfoApiUrl;
+  private String nextcloudUri;
   private CollaborationProperties collaboration = new CollaborationProperties();
   private ExtendedUportalHeaderProperties extendedUportalHeader = new ExtendedUportalHeaderProperties();
   private ExtendedUportalFooterProperties extendedUportalFooter = new ExtendedUportalFooterProperties();
@@ -115,6 +116,7 @@ public class FrontProperties {
   public String toString() {
     return "\"FrontProperties\": {" +
       "\n\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"," +
+      "\n\t\"nextcloudUri\": \"" + nextcloudUri + "\"," +
       "\n\t\"collaboration\": \"" + collaboration + "\"," +
       "\n\t\"extendedUportalHeader\": \"" + extendedUportalHeader + "\"," +
       "\n\t\"extendedUportalFooter\": \"" + extendedUportalFooter + "\"" +
