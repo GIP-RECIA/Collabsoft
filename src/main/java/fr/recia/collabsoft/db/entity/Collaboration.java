@@ -56,7 +56,7 @@ public class Collaboration implements Serializable {
   @JoinColumn(name = "file_id", nullable = false)
   private File file;
 
-  @Enumerated(EnumType.STRING)
+  @Enumerated(EnumType.ORDINAL)
   @Column(name = "role")
   private Role role;
 
