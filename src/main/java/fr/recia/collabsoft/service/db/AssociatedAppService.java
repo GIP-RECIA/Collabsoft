@@ -36,7 +36,7 @@ public class AssociatedAppService {
       associatedAppRepository.findAll().iterator()
     );
 
-    if (apps.isEmpty()) log.debug("No apps");
+    if (apps.isEmpty()) log.error("No apps defined");
 
     return apps;
   }

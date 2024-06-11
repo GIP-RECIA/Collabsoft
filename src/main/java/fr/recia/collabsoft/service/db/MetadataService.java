@@ -49,7 +49,7 @@ public class MetadataService {
       QMetadata.metadata.file.id.eq(fileId).and(QMetadata.metadata.user.casUid.eq(soffitHolder.getSub()))
     ).orElse(null);
     if (metadata == null) {
-      log.debug("No metadata");
+      log.debug("No metadata found");
       final File file = fileService.getFile(fileId, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
       if (file == null) return false;
       metadata = new Metadata();

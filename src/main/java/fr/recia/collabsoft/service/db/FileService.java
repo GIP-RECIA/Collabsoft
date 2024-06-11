@@ -110,7 +110,7 @@ public class FileService {
   public File saveFile(JsonFileBody body) {
     User user = userService.getCurrentUser();
     if (user == null) {
-      log.info("No user found => Create user");
+      log.debug("No user found => Create user");
       user = userService.createUser();
       if (user == null) return null;
     }
