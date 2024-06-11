@@ -69,7 +69,8 @@ public class FileService {
           JPAExpressions.select(QMetadata.metadata.file.id)
             .from(QMetadata.metadata)
             .where(QMetadata.metadata.starred.eq(true))
-        ).and(QFile.file.creator.casUid.eq(soffitHolder.getSub()))
+            .where(QMetadata.metadata.user.casUid.eq(soffitHolder.getSub()))
+        )
       ).iterator()
     );
 
