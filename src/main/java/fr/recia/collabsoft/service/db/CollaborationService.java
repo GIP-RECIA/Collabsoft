@@ -89,7 +89,7 @@ public class CollaborationService {
   }
 
   public boolean deleteCollaboration(Long fileId, Long userId) {
-    final File file = fileService.getFile(fileId, Authority.OWNER);
+    final File file = fileService.getFile(fileId, Authority.OWNER_OR_COLLABORATOR);
     if (file == null) return false;
     final Collaboration collaboration = getCollaboration(fileId, userId);
     if (collaboration == null) return false;
