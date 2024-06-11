@@ -33,7 +33,15 @@ public class UserService {
   @Autowired
   private SoffitHolder soffitHolder;
 
+  private boolean isSubOk() {
+    final boolean isOk = soffitHolder.getSub() != null && !soffitHolder.getSub().startsWith("guest");
+    if (!isOk) log.debug("User is guest : sub \"{}\"", soffitHolder.getSub());
+
+    return isOk;
+  }
+
   public User getCurrentUser() {
+    if (!isSubOk()) return null;
     final User user = userRepository.findOne(
       QUser.user.casUid.eq(soffitHolder.getSub())
     ).orElse(null);
@@ -54,11 +62,7 @@ public class UserService {
   }
 
   public User createUser() {
-    if (soffitHolder.getSub() == null || soffitHolder.getSub().startsWith("guest")) {
-      log.debug("Unable to create user with sub \"{}\"", soffitHolder.getSub());
-
-      return null;
-    }
+    if (!isSubOk()) return null;
     if (getCurrentUser() != null) {
       log.debug("User with sub \"{}\" already exist", soffitHolder.getSub());
 
