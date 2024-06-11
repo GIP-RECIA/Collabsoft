@@ -8,8 +8,6 @@ server:
     include-exception: true
     include-message: always
     include-stacktrace: always
-  #  tomcat:
-  #    redirect-context-root: false
   forward-headers-strategy: NATIVE
 
 logging:
