@@ -8,6 +8,14 @@ on:
   pull_request:
     branches: ['main']
 
+env:
+  LANG: 'fr_FR.UTF-8'
+  LC_ALL: 'fr_FR.UTF-8'
+  LANGUAGE: 'fr_FR.UTF-8'
+  LC_CTYPE: 'fr_FR.UTF-8'
+  TZ: 'Europe/Paris'
+  MARIADB_IMG: 'wodby/mariadb'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,11 +24,67 @@ jobs:
       matrix:
         java: ['11', '17']
         node: ['20']
+        mariadb: ['10.3', 'latest']
 
-    name: Java ${{ matrix.java }} & Node ${{ matrix.node }}
+    name: Java ${{ matrix.java }}, Node ${{ matrix.node }} & mariadb ${{ matrix.mariadb }}
 
     steps:
       - uses: actions/checkout@v3
+      - uses: szenius/set-timezone@v1.1
+        with:
+          timezoneLinux: 'Europe/Paris'
+      - name: Set up locale ENV
+        run: |
+          sudo locale-gen $LANG
+          sudo update-locale LANG=$LANG
+          sudo apt install net-tools
+      - name: Check locales
+        run: locale -a
+
+      # Setup mariadb
+      - name: Pull ${{ env.MARIADB_IMG }}:${{ matrix.mariadb }} image
+        run: docker pull ${{ env.MARIADB_IMG }}:${{ matrix.mariadb }}
+      - name: Run MariaDB container
+        run: |
+          docker run -t -d --name mariadb --rm -v \
+            --health-cmd="mysqladmin -uroot -proot ping" --health-interval=10s --health-timeout=10s --health-retries=10 \
+            -p 3306:3306/tcp \
+            -e "TZ=Europe/Paris" \
+            -e "MYSQL_USER=root" \
+            -e "MYSQL_ROOT_PASSWORD=root" \
+            -e "MYSQL_DATABASE=collabsoft" \
+            -e "MYSQL_DEFAULT_STORAGE_ENGINE=InnoDB" \
+            -e "MYSQL_CHARACTER_SET_SERVER=utf8mb4" \
+            -e "MYSQL_COLLATION_SERVER=utf8mb4_unicode_520_ci" \
+            -e "MYSQL_INNODB_BUFFER_POOL_SIZE=2G" \
+            -e "MYSQL_INNODB_DEFAULT_ROW_FORMAT=dynamic" \
+            -e "MYSQL_INNODB_DATA_FILE_PATH=ibdata1:100M:autoextend:max:10G" \
+            -e "MYSQL_INNODB_FLUSH_LOG_AT_TRX_COMMIT=1" \
+            -e "MYSQL_INNODB_LOG_BUFFER_SIZE=64M" \
+            -e "MYSQL_INNODB_LOG_FILE_SIZE=256M" \
+            -e "MYSQL_INNODB_STRICT_MODE=ON" \
+            -e "MYSQL_LOWER_CASE_TABLE_NAMES=1" \
+            -e "MYSQL_MAX_CONNECT_ERRORS=100" \
+            -e "MYSQL_MAX_CONNECTIONS=1000" \
+            -e "MYSQL_QUERY_CACHE_LIMIT=10M" \
+            -e "MYSQL_QUERY_CACHE_SIZE=0" \
+            -e "MYSQL_QUERY_CACHE_TYPE=OFF" \
+            ${{ env.MARIADB_IMG }}:${{ matrix.mariadb }} &
+          sleep 30
+      - name: Test MariaDB
+        run: docker exec mariadb /bin/bash -c "mysql -h127.0.0.1 -uroot -proot -e \"show variables like '%time_zone'; select now();\""
+      - name: Check date
+        run: |
+          date
+          mysql -h127.0.0.1 -uroot -proot -e "show variables like '%time_zone'; select now();"
+      - name: DB connection test and conf checks
+        run: |
+          netstat -pnltu
+          mysql -h127.0.0.1 -uroot -proot -e "show databases;"
+          mysql -h127.0.0.1 -uroot -proot -e "show variables like 'char%'; show variables like 'collation%';show variables like 'innodb_default_row_format';"
+          mysql -h127.0.0.1 -uroot -proot -e "use collabsoft;show tables;"
+      - name: Populate database
+        run: mysql -h127.0.0.1 -uroot -proot < ./src/test/resources/collabsoft.sql
 
       # Setup Java
       - name: Set up JDK ${{ matrix.java }}
@@ -40,13 +104,14 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: 'yarn'
-      - run: yarn install --immutable
+      - name: Install dependencies
+        run: yarn install --immutable
 
       - name: Build frontend
         run: yarn build
 
       - name: Build backend
-        run: ./mvnw -B package --file pom.xml -Dmaven.test.skip=true -Darguments="-DskipTests"
+        run: ./mvnw clean package -P prod -Dmaven.test.skip=true -Darguments="-DskipTests"
 
       # Tests frontend
       - name: Tests frontend (unit tests)
@@ -54,5 +119,5 @@ jobs:
       # - name: Tests frontend (e2e tests)
       #   run: yarn test:e2e
 
-      # - name: Tests backend
-      #  run: ./mvnw -B test --file pom.xml
+      - name: Tests backend
+        run: ./mvnw test -P test
