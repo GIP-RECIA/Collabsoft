@@ -4,6 +4,7 @@
   - [Prérequis](#prérequis)
   - [Setup](#setup)
   - [Run](#run)
+  - [Tests](#tests)
   - [Build](#build)
 
 ## Prérequis
@@ -27,6 +28,17 @@ Personnalisez les fichiers :
 ```sh
 yarn dev
 ./mvnw clean spring-boot:run -Pdev
+```
+
+## Tests
+
+**Prérequis** :
+
+- docker
+- mysql-client-core-8.0
+
+```sh
+./scripts/test.sh
 ```
 
 ## Build
