@@ -23,7 +23,6 @@ docker run -t -d --name mariadb --rm -v \
   -e "MYSQL_QUERY_CACHE_TYPE=OFF" \
   wodby/mariadb:10.3 &
 sleep 30
-docker cp ./src/test/resources/collabsoft.sql mariadb:/
-docker exec mariadb /bin/bash -c "mysql -h127.0.0.1 -uroot -proot  < /collabsoft.sql"
+mysql -h127.0.0.1 -uroot -proot < ./src/test/resources/collabsoft.sql
 ./mvnw test -P test
 docker stop mariadb
