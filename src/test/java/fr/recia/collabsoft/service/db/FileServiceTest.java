@@ -19,19 +19,17 @@ import fr.recia.collabsoft.db.entity.File;
 import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
 import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.model.pojo.JsonFileBody;
+import fr.recia.collabsoft.test.DatabaseUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.List;
 
-import static fr.recia.collabsoft.test.DatabaseUtils.associatedApp1Id;
 import static fr.recia.collabsoft.test.DatabaseUtils.associatedAppUnknownId;
-import static fr.recia.collabsoft.test.DatabaseUtils.file1Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file2Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file3Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file4Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file6Id;
 import static fr.recia.collabsoft.test.DatabaseUtils.fileUnknownId;
 import static fr.recia.collabsoft.test.DatabaseUtils.user1Sub;
 import static fr.recia.collabsoft.test.DatabaseUtils.user2Sub;
@@ -43,7 +41,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@ComponentScan(basePackages = "fr.recia.collabsoft")
 class FileServiceTest {
+
+  @Autowired
+  private DatabaseUtils databaseUtils;
 
   @Autowired
   private FileService fileService;
@@ -51,11 +53,23 @@ class FileServiceTest {
   @Autowired
   private SoffitHolder soffitHolder;
 
+  private DatabaseUtils.DataToId data;
+
+  @BeforeEach
+  public void setUp() {
+    data = databaseUtils.insertData();
+  }
+
+  @AfterEach
+  public void tearDown() {
+    databaseUtils.deleteData();
+  }
+
   @Test
   void getFiles_ShouldNotBeEmpty() {
     soffitHolder.setSub(user1Sub);
     final List<File> files = fileService.getFiles();
-    assertTrue(files.isEmpty());
+    assertFalse(files.isEmpty());
   }
 
   @Test
@@ -69,7 +83,7 @@ class FileServiceTest {
   void getStarredFiles_ShouldNotBeEmpty() {
     soffitHolder.setSub(user1Sub);
     final List<File> files = fileService.getStarredFiles();
-    assertTrue(files.isEmpty());
+    assertFalse(files.isEmpty());
   }
 
   @Test
@@ -83,13 +97,13 @@ class FileServiceTest {
   void getSharedFiles_ShouldNotBeEmpty() {
     soffitHolder.setSub(user1Sub);
     final List<File> files = fileService.getSharedFiles();
-    assertTrue(files.isEmpty());
+    assertFalse(files.isEmpty());
   }
 
   @Test
   void getPublicFiles_ShouldNotBeEmpty() {
     final List<File> files = fileService.getPublicFiles();
-    assertTrue(files.isEmpty());
+    assertFalse(files.isEmpty());
   }
 
   @Test
@@ -98,7 +112,7 @@ class FileServiceTest {
     body.setTitle("TEST SAVE");
     body.setDescription(null);
     body.setData("some data");
-    body.setAssociatedAppId(associatedApp1Id);
+    body.setAssociatedAppId(data.getAssociatedApp1Id());
     body.setPub(false);
 
     soffitHolder.setSub(userGuestSub);
@@ -126,7 +140,7 @@ class FileServiceTest {
     body.setTitle("TEST SAVE");
     body.setDescription(null);
     body.setData("some data");
-    body.setAssociatedAppId(associatedApp1Id);
+    body.setAssociatedAppId(data.getAssociatedApp1Id());
     body.setPub(false);
 
     // Already exist user
@@ -150,7 +164,7 @@ class FileServiceTest {
   @Test
   void getFile_ShouldBeNull_becauseUserIsNotTheOwnerOrCollaboratorOrFileIsNotPublic() {
     soffitHolder.setSub(user1Sub);
-    final File file = fileService.getFile(file6Id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
+    final File file = fileService.getFile(data.getFile6Id(), Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNull(file);
   }
 
@@ -159,15 +173,15 @@ class FileServiceTest {
     soffitHolder.setSub(user1Sub);
 
     // Owned file
-    File file = fileService.getFile(file1Id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
+    File file = fileService.getFile(data.getFile1Id(), Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNotNull(file);
 
     // Collaborate file
-    file = fileService.getFile(file3Id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
+    file = fileService.getFile(data.getFile3Id(), Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNotNull(file);
 
     // Public file
-    file = fileService.getFile(file4Id, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
+    file = fileService.getFile(data.getFile4Id(), Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
     assertNotNull(file);
   }
 
@@ -187,7 +201,7 @@ class FileServiceTest {
     body.setTitle("UPDATED");
 
     soffitHolder.setSub(user3Sub);
-    final File file = fileService.updateFile(file1Id, body);
+    final File file = fileService.updateFile(data.getFile1Id(), body);
     assertNull(file);
   }
 
@@ -198,12 +212,12 @@ class FileServiceTest {
 
     // Owner
     soffitHolder.setSub(user1Sub);
-    File file = fileService.updateFile(file1Id, body);
+    File file = fileService.updateFile(data.getFile1Id(), body);
     assertNotNull(file);
 
     // Collaborator
     soffitHolder.setSub(user2Sub);
-    file = fileService.updateFile(file2Id, body);
+    file = fileService.updateFile(data.getFile2Id(), body);
     assertNotNull(file);
   }
 
@@ -217,14 +231,14 @@ class FileServiceTest {
   @Test
   void deleteFile_ShouldBeFalse_becauseUserIsNotTheOwner() {
     soffitHolder.setSub(user2Sub);
-    final boolean result = fileService.deleteFile(file2Id);
+    final boolean result = fileService.deleteFile(data.getFile2Id());
     assertFalse(result);
   }
 
   @Test
   void deleteFile_ShouldBeTrue() {
     soffitHolder.setSub(user1Sub);
-    final boolean result = fileService.deleteFile(file1Id);
+    final boolean result = fileService.deleteFile(data.getFile1Id());
     assertTrue(result);
   }
 

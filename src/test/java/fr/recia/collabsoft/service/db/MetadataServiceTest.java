@@ -17,13 +17,14 @@ package fr.recia.collabsoft.service.db;
 
 import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
 import fr.recia.collabsoft.model.pojo.JsonMetadataBody;
+import fr.recia.collabsoft.test.DatabaseUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 
-import static fr.recia.collabsoft.test.DatabaseUtils.file1Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file3Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file4Id;
 import static fr.recia.collabsoft.test.DatabaseUtils.fileUnknownId;
 import static fr.recia.collabsoft.test.DatabaseUtils.user1Sub;
 import static fr.recia.collabsoft.test.DatabaseUtils.userGuestSub;
@@ -31,13 +32,29 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@ComponentScan(basePackages = "fr.recia.collabsoft")
 class MetadataServiceTest {
+
+  @Autowired
+  private DatabaseUtils databaseUtils;
 
   @Autowired
   private MetadataService metadataService;
 
   @Autowired
   private SoffitHolder soffitHolder;
+
+  private DatabaseUtils.DataToId data;
+
+  @BeforeEach
+  public void setUp() {
+    data = databaseUtils.insertData();
+  }
+
+  @AfterEach
+  public void tearDown() {
+    databaseUtils.deleteData();
+  }
 
   @Test
   void updateMetadata_ShouldBeFalse_becauseUserOrFileDoesNotExist() {
@@ -46,7 +63,7 @@ class MetadataServiceTest {
 
     // Incorrect sub
     soffitHolder.setSub(userGuestSub);
-    boolean result = metadataService.updateMetadata(file1Id, body);
+    boolean result = metadataService.updateMetadata(data.getFile1Id(), body);
     assertFalse(result);
 
     // Incorrect file id
@@ -62,15 +79,15 @@ class MetadataServiceTest {
     soffitHolder.setSub(user1Sub);
 
     // Owned
-    boolean result = metadataService.updateMetadata(file1Id, body);
+    boolean result = metadataService.updateMetadata(data.getFile1Id(), body);
     assertTrue(result);
 
     // Collaborate
-    result = metadataService.updateMetadata(file3Id, body);
+    result = metadataService.updateMetadata(data.getFile3Id(), body);
     assertTrue(result);
 
     // Public
-    result = metadataService.updateMetadata(file4Id, body);
+    result = metadataService.updateMetadata(data.getFile4Id(), body);
     assertTrue(result);
   }
 

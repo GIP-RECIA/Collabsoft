@@ -17,11 +17,14 @@ package fr.recia.collabsoft.service.db;
 
 import fr.recia.collabsoft.db.entity.User;
 import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
+import fr.recia.collabsoft.test.DatabaseUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 
-import static fr.recia.collabsoft.test.DatabaseUtils.user1Id;
 import static fr.recia.collabsoft.test.DatabaseUtils.user1Sub;
 import static fr.recia.collabsoft.test.DatabaseUtils.user4Sub;
 import static fr.recia.collabsoft.test.DatabaseUtils.userGuestSub;
@@ -30,13 +33,29 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
+@ComponentScan(basePackages = "fr.recia.collabsoft")
 class UserServiceTest {
+
+  @Autowired
+  private DatabaseUtils databaseUtils;
 
   @Autowired
   private UserService userService;
 
   @Autowired
   private SoffitHolder soffitHolder;
+
+  private DatabaseUtils.DataToId data;
+
+  @BeforeEach
+  public void setUp() {
+    data = databaseUtils.insertData();
+  }
+
+  @AfterEach
+  public void tearDown() {
+    databaseUtils.deleteData();
+  }
 
   @Test
   void getCurrentUser_ShouldBeNull_becauseUserDoesNotExist() {
@@ -60,7 +79,7 @@ class UserServiceTest {
 
   @Test
   void getUser_ShouldNotBeNull() {
-    final User user = userService.getUser(user1Id);
+    final User user = userService.getUser(data.getUser1Id());
     assertNotNull(user);
   }
 

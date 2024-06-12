@@ -15,15 +15,13 @@
  */
 package fr.recia.collabsoft.web.rest;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.annotation.PostConstruct;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+// TODO
 @SpringBootTest
 class ConfigurationControllerTest {
 
@@ -35,9 +33,9 @@ class ConfigurationControllerTest {
     this.mockMvc = MockMvcBuilders.standaloneSetup(configurationController).build();
   }
 
-  @Test
-  void getConfiguration() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getConfiguration() throws Exception {
+//    assertTrue(true);
+//  }
 
 }

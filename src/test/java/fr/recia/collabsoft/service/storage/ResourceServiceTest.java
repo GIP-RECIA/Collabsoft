@@ -15,15 +15,10 @@
  */
 package fr.recia.collabsoft.service.storage;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+// TODO
 @SpringBootTest
 class ResourceServiceTest {
 
@@ -36,29 +31,29 @@ class ResourceServiceTest {
 //  @Test
 //  void getResource_ShouldBe() {}
 
-  @Test
-  void saveResource_ShouldBeNull_becauseUserIsNotOwnerOrCollaborator() {
-    assertNull(null);
-  }
+//  @Test
+//  void saveResource_ShouldBeNull_becauseUserIsNotOwnerOrCollaborator() {
+//    assertNull(null);
+//  }
 
-  @Test
-  void saveResource_ShouldNotBeNull() {
-    assertNotNull(true);
-  }
+//  @Test
+//  void saveResource_ShouldNotBeNull() {
+//    assertNotNull(true);
+//  }
 
-  @Test
-  void deleteResource_ShouldBeFalse_becauseUserIsNotOwnerOrCollaborator() {
-    assertFalse(false);
-  }
+//  @Test
+//  void deleteResource_ShouldBeFalse_becauseUserIsNotOwnerOrCollaborator() {
+//    assertFalse(false);
+//  }
 
-  @Test
-  void deleteResource_ShouldBeFalse_becauseFileDoesNotExist() {
-    assertFalse(false);
-  }
+//  @Test
+//  void deleteResource_ShouldBeFalse_becauseFileDoesNotExist() {
+//    assertFalse(false);
+//  }
 
-  @Test
-  void deleteResource_ShouldBeTrue() {
-    assertTrue(true);
-  }
+//  @Test
+//  void deleteResource_ShouldBeTrue() {
+//    assertTrue(true);
+//  }
 
 }

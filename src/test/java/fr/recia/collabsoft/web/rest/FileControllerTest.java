@@ -15,15 +15,13 @@
  */
 package fr.recia.collabsoft.web.rest;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.annotation.PostConstruct;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+// TODO
 @SpringBootTest
 class FileControllerTest {
 
@@ -39,130 +37,130 @@ class FileControllerTest {
    * File
    */
 
-  @Test
-  void getFiles() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getFiles() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void getStarredFiles() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getStarredFiles() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void getSharedFiles() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getSharedFiles() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void postFile() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void postFile() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void getFile() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getFile() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void putFile() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void putFile() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void deleteFile() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void deleteFile() throws Exception {
+//    assertTrue(true);
+//  }
 
   /*
    * Resource
    */
 
-  @Test
-  void postResource() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void postResource() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void getResource() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getResource() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void deleteResource() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void deleteResource() throws Exception {
+//    assertTrue(true);
+//  }
 
   /*
    * Metadata
    */
 
-  @Test
-  void putMetadata() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void putMetadata() throws Exception {
+//    assertTrue(true);
+//  }
 
   /*
    * Collaboration
    */
 
-  @Test
-  void getShare() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getShare() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void postShare() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void postShare() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void putShare() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void putShare() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void deleteShare() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void deleteShare() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void deleteShared() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void deleteShared() throws Exception {
+//    assertTrue(true);
+//  }
 
   /*
    * History
    */
 
-  @Test
-  void getHistories() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getHistories() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void postHistory() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void postHistory() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void getHistory() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void getHistory() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void deleteHistory() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void deleteHistory() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void revertHistory() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void revertHistory() throws Exception {
+//    assertTrue(true);
+//  }
 
-  @Test
-  void deleteHistories() throws Exception {
-    assertTrue(true);
-  }
+//  @Test
+//  void deleteHistories() throws Exception {
+//    assertTrue(true);
+//  }
 
 }

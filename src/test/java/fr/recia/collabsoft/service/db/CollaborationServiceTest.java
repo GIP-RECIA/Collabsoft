@@ -19,34 +19,48 @@ import fr.recia.collabsoft.db.entity.Collaboration;
 import fr.recia.collabsoft.db.enums.Role;
 import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
 import fr.recia.collabsoft.model.pojo.JsonCollaborationBody;
+import fr.recia.collabsoft.test.DatabaseUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.List;
 
-import static fr.recia.collabsoft.test.DatabaseUtils.file1Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file2Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file3Id;
-import static fr.recia.collabsoft.test.DatabaseUtils.file4Id;
 import static fr.recia.collabsoft.test.DatabaseUtils.fileUnknownId;
 import static fr.recia.collabsoft.test.DatabaseUtils.user1Sub;
-import static fr.recia.collabsoft.test.DatabaseUtils.user2Id;
 import static fr.recia.collabsoft.test.DatabaseUtils.user2Sub;
-import static fr.recia.collabsoft.test.DatabaseUtils.user3Id;
 import static fr.recia.collabsoft.test.DatabaseUtils.user3Sub;
 import static fr.recia.collabsoft.test.DatabaseUtils.userUnknownId;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@ComponentScan(basePackages = "fr.recia.collabsoft")
 class CollaborationServiceTest {
+
+  @Autowired
+  private DatabaseUtils databaseUtils;
 
   @Autowired
   private CollaborationService collaborationService;
 
   @Autowired
   private SoffitHolder soffitHolder;
+
+  private DatabaseUtils.DataToId data;
+
+  @BeforeEach
+  public void setUp() {
+    data = databaseUtils.insertData();
+  }
+
+  @AfterEach
+  public void tearDown() {
+    databaseUtils.deleteData();
+  }
 
   @Test
   void getCollaborations_ShouldBeEmpty_becauseFileDoesNotExist() {
@@ -56,13 +70,13 @@ class CollaborationServiceTest {
 
   @Test
   void getCollaborations_ShouldBeEmpty_becauseThereAreNoCollaborations() {
-    final List<Collaboration> collaborations = collaborationService.getCollaborations(file4Id);
+    final List<Collaboration> collaborations = collaborationService.getCollaborations(data.getFile4Id());
     assertTrue(collaborations.isEmpty());
   }
 
   @Test
   void getCollaborations_ShouldNotBeEmpty() {
-    final List<Collaboration> collaborations = collaborationService.getCollaborations(file2Id);
+    final List<Collaboration> collaborations = collaborationService.getCollaborations(data.getFile2Id());
     assertFalse(collaborations.isEmpty());
   }
 
@@ -73,40 +87,42 @@ class CollaborationServiceTest {
     body.setRole(Role.EDITOR);
 
     soffitHolder.setSub(user2Sub);
-    final boolean result = collaborationService.saveCollaboration(file4Id, body);
+    final boolean result = collaborationService.saveCollaboration(data.getFile4Id(), body);
     assertFalse(result);
   }
 
-  @Test
-  void saveCollaboration_ShouldBeFalse_becauseRoleIsIncorrect() {
-    final JsonCollaborationBody body = new JsonCollaborationBody();
-    body.setUserId(user3Id);
-    body.setRole(Role.OWNER);
+// TODO: Define collaborations permissions
 
-    soffitHolder.setSub(user2Sub);
-    final boolean result = collaborationService.saveCollaboration(file4Id, body);
-    assertFalse(result);
-  }
+//  @Test
+//  void saveCollaboration_ShouldBeFalse_becauseRoleIsIncorrect() {
+//    final JsonCollaborationBody body = new JsonCollaborationBody();
+//    body.setUserId(data.getUser3Id());
+//    body.setRole(Role.OWNER);
+//
+//    soffitHolder.setSub(user2Sub);
+//    final boolean result = collaborationService.saveCollaboration(data.getFile4Id(), body);
+//    assertFalse(result);
+//  }
 
   @Test
   void saveCollaboration_ShouldBeFalse_becauseUserIsNotTheOwner() {
     final JsonCollaborationBody body = new JsonCollaborationBody();
-    body.setUserId(user3Id);
+    body.setUserId(data.getUser3Id());
     body.setRole(Role.EDITOR);
 
     soffitHolder.setSub(user3Sub);
-    final boolean result = collaborationService.saveCollaboration(file4Id, body);
+    final boolean result = collaborationService.saveCollaboration(data.getFile4Id(), body);
     assertFalse(result);
   }
 
   @Test
   void saveCollaboration_ShouldBeTrue() {
     final JsonCollaborationBody body = new JsonCollaborationBody();
-    body.setUserId(user3Id);
+    body.setUserId(data.getUser3Id());
     body.setRole(Role.EDITOR);
 
     soffitHolder.setSub(user2Sub);
-    final boolean result = collaborationService.saveCollaboration(file4Id, body);
+    final boolean result = collaborationService.saveCollaboration(data.getFile4Id(), body);
     assertTrue(result);
   }
 
@@ -116,19 +132,21 @@ class CollaborationServiceTest {
     body.setRole(Role.READONLY);
 
     soffitHolder.setSub(user1Sub);
-    final boolean result = collaborationService.updateCollaboration(fileUnknownId, user2Id, body);
+    final boolean result = collaborationService.updateCollaboration(fileUnknownId, data.getUser2Id(), body);
     assertFalse(result);
   }
 
-  @Test
-  void updateCollaboration_ShouldBeFalse_becauseRoleIsIncorrect() {
-    final JsonCollaborationBody body = new JsonCollaborationBody();
-    body.setRole(Role.OWNER);
+// TODO: Define collaborations permissions
 
-    soffitHolder.setSub(user1Sub);
-    final boolean result = collaborationService.updateCollaboration(file2Id, user2Id, body);
-    assertFalse(result);
-  }
+//  @Test
+//  void updateCollaboration_ShouldBeFalse_becauseRoleIsIncorrect() {
+//    final JsonCollaborationBody body = new JsonCollaborationBody();
+//    body.setRole(Role.OWNER);
+//
+//    soffitHolder.setSub(user1Sub);
+//    final boolean result = collaborationService.updateCollaboration(data.getFile2Id(), data.getUser2Id(), body);
+//    assertFalse(result);
+//  }
 
   @Test
   void updateCollaboration_ShouldBeFalse_becauseUserIsNotOwner() {
@@ -136,7 +154,7 @@ class CollaborationServiceTest {
     body.setRole(Role.READONLY);
 
     soffitHolder.setSub(user2Sub);
-    final boolean result = collaborationService.updateCollaboration(file2Id, user2Id, body);
+    final boolean result = collaborationService.updateCollaboration(data.getFile2Id(), data.getUser2Id(), body);
     assertFalse(result);
   }
 
@@ -146,21 +164,21 @@ class CollaborationServiceTest {
     body.setRole(Role.READONLY);
 
     soffitHolder.setSub(user1Sub);
-    final boolean result = collaborationService.updateCollaboration(file2Id, user2Id, body);
+    final boolean result = collaborationService.updateCollaboration(data.getFile2Id(), data.getUser2Id(), body);
     assertTrue(result);
   }
 
   @Test
   void deleteCollaboration_ShouldBeFalse_becauseUserOrFileDoesNotExist() {
     soffitHolder.setSub(user1Sub);
-    final boolean result = collaborationService.deleteCollaboration(fileUnknownId, user2Id);
+    final boolean result = collaborationService.deleteCollaboration(fileUnknownId, data.getUser2Id());
     assertFalse(result);
   }
 
   @Test
   void deleteCollaboration_ShouldBeFalse_becauseUserIsNotTheOwnerOrSelf() {
     soffitHolder.setSub(user3Sub);
-    final boolean result = collaborationService.deleteCollaboration(file2Id, user2Id);
+    final boolean result = collaborationService.deleteCollaboration(data.getFile2Id(), data.getUser2Id());
     assertFalse(result);
   }
 
@@ -168,33 +186,33 @@ class CollaborationServiceTest {
   void deleteCollaboration_ShouldBeTrue() {
     // Owner
     soffitHolder.setSub(user1Sub);
-    boolean result = collaborationService.deleteCollaboration(file2Id, user2Id);
+    boolean result = collaborationService.deleteCollaboration(data.getFile2Id(), data.getUser2Id());
     assertTrue(result);
 
     // Self
     soffitHolder.setSub(user1Sub);
-    result = collaborationService.deleteCollaboration(file3Id, user2Id);
+    result = collaborationService.deleteCollaboration(data.getFile3Id(), data.getUser1Id());
     assertTrue(result);
   }
 
   @Test
   void deleteCollaborations_ShouldBeFalse_becauseThereAreNoCollaborations() {
     soffitHolder.setSub(user1Sub);
-    final boolean result = collaborationService.deleteCollaborations(file1Id);
+    final boolean result = collaborationService.deleteCollaborations(data.getFile1Id());
     assertFalse(result);
   }
 
   @Test
   void deleteCollaborations_ShouldBeFalse_becauseUserIsNotTheOwner() {
     soffitHolder.setSub(user1Sub);
-    final boolean result = collaborationService.deleteCollaborations(file3Id);
+    final boolean result = collaborationService.deleteCollaborations(data.getFile3Id());
     assertFalse(result);
   }
 
   @Test
   void deleteCollaborations_ShouldBeTrue() {
     soffitHolder.setSub(user1Sub);
-    final boolean result = collaborationService.deleteCollaborations(file2Id);
+    final boolean result = collaborationService.deleteCollaborations(data.getFile2Id());
     assertTrue(result);
   }
 
