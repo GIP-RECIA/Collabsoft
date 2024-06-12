@@ -42,8 +42,10 @@ public class FileHistoryService {
   private FileService fileService;
 
   public List<FileHistory> getHistories(Long fileId) {
+    final File file = fileService.getFile(fileId, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
+    if (file == null) return List.of();
     final List<FileHistory> histories = IteratorUtils.toList(
-      fileHistoryRepository.findAll(QFileHistory.fileHistory.file.id.eq(fileId)).iterator()
+      fileHistoryRepository.findAll(QFileHistory.fileHistory.file.id.eq(file.getId())).iterator()
     );
 
     if (histories.isEmpty()) log.debug("No histories found for file with id \"{}\"", fileId);
@@ -63,8 +65,10 @@ public class FileHistoryService {
   }
 
   public FileHistory getHistory(Long fileId, Long historyId) {
+    final File file = fileService.getFile(fileId, Authority.OWNER_OR_COLLABORATOR_OR_PUBLIC);
+    if (file == null) return null;
     final FileHistory history = fileHistoryRepository.findOne(
-      QFileHistory.fileHistory.file.id.eq(fileId).and(QFileHistory.fileHistory.key.id.eq(historyId))
+      QFileHistory.fileHistory.file.id.eq(file.getId()).and(QFileHistory.fileHistory.key.id.eq(historyId))
     ).orElse(null);
 
     if (history == null)
