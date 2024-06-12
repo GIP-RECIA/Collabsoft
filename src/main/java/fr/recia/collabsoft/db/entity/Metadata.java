@@ -15,8 +15,8 @@
  */
 package fr.recia.collabsoft.db.entity;
 
-import fr.recia.collabsoft.db.entity.id.MetadataId;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,11 +29,13 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@IdClass(MetadataId.class)
+@Table(name = "metadata")
+@IdClass(Metadata.PrimaryKeys.class)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,7 +43,13 @@ import java.util.Objects;
 @ToString
 public class Metadata implements Serializable {
 
-  private static final long serialVersionUID = 5L;
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @EqualsAndHashCode
+  public static class PrimaryKeys implements Serializable {
+    private Long user;
+    private Long file;
+  }
 
   @Id
   @ManyToOne

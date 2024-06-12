@@ -16,7 +16,6 @@
 package fr.recia.collabsoft.db.repository;
 
 import fr.recia.collabsoft.db.entity.Metadata;
-import fr.recia.collabsoft.db.entity.id.MetadataId;
 
-public interface MetadataRepository<T extends Metadata> extends AbstractRepository<T, MetadataId> {
+public interface MetadataRepository<T extends Metadata> extends AbstractRepository<T, Metadata.PrimaryKeys> {
 }

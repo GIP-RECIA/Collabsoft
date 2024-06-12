@@ -16,7 +16,6 @@
 package fr.recia.collabsoft.db.repository;
 
 import fr.recia.collabsoft.db.entity.FileHistory;
-import fr.recia.collabsoft.db.entity.id.FileHistoryId;
 
-public interface FileHistoryRepository<T extends FileHistory> extends AbstractRepository<T, FileHistoryId> {
+public interface FileHistoryRepository<T extends FileHistory> extends AbstractRepository<T, FileHistory.PrimaryKeys> {
 }

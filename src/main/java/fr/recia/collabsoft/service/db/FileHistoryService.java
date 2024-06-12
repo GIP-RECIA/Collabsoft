@@ -64,7 +64,7 @@ public class FileHistoryService {
 
   public FileHistory getHistory(Long fileId, Long historyId) {
     final FileHistory history = fileHistoryRepository.findOne(
-      QFileHistory.fileHistory.file.id.eq(fileId).and(QFileHistory.fileHistory.id.eq(historyId))
+      QFileHistory.fileHistory.file.id.eq(fileId).and(QFileHistory.fileHistory.key.id.eq(historyId))
     ).orElse(null);
 
     if (history == null)

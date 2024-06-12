@@ -15,8 +15,8 @@
  */
 package fr.recia.collabsoft.db.entity;
 
-import fr.recia.collabsoft.db.entity.id.FileHistoryId;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,14 +24,11 @@ import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -43,7 +40,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "file_history")
-@IdClass(FileHistoryId.class)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -51,17 +47,25 @@ import java.util.Objects;
 @ToString(onlyExplicitlyIncluded = true)
 public class FileHistory implements Serializable {
 
-  private static final long serialVersionUID = 4L;
+  @Embeddable
+  @Getter
+  @Setter
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @EqualsAndHashCode
+  public static class PrimaryKeys implements Serializable {
+    @Column(name = "id")
+    private Long id;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", nullable = false)
-  @ToString.Include
-  private Long id;
+    @Column(name = "file_id")
+    private Long file;
+  }
 
-  @Id
+  @EmbeddedId
+  private PrimaryKeys key = new PrimaryKeys();
+
   @ManyToOne
-  @JoinColumn(name = "file_id", nullable = false)
+  @MapsId("file")
   @ToString.Include
   private File file;
 
@@ -88,13 +92,12 @@ public class FileHistory implements Serializable {
     Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
     if (thisEffectiveClass != oEffectiveClass) return false;
     FileHistory that = (FileHistory) o;
-    return getId() != null && Objects.equals(getId(), that.getId())
-      && getFile() != null && Objects.equals(getFile(), that.getFile());
+    return getKey() != null && Objects.equals(getKey(), that.getKey());
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hash(id, file);
+    return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
   }
 
 }

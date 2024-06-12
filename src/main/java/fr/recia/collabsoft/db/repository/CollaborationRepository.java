@@ -16,7 +16,6 @@
 package fr.recia.collabsoft.db.repository;
 
 import fr.recia.collabsoft.db.entity.Collaboration;
-import fr.recia.collabsoft.db.entity.id.CollaborationId;
 
-public interface CollaborationRepository<T extends Collaboration> extends AbstractRepository<T, CollaborationId> {
+public interface CollaborationRepository<T extends Collaboration> extends AbstractRepository<T, Collaboration.PrimaryKeys> {
 }
