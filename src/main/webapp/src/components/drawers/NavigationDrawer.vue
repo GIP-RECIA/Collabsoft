@@ -7,14 +7,12 @@ import { useI18n } from 'vue-i18n';
 const isDev = import.meta.env.DEV;
 
 const configurationStore = useConfigurationStore();
-const { isSettings } = storeToRefs(configurationStore);
+const { appName, isSettings } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refreshFiles } = fileStore;
 
 const { t } = useI18n();
-
-const appName = __APP_NAME__;
 </script>
 
 <template>

@@ -7,7 +7,7 @@ import { useEntTheme } from '@/utils/entUtils.ts';
 import { setNextcloudUri } from '@/utils/nextcloudUtils.ts';
 import { initAppsRoutes } from '@/utils/routerUtils.ts';
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 export const useConfigurationStore = defineStore('configuration', () => {
   const configuration = ref<Configuration | undefined>();
@@ -37,6 +37,20 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const isInit = computed<boolean>(() => configuration.value != undefined);
 
   const isReady = computed<boolean>(() => isInit.value && isSoffitOk.value);
+
+  const infoName = ref<string | undefined>();
+
+  const appName = computed<string>(() =>
+    isInit.value && configuration.value!.front.appName.trim() != '' ? configuration.value!.front.appName : __APP_NAME__,
+  );
+
+  watch(
+    [infoName, appName],
+    () => {
+      document.title = infoName.value ? `${infoName.value} - ${appName.value}` : appName.value;
+    },
+    { immediate: true },
+  );
 
   /* -- Gestion de nextcloud -- */
 
@@ -68,6 +82,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
     init,
     isInit,
     isReady,
+    infoName,
+    appName,
     isNextcloudAvailable,
     user,
     isSoffitOk,

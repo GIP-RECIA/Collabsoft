@@ -2,6 +2,7 @@ import type { AssociatedApp } from '@/types/associatedAppType.ts';
 
 export type Configuration = {
   front: {
+    appName: string;
     userInfoApiUrl: string;
     nextcloudUri: string;
     collaboration: {

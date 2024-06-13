@@ -44,6 +44,8 @@ app:
     location: ''
 
   front:
+    appName: ''
+
     user-info-api-url: ''
 
     nextcloud-uri: '' # You can use domain variable in case of subdomain hosting (ex: 'https://nc.${domain}')

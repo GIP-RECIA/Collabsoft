@@ -20,6 +20,7 @@ import lombok.Data;
 @Data
 public class FrontProperties {
 
+  private String appName;
   private String userInfoApiUrl;
   private String nextcloudUri;
   private CollaborationProperties collaboration = new CollaborationProperties();
@@ -115,6 +116,7 @@ public class FrontProperties {
   @Override
   public String toString() {
     return "\"FrontProperties\": {" +
+      "\n\t\"appName\": \"" + appName + "\"," +
       "\n\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"," +
       "\n\t\"nextcloudUri\": \"" + nextcloudUri + "\"," +
       "\n\t\"collaboration\": \"" + collaboration + "\"," +

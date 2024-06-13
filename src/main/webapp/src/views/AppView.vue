@@ -3,6 +3,7 @@ import FileMenu from '@/components/FileMenu.vue';
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
 import { useAppStore } from '@/stores/appStore.ts';
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import type { Confirmation } from '@/types/confirmationType.ts';
@@ -18,6 +19,9 @@ const isDev = import.meta.env.DEV;
 const appStore = useAppStore();
 const { destroyRoom, initAppContext, exitAppContext } = appStore;
 const { isRoom, title, isAutoSave, canAutoSave, isRoomOwner } = storeToRefs(appStore);
+
+const configurationsStore = useConfigurationStore();
+const { infoName, appName } = storeToRefs(configurationsStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
@@ -118,8 +122,7 @@ const preventExit = (e: Event): void => {
 watch(
   title,
   (newValue) => {
-    if (newValue.trim() != '') document.title = `${newValue} - ${__APP_NAME__}`;
-    else if (document.title != __APP_NAME__) document.title = __APP_NAME__;
+    infoName.value = newValue;
   },
   { immediate: true },
 );
@@ -129,7 +132,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (document.title != __APP_NAME__) document.title = __APP_NAME__;
+  infoName.value = undefined;
   window.removeEventListener('beforeunload', preventExit);
   exitAppContext();
 });

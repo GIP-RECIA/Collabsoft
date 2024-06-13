@@ -7,14 +7,13 @@ import { useFileStore } from '@/stores/fileStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { watchOnce } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 
 const appStore = useAppStore();
 const { isApp } = storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
-const { configuration, isInit, isReady, lastNavigation } = storeToRefs(configurationStore);
+const { configuration, isInit, isReady, appName, lastNavigation } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { refreshFiles } = fileStore;
@@ -44,11 +43,6 @@ watchOnce(isReady, (newValue) => {
   if (newValue) refreshFiles(true, true);
 });
 
-onBeforeMount(() => {
-  document.title = __APP_NAME__;
-});
-
-const appName = __APP_NAME__;
 const domain = window.location.hostname;
 </script>
 
