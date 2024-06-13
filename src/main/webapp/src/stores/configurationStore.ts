@@ -38,6 +38,8 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   const isReady = computed<boolean>(() => isInit.value && isSoffitOk.value);
 
+  /* -- App name -- */
+
   const infoName = ref<string | undefined>();
 
   const appName = computed<string>(() =>
@@ -52,17 +54,17 @@ export const useConfigurationStore = defineStore('configuration', () => {
     { immediate: true },
   );
 
-  /* -- Gestion de nextcloud -- */
+  /* -- Nextcloud -- */
 
   const isNextcloudAvailable = computed<boolean>(() => (configuration.value?.front.nextcloudUri ?? '').length > 0);
 
-  /* -- Gestion de l'utilisateur -- */
+  /* -- User -- */
 
   const user = ref<Soffit>({ sub: 'guest', token: undefined });
 
   const isSoffitOk = computed<boolean>(() => !user.value.sub.startsWith('guest'));
 
-  /* -- Gestion de la navigation -- */
+  /* -- Navigation -- */
 
   const lastNavigation = ref<string | undefined>();
 
