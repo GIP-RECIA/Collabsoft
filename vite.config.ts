@@ -1,3 +1,4 @@
+import pkg from './package.json';
 import { slugify } from './src/main/webapp/src/utils/stringUtils.ts';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
@@ -24,7 +25,18 @@ export default ({ mode }: { mode: string }) => {
       else version = result.project.version[0];
     });
 
-    return JSON.stringify(version);
+    return `${version}`;
+  };
+
+  const appsVersions = (): string => {
+    return Object.entries(pkg.dependencies)
+      .filter((dep) => dep[0].startsWith('@gip-recia/'))
+      .map(([key, value]) => `\n - ${key} ${value}`)
+      .join('');
+  };
+
+  const infoLog = (): string => {
+    return JSON.stringify(`Version: ${backVersion()}\n\nApps: ${appsVersions()}`);
   };
 
   return defineConfig({
@@ -75,7 +87,7 @@ export default ({ mode }: { mode: string }) => {
     define: {
       __APP_NAME__: appName,
       __APP_SLUG__: appSlug,
-      __BACK_VERSION__: backVersion(),
+      __INFO_LOG__: infoLog(),
     },
   });
 };

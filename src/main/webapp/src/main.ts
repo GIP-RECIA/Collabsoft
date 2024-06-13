@@ -30,4 +30,4 @@ app.use(Vue3Toasity, { limit: 0, newestOnTop: true, theme: 'colored' } as ToastC
 
 app.mount('#app');
 
-console.info("Version", __BACK_VERSION__);
+console.info(__INFO_LOG__);
