@@ -35,4 +35,8 @@ const initAppsRoutes = async (apps: Array<AssociatedApp>): Promise<void> => {
   router.replace(router.currentRoute.value);
 };
 
-export { redirect, initAppsRoutes };
+const preventExit = (e: Event): void => {
+  e.preventDefault();
+};
+
+export { redirect, initAppsRoutes, preventExit };

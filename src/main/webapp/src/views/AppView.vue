@@ -9,6 +9,7 @@ import { useHomeStore } from '@/stores/homeStore.ts';
 import type { Confirmation } from '@/types/confirmationType.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
+import { preventExit } from '@/utils/routerUtils.ts';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -21,7 +22,7 @@ const { destroyRoom, initAppContext, exitAppContext } = appStore;
 const { isRoom, title, isAutoSave, canAutoSave, isRoomOwner } = storeToRefs(appStore);
 
 const configurationsStore = useConfigurationStore();
-const { infoName, appName } = storeToRefs(configurationsStore);
+const { infoName } = storeToRefs(configurationsStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
@@ -114,10 +115,6 @@ onBeforeRouteLeave(() => {
     return false;
   } else return true;
 });
-
-const preventExit = (e: Event): void => {
-  e.preventDefault();
-};
 
 watch(
   title,
