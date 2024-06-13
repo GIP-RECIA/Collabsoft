@@ -610,10 +610,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gip-recia/wisemapping-webcomponent@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@gip-recia/wisemapping-webcomponent@npm:0.0.2"
-  checksum: 10/d99032de3c1fe1db9ae8b55f9294323d30f6a8f4b7c08c7caaac8f69791e2677b213e30e9f04226612be5b9a581e14829bea305b797110b09aa77f493aa8fb22
+"@gip-recia/wisemapping-webcomponent@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@gip-recia/wisemapping-webcomponent@npm:0.1.0"
+  checksum: 10/19da57a85fc20b82122eb0fcd6a0da1733a3b577bbe8196f013df20fc82b838246d139839fab8bb464cc9ad02f16bfd1e6b95ae0e0c372683c50b8b9bf4e2d12
   languageName: node
   linkType: hard
 
@@ -2149,7 +2149,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^6.5.2"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
     "@gip-recia/tldraw-webcomponent": "npm:^3.6.0"
-    "@gip-recia/wisemapping-webcomponent": "npm:^0.0.2"
+    "@gip-recia/wisemapping-webcomponent": "npm:^0.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
     "@playwright/test": "npm:^1.44.1"
     "@rushstack/eslint-patch": "npm:^1.10.3"

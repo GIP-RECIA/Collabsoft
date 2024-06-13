@@ -10,7 +10,7 @@ const isDev = import.meta.env.DEV;
 const { VITE_API_URI } = import.meta.env;
 
 const configurationStore = useConfigurationStore();
-const { configuration } = configurationStore;
+const { user } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { file } = storeToRefs(fileStore);
@@ -23,7 +23,7 @@ const apiUrl = computed<string | undefined>(() => (file.value ? `${VITE_API_URI}
     v-if="isDev && file"
     :persistance-api-url="apiUrl"
     :file-id="file.id"
-    :user-info-api-url="configuration?.front.userInfoApiUrl"
+    :token="user.token"
     mode="edition-owner"
   />
 </template>
