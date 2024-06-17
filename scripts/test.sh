@@ -40,7 +40,7 @@ tests () {
 
 generateBadges () {
   echo "Don't forget to install jacoco-badge-generator: https://github.com/cicirello/jacoco-badge-generator?tab=readme-ov-file#command-line-usage"
-  python3 -m jacoco_badge_generator -d badges --generate-branches-badge true --generate-summary true
+  python3 -m jacoco_badge_generator --generate-branches-badge true
 }
 
 echo "Collabsoft Tests Tool"

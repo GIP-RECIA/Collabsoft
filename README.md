@@ -7,6 +7,9 @@
   - [Tests](#tests)
   - [Build](#build)
 
+![Coverage](/badges/jacoco.svg)
+![Branches](/badges/branches.svg)
+
 ## Prérequis
 
 - [nvm](https://github.com/nvm-sh/nvm)
