@@ -36,7 +36,7 @@ public class CorsConfiguration {
   CorsConfigurationSource corsConfigurationSource() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-    if (log.isWarnEnabled()) log.warn("CORS: {}", corsProperties.isEnable());
+    log.info("CORS: {}", corsProperties.isEnable());
     if (corsProperties.isEnable()) {
       org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
 
