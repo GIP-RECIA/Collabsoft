@@ -31,7 +31,7 @@ app:
     location: ''
 
   front:
-    appName: ''
+    app-name: ''
 
     user-info-api-url: ''
 
