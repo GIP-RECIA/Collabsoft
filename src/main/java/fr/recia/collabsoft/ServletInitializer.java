@@ -15,6 +15,7 @@
  */
 package fr.recia.collabsoft;
 
+import fr.recia.collabsoft.annotation.ExcludeFromJacocoGeneratedReport;
 import fr.recia.collabsoft.configuration.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
@@ -22,6 +23,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @Slf4j
+@ExcludeFromJacocoGeneratedReport
 public class ServletInitializer extends SpringBootServletInitializer {
 
   @Override

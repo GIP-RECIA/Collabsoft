@@ -7,7 +7,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.18</version>
-    <relativePath />
+    <relativePath/>
   </parent>
 
   <groupId>fr.recia.collabsoft</groupId>
@@ -332,6 +332,9 @@
             <configuration>
               <outputDirectory>target/generated-sources/java</outputDirectory>
               <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+              <options>
+                <querydsl.generatedAnnotationClass>com.querydsl.core.annotations.Generated</querydsl.generatedAnnotationClass>
+              </options>
             </configuration>
           </execution>
         </executions>
@@ -572,6 +575,25 @@
       </dependencies>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.12</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>generate-code-coverage-report</id>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+                <phase>test</phase>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
