@@ -1,9 +1,0 @@
-{
-  "error": {
-    "signIn": {
-      "config": "Unable to load configuration",
-      "soffit": "You are not logged in! \nSign in and try again",
-      "unknown": "An unknown error has occurred"
-    }
-  }
-}

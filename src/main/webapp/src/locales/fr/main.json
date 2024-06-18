@@ -1,9 +1,0 @@
-{
-  "visibility": {
-    "public": "Publique",
-    "private": "Privé"
-  },
-  "shareOptions": "Options de partage",
-  "enabled": "activée",
-  "disabled": "désactivée"
-}
