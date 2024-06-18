@@ -38,18 +38,12 @@ tests () {
   echo "Find results at: file://$PWD/target/site/jacoco/index.html"
 }
 
-generateBadges () {
-  echo "Don't forget to install jacoco-badge-generator: https://github.com/cicirello/jacoco-badge-generator?tab=readme-ov-file#command-line-usage"
-  python3 -m jacoco_badge_generator --generate-branches-badge true
-}
-
 echo "Collabsoft Tests Tool"
 echo ""
 echo "1 -> tests with docker"
 echo "2 -> run docker"
 echo "3 -> tests only"
 echo "4 -> stop docker"
-echo "5 -> generate badges"
 echo ""
 
 read -r -p "Build type: " choice
@@ -72,10 +66,6 @@ case $choice in
 
   4)
     dockerStop
-  ;;
-
-  5)
-    generateBadges
   ;;
 
   *)
