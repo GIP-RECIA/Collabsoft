@@ -10,10 +10,11 @@ import { useTheme } from 'vuetify';
 const { VITE_API_URI } = import.meta.env;
 
 const appStore = useAppStore();
-const { isAutoSave, canAutoSave, roomId, room, isRoomOwner, initRoomFileId, destroy } = storeToRefs(appStore);
+const { isAutoSave, canAutoSave, roomId, room, isRoomOwner, initRoomFileId, destroy, websocketApiUrl } =
+  storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
-const { configuration, user } = storeToRefs(configurationStore);
+const { user } = storeToRefs(configurationStore);
 
 const theme = useTheme();
 
@@ -42,7 +43,7 @@ onUnmounted(() => {
     :dark-mode="theme.global.name.value == 'dark'"
     :auto-save="canAutoSave && isAutoSave"
     :open="isRoomOwner"
-    :websocket-api-url="configuration?.front.collaboration.websocketApiUrl"
+    :websocket-api-url="websocketApiUrl"
     :room-id="`${roomId}-tldraw`"
     :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : undefined"
     :owner="isRoomOwner"

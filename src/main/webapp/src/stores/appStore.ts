@@ -1,11 +1,16 @@
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useFileStore } from '@/stores/fileStore.ts';
+import { interpolate } from '@/utils/stringUtils.ts';
 import { useSessionStorage } from '@vueuse/core';
 import { defineStore, storeToRefs } from 'pinia';
 import { computed, readonly, ref } from 'vue';
 import { type RouteLocationRaw, useRouter } from 'vue-router';
 
 export const useAppStore = defineStore('app', () => {
+  const { VITE_BASE_URI } = import.meta.env;
+
   const router = useRouter();
+  const configurationStore = useConfigurationStore();
   const fileStore = useFileStore();
 
   /* -- App -- */
@@ -152,6 +157,19 @@ export const useAppStore = defineStore('app', () => {
     initRoomFileId.value = undefined;
   };
 
+  const websocketApiUrl = computed<string>(() => {
+    const { configuration } = storeToRefs(configurationStore);
+
+    return interpolate(
+      configuration.value?.front.collaboration.websocketApiUrl ?? '${protocol}://${domain}${baseUri}/ws',
+      {
+        protocol: `ws${location.protocol == 'http' ? '' : 's'}`,
+        domain: window.location.hostname,
+        baseUri: VITE_BASE_URI,
+      },
+    );
+  });
+
   return {
     isApp,
     isRoom,
@@ -168,5 +186,6 @@ export const useAppStore = defineStore('app', () => {
     destroyRoom,
     initAppContext,
     exitAppContext,
+    websocketApiUrl,
   };
 });
