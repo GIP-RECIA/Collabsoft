@@ -191,11 +191,11 @@ jobs:
           echo "branches = ${{ steps.jacoco.outputs.branches }}"
 
       - name: Upload JaCoCo coverage report as a workflow artifact
-        if: ${{ matrix.java == env.JACOCO_JAVA && matrix.mariadb == env.JACOCO_MARIADB }}
+        if: ${{ matrix.mariadb == env.JACOCO_MARIADB }}
         uses: actions/upload-artifact@v4
         with:
-          name: code-coverage-report
-          path: output/test/code-coverage.html
+          name: jacoco-report-java-${{ matrix.java }}
+          path: target/site/jacoco/
 
       - name: Commit and push the coverage badges and summary file
         if: ${{ github.event_name != 'pull_request' && matrix.java == env.JACOCO_JAVA && matrix.mariadb == env.JACOCO_MARIADB }}
