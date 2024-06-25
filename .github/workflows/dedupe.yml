@@ -8,6 +8,8 @@ on:
     paths: ['package.json', 'yarn.lock']
   workflow_dispatch:
 
+permissions: write-all
+
 jobs:
   build:
     runs-on: ubuntu-latest
