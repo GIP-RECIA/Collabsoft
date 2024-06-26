@@ -7,7 +7,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.18</version>
-    <relativePath />
+    <relativePath/>
   </parent>
 
   <groupId>fr.recia.collabsoft</groupId>
@@ -308,9 +308,6 @@
               <header>etc/header.template</header>
               <includes>
                 <include>src/**/*.java</include>
-                <include>src/**/*.xml</include>
-                <include>src/**/*.properties</include>
-                <include>src/**/*.css</include>
               </includes>
               <excludes>
                 <exclude>**/dist/**</exclude>
