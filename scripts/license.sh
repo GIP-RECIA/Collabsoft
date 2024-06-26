@@ -15,20 +15,4 @@
 # limitations under the License.
 
 
-source ~/.nvm/nvm.sh
-source ~/.sdkman/bin/sdkman-init.sh
-
-# Frontend
-nvm install
-npm i -g yarn
-yarn
-yarn prepare
-yarn predev
-
-# Backend
-if ! sdk env; then
-  sdk env install
-fi
-if [ ! -f "src/main/resources/config/application-dev.yml" ]; then
-  cp -u src/main/resources/config/application-dev.example.yml src/main/resources/config/application-dev.yml
-fi
+docker run --rm -it -v ${PWD}:/src ghcr.io/google/addlicense -f ./etc/header.template $(find ./src/ ./scripts/ -name '*.vue' -type f -or -name '*.ts' -type f -or -name '*.scss' -type f -or -name '*.java' -type f -or -name '*.xml' -type f -or -name '*.sh' -type f)
