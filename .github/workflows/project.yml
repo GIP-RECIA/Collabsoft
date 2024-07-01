@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  diff:
+  changes:
     runs-on: ubuntu-latest
 
     name: Check diffs
@@ -59,7 +59,9 @@ jobs:
 
     name: Check license headers and notice
 
-    needs: diff
+    needs: changes
+
+    if: ${{ github.event_name != 'pull_request' || needs.changes.outputs.java == 'true' }}
 
     steps:
       - name: Checkout
@@ -87,7 +89,9 @@ jobs:
 
     name: Node ${{ matrix.node }}
 
-    needs: diff
+    needs: changes
+
+    if: ${{ github.event_name != 'pull_request' || needs.changes.outputs.node == 'true' }}
 
     steps:
       - name: Checkout
@@ -130,7 +134,9 @@ jobs:
 
     name: Java ${{ matrix.java }} & mariadb ${{ matrix.mariadb }}
 
-    needs: diff
+    needs: changes
+
+    if: ${{ github.event_name != 'pull_request' || needs.changes.outputs.java == 'true' }}
 
     steps:
       - name: Checkout
