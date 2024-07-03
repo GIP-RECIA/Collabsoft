@@ -34,5 +34,8 @@ clean:
 dedupe:
 	./scripts/dedupe.sh
 
-license:
-	./scripts/license.sh
+license-check:
+	./scripts/license.sh 1
+
+license-generate:
+	./scripts/license.sh 3
