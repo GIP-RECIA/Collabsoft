@@ -84,13 +84,12 @@ jobs:
 
     needs: changes
 
-    if: ${{ github.event_name != 'pull_request' && (needs.changes.outputs.java == 'true' || needs.changes.outputs.node == 'true') }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Check license headers
+        id: check
         run: |
           docker run --rm -it -v ${PWD}:/src \
           ghcr.io/google/addlicense -check -f ./etc/header.template \
@@ -102,7 +101,8 @@ jobs:
           -or -name '*.sh' -type f)
 
       - name: Generate license headers
-        if: ${{ failure() }}
+        if: ${{ github.event_name != 'pull_request' && (needs.changes.outputs.java == 'true' || needs.changes.outputs.node == 'true') && steps.check.conclusion == 'failure' }}
+        id: generate
         run: |
           docker run --rm -it -v ${PWD}:/src \
           ghcr.io/google/addlicense -f ./etc/header.template \
@@ -114,6 +114,7 @@ jobs:
           -or -name '*.sh' -type f)
 
       - name: Commit changes
+        if: ${{ github.event_name != 'pull_request' && steps.generate.conclusion == 'success' }}
         run: |
           if [[ `git status --porcelain *.vue *.ts *.scss *.java *.xml *.sh` ]]; then
             git config --global user.name 'github-actions'
