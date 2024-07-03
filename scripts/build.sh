@@ -46,20 +46,9 @@ fi
 
 case ${choice} in
 
-  0)
-    package
-  ;;
-
-  1)
-    snapshot
-  ;;
-
-  2)
-    release
-  ;;
-
-  *)
-    echo "Unknown choice"
-  ;;
+  0) package;;
+  1) snapshot;;
+  2) release;;
+  *) echo "Unknown choice";;
 
 esac

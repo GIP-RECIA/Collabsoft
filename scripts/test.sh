@@ -16,7 +16,7 @@
 
 
 dockerRun () {
-  docker run -t -d --name mariadb --rm -v \
+  docker run --rm -t -d --name mariadb -v \
     --health-cmd="mysqladmin -uroot -proot ping" --health-interval=10s --health-timeout=10s --health-retries=10 \
     -p 3306:3306/tcp \
     -e "TZ=Europe/Paris" \
@@ -62,7 +62,7 @@ else
   echo "4 -> stop docker"
   echo ""
 
-  read -r -p "Build type: " choice
+  read -r -p "Action: " choice
 fi
 
 case ${choice} in
@@ -72,21 +72,9 @@ case ${choice} in
     tests
     dockerStop
   ;;
-
-  2)
-    dockerRun
-  ;;
-
-  3)
-    tests
-  ;;
-
-  4)
-    dockerStop
-  ;;
-
-  *)
-    echo "Unknown choice"
-  ;;
+  2) dockerRun;;
+  3) tests;;
+  4) dockerStop;;
+  *) echo "Unknown choice";;
 
 esac
