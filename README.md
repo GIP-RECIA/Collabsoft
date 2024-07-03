@@ -7,8 +7,8 @@
   - [Tests](#tests)
   - [Build](#build)
 
-[![Coverage](https://raw.githubusercontent.com/GIP-RECIA/Collabsoft/badges/jacoco.svg)](https://github.com/GIP-RECIA/Collabsoft/actions/workflows/badges.yml)
-[![Branches](https://raw.githubusercontent.com/GIP-RECIA/Collabsoft/badges/branches.svg)](https://github.com/GIP-RECIA/Collabsoft/actions/workflows/badges.yml)
+[![Coverage](https://raw.githubusercontent.com/GIP-RECIA/Collabsoft/badges/jacoco.svg)](https://github.com/GIP-RECIA/Collabsoft/actions/workflows/project.yml)
+[![Branches](https://raw.githubusercontent.com/GIP-RECIA/Collabsoft/badges/branches.svg)](https://github.com/GIP-RECIA/Collabsoft/actions/workflows/project.yml)
 
 ## Prérequis
 
