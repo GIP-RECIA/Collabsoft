@@ -51,13 +51,13 @@ jobs:
           echo "Java changes: ${{ steps.check-java.outputs.changed }}"
           echo "Node changes: ${{ steps.check-node.outputs.changed }}"
 
-  license-and-header:
+  notice:
     runs-on: ubuntu-latest
 
     env:
       JAVA_VERSION: '11'
 
-    name: Check license headers and notice
+    name: Check notice
 
     needs: changes
 
@@ -74,11 +74,55 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Check license hearders
-        run: ./mvnw license:check
-
       - name: Check NOTICE
         run: ./mvnw notice:check
+
+  license-headers:
+    runs-on: ubuntu-latest
+
+    name: Check and generate license headers
+
+    needs: changes
+
+    if: ${{ github.event_name != 'pull_request' && (needs.changes.outputs.java == 'true' || needs.changes.outputs.node == 'true') }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check license headers
+        run: |
+          docker run --rm -it -v ${PWD}:/src \
+          ghcr.io/google/addlicense -check -f ./etc/header.template \
+          $(find ./src/ ./scripts/ -name '*.vue' -type f \
+          -or -name '*.ts' -type f \
+          -or -name '*.scss' -type f \
+          -or -name '*.java' -type f \
+          -or -name '*.xml' -type f \
+          -or -name '*.sh' -type f)
+
+      - name: Generate license headers
+        if: ${{ failure() }}
+        run: |
+          docker run --rm -it -v ${PWD}:/src \
+          ghcr.io/google/addlicense -f ./etc/header.template \
+          $(find ./src/ ./scripts/ -name '*.vue' -type f \
+          -or -name '*.ts' -type f \
+          -or -name '*.scss' -type f \
+          -or -name '*.java' -type f \
+          -or -name '*.xml' -type f \
+          -or -name '*.sh' -type f)
+
+      - name: Commit changes
+        run: |
+          if [[ `git status --porcelain *.vue *.ts *.scss *.java *.xml *.sh` ]]; then
+            git config --global user.name 'github-actions'
+            git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add ./src/
+            git add ./scripts/
+            git commit -m "docs: generate missing license headers"
+            git push
+          fi
 
   frontend:
     runs-on: ubuntu-latest
@@ -152,6 +196,7 @@ jobs:
         uses: szenius/set-timezone@v2.0
         with:
           timezoneLinux: 'Europe/Paris'
+
       - name: Set up locale ENV
         run: |
           sudo locale-gen $LANG
@@ -166,7 +211,7 @@ jobs:
 
       - name: Run MariaDB container
         run: |
-          docker run -t -d --name mariadb --rm -v \
+          docker run --rm -t -d --name mariadb -v \
             --health-cmd="mysqladmin -uroot -proot ping" --health-interval=10s --health-timeout=10s --health-retries=10 \
             -p 3306:3306/tcp \
             -e "TZ=Europe/Paris" \
