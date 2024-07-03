@@ -22,12 +22,12 @@ files=$(find ./src/ ./scripts/ -name '*.vue' -type f \
   -or -name '*.sh' -type f)
 
 check () {
-  docker run --rm -it --name licence -v ${PWD}:/src \
+  docker run --rm -t --name licence -v ${PWD}:/src \
     ghcr.io/google/addlicense -check -f ./etc/header.template ${files}
 }
 
 generate () {
-  docker run --rm -it --name licence -v ${PWD}:/src \
+  docker run --rm -t --name licence -v ${PWD}:/src \
     ghcr.io/google/addlicense -f ./etc/header.template ${files}
 }
 

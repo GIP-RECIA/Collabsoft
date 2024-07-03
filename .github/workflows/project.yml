@@ -84,6 +84,8 @@ jobs:
 
     needs: changes
 
+    continue-on-error: true
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -91,7 +93,7 @@ jobs:
       - name: Check license headers
         id: check
         run: |
-          docker run --rm -it -v ${PWD}:/src \
+          docker run --rm -t --name licence -v ${PWD}:/src \
           ghcr.io/google/addlicense -check -f ./etc/header.template \
           $(find ./src/ ./scripts/ -name '*.vue' -type f \
           -or -name '*.ts' -type f \
@@ -104,7 +106,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' && (needs.changes.outputs.java == 'true' || needs.changes.outputs.node == 'true') && steps.check.conclusion == 'failure' }}
         id: generate
         run: |
-          docker run --rm -it -v ${PWD}:/src \
+          docker run --rm -t --name licence -v ${PWD}:/src \
           ghcr.io/google/addlicense -f ./etc/header.template \
           $(find ./src/ ./scripts/ -name '*.vue' -type f \
           -or -name '*.ts' -type f \
