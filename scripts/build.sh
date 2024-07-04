@@ -38,7 +38,7 @@ else
   echo "2 -> release"
   echo ""
 
-  read -r -p "Build type: " choice
+  read -r -p "Action: " choice
 fi
 
 case ${choice} in
