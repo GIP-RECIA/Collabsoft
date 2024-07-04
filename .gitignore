@@ -58,7 +58,6 @@ playwright-report
 test-results
 results.json
 
-
 ### Logs ###
 logs
 *.log
