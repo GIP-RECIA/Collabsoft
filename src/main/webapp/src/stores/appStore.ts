@@ -113,13 +113,13 @@ export const useAppStore = defineStore('app', () => {
   /**
    * Id of file to load in the room
    */
-  const initRoomFileId = ref<number | undefined>();
+  const _initRoomFileId = ref<number | undefined>();
 
   /**
    * Initialize room and navigate to it
    */
   const initRoom = (roomId: string, appType: string, fileId: number | undefined, saveOnFile: boolean = false): void => {
-    initRoomFileId.value = fileId;
+    _initRoomFileId.value = fileId;
     _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile });
     joinRoom(roomId, appType);
   };
@@ -169,7 +169,7 @@ export const useAppStore = defineStore('app', () => {
     _fileId.value = undefined;
     _roomId.value = undefined;
     _appType.value = undefined;
-    initRoomFileId.value = undefined;
+    _initRoomFileId.value = undefined;
   };
 
   const websocketApiUrl = computed<string>(() => {
@@ -194,7 +194,7 @@ export const useAppStore = defineStore('app', () => {
     roomId: readonly(_roomId),
     room,
     isRoomOwner,
-    initRoomFileId,
+    initRoomFileId: readonly(_initRoomFileId),
     initRoom,
     joinRoom,
     destroy: readonly(_destroy),
