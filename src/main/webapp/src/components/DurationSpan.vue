@@ -27,7 +27,7 @@ const props = defineProps<{
 
 const formated = ref<string>('');
 
-const timeout = ref<NodeJS.Timeout | undefined>();
+const timeout = ref<number | undefined>();
 
 const getFormatedDuration = (): void => {
   const duration = dateToDuration(props.date);
