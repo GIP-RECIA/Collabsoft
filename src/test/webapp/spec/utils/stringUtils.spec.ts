@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 // @ts-ignore
-import { charOTP, interpolate, slugify } from '@/utils/stringUtils';
+import { charOTP, interpolate, slugify } from '@/utils/stringUtils.ts';
 import { describe, expect, it } from 'vitest';
 
 describe('stringUtils', () => {
