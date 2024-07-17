@@ -57,6 +57,15 @@ const { mobile } = useDisplay();
       class="max-width"
       :class="[mobile ? 'ms-2' : 'ms-4']"
     />
+    <v-btn
+      v-if="mobile"
+      icon="fas fa-gear"
+      variant="text"
+      color="default"
+      size="small"
+      class="ms-2 text-medium-emphasis"
+      @click="isSettings = true"
+    />
   </div>
 </template>
 
