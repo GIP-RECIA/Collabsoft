@@ -24,6 +24,8 @@ import { initAppsRoutes } from '@/utils/routerUtils.ts';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
 
+const isDev = import.meta.env.DEV;
+
 export const useConfigurationStore = defineStore('configuration', () => {
   const configuration = ref<Configuration | undefined>();
 
@@ -90,9 +92,10 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   /* -- Apps -- */
 
-  const availableApps = computed<Array<AssociatedApp>>(() =>
-    configuration.value!.front.apps.filter((app) => app.enabled),
-  );
+  const availableApps = computed<Array<AssociatedApp>>(() => {
+    if (!configuration.value) return [];
+    return isDev ? configuration.value.front.apps : configuration.value.front.apps.filter((app) => app.enabled);
+  });
 
   return {
     configuration,

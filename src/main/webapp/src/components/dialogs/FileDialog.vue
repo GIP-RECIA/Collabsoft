@@ -45,7 +45,7 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-const fileType = ref<number | undefined>(availableApps.value[0].id);
+const fileType = ref<number | undefined>(availableApps.value.length == 1 ? availableApps.value[0].id : undefined);
 const title = ref<string | undefined>();
 const description = ref<string | undefined>();
 const pub = ref<boolean>(false);
@@ -77,7 +77,7 @@ const onClose = (): void => {
 };
 
 const reset = debounce((): void => {
-  fileType.value = availableApps.value.length > 1 ? undefined : availableApps.value[0].id;
+  fileType.value = availableApps.value.length == 1 ? availableApps.value[0].id : undefined;
   title.value = undefined;
   description.value = undefined;
   pub.value = false;

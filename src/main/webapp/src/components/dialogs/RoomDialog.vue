@@ -43,7 +43,7 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-const appType = ref<string | undefined>(availableApps.value[0].slug);
+const appType = ref<string | undefined>(availableApps.value.length == 1 ? availableApps.value[0].slug : undefined);
 const joinCode = ref<string>('');
 
 const button = computed<{ i18n: string; icon: string; disabled: boolean; action: RoomAction }>(() => {
@@ -77,7 +77,7 @@ const onClose = (): void => {
 };
 
 const reset = debounce((): void => {
-  appType.value = availableApps.value.length > 1 ? undefined : availableApps.value[0].slug;
+  appType.value = availableApps.value.length == 1 ? availableApps.value[0].slug : undefined;
   joinCode.value = '';
 }, 200);
 </script>
