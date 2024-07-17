@@ -862,6 +862,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pinia/testing@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "@pinia/testing@npm:0.1.3"
+  dependencies:
+    vue-demi: "npm:>=0.14.5"
+  peerDependencies:
+    pinia: ">=2.1.5"
+  checksum: 10/3a70debc93f095b64d6eeec7ee5dca21ba62b3a80ce163430fce11e64140d449bfd238898b87ee759e57eae01f9414f1ec5a24e4da714deac79bb00a7af09b83
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -2156,6 +2167,7 @@ __metadata:
     "@gip-recia/tldraw-webcomponent": "npm:^3.6.0"
     "@gip-recia/wisemapping-webcomponent": "npm:^0.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
+    "@pinia/testing": "npm:^0.1.3"
     "@playwright/test": "npm:^1.45.1"
     "@rushstack/eslint-patch": "npm:^1.10.3"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"

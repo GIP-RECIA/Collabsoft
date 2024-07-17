@@ -13,11 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// @ts-ignore
-import i18n from '@/plugins/i18n';
-// @ts-ignore
-import vuetify from '@/plugins/vuetify';
 
-const plugins = [i18n, vuetify];
-
-export { plugins };
+export * from './samples/assocatedAppSamples.ts';
+export * from './samples/fileSamples.ts';
+export * from './samples/userSamples.ts';

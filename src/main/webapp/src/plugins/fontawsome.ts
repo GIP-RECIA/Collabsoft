@@ -48,7 +48,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { App } from 'vue';
 
-const register = (app: App): void => {
+const register = (app: App | undefined): void => {
   library.add(farSquare, farStar);
   library.add(
     faArrowLeft,
@@ -80,7 +80,7 @@ const register = (app: App): void => {
     faTrash,
     faXmark,
   );
-  app.component('font-awesome-icon', FontAwesomeIcon);
+  app?.component('font-awesome-icon', FontAwesomeIcon);
 };
 
 export { register };

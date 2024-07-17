@@ -1,0 +1,75 @@
+/**
+ * Copyright (C) 2023 GIP-RECIA, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts';
+// @ts-ignore
+import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue';
+// @ts-ignore
+import { useAppStore } from '@/stores/appStore.ts';
+// @ts-ignore
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
+// @ts-ignore
+import { useHomeStore } from '@/stores/homeStore.ts';
+import { createTestingPinia } from '@pinia/testing';
+import { VueWrapper, flushPromises, mount } from '@vue/test-utils';
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+
+global.ResizeObserver = require('resize-observer-polyfill');
+
+// TODO
+describe('ShareInRoomDialog', () => {
+  const pinia = createTestingPinia();
+  let appStore;
+  let configurationStore;
+  let homeStore;
+  let wrapper: VueWrapper;
+  const dialog = () => wrapper.getComponent(ShareInRoomDialog);
+
+  beforeAll(() => {
+    appStore = useAppStore(pinia);
+    configurationStore = useConfigurationStore(pinia);
+    homeStore = useHomeStore(pinia);
+
+    registerFontAwsome();
+  });
+
+  beforeEach(() => {
+    const el = document.createElement('div');
+    el.id = 'modal';
+    document.body.appendChild(el);
+
+    wrapper = mount(ShareInRoomDialog, {
+      global: {
+        plugins: [...plugins, pinia],
+        stubs: { FontAwesomeIcon },
+      },
+    });
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
+    document.body.innerHTML = '';
+  });
+
+  it('test 1 - initial state', async () => {
+    expect(dialog().html()).toBe('');
+  });
+
+  it('test 2 - open modal', async () => {
+    homeStore.isShareInRoom = true;
+    await flushPromises();
+    expect(dialog().html()).not.toBe('');
+  });
+});
