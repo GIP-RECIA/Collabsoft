@@ -17,7 +17,6 @@
 @use 'vuetify/settings' with (
   $color-pack: false,
   $utilities: false,
-  $navigation-drawer-border-style: none
 );
 
 .app-container {

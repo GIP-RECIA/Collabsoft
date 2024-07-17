@@ -15,10 +15,14 @@
 -->
 
 <script setup lang="ts">
+import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { useHomeStore } from '@/stores/homeStore.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
+
+const configurationStore = useConfigurationStore();
+const { isSettings } = storeToRefs(configurationStore);
 
 const homeStore = useHomeStore();
 const { isNew, isRoom, search } = storeToRefs(homeStore);
@@ -28,18 +32,18 @@ const { mobile } = useDisplay();
 </script>
 
 <template>
-  <div class="d-flex align-center justify-space-between" :class="[mobile ? 'mb-2' : 'mb-4']">
-    <div>
-      <v-btn icon="fas fa-plus" variant="tonal" size="small" @click="isNew = true" />
-      <v-btn
-        prepend-icon="fas fa-chalkboard-user"
-        variant="tonal"
-        :text="t('button.rooms')"
-        class="custom-height"
-        :class="[mobile ? 'ms-2' : 'ms-4']"
-        @click="isRoom = true"
-      />
-    </div>
+  <div class="d-flex align-center" :class="[mobile ? 'mb-2' : 'mb-4']">
+    <v-btn icon="fas fa-plus" variant="tonal" size="small" @click="isNew = true" />
+    <v-btn
+      :icon="mobile ? 'fas fa-chalkboard-user' : undefined"
+      :prepend-icon="mobile ? undefined : 'fas fa-chalkboard-user'"
+      variant="tonal"
+      :text="mobile ? undefined : t('button.rooms')"
+      :size="mobile ? 'small' : undefined"
+      :class="[mobile ? 'ms-2' : 'ms-4 custom-height']"
+      @click="isRoom = true"
+    />
+    <div class="flex-grow-1" />
     <v-text-field
       v-model="search"
       variant="solo"

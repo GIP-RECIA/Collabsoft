@@ -66,15 +66,15 @@ const deleteItem = async (result: Confirmation): Promise<void> => {
 
 <template>
   <v-layout full-height>
-    <navigation-drawer />
     <v-main>
+      <navigation-drawer />
       <v-container fluid class="h-100 d-flex flex-column" :class="[mobile ? 'pa-2' : '']">
         <router-view />
         <files-layout :files="files" />
       </v-container>
+      <information-drawer />
+      <bottom-navigation />
     </v-main>
-    <bottom-navigation />
-    <information-drawer />
     <file-dialog />
     <room-dialog />
     <confirmation-dialog

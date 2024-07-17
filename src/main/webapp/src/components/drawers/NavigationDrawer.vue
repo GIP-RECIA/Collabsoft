@@ -32,10 +32,10 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <v-navigation-drawer class="pa-2">
+  <v-navigation-drawer color="transparent" floating class="py-2 ps-2">
     <div class="d-flex flex-column h-100">
       <h1 class="text-center my-3">{{ appName }}</h1>
-      <v-list color="primary">
+      <v-list color="primary" class="py-0 overflow-y-auto">
         <v-list-item
           prepend-icon="fas fa-folder"
           :title="t('navigation.item.projects')"
@@ -50,7 +50,7 @@ const { t } = useI18n();
           :title="t('navigation.item.favorites')"
           :to="{ name: 'favorites' }"
           rounded="xl"
-          class="mb-2"
+          class="my-2"
           @click="refreshFiles()"
         />
         <v-list-item
@@ -59,7 +59,7 @@ const { t } = useI18n();
           :title="t('navigation.item.shared')"
           :to="{ name: 'shared' }"
           rounded="xl"
-          class="mb-2"
+          class="my-2"
           @click="refreshFiles()"
         />
         <v-list-item
@@ -68,16 +68,17 @@ const { t } = useI18n();
           :title="t('navigation.item.public')"
           :to="{ name: 'public' }"
           rounded="xl"
-          class="mb-2"
+          class="mt-2"
           @click="refreshFiles()"
         />
       </v-list>
-      <div class="flex-grow-1"></div>
-      <v-list class="py-0">
+      <div class="flex-grow-1" />
+      <v-list class="pt-0">
         <v-list-item
           prepend-icon="fas fa-gear"
           :title="t('navigation.item.settings')"
           rounded="xl"
+          class="mt-2"
           @click="isSettings = true"
         />
       </v-list>
