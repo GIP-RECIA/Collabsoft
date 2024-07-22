@@ -64,6 +64,9 @@ export default ({ mode }: { mode: string }) => {
         '@': fileURLToPath(new URL('./src/main/webapp/src', import.meta.url)),
       },
     },
+    optimizeDeps: {
+      include: ['vuetify'],
+    },
     server: {
       proxy: {
         '^(?:/[a-zA-Z0-9_-]+)?/api': {
