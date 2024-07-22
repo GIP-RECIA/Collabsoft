@@ -24,6 +24,7 @@ import { useHomeStore } from '@/stores/homeStore.ts';
 import { watchOnce } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import { useDisplay } from 'vuetify';
 
 const appStore = useAppStore();
 const { isApp } = storeToRefs(appStore);
@@ -37,6 +38,8 @@ const { refreshFiles } = fileStore;
 const homeStore = useHomeStore();
 const { reset: resetHome } = homeStore;
 const router = useRouter();
+
+const { mobile } = useDisplay();
 
 router.beforeEach((to) => {
   resetHome();
@@ -100,7 +103,7 @@ const domain = window.location.hostname;
     <footer>
       <extended-uportal-footer
         v-if="isInit"
-        v-show="!isApp && isReady"
+        v-show="!isApp && isReady && !mobile"
         :domain="domain"
         :template-api-path="configuration!.front.extendedUportalFooter.templateApiPath"
       />
