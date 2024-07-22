@@ -40,7 +40,6 @@ const homeStore = useHomeStore();
 const { isDelete, deleteTitle } = storeToRefs(homeStore);
 
 const { t } = useI18n();
-
 const { mobile } = useDisplay();
 
 const confirmationDelete = computed<boolean>({
