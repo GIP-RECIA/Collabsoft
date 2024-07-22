@@ -32,9 +32,9 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <v-navigation-drawer color="transparent" floating class="py-2 ps-2">
+  <v-navigation-drawer color="transparent" floating class="py-4 ps-4">
     <div class="d-flex flex-column h-100">
-      <h1 class="text-center my-3">{{ appName }}</h1>
+      <h1 class="text-center mb-6">{{ appName }}</h1>
       <v-list color="primary" class="py-0 overflow-y-auto">
         <v-list-item
           prepend-icon="fas fa-folder"
@@ -73,7 +73,7 @@ const { t } = useI18n();
         />
       </v-list>
       <div class="flex-grow-1" />
-      <v-list class="pt-0">
+      <v-list class="py-0">
         <v-list-item
           prepend-icon="fas fa-gear"
           :title="t('navigation.item.settings')"
