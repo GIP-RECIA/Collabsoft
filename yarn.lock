@@ -862,14 +862,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pinia/testing@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@pinia/testing@npm:0.1.3"
+"@pinia/testing@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@pinia/testing@npm:0.1.5"
   dependencies:
-    vue-demi: "npm:>=0.14.5"
+    vue-demi: "npm:^0.14.10"
   peerDependencies:
-    pinia: ">=2.1.5"
-  checksum: 10/3a70debc93f095b64d6eeec7ee5dca21ba62b3a80ce163430fce11e64140d449bfd238898b87ee759e57eae01f9414f1ec5a24e4da714deac79bb00a7af09b83
+    pinia: ">=2.2.1"
+  checksum: 10/967eb25e903da0899b015c2ef12fdf66a6a36d8a6c01a48b0964f2831bc92c4245bdad2b5a34eb551324ae79c7b3ec5ef4fab1a7dc549d2ae452696755f41837
   languageName: node
   linkType: hard
 
@@ -2177,7 +2177,7 @@ __metadata:
     "@gip-recia/tldraw-webcomponent": "npm:^3.6.0"
     "@gip-recia/wisemapping-webcomponent": "npm:^0.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
-    "@pinia/testing": "npm:^0.1.3"
+    "@pinia/testing": "npm:^0.1.5"
     "@playwright/test": "npm:^1.46.1"
     "@rushstack/eslint-patch": "npm:^1.10.4"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
