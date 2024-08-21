@@ -93,15 +93,16 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
         :to="item.associatedApp.enabled || isDev ? { name: item.associatedApp.slug, params: { fileId: item.id } } : ''"
         class="d-flex align-center h-100 table-column-title"
       >
-        <v-avatar
+        <v-icon
           icon="fas fa-file"
           :image="
             item.associatedApp.iconPath != null
               ? `${VITE_API_URI}${VITE_API_URI.endsWith('/') ? '' : '/'}${item.associatedApp.iconPath}`
               : undefined
           "
+          class="text-medium-emphasis ms-2"
         />
-        <span class="text-truncated ms-2">{{ item.title }}</span>
+        <span class="text-truncated ms-4">{{ item.title }}</span>
       </router-link>
     </template>
     <template #item.editionDate="{ item }">

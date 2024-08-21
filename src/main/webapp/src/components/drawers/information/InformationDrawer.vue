@@ -73,14 +73,14 @@ const onClose = (): void => {
       <v-toolbar :title="t(`navigation.title.${drawerTab}`)" color="rgba(255, 255, 255, 0)">
         <template #title v-if="file">
           <div class="d-flex align-center">
-            <v-avatar
+            <v-icon
               icon="fas fa-file"
               :image="
                 file.associatedApp.iconPath != null
                   ? `${VITE_API_URI}${VITE_API_URI.endsWith('/') ? '' : '/'}${file.associatedApp.iconPath}`
                   : undefined
               "
-              class="me-2"
+              class="text-medium-emphasis me-2"
             />
             <div class="overflow-hidden">
               <div class="text-body-1 font-weight-bold text-truncated">
