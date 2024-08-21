@@ -139,7 +139,7 @@ watch(visibility, (): void => refreshFile());
     </v-list-item>
   </v-list>
 
-  <div :class="[isDev ? 'my-2' : '']">
+  <div :class="[{ 'my-2': isDev }]">
     <div class="ms-2 mb-1">{{ t('shareOptions') }}</div>
     <v-btn
       prepend-icon="fas fa-chalkboard-user"
