@@ -98,7 +98,7 @@ const reset = debounce((): void => {
         </template>
       </v-toolbar>
       <v-card-text class="pt-0">
-        <v-alert type="info" variant="tonal" style="white-space: preserve-breaks">
+        <v-alert type="info" variant="tonal" class="text-preserve-breaks">
           {{ t('dialog.room.info') }}
         </v-alert>
         <div class="d-flex flex-column align-center mt-4">

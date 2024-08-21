@@ -77,7 +77,7 @@ const retry = async (): Promise<void> => {
         <v-spacer />
         <v-progress-circular v-show="isLoading" class="me-4" indeterminate />
       </v-toolbar>
-      <v-card-text v-if="!isLoading && !isReady" style="white-space: preserve-breaks">{{
+      <v-card-text v-if="!isLoading && !isReady" class="text-preserve-breaks">{{
         t(`error.signIn.${errorMessage}`)
       }}</v-card-text>
       <v-card-actions v-if="errorMessage === 'soffit'">

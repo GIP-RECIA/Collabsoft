@@ -82,7 +82,7 @@ const reset = debounce((): void => {
         </template>
       </v-toolbar>
       <v-card-text class="pt-0">
-        <v-alert type="info" variant="tonal" style="white-space: preserve-breaks">
+        <v-alert type="info" variant="tonal" class="text-preserve-breaks">
           <i18n-t keypath="dialog.shareInRoom.info">
             <template #icon>
               <v-icon icon="fas fa-arrows-rotate" size="small" />
