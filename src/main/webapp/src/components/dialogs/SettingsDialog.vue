@@ -70,7 +70,14 @@ const onClose = (): void => {
     <v-card rounded="xl">
       <v-toolbar :title="t('navigation.item.settings')" color="rgba(255, 255, 255, 0)">
         <template #append>
-          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
+          <v-btn
+            icon="fas fa-xmark"
+            color="default"
+            variant="plain"
+            :alt="t('button.close')"
+            class="me-1"
+            @click="onClose"
+          />
         </template>
       </v-toolbar>
       <v-list v-model:selected="selected" select-strategy="classic" @update:selected="updateSelected">

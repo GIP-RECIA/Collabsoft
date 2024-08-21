@@ -89,7 +89,14 @@ const reset = debounce((): void => {
     <v-card rounded="xl">
       <v-toolbar :title="t('dialog.file.title')" color="rgba(255, 255, 255, 0)">
         <template #append>
-          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
+          <v-btn
+            icon="fas fa-xmark"
+            color="default"
+            variant="plain"
+            :alt="t('button.close')"
+            class="me-1"
+            @click="onClose"
+          />
         </template>
       </v-toolbar>
       <v-card-text>
