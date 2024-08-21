@@ -130,7 +130,7 @@ onMounted((): void => initForm());
       />
     </div>
   </div>
-  <div v-if="file">
+  <template v-if="file">
     <div class="text-body-2 ms-2 mb-1">
       {{ t(`application.${file.associatedApp.slug}`) }}
     </div>
@@ -140,5 +140,5 @@ onMounted((): void => initForm());
     <div class="text-body-2 ms-2 mb-1">
       {{ t('information.editionDate', { date: format(file.editionDate, 'Pp') }) }}
     </div>
-  </div>
+  </template>
 </template>

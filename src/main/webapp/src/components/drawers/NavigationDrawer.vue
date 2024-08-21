@@ -44,33 +44,32 @@ const { t } = useI18n();
           class="mb-2"
           @click="refreshFiles()"
         />
-        <v-list-item
-          v-if="isDev"
-          prepend-icon="fas fa-star"
-          :title="t('navigation.item.favorites')"
-          :to="{ name: 'favorites' }"
-          rounded="xl"
-          class="my-2"
-          @click="refreshFiles()"
-        />
-        <v-list-item
-          v-if="isDev"
-          prepend-icon="fas fa-share-nodes"
-          :title="t('navigation.item.shared')"
-          :to="{ name: 'shared' }"
-          rounded="xl"
-          class="my-2"
-          @click="refreshFiles()"
-        />
-        <v-list-item
-          v-if="isDev"
-          prepend-icon="fas fa-globe"
-          :title="t('navigation.item.public')"
-          :to="{ name: 'public' }"
-          rounded="xl"
-          class="mt-2"
-          @click="refreshFiles()"
-        />
+        <template v-if="isDev">
+          <v-list-item
+            prepend-icon="fas fa-star"
+            :title="t('navigation.item.favorites')"
+            :to="{ name: 'favorites' }"
+            rounded="xl"
+            class="my-2"
+            @click="refreshFiles()"
+          />
+          <v-list-item
+            prepend-icon="fas fa-share-nodes"
+            :title="t('navigation.item.shared')"
+            :to="{ name: 'shared' }"
+            rounded="xl"
+            class="my-2"
+            @click="refreshFiles()"
+          />
+          <v-list-item
+            prepend-icon="fas fa-globe"
+            :title="t('navigation.item.public')"
+            :to="{ name: 'public' }"
+            rounded="xl"
+            class="mt-2"
+            @click="refreshFiles()"
+          />
+        </template>
       </v-list>
       <div class="flex-grow-1" />
       <v-list class="py-0">
