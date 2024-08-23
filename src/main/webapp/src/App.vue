@@ -58,8 +58,6 @@ watchOnce(isInit, (newValue) => {
 watchOnce(isReady, (newValue) => {
   if (newValue) refreshFiles(true, true);
 });
-
-const domain = window.location.hostname;
 </script>
 
 <template>
@@ -67,7 +65,6 @@ const domain = window.location.hostname;
     <header>
       <extended-uportal-header
         v-if="isInit && isReady"
-        :domain="domain"
         :service-name="appName"
         :context-api-url="configuration!.front.extendedUportalHeader.contextApiUrl"
         :sign-out-url="configuration!.front.extendedUportalHeader.signOutUrl"
@@ -101,7 +98,6 @@ const domain = window.location.hostname;
       <extended-uportal-footer
         v-if="isInit"
         v-show="!isApp && isReady && !mobile"
-        :domain="domain"
         :template-api-path="configuration!.front.extendedUportalFooter.templateApiPath"
       />
     </footer>
