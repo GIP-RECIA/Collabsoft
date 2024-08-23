@@ -13,6 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createPinia } from 'pinia';
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts';
+import { acceptHMRUpdate, createPinia } from 'pinia';
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAppStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useConfigurationStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useFileStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useHomeStore, import.meta.hot));
+}
 
 export default createPinia();

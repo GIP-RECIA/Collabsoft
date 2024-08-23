@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { useFileStore } from '@/stores/fileStore.ts';
+import { useConfigurationStore } from './configurationStore.ts';
+import { useFileStore } from './fileStore.ts';
 import { interpolate } from '@/utils/stringUtils.ts';
 import { useSessionStorage } from '@vueuse/core';
 import { defineStore, storeToRefs } from 'pinia';

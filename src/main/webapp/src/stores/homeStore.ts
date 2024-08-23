@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useFileStore } from '@/stores/fileStore.ts';
+import { useFileStore } from './fileStore.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { useSessionStorage } from '@vueuse/core';
 import { defineStore, storeToRefs } from 'pinia';

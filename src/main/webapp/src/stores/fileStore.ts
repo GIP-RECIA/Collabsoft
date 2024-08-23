@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { useConfigurationStore } from './configurationStore.ts';
 import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/api/fileService.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import type { FileBody } from '@/types/fileBodyType.ts';
 import type { File } from '@/types/fileType.ts';
