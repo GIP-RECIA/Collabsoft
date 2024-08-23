@@ -1,11 +1,10 @@
 {
   "settings": {
-    "appearance": {
-      "subheader": "Appearance",
-      "darkTheme": {
-        "title": "Dark theme",
-        "subtitle": "Enable dark theme"
-      }
+    "theme": {
+      "subheader": "Theme",
+      "system": "Systeme",
+      "light": "Light",
+      "dark": "Dark"
     }
   }
 }

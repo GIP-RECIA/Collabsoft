@@ -16,7 +16,8 @@
 
 <script setup lang="ts">
 import { useConfigurationStore } from '@/stores/index.ts';
-import { usePreferredDark } from '@vueuse/core';
+import { Theme } from '@/types/enums/Theme.ts';
+import { usePreferredDark, useSessionStorage } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -36,29 +37,24 @@ const modelValue = computed<boolean>({
   set() {},
 });
 
-const selected = ref<Array<string>>([]);
-
-const updateSelected = (newValue: Array<any>): void => {
-  setDarkTheme(newValue.includes('dark'));
-};
-
-const setDarkTheme = (newValue: boolean): void => {
-  theme.global.name.value = newValue ? 'dark' : 'light';
-};
+const selectedTheme = useSessionStorage<Array<Theme>>(`${__APP_SLUG__}.theme`, [Theme.system]);
 
 watch(
-  theme.global.name,
-  (newValue): void => {
-    if (newValue == 'dark') selected.value.push('dark');
-    else {
-      const index = selected.value.indexOf('dark');
-      if (index > -1) selected.value = selected.value.slice(index, 0);
+  [selectedTheme, isDark],
+  ([newAppearanceTheme, newIsDark]) => {
+    let selected = newIsDark ? Theme.dark : Theme.light;
+    switch (newAppearanceTheme[0]) {
+      case Theme.light:
+        selected = Theme.light;
+        break;
+      case Theme.dark:
+        selected = Theme.dark;
+        break;
     }
+    theme.global.name.value = selected;
   },
   { immediate: true },
 );
-
-watch(isDark, (newValue): void => setDarkTheme(newValue), { immediate: true });
 
 const onClose = (): void => {
   isSettings.value = false;
@@ -80,16 +76,12 @@ const onClose = (): void => {
           />
         </template>
       </v-toolbar>
-      <v-list v-model:selected="selected" select-strategy="classic" @update:selected="updateSelected">
-        <v-list-subheader>{{ t('settings.appearance.subheader') }}</v-list-subheader>
-        <v-list-item
-          :title="t('settings.appearance.darkTheme.title')"
-          :subtitle="t('settings.appearance.darkTheme.subtitle')"
-          value="dark"
-        >
+      <v-list v-model:selected="selectedTheme" mandatory>
+        <v-list-subheader>{{ t('settings.theme.subheader') }}</v-list-subheader>
+        <v-list-item v-for="th in Theme" :key="th" :title="t(`settings.theme.${th}`)" :value="th">
           <template #prepend="{ isActive }">
             <v-list-item-action start>
-              <v-checkbox-btn :model-value="isActive" />
+              <v-radio :model-value="isActive" />
             </v-list-item-action>
           </template>
         </v-list-item>

@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSquare as farSquare, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCircle as farCircle,
+  faDotCircle as farDotCircle,
+  faSquare as farSquare,
+  faStar as farStar,
+} from '@fortawesome/free-regular-svg-icons';
 import {
   faArrowLeft,
   faArrowRightToBracket,
@@ -49,7 +54,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { App } from 'vue';
 
 const register = (app: App | undefined): void => {
-  library.add(farSquare, farStar);
+  library.add(farCircle, farDotCircle, farSquare, farStar);
   library.add(
     faArrowLeft,
     faArrowRightToBracket,
