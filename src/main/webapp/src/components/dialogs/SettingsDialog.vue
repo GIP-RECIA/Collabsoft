@@ -19,7 +19,7 @@ import { useConfigurationStore } from '@/stores/index.ts';
 import { Theme } from '@/types/enums/Theme.ts';
 import { usePreferredDark, useSessionStorage } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useTheme } from 'vuetify';
 
@@ -76,7 +76,7 @@ const onClose = (): void => {
           />
         </template>
       </v-toolbar>
-      <v-list v-model:selected="selectedTheme" mandatory>
+      <v-list v-model:selected="selectedTheme" mandatory class="py-0">
         <v-list-subheader>{{ t('settings.theme.subheader') }}</v-list-subheader>
         <v-list-item v-for="th in Theme" :key="th" :title="t(`settings.theme.${th}`)" :value="th">
           <template #prepend="{ isActive }">
