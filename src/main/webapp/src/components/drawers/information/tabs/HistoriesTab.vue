@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useFileStore } from '@/stores/fileStore.ts';
+import { useFileStore } from '@/stores/index.ts';
 import { format } from 'date-fns';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';

@@ -15,7 +15,7 @@
  */
 import i18n from '@/plugins/i18n.ts';
 import { handshake } from '@/services/api/handshakeService.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useConfigurationStore } from '@/stores/index.ts';
 import { getToken } from '@/utils/soffitUtils.ts';
 import axios from 'axios';
 import { storeToRefs } from 'pinia';

@@ -15,8 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useFileStore } from '@/stores/fileStore.ts';
-import { useHomeStore } from '@/stores/homeStore.ts';
+import { useFileStore, useHomeStore } from '@/stores/index.ts';
 import type { Collaboration } from '@/types/collaborationType.ts';
 import { Role, getRole } from '@/types/enums/Role.ts';
 import { storeToRefs } from 'pinia';

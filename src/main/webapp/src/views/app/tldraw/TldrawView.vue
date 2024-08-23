@@ -15,9 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/appStore.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { useFileStore } from '@/stores/fileStore.ts';
+import { useAppStore, useConfigurationStore, useFileStore } from '@/stores/index.ts';
 import { headObserver, styleObserver } from '@/utils/tldrawUtils.ts';
 import '@gip-recia/tldraw-webcomponent';
 import { storeToRefs } from 'pinia';

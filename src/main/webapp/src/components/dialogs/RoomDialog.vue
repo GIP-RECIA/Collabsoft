@@ -15,9 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/appStore.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { useHomeStore } from '@/stores/homeStore.ts';
+import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores/index.ts';
 import type { RoomAction } from '@/types/roomActionType.ts';
 import { charOTP } from '@/utils/stringUtils.ts';
 import debounce from 'lodash.debounce';

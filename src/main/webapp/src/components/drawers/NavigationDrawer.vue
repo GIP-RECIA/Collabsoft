@@ -15,8 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { useFileStore } from '@/stores/fileStore.ts';
+import { useConfigurationStore, useFileStore } from '@/stores/index.ts';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 

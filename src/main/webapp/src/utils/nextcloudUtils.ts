@@ -15,7 +15,7 @@
  */
 import i18n from '@/plugins/i18n.ts';
 import { saveNcFile } from '@/services/api/nextcloudService.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useConfigurationStore } from '@/stores/index.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import { interpolate } from '@/utils/stringUtils.ts';
 import axios from 'axios';

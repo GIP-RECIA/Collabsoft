@@ -18,10 +18,7 @@
 import FileMenu from '@/components/FileMenu.vue';
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
-import { useAppStore } from '@/stores/appStore.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { useFileStore } from '@/stores/fileStore.ts';
-import { useHomeStore } from '@/stores/homeStore.ts';
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts';
 import type { Confirmation } from '@/types/confirmationType.ts';
 import { Navigation } from '@/types/enums/Navigation.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';

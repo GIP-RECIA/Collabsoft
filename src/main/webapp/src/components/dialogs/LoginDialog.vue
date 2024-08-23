@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
+import { useConfigurationStore } from '@/stores/index.ts';
 import { initToken } from '@/utils/axiosUtils.ts';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';

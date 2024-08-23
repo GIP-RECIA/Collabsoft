@@ -15,9 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/appStore.ts';
-import { useFileStore } from '@/stores/fileStore.ts';
-import { useHomeStore } from '@/stores/homeStore.ts';
+import { useAppStore, useFileStore, useHomeStore } from '@/stores/index.ts';
 import { charOTP } from '@/utils/stringUtils.ts';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';

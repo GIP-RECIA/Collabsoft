@@ -16,9 +16,7 @@
 
 <script setup lang="ts">
 import { saveFile } from '@/services/api/fileService.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { useFileStore } from '@/stores/fileStore.ts';
-import { useHomeStore } from '@/stores/homeStore.ts';
+import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts';
 import { errorHandler } from '@/utils/axiosUtils.ts';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';

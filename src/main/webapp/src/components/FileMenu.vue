@@ -15,10 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/appStore.ts';
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { useFileStore } from '@/stores/fileStore.ts';
-import { useHomeStore } from '@/stores/homeStore.ts';
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts';
 import { Tabs } from '@/types/enums/Tabs.ts';
 import { downloadFileOrBlob, toFile } from '@/utils/fileUtils.ts';
 import { saveOnNextcloud } from '@/utils/nextcloudUtils.ts';
