@@ -3,7 +3,6 @@ import { slugify } from './src/main/webapp/src/utils/stringUtils.ts';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
 import { readFileSync } from 'fs';
-import path from 'node:path';
 import { URL, fileURLToPath } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
 import vuetify from 'vite-plugin-vuetify';
@@ -55,9 +54,7 @@ export default ({ mode }: { mode: string }) => {
         },
       }),
       vuetify({ styles: 'sass' }),
-      VueI18nPlugin({
-        include: [path.resolve(__dirname, './src/main/webapp/src/locales/**/*.json')],
-      }),
+      VueI18nPlugin({}),
     ],
     resolve: {
       alias: {
