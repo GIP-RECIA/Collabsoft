@@ -29,8 +29,8 @@ const { t } = useI18n();
 <template>
   <v-list v-if="file?.histories" class="py-0">
     <v-list-item
-      v-for="(history, index) in file.histories"
-      :key="index"
+      v-for="history in file.histories"
+      :key="history.id"
       :title="format(history.creationDate, 'Pp')"
       rounded="xl"
       class="pe-2 bg-grey-lighten-3 list-item--custom"

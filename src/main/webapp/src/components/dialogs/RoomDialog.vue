@@ -102,8 +102,8 @@ const reset = debounce((): void => {
         <div class="d-flex flex-column align-center mt-4">
           <v-btn-toggle v-model="appType" mandatory class="mb-3">
             <v-btn
-              v-for="(app, index) in availableApps"
-              :key="index"
+              v-for="app in availableApps"
+              :key="app.id"
               :text="t(`application.${app.slug}`)"
               :value="app.slug"
               rounded="xl"

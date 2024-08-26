@@ -101,8 +101,8 @@ const reset = debounce((): void => {
         <div class="ms-2 mb-2">{{ t('dialog.file.description') }}</div>
         <v-btn-toggle v-model="fileType" mandatory class="mb-3">
           <v-btn
-            v-for="(app, index) in availableApps"
-            :key="index"
+            v-for="app in availableApps"
+            :key="app.id"
             :text="t(`application.${app.slug}`)"
             :value="app.id"
             rounded="xl"
