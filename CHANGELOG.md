@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.0](https://github.com/GIP-RECIA/Collabsoft/compare/0.2.1...0.3.0) (2024-08-28)
+
+
+### Features
+
+* add license check and commit ([728209f](https://github.com/GIP-RECIA/Collabsoft/commit/728209fd9984e2a5f261215d55ec530a0e5a2c70))
+* add makefile ([270704d](https://github.com/GIP-RECIA/Collabsoft/commit/270704d2b4a5d5d8215ad681df4a8e47b5b2bb4d))
+* adjust padding, margin, icons and drawers ([568c0d8](https://github.com/GIP-RECIA/Collabsoft/commit/568c0d89c0bd28ded760013704aaaad0cb43f05a))
+* **home:** add settings icon on mobile ([fec7dba](https://github.com/GIP-RECIA/Collabsoft/commit/fec7dba3a384bc6134ae404312906b2adb31efb6))
+* **pinia:** add HMR ([4db9ccb](https://github.com/GIP-RECIA/Collabsoft/commit/4db9ccbea06c0b8017d3589033dc43a4402dfa9e))
+* **settings:** choose theme easily ([8b016cd](https://github.com/GIP-RECIA/Collabsoft/commit/8b016cd73dedd0c94bd284aacf989fdd669708c1))
+* **settings:** improve style ([c944983](https://github.com/GIP-RECIA/Collabsoft/commit/c944983befbfc6a419356afbd4a980b0a10cd322))
+* **ui:** hide extended uportal footer in mobile ([1dbe0c2](https://github.com/GIP-RECIA/Collabsoft/commit/1dbe0c26d3685709cce30dc4816e1b5b5fdf1948))
+* **vuetify:** use date-fns ([535bc78](https://github.com/GIP-RECIA/Collabsoft/commit/535bc78d1326ae0afbcddb604764ce7be34c41c0))
+
+
+### Bug Fixes
+
+* available apps and default selected app ([d79f812](https://github.com/GIP-RECIA/Collabsoft/commit/d79f812119792ae68c26c73aa7c7d9a86821ca83))
+* clean `.gz` files ([11b37e7](https://github.com/GIP-RECIA/Collabsoft/commit/11b37e720958dc3065f5aa94a687bad9b0213dac))
+* dedupe workflow permissions ([270e625](https://github.com/GIP-RECIA/Collabsoft/commit/270e625a7f2b4a0210fe1a39adab2f58781e43ae))
+* **dialogs:** center close cross ([806f177](https://github.com/GIP-RECIA/Collabsoft/commit/806f177a201f7dbe3352faaf0ee37d0bce0083aa))
+* **home:** use icon instead of avatar due to border ([4566827](https://github.com/GIP-RECIA/Collabsoft/commit/45668277033730cd52d752d23311badb3015def4))
+* typescript type ([f530b77](https://github.com/GIP-RECIA/Collabsoft/commit/f530b7737aa502406373df6aa01626baacd1a993))
+* **ui:** navigation drawer style ([2237088](https://github.com/GIP-RECIA/Collabsoft/commit/223708898d974ffa03d3d53cc981ad8d9bfcac01))
+* **vite:** remove unnecessary hmr override ([99721b2](https://github.com/GIP-RECIA/Collabsoft/commit/99721b25455e5a5de7fc2d00a21e090994216e76))
+
 ## [0.2.1](https://github.com/GIP-RECIA/Collabsoft/compare/0.2.0...0.2.1) (2024-06-20)
 
 
