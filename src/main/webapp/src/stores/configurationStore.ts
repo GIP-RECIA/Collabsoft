@@ -15,7 +15,7 @@
  */
 import { getConfiguration } from '@/services/api';
 import type { AssociatedApp, Configuration, Soffit } from '@/types';
-import { errorHandler, initToken, setNextcloudUri, useEntTheme } from '@/utils';
+import { errorHandler, initToken, setNcUri, useEntTheme } from '@/utils';
 import { initAppsRoutes } from '@/utils/routerUtils.ts';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
@@ -34,7 +34,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
         const response = await getConfiguration();
         configuration.value = response.data;
         if (!configuration.value) return false;
-        if (isNextcloudAvailable.value) setNextcloudUri(configuration.value.front.nextcloudUri);
+        if (isNcAvailable.value) setNcUri(configuration.value.front.nextcloudUri);
         await initToken(configuration.value.front.userInfoApiUrl);
         await useEntTheme(configuration.value.front.extendedUportalHeader.templateApiPath);
         await initAppsRoutes(configuration.value.front.apps);
@@ -69,7 +69,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   /* -- Nextcloud -- */
 
-  const isNextcloudAvailable = computed<boolean>(() => (configuration.value?.front.nextcloudUri ?? '').length > 0);
+  const isNcAvailable = computed<boolean>(() => (configuration.value?.front.nextcloudUri ?? '').length > 0);
 
   /* -- User -- */
 
@@ -100,7 +100,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
     isReady,
     infoName,
     appName,
-    isNextcloudAvailable,
+    isNcAvailable,
     user,
     isSoffitOk,
     lastNavigation,

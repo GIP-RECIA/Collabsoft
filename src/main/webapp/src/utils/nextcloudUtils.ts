@@ -25,7 +25,7 @@ const { VITE_AXIOS_TIMEOUT } = import.meta.env;
 
 const { t } = i18n.global;
 
-let nextcloudBaseUri: string | undefined;
+let ncBaseUri: string | undefined;
 
 const instance = axios.create({
   timeout: VITE_AXIOS_TIMEOUT,
@@ -34,13 +34,13 @@ const instance = axios.create({
   },
 });
 
-const setNextcloudUri = (uri: string): void => {
+const setNcUri = (uri: string): void => {
   if (uri.length <= 0) return;
-  nextcloudBaseUri = interpolate(uri, { domain: window.location.hostname });
-  instance.defaults.baseURL = `${nextcloudBaseUri}/remote.php/dav/files/`;
+  ncBaseUri = interpolate(uri, { domain: window.location.hostname });
+  instance.defaults.baseURL = `${ncBaseUri}/remote.php/dav/files/`;
 };
 
-const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
+const saveOnNc = async (file: File, type: string): Promise<void> => {
   const configurationStore = useConfigurationStore();
   const { user } = storeToRefs(configurationStore);
 
@@ -48,27 +48,27 @@ const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
     const response = await saveNcFile(user.value.sub, file, type);
     if ([201, 204].includes(response.status)) {
       toast.success(
-        t('toast.nextcloud.200', {
+        t('toast.nc.200', {
           fileName: `${file.name}.${type}`,
-          status: t(`toast.nextcloud.${response.status}`),
+          status: t(`toast.nc.${response.status}`),
         }),
         {
           onClick: () => {
-            window.open(`${nextcloudBaseUri}/`, '_blank');
+            window.open(`${ncBaseUri}/`, '_blank');
           },
         },
       );
     }
   } catch (error: any) {
     if (error.response?.status === 401) {
-      toast.error(t('toast.nextcloud.401'), {
+      toast.error(t('toast.nc.401'), {
         autoClose: false,
         onClick: () => {
-          window.open(`${nextcloudBaseUri}/apps/user_cas/login`, '_blank');
+          window.open(`${ncBaseUri}/apps/user_cas/login`, '_blank');
         },
       });
     } else errorHandler(error, true);
   }
 };
 
-export { instance as ncInstance, setNextcloudUri, saveOnNextcloud };
+export { instance as ncInstance, setNcUri, saveOnNc };

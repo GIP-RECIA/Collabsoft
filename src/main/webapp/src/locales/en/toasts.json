@@ -2,7 +2,7 @@
   "toast": {
     "loadFiles": "Unable to load file list",
     "loadFile": "Unable to load file",
-    "nextcloud": {
+    "nc": {
       "200": "\"{fileName}\" has been {status}\non Nextcloud",
       "201": "created",
       "204": "updated",

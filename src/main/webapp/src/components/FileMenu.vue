@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
 import { Tabs } from '@/types/enums';
-import { downloadFileOrBlob, saveOnNextcloud, toFile } from '@/utils';
+import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -28,7 +28,7 @@ const appStore = useAppStore();
 const { isApp } = storeToRefs(appStore);
 
 const configurationStore = useConfigurationStore();
-const { isNextcloudAvailable, isSettings } = storeToRefs(configurationStore);
+const { isNcAvailable, isSettings } = storeToRefs(configurationStore);
 
 const fileStore = useFileStore();
 const { loadFile } = fileStore;
@@ -75,8 +75,8 @@ const onHistories = async (): Promise<void> => {
 
 const onExport = async (): Promise<void> => {
   await getFile();
-  if (!file.value || !isNextcloudAvailable.value) return;
-  await saveOnNextcloud(toFile(file.value), file.value.associatedApp.extension);
+  if (!file.value || !isNcAvailable.value) return;
+  await saveOnNc(toFile(file.value), file.value.associatedApp.extension);
 };
 
 const onDownload = async (): Promise<void> => {
@@ -131,9 +131,9 @@ const onDelete = async (): Promise<void> => {
           @click="onHistories"
         />
         <v-list-item
-          v-if="isNextcloudAvailable"
+          v-if="isNcAvailable"
           prepend-icon="fas fa-cloud"
-          :title="t('menu.item.exportOnNextcloud')"
+          :title="t('menu.item.exportOnNc')"
           rounded="xl"
           @click="onExport"
         />
