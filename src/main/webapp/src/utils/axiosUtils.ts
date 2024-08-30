@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 import i18n from '@/plugins/i18n.ts';
-import { handshake } from '@/services/api/handshakeService.ts';
-import { useConfigurationStore } from '@/stores/index.ts';
-import { getToken } from '@/utils/soffitUtils.ts';
+import { handshake } from '@/services/api';
+import { useConfigurationStore } from '@/stores';
+import { getToken } from '@/utils';
 import axios from 'axios';
 import { storeToRefs } from 'pinia';
 import { type ToastContainerOptions, toast } from 'vue3-toastify';
@@ -99,4 +99,4 @@ const errorHandler = (e: any, toastOrI18n?: boolean | string): void => {
   console.error(error);
 };
 
-export { instance, initToken, errorHandler };
+export { instance as axiosInstance, initToken, errorHandler };

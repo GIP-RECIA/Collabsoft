@@ -15,10 +15,10 @@
 -->
 
 <script setup lang="ts">
-import { setFile } from '@/services/api/fileService.ts';
-import { useFileStore, useHomeStore } from '@/stores/index.ts';
-import type { FileBody } from '@/types/fileBodyType.ts';
-import { errorHandler } from '@/utils/axiosUtils.ts';
+import { setFile } from '@/services/api';
+import { useFileStore, useHomeStore } from '@/stores';
+import type { FileBody } from '@/types';
+import { errorHandler } from '@/utils';
 import { format } from 'date-fns';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref, watch } from 'vue';

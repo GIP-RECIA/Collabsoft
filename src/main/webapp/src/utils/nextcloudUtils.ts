@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 import i18n from '@/plugins/i18n.ts';
-import { saveNcFile } from '@/services/api/nextcloudService.ts';
-import { useConfigurationStore } from '@/stores/index.ts';
-import { errorHandler } from '@/utils/axiosUtils.ts';
-import { interpolate } from '@/utils/stringUtils.ts';
+import { saveNcFile } from '@/services/api';
+import { useConfigurationStore } from '@/stores';
+import { errorHandler, interpolate } from '@/utils';
 import axios from 'axios';
 import { storeToRefs } from 'pinia';
 import { toast } from 'vue3-toastify';
@@ -72,4 +71,4 @@ const saveOnNextcloud = async (file: File, type: string): Promise<void> => {
   }
 };
 
-export { instance, setNextcloudUri, saveOnNextcloud };
+export { instance as ncInstance, setNextcloudUri, saveOnNextcloud };

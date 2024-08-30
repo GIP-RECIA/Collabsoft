@@ -15,9 +15,9 @@
 -->
 
 <script setup lang="ts">
-import { saveFile } from '@/services/api/fileService.ts';
-import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts';
-import { errorHandler } from '@/utils/axiosUtils.ts';
+import { saveFile } from '@/services/api';
+import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
+import { errorHandler } from '@/utils';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';

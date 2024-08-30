@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { User } from './userType.ts';
 
-export type Collaboration = {
-  user: User;
-  role: string;
-};
+export * from './configurationService.ts';
+export * from './fileService.ts';
+export * from './handshakeService.ts';
+export * from './nextcloudService.ts';

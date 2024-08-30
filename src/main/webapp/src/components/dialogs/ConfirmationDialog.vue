@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import type { Confirmation } from '@/types/confirmationType.ts';
+import type { Confirmation } from '@/types';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();

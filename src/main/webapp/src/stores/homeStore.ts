@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { useFileStore } from './fileStore.ts';
-import { Tabs } from '@/types/enums/Tabs.ts';
+import { Tabs } from '@/types/enums';
 import { useSessionStorage } from '@vueuse/core';
 import { defineStore, storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';

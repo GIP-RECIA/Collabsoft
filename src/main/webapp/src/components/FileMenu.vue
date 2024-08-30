@@ -15,10 +15,9 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts';
-import { Tabs } from '@/types/enums/Tabs.ts';
-import { downloadFileOrBlob, toFile } from '@/utils/fileUtils.ts';
-import { saveOnNextcloud } from '@/utils/nextcloudUtils.ts';
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
+import { Tabs } from '@/types/enums';
+import { downloadFileOrBlob, saveOnNextcloud, toFile } from '@/utils';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';

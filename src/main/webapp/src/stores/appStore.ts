@@ -15,7 +15,7 @@
  */
 import { useConfigurationStore } from './configurationStore.ts';
 import { useFileStore } from './fileStore.ts';
-import { interpolate } from '@/utils/stringUtils.ts';
+import { interpolate } from '@/utils';
 import { useSessionStorage } from '@vueuse/core';
 import { defineStore, storeToRefs } from 'pinia';
 import { computed, readonly, ref } from 'vue';

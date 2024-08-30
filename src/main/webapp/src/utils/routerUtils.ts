@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { AssociatedApp } from '@/types/associatedAppType.ts';
-import { Navigation } from '@/types/enums/Navigation.ts';
+import type { AssociatedApp } from '@/types';
+import { Navigation } from '@/types/enums';
 import { capitalize } from 'vue';
 import { type RouteRecordRaw, type RouteRecordRedirectOption, type Router } from 'vue-router';
 
@@ -25,7 +25,7 @@ const redirect: RouteRecordRedirectOption = () => {
 };
 
 const initAppsRoutes = async (apps: Array<AssociatedApp>): Promise<void> => {
-  const router: Router = (await import('@/router/index.ts')).default;
+  const router: Router = (await import('@/router')).default;
 
   apps
     .filter((app) => app.enabled || isDev)

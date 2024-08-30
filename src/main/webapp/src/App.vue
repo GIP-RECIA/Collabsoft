@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import LoginDialog from '@/components/dialogs/LoginDialog.vue';
 import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts';
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
 import { watchOnce } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';

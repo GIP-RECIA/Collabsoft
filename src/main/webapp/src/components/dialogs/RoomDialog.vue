@@ -15,9 +15,9 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores/index.ts';
-import type { RoomAction } from '@/types/roomActionType.ts';
-import { charOTP } from '@/utils/stringUtils.ts';
+import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores';
+import type { RoomAction } from '@/types';
+import { charOTP } from '@/utils';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';

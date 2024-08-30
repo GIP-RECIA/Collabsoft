@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { CollaborationBody } from '@/types/collaborationBodyType.ts';
-import type { FileBody } from '@/types/fileBodyType.ts';
-import type { HistoryBody } from '@/types/historyBodyType.ts';
-import type { MetadataBody } from '@/types/metadataBodyType.ts';
-import { instance as axios } from '@/utils/axiosUtils.ts';
+import type { CollaborationBody, FileBody, HistoryBody, MetadataBody } from '@/types';
+import { axiosInstance as axios } from '@/utils';
 
 const getFiles = async () => await axios.get('/api/file');
 

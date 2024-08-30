@@ -15,9 +15,9 @@
 -->
 
 <script setup lang="ts">
-import { useFileStore, useHomeStore } from '@/stores/index.ts';
-import type { Collaboration } from '@/types/collaborationType.ts';
-import { Role, getRole } from '@/types/enums/Role.ts';
+import { useFileStore, useHomeStore } from '@/stores';
+import type { Collaboration } from '@/types';
+import { Role, getRole } from '@/types/enums';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';

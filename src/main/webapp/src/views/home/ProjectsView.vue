@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore, useHomeStore } from '@/stores/index.ts';
+import { useConfigurationStore, useHomeStore } from '@/stores';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';

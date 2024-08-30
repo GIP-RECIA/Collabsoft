@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Navigation } from '@/types/enums/Navigation.ts';
-import { redirect } from '@/utils/routerUtils.ts';
+import { Navigation } from '@/types/enums';
+import { redirect } from '@/utils';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({

@@ -17,8 +17,8 @@
 <script setup lang="ts">
 import DurationSpan from '@/components/DurationSpan.vue';
 import FileMenu from '@/components/FileMenu.vue';
-import { useHomeStore } from '@/stores/index.ts';
-import type { File } from '@/types/fileType.ts';
+import { useHomeStore } from '@/stores';
+import type { File } from '@/types';
 import { useSessionStorage } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { ref, watch } from 'vue';

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { AssociatedApp } from '@/types/associatedAppType.ts';
-import type { Collaboration } from '@/types/collaborationType.ts';
-import type { History } from '@/types/historyType.ts';
-import type { User } from '@/types/userType.ts';
+import type { AssociatedApp } from './associatedAppType.ts';
+import type { Collaboration } from './collaborationType.ts';
+import type { History } from './historyType.ts';
+import type { User } from './userType.ts';
 
 export type File = {
   id: number;

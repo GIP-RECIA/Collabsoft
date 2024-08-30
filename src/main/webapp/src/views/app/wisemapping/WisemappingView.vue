@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore, useFileStore } from '@/stores/index.ts';
+import { useConfigurationStore, useFileStore } from '@/stores';
 import '@gip-recia/wisemapping-webcomponent';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';

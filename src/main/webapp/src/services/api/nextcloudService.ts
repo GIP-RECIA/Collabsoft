@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { instance as axios } from '@/utils/nextcloudUtils.ts';
+import { ncInstance as axios } from '@/utils';
 
 const getNcFile = async (userID: string, fileUri: string) => await axios.get(`${userID}/${fileUri}`);
 

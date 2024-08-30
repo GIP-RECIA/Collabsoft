@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { dateToDuration, formatedDuration } from '@/utils/dateFnsUtils.ts';
+import { dateToDuration, formatedDuration } from '@/utils';
 import { onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 

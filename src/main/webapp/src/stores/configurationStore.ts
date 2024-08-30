@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getConfiguration } from '@/services/api/configurationService.ts';
-import type { AssociatedApp } from '@/types/associatedAppType.ts';
-import type { Configuration } from '@/types/configurationType.ts';
-import type { Soffit } from '@/types/soffitType.ts';
-import { errorHandler, initToken } from '@/utils/axiosUtils.ts';
-import { useEntTheme } from '@/utils/entUtils.ts';
-import { setNextcloudUri } from '@/utils/nextcloudUtils.ts';
+import { getConfiguration } from '@/services/api';
+import type { AssociatedApp, Configuration, Soffit } from '@/types';
+import { errorHandler, initToken, setNextcloudUri, useEntTheme } from '@/utils';
 import { initAppsRoutes } from '@/utils/routerUtils.ts';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';

@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import { useFileStore } from '@/stores/index.ts';
+import { useFileStore } from '@/stores';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 

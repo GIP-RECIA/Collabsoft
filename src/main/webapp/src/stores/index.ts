@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export { useAppStore } from './appStore.ts';
-export { useConfigurationStore } from './configurationStore.ts';
-export { useFileStore } from './fileStore.ts';
-export { useHomeStore } from './homeStore.ts';
+export * from './appStore.ts';
+export * from './configurationStore.ts';
+export * from './fileStore.ts';
+export * from './homeStore.ts';

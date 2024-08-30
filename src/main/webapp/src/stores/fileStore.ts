@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 import { useConfigurationStore } from './configurationStore.ts';
-import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/api/fileService.ts';
-import { Navigation } from '@/types/enums/Navigation.ts';
-import type { FileBody } from '@/types/fileBodyType.ts';
-import type { File } from '@/types/fileType.ts';
-import { errorHandler } from '@/utils/axiosUtils.ts';
+import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/api';
+import type { File, FileBody } from '@/types';
+import { Navigation } from '@/types/enums';
+import { errorHandler } from '@/utils';
 import { differenceInMilliseconds } from 'date-fns';
 import debounce from 'lodash.debounce';
 import { defineStore, storeToRefs } from 'pinia';

@@ -18,11 +18,10 @@
 import FileMenu from '@/components/FileMenu.vue';
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts';
-import type { Confirmation } from '@/types/confirmationType.ts';
-import { Navigation } from '@/types/enums/Navigation.ts';
-import { Tabs } from '@/types/enums/Tabs.ts';
-import { preventExit } from '@/utils/routerUtils.ts';
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
+import type { Confirmation } from '@/types';
+import { Navigation, Tabs } from '@/types/enums';
+import { preventExit } from '@/utils';
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
