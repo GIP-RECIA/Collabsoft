@@ -161,3 +161,17 @@ watch(visibility, (): void => refreshFile());
     />
   </div>
 </template>
+
+<style scoped lang="scss">
+.share-item--name {
+  width: 100%;
+}
+
+.share-item--role {
+  min-width: 150px;
+}
+
+.list-item--custom {
+  height: 56px;
+}
+</style>

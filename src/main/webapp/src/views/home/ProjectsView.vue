@@ -31,7 +31,7 @@ const { mobile } = useDisplay();
 </script>
 
 <template>
-  <div class="d-flex align-center" :class="[mobile ? 'mb-2' : 'mb-4']">
+  <div class="d-flex align-center" :class="[mobile ? 'gc-2 mb-2' : 'gc-4 mb-4']">
     <v-btn icon="fas fa-plus" variant="tonal" size="small" @click="isNew = true" />
     <v-btn
       :icon="mobile ? 'fas fa-chalkboard-user' : undefined"
@@ -39,10 +39,10 @@ const { mobile } = useDisplay();
       variant="tonal"
       :text="mobile ? undefined : t('button.rooms')"
       :size="mobile ? 'small' : undefined"
-      :class="[mobile ? 'ms-2' : 'ms-4 custom-height']"
+      :class="{ 'custom-height': !mobile }"
       @click="isRoom = true"
     />
-    <div class="flex-grow-1" />
+    <v-spacer />
     <v-text-field
       v-model="search"
       variant="solo"
@@ -53,8 +53,7 @@ const { mobile } = useDisplay();
       hide-details
       single-line
       clearable
-      class="max-width"
-      :class="[mobile ? 'ms-2' : 'ms-4']"
+      class="search"
     />
     <v-btn
       v-if="mobile"
@@ -62,14 +61,15 @@ const { mobile } = useDisplay();
       variant="text"
       color="default"
       size="small"
-      class="ms-2 text-medium-emphasis"
+      class="text-medium-emphasis"
       @click="isSettings = true"
     />
   </div>
 </template>
 
 <style scoped lang="scss">
-.max-width {
+.search {
+  width: 100%;
   max-width: 300px;
 }
 

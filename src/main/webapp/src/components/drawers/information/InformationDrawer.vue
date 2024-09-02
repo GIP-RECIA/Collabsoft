@@ -141,16 +141,4 @@ const onClose = (): void => {
 .slide-group-item--activate {
   background-color: rgba(var(--v-theme-primary), var(--v-activated-opacity)) !important;
 }
-
-.share-item--name {
-  width: 100%;
-}
-
-.share-item--role {
-  min-width: 150px;
-}
-
-.list-item--custom {
-  height: 56px;
-}
 </style>

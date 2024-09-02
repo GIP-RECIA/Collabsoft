@@ -91,7 +91,7 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
     <template #item.title="{ item }">
       <router-link
         :to="item.associatedApp.enabled || isDev ? { name: item.associatedApp.slug, params: { fileId: item.id } } : ''"
-        class="d-flex align-center h-100 table-column-title"
+        class="v-data-table-column-title"
       >
         <v-icon
           icon="fas fa-file"
@@ -119,20 +119,22 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
 </template>
 
 <style scoped lang="scss">
-.table-column-title {
-  width: 0;
+.v-data-table-column-title {
+  display: flex;
+  align-items: center;
   flex-grow: 1;
+  width: 0;
   text-decoration: none;
   color: inherit;
 }
 </style>
 
 <style lang="scss">
-thead > tr > th > .v-data-table-header__content > span {
-  margin-right: 4px;
+.v-data-table-header__sort-icon {
+  margin-left: 8px;
 }
 
-tbody > tr.v-data-table__tr > td:nth-child(1) {
+tbody > tr > td:nth-child(1) {
   display: flex;
 }
 </style>

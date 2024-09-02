@@ -70,7 +70,7 @@ const { t } = useI18n();
           />
         </template>
       </v-list>
-      <div class="flex-grow-1" />
+      <v-spacer />
       <v-list class="py-0">
         <v-list-item
           prepend-icon="fas fa-gear"
