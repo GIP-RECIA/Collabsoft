@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 // @ts-ignore
-import { register as registerFontAwsome } from '@/plugins/fontawsome.ts';
+import { register as registerFontAwsome } from '@/plugins/fontawesome.ts';
 // @ts-ignore
 import i18n from '@/plugins/i18n.ts';
 // @ts-ignore
