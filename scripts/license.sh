@@ -30,7 +30,7 @@ generate () {
 }
 
 commit () {
-  if [[ `git status --porcelain *.vue *.ts *.scss *.java *.xml *.sh` ]]; then
+  if [ `git status --porcelain *.vue *.ts *.scss *.java *.xml *.sh` ]; then
     git add ./src/
     git add ./scripts/
     git commit -m "docs: generate missing license headers"
@@ -38,7 +38,7 @@ commit () {
   fi
 }
 
-if [[ $1 != "" ]]; then
+if [ "$1" != "" ]; then
   choice="$1"
 else
   echo "1 -> check"
