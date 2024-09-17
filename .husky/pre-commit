@@ -14,6 +14,7 @@ else
   echo "Fix license"
   ./mvnw license:format
 fi
+yarn exec vitest run
 yarn exec lint-staged
 if $error; then
   exit 1;
