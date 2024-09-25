@@ -54,7 +54,7 @@ const login = (): void => {
 
 const retry = async (): Promise<void> => {
   const timeout: number = 5000;
-  const execute = debounce(
+  debounce(
     async () => {
       canRetry.value = false;
       setTimeout(() => (canRetry.value = true), timeout);
@@ -64,8 +64,7 @@ const retry = async (): Promise<void> => {
     },
     timeout,
     { leading: true },
-  );
-  execute();
+  )();
 };
 </script>
 

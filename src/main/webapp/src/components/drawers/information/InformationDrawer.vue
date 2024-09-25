@@ -51,11 +51,10 @@ const modelValue = computed<boolean>({
 watch(modelValue, (newValue) => {
   if (newValue) show.value = true;
   else {
-    const reset = debounce((): void => {
+    debounce((): void => {
       show.value = false;
       drawerTab.value = Tabs.Information;
-    }, 200);
-    reset();
+    }, 200)();
   }
 });
 
