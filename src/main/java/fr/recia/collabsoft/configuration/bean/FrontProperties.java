@@ -18,15 +18,17 @@ package fr.recia.collabsoft.configuration.bean;
 
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 public class FrontProperties {
 
   private String appName;
   private String userInfoApiUrl;
   private String nextcloudUri;
-  private CollaborationProperties collaboration = new CollaborationProperties();
-  private ExtendedUportalHeaderProperties extendedUportalHeader = new ExtendedUportalHeaderProperties();
-  private ExtendedUportalFooterProperties extendedUportalFooter = new ExtendedUportalFooterProperties();
+  private CollaborationProperties collaboration;
+  private String templateApiPath;
+  private ExtendedUportalProperties extendedUportal;
 
   @Data
   public static class CollaborationProperties {
@@ -43,73 +45,33 @@ public class FrontProperties {
   }
 
   @Data
-  public static class ExtendedUportalHeaderProperties {
+  public static class ExtendedUportalProperties {
 
-    private String componentPath;
-    private String contextApiUrl;
-    private String signOutUrl;
-    private String defaultOrgLogoPath;
-    private String defaultAvatarPath;
-    private String defaultOrgIconPath;
-    private String favoriteApiUrl;
-    private String layoutApiUrl;
-    private String organizationApiUrl;
-    private String portletApiUrl;
-    private String userInfoApiUrl;
-    private String userInfoPortletUrl;
-    private String sessionApiUrl;
-    private String templateApiPath;
-    private String switchOrgPortletUrl;
-    private String favoritesPortletCardSize;
-    private String gridPortletCardSize;
-    private String hideActionMode;
-    private String showFavoritesInSlider;
-    private String returnHomeTitle;
-    private String returnHomeTarget;
-    private String iconType;
+    private ComponentProperties header;
+    private ComponentProperties footer;
 
     @Override
     public String toString() {
       return "{" +
-        "\n\t\t\"componentPath\": \"" + componentPath + "\"," +
-        "\n\t\t\"contextApiUrl\": \"" + contextApiUrl + "\"," +
-        "\n\t\t\"signOutUrl\": \"" + signOutUrl + "\"," +
-        "\n\t\t\"defaultOrgLogoPath\": \"" + defaultOrgLogoPath + "\"," +
-        "\n\t\t\"defaultAvatarPath\": \"" + defaultAvatarPath + "\"," +
-        "\n\t\t\"defaultOrgIconPath\": \"" + defaultOrgIconPath + "\"," +
-        "\n\t\t\"favoriteApiUrl\": \"" + favoriteApiUrl + "\"," +
-        "\n\t\t\"layoutApiUrl\": \"" + layoutApiUrl + "\"," +
-        "\n\t\t\"organizationApiUrl\": \"" + organizationApiUrl + "\"," +
-        "\n\t\t\"portletApiUrl\": \"" + portletApiUrl + "\"," +
-        "\n\t\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"," +
-        "\n\t\t\"userInfoPortletUrl\": \"" + userInfoPortletUrl + "\"," +
-        "\n\t\t\"sessionApiUrl\": \"" + sessionApiUrl + "\"," +
-        "\n\t\t\"templateApiPath\": \"" + templateApiPath + "\"," +
-        "\n\t\t\"switchOrgPortletUrl\": \"" + switchOrgPortletUrl + "\"," +
-        "\n\t\t\"favoritesPortletCardSize\": \"" + favoritesPortletCardSize + "\"," +
-        "\n\t\t\"gridPortletCardSize\": \"" + gridPortletCardSize + "\"," +
-        "\n\t\t\"hideActionMode\": \"" + hideActionMode + "\"," +
-        "\n\t\t\"showFavoritesInSlider\": \"" + showFavoritesInSlider + "\"," +
-        "\n\t\t\"returnHomeTitle\": \"" + returnHomeTitle + "\"," +
-        "\n\t\t\"returnHomeTarget\": \"" + returnHomeTarget + "\"," +
-        "\n\t\t\"iconType\": \"" + iconType + "\"" +
+        "\n\t\t\"header\": " + header + "," +
+        "\n\t\t\"footer\": " + footer +
         "\n\t}";
     }
 
-  }
+    @Data
+    public static class ComponentProperties {
 
-  @Data
-  public static class ExtendedUportalFooterProperties {
+      private String componentPath;
+      private Map<String, String> props;
 
-    private String componentPath;
-    private String templateApiPath;
+      @Override
+      public String toString() {
+        return "{" +
+          "\n\t\t\t\"componentPath\": \"" + componentPath + "\"," +
+          "\n\t\t\t\"props\": " + props +
+          "\n\t\t}";
+      }
 
-    @Override
-    public String toString() {
-      return "{" +
-        "\n\t\t\"componentPath\": \"" + componentPath + "\"," +
-        "\n\t\t\"templateApiPath\": \"" + templateApiPath + "\"" +
-        "\n\t}";
     }
 
   }
@@ -121,8 +83,8 @@ public class FrontProperties {
       "\n\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"," +
       "\n\t\"nextcloudUri\": \"" + nextcloudUri + "\"," +
       "\n\t\"collaboration\": \"" + collaboration + "\"," +
-      "\n\t\"extendedUportalHeader\": \"" + extendedUportalHeader + "\"," +
-      "\n\t\"extendedUportalFooter\": \"" + extendedUportalFooter + "\"" +
+      "\n\t\"templateApiPath\": \"" + templateApiPath + "\"," +
+      "\n\t\"extendedUportal\": \"" + extendedUportal + "\"" +
       "\n}";
   }
 

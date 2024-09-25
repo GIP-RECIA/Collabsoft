@@ -40,11 +40,11 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class CollabsoftProperties {
 
-  private CorsProperties cors = new CorsProperties();
-  private FrontProperties front = new FrontProperties();
-  private SecurityProperties security = new SecurityProperties();
-  private SoffitProperties soffit = new SoffitProperties();
-  private StorageProperties storage = new StorageProperties();
+  private CorsProperties cors;
+  private FrontProperties front;
+  private SecurityProperties security;
+  private SoffitProperties soffit;
+  private StorageProperties storage;
 
   @PostConstruct
   private void init() throws JsonProcessingException {

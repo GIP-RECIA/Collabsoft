@@ -34,10 +34,11 @@ export const useConfigurationStore = defineStore('configuration', () => {
         const response = await getConfiguration();
         configuration.value = response.data;
         if (!configuration.value) return false;
-        if (isNcAvailable.value) setNcUri(configuration.value.front.nextcloudUri);
-        await initToken(configuration.value.front.userInfoApiUrl);
-        await useEntTheme(configuration.value.front.extendedUportalHeader.templateApiPath);
-        await initAppsRoutes(configuration.value.front.apps);
+        const { nextcloudUri, userInfoApiUrl, templateApiPath, apps } = configuration.value.front;
+        if (isNcAvailable.value) setNcUri(nextcloudUri);
+        await initToken(userInfoApiUrl);
+        await useEntTheme(templateApiPath);
+        await initAppsRoutes(apps);
 
         return true;
       } catch (e) {
