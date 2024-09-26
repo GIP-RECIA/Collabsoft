@@ -53,13 +53,13 @@ public class CollabsoftProperties {
 
   @Override
   public String toString() {
-    return "{\n"
-      + cors + ",\n"
-      + front + ",\n"
-      + security + ",\n"
-      + soffit + "\n"
-      + storage
-      + "\n}";
+    return "{\n" +
+      cors + ",\n" +
+      front + ",\n" +
+      security + ",\n" +
+      soffit + ",\n" +
+      storage +
+      "\n}";
   }
 
 }

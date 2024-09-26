@@ -82,9 +82,9 @@ public class FrontProperties {
       "\n\t\"appName\": \"" + appName + "\"," +
       "\n\t\"userInfoApiUrl\": \"" + userInfoApiUrl + "\"," +
       "\n\t\"nextcloudUri\": \"" + nextcloudUri + "\"," +
-      "\n\t\"collaboration\": \"" + collaboration + "\"," +
+      "\n\t\"collaboration\": " + collaboration + "," +
       "\n\t\"templateApiPath\": \"" + templateApiPath + "\"," +
-      "\n\t\"extendedUportal\": \"" + extendedUportal + "\"" +
+      "\n\t\"extendedUportal\": " + extendedUportal +
       "\n}";
   }
 

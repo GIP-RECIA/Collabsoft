@@ -23,8 +23,7 @@ public class SecurityProperties {
 
   @Override
   public String toString() {
-    return "\"SecurityProperties\": {"
-      + "\n}";
+    return "\"SecurityProperties\": {\n}";
   }
 
 }
