@@ -24,7 +24,7 @@ import { useFileStore, useHomeStore } from '@/stores';
 import { Tabs } from '@/types/enums';
 import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { VITE_API_URI } = import.meta.env;
@@ -39,34 +39,25 @@ const { isDrawer, drawerTab } = storeToRefs(homeStore);
 
 const { t } = useI18n();
 
-const modelValue = computed<boolean>({
-  get() {
-    return file.value != undefined && isDrawer.value;
-  },
-  set() {
-    isDrawer.value = false;
-  },
-});
+const show = ref<boolean>(false);
 
-watch(modelValue, (newValue) => {
+watch(isDrawer, (newValue) => {
   if (newValue) show.value = true;
-  else {
-    debounce((): void => {
-      show.value = false;
-      drawerTab.value = Tabs.Information;
-    }, 200)();
-  }
+  else reset();
 });
-
-const show = ref<boolean>(modelValue.value);
 
 const onClose = (): void => {
-  modelValue.value = false;
+  isDrawer.value = false;
 };
+
+const reset = debounce((): void => {
+  show.value = false;
+  drawerTab.value = Tabs.Information;
+}, 200);
 </script>
 
 <template>
-  <v-navigation-drawer v-model="modelValue" location="right" :width="460" floating temporary class="pa-2">
+  <v-navigation-drawer v-model="isDrawer" location="right" :width="460" temporary class="pa-2">
     <div v-show="show">
       <v-toolbar :title="t(`navigation.title.${drawerTab}`)" color="rgba(255, 255, 255, 0)">
         <template #title v-if="file">

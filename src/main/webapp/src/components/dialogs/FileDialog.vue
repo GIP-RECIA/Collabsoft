@@ -18,7 +18,6 @@
 import { saveFile } from '@/services/api';
 import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
 import { errorHandler } from '@/utils';
-import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -35,13 +34,6 @@ const homeStore = useHomeStore();
 const { isNew } = storeToRefs(homeStore);
 
 const { t } = useI18n();
-
-const modelValue = computed<boolean>({
-  get() {
-    return isNew.value;
-  },
-  set() {},
-});
 
 const fileType = ref<number | undefined>(availableApps.value.length == 1 ? availableApps.value[0].id : undefined);
 const title = ref<string | undefined>();
@@ -71,19 +63,18 @@ const onSave = async (): Promise<void> => {
 
 const onClose = (): void => {
   isNew.value = false;
-  reset();
 };
 
-const reset = debounce((): void => {
+const reset = (): void => {
   fileType.value = availableApps.value.length == 1 ? availableApps.value[0].id : undefined;
   title.value = undefined;
   description.value = undefined;
   pub.value = false;
-}, 200);
+};
 </script>
 
 <template>
-  <v-dialog v-model="modelValue" :max-width="1024">
+  <v-dialog v-model="isNew" :max-width="1024" persistent @after-leave="reset">
     <v-card rounded="xl">
       <v-toolbar :title="t('dialog.file.title')" color="rgba(255, 255, 255, 0)">
         <template #append>

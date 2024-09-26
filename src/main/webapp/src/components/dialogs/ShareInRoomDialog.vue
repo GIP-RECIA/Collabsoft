@@ -17,9 +17,8 @@
 <script setup lang="ts">
 import { useAppStore, useFileStore, useHomeStore } from '@/stores';
 import { charOTP } from '@/utils';
-import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const appStore = useAppStore();
@@ -32,13 +31,6 @@ const homeStore = useHomeStore();
 const { isShareInRoom } = storeToRefs(homeStore);
 
 const { t } = useI18n();
-
-const modelValue = computed<boolean>({
-  get() {
-    return isShareInRoom.value;
-  },
-  set() {},
-});
 
 const joinCode = ref<string>(charOTP());
 const autoSave = ref<boolean>(false);
@@ -55,17 +47,16 @@ const onAutoSave = (): void => {
 
 const onClose = (): void => {
   isShareInRoom.value = false;
-  reset();
 };
 
-const reset = debounce((): void => {
+const reset = (): void => {
   joinCode.value = charOTP();
   autoSave.value = false;
-}, 200);
+};
 </script>
 
 <template>
-  <v-dialog v-model="modelValue" :max-width="1024 / 2">
+  <v-dialog v-model="isShareInRoom" :max-width="1024 / 2" persistent @after-leave="reset">
     <v-card rounded="xl">
       <v-toolbar :title="t('dialog.shareInRoom.title')" color="rgba(255, 255, 255, 0)">
         <template #append>

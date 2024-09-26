@@ -18,7 +18,6 @@
 import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores';
 import type { RoomAction } from '@/types';
 import { charOTP } from '@/utils';
-import debounce from 'lodash.debounce';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -33,13 +32,6 @@ const homeStore = useHomeStore();
 const { isRoom } = storeToRefs(homeStore);
 
 const { t } = useI18n();
-
-const modelValue = computed<boolean>({
-  get() {
-    return isRoom.value;
-  },
-  set() {},
-});
 
 const appType = ref<string | undefined>(availableApps.value.length == 1 ? availableApps.value[0].slug : undefined);
 const joinCode = ref<string>('');
@@ -71,17 +63,16 @@ const onAction = (action: RoomAction): void => {
 
 const onClose = (): void => {
   isRoom.value = false;
-  reset();
 };
 
-const reset = debounce((): void => {
+const reset = (): void => {
   appType.value = availableApps.value.length == 1 ? availableApps.value[0].slug : undefined;
   joinCode.value = '';
-}, 200);
+};
 </script>
 
 <template>
-  <v-dialog v-model="modelValue" :max-width="1024 / 2">
+  <v-dialog v-model="isRoom" :max-width="1024 / 2" persistent @after-leave="reset">
     <v-card rounded="xl">
       <v-toolbar :title="t('dialog.room.title')" color="rgba(255, 255, 255, 0)">
         <template #append>
