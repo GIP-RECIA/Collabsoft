@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-package fr.recia.collabsoft.configuration;
+package fr.recia.collabsoft.util;
 
-public class Constants {
+import java.util.List;
+import java.util.stream.Collectors;
 
-  public static final String JSON_ARRAY_DELIMITER = "\", \"";
-  public static final String JSON_ARRAY_PREFIX = "[ \"";
-  public static final String JSON_ARRAY_SUFFIX = "\" ]";
+public class ListUtil {
 
-  public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
-  public static final String SPRING_PROFILE_PRODUCTION = "prod";
-  public static final String SPRING_PROFILE_TEST = "test";
+  public static <T> String toStringList(List<T> list) {
+    return toStringList(list, ", ");
+  }
 
-  private Constants() {
-    throw new IllegalStateException("Utility class");
+  public static <T> String toStringList(List<T> list, String delimiter) {
+    return toStringList(list, delimiter, "[ ", " ]");
+  }
+
+  public static <T> String toStringList(List<T> list, String delimiter, String prefix, String suffix) {
+    return list.stream()
+      .map(String::valueOf)
+      .collect(Collectors.joining(delimiter, prefix, suffix));
   }
 
 }
