@@ -16,7 +16,7 @@
 
 package fr.recia.collabsoft.service.db;
 
-import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
+import fr.recia.collabsoft.web.interceptor.bean.SoffitHolder;
 import fr.recia.collabsoft.model.pojo.JsonMetadataBody;
 import fr.recia.collabsoft.test.DatabaseUtils;
 import org.junit.jupiter.api.AfterEach;

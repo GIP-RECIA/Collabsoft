@@ -18,7 +18,7 @@ package fr.recia.collabsoft.service.db;
 
 import fr.recia.collabsoft.db.entity.Collaboration;
 import fr.recia.collabsoft.db.enums.Role;
-import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
+import fr.recia.collabsoft.web.interceptor.bean.SoffitHolder;
 import fr.recia.collabsoft.model.pojo.JsonCollaborationBody;
 import fr.recia.collabsoft.test.DatabaseUtils;
 import org.junit.jupiter.api.AfterEach;

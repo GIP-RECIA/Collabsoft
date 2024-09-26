@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package fr.recia.collabsoft.interceptor;
+package fr.recia.collabsoft.web.interceptor;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
+import fr.recia.collabsoft.web.interceptor.bean.SoffitHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -41,7 +41,7 @@ public class SoffitInterceptor implements HandlerInterceptor {
   }
 
   @Override
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
     String path = request.getRequestURI().substring(request.getContextPath().length());
 
     if (path.startsWith("/api")) {

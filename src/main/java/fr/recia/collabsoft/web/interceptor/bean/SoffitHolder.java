@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fr.recia.collabsoft.interceptor.bean;
+package fr.recia.collabsoft.web.interceptor.bean;
 
 import lombok.Data;
 

@@ -17,7 +17,7 @@
 package fr.recia.collabsoft.service.db;
 
 import fr.recia.collabsoft.db.entity.File;
-import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
+import fr.recia.collabsoft.web.interceptor.bean.SoffitHolder;
 import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.model.pojo.JsonFileBody;
 import fr.recia.collabsoft.test.DatabaseUtils;

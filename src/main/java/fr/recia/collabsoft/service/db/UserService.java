@@ -19,7 +19,7 @@ package fr.recia.collabsoft.service.db;
 import fr.recia.collabsoft.db.entity.QUser;
 import fr.recia.collabsoft.db.entity.User;
 import fr.recia.collabsoft.db.repository.UserRepository;
-import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
+import fr.recia.collabsoft.web.interceptor.bean.SoffitHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

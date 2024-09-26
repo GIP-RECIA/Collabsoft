@@ -27,7 +27,7 @@ import fr.recia.collabsoft.db.entity.QMetadata;
 import fr.recia.collabsoft.db.entity.User;
 import fr.recia.collabsoft.db.repository.AssociatedAppRepository;
 import fr.recia.collabsoft.db.repository.FileRepository;
-import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
+import fr.recia.collabsoft.web.interceptor.bean.SoffitHolder;
 import fr.recia.collabsoft.model.enums.Authority;
 import fr.recia.collabsoft.model.pojo.JsonFileBody;
 import lombok.extern.slf4j.Slf4j;

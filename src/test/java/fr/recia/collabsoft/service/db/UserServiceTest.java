@@ -17,7 +17,7 @@
 package fr.recia.collabsoft.service.db;
 
 import fr.recia.collabsoft.db.entity.User;
-import fr.recia.collabsoft.interceptor.bean.SoffitHolder;
+import fr.recia.collabsoft.web.interceptor.bean.SoffitHolder;
 import fr.recia.collabsoft.test.DatabaseUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
