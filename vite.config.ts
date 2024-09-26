@@ -72,6 +72,13 @@ export default ({ mode }: { mode: string }) => {
         },
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        },
+      },
+    },
     build: {
       rollupOptions: {
         output: {
