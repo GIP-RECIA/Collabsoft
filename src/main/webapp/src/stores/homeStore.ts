@@ -13,65 +13,65 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useFileStore } from './fileStore.ts';
-import { Tabs } from '@/types/enums';
-import { useSessionStorage } from '@vueuse/core';
-import { defineStore, storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { Tabs } from '@/types/enums'
+import { useSessionStorage } from '@vueuse/core'
+import { defineStore, storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
+import { useFileStore } from './fileStore.ts'
 
 export const useHomeStore = defineStore('home', () => {
-  const fileStore = useFileStore();
+  const fileStore = useFileStore()
 
   /* -- Drawer -- */
 
   /**
    * Information drawer state
    */
-  const isDrawer = ref<boolean>(false);
+  const isDrawer = ref<boolean>(false)
 
   /**
    * Drawer tab state
    */
-  const drawerTab = ref<Tabs>(Tabs.Information);
+  const drawerTab = ref<Tabs>(Tabs.Information)
 
   /* -- Dialogs -- */
 
   /**
    * Dialog new file state
    */
-  const isNew = ref<boolean>(false);
+  const isNew = ref<boolean>(false)
 
   /**
    * Dialog create/join room state
    */
-  const isRoom = ref<boolean>(false);
+  const isRoom = ref<boolean>(false)
 
   /**
    * Dialog share room state
    */
-  const isShareInRoom = ref<boolean>(false);
+  const isShareInRoom = ref<boolean>(false)
 
   /**
    * Dialog confirmation delete state
    */
-  const isDelete = ref<boolean>(false);
+  const isDelete = ref<boolean>(false)
   const deleteTitle = computed<string | undefined>(() => {
-    const { file } = storeToRefs(fileStore);
+    const { file } = storeToRefs(fileStore)
 
-    return file.value ? `"${file.value.title}"` : undefined;
-  });
+    return file.value ? `"${file.value.title}"` : undefined
+  })
 
   /* -- Display -- */
 
   /**
    * Search input value
    */
-  const search = ref<string | undefined>();
+  const search = ref<string | undefined>()
 
   /**
    * Files diplay state
    */
-  const isGrid = useSessionStorage<boolean>(`${__APP_SLUG__}.is-grid`, false);
+  const isGrid = useSessionStorage<boolean>(`${__APP_SLUG__}.is-grid`, false)
 
   /* -- Store actions -- */
 
@@ -79,24 +79,24 @@ export const useHomeStore = defineStore('home', () => {
    * Reset home
    */
   const reset = (): void => {
-    const { file } = storeToRefs(fileStore);
+    const { file } = storeToRefs(fileStore)
 
     // Clear current file
-    file.value = undefined;
+    file.value = undefined
 
     // Close and reset drawer tab
-    isDrawer.value = false;
-    drawerTab.value = Tabs.Information;
+    isDrawer.value = false
+    drawerTab.value = Tabs.Information
 
     // Close dialogs
-    isNew.value = false;
-    isRoom.value = false;
-    isShareInRoom.value = false;
-    isDelete.value = false;
+    isNew.value = false
+    isRoom.value = false
+    isShareInRoom.value = false
+    isDelete.value = false
 
     // Clear search
-    search.value = undefined;
-  };
+    search.value = undefined
+  }
 
   return {
     isDrawer,
@@ -109,5 +109,5 @@ export const useHomeStore = defineStore('home', () => {
     search,
     isGrid,
     reset,
-  };
-});
+  }
+})

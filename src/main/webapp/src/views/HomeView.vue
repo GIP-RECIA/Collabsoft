@@ -15,67 +15,68 @@
 -->
 
 <script setup lang="ts">
-import BottomNavigation from '@/components/BottomNavigation.vue';
-import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue';
-import FileDialog from '@/components/dialogs/FileDialog.vue';
-import RoomDialog from '@/components/dialogs/RoomDialog.vue';
-import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue';
-import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue';
-import FilesLayout from '@/components/layouts/FilesLayout.vue';
-import { deleteFile } from '@/services/api';
-import { useFileStore, useHomeStore } from '@/stores';
-import type { Confirmation } from '@/types';
-import { errorHandler } from '@/utils';
-import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useDisplay } from 'vuetify';
+import type { Confirmation } from '@/types'
+import BottomNavigation from '@/components/BottomNavigation.vue'
+import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
+import FileDialog from '@/components/dialogs/FileDialog.vue'
+import RoomDialog from '@/components/dialogs/RoomDialog.vue'
+import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue'
+import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue'
+import FilesLayout from '@/components/layouts/FilesLayout.vue'
+import { deleteFile } from '@/services/api'
+import { useFileStore, useHomeStore } from '@/stores'
+import { errorHandler } from '@/utils'
+import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useDisplay } from 'vuetify'
 
-const fileStore = useFileStore();
-const { deleteFile: deleteFileFromStore } = fileStore;
-const { files, file } = storeToRefs(fileStore);
+const fileStore = useFileStore()
+const { deleteFile: deleteFileFromStore } = fileStore
+const { files, file } = storeToRefs(fileStore)
 
-const homeStore = useHomeStore();
-const { isDelete, deleteTitle } = storeToRefs(homeStore);
+const homeStore = useHomeStore()
+const { isDelete, deleteTitle } = storeToRefs(homeStore)
 
-const { t } = useI18n();
-const { mobile } = useDisplay();
+const { t } = useI18n()
+const { mobile } = useDisplay()
 
 const confirmationDelete = computed<boolean>({
   get() {
-    return file.value != undefined && isDelete.value;
+    return file.value !== undefined && isDelete.value
   },
   set(newValue) {
-    isDelete.value = newValue;
+    isDelete.value = newValue
   },
-});
+})
 
-const deleteItem = async (result: Confirmation): Promise<void> => {
+async function deleteItem(result: Confirmation): Promise<void> {
   if (result === 'yes' && file.value) {
     try {
-      await deleteFile(file.value.id);
-      deleteFileFromStore(file.value.id);
-    } catch (e) {
-      errorHandler(e);
+      await deleteFile(file.value.id)
+      deleteFileFromStore(file.value.id)
+    }
+    catch (e) {
+      errorHandler(e)
     }
   }
-};
+}
 </script>
 
 <template>
   <v-layout full-height>
     <v-main>
-      <navigation-drawer />
+      <NavigationDrawer />
       <v-container fluid class="h-100 d-flex flex-column" :class="[mobile ? 'pa-2' : '']">
         <router-view />
-        <files-layout :files="files" />
+        <FilesLayout :files="files" />
       </v-container>
-      <information-drawer />
-      <bottom-navigation />
+      <InformationDrawer />
+      <BottomNavigation />
     </v-main>
-    <file-dialog />
-    <room-dialog />
-    <confirmation-dialog
+    <FileDialog />
+    <RoomDialog />
+    <ConfirmationDialog
       v-model="confirmationDelete"
       :title="t('dialog.delete.title')"
       :description="deleteTitle"

@@ -15,52 +15,53 @@
 -->
 
 <script setup lang="ts">
-import DurationSpan from '@/components/DurationSpan.vue';
-import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue';
-import HistoriesTab from '@/components/drawers/information/tabs/HistoriesTab.vue';
-import InformationTab from '@/components/drawers/information/tabs/InformationTab.vue';
-import ShareTab from '@/components/drawers/information/tabs/ShareTab.vue';
-import { useFileStore, useHomeStore } from '@/stores';
-import { Tabs } from '@/types/enums';
-import debounce from 'lodash.debounce';
-import { storeToRefs } from 'pinia';
-import { ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
+import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue'
+import HistoriesTab from '@/components/drawers/information/tabs/HistoriesTab.vue'
+import InformationTab from '@/components/drawers/information/tabs/InformationTab.vue'
+import ShareTab from '@/components/drawers/information/tabs/ShareTab.vue'
+import DurationSpan from '@/components/DurationSpan.vue'
+import { useFileStore, useHomeStore } from '@/stores'
+import { Tabs } from '@/types/enums'
+import debounce from 'lodash.debounce'
+import { storeToRefs } from 'pinia'
+import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const { VITE_API_URI } = import.meta.env;
+const { VITE_API_URI } = import.meta.env
 
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV
 
-const fileStore = useFileStore();
-const { file } = storeToRefs(fileStore);
+const fileStore = useFileStore()
+const { file } = storeToRefs(fileStore)
 
-const homeStore = useHomeStore();
-const { isDrawer, drawerTab } = storeToRefs(homeStore);
+const homeStore = useHomeStore()
+const { isDrawer, drawerTab } = storeToRefs(homeStore)
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const show = ref<boolean>(false);
+const show = ref<boolean>(false)
 
-watch(isDrawer, (newValue) => {
-  if (newValue) show.value = true;
-  else reset();
-});
-
-const onClose = (): void => {
-  isDrawer.value = false;
-};
+function onClose(): void {
+  isDrawer.value = false
+}
 
 const reset = debounce((): void => {
-  show.value = false;
-  drawerTab.value = Tabs.Information;
-}, 200);
+  show.value = false
+  drawerTab.value = Tabs.Information
+}, 200)
+
+watch(isDrawer, (newValue) => {
+  if (newValue)
+    show.value = true
+  else reset()
+})
 </script>
 
 <template>
   <v-navigation-drawer v-model="isDrawer" location="right" :width="460" temporary class="pa-2">
     <div v-show="show">
       <v-toolbar :title="t(`navigation.title.${drawerTab}`)" color="rgba(255, 255, 255, 0)">
-        <template #title v-if="file">
+        <template v-if="file" #title>
           <div class="d-flex align-center">
             <v-icon
               icon="fas fa-file"
@@ -76,7 +77,7 @@ const reset = debounce((): void => {
                 {{ file.title }}
               </div>
               <div class="text-caption text-medium-emphasis">
-                <duration-span :date="file.editionDate" />
+                <DurationSpan :date="file.editionDate" />
               </div>
             </div>
           </div>
@@ -112,19 +113,19 @@ const reset = debounce((): void => {
       </v-tabs>
       <v-window v-model="drawerTab">
         <v-window-item :value="Tabs.Information">
-          <information-tab />
+          <InformationTab />
         </v-window-item>
         <v-window-item :value="Tabs.Share">
-          <share-tab />
+          <ShareTab />
         </v-window-item>
         <v-window-item v-if="isDev" :value="Tabs.Histories">
-          <histories-tab />
+          <HistoriesTab />
         </v-window-item>
       </v-window>
     </div>
   </v-navigation-drawer>
 
-  <share-in-room-dialog />
+  <ShareInRoomDialog />
 </template>
 
 <style scoped lang="scss">

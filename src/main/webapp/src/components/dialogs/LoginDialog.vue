@@ -15,57 +15,59 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores';
-import { initToken } from '@/utils';
-import debounce from 'lodash.debounce';
-import { storeToRefs } from 'pinia';
-import { computed, onMounted, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useConfigurationStore } from '@/stores'
+import { initToken } from '@/utils'
+import debounce from 'lodash.debounce'
+import { storeToRefs } from 'pinia'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const configurationStore = useConfigurationStore();
-const { init } = configurationStore;
-const { configuration, isReady, isSoffitOk } = storeToRefs(configurationStore);
+const configurationStore = useConfigurationStore()
+const { init } = configurationStore
+const { configuration, isReady, isSoffitOk } = storeToRefs(configurationStore)
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const modelValue = computed<boolean>({
   get() {
-    return !isReady.value;
+    return !isReady.value
   },
   set() {},
-});
+})
 
-const response = ref<boolean>();
-const isLoading = computed<boolean>(() => response.value == undefined);
+const response = ref<boolean>()
+const isLoading = computed<boolean>(() => response.value === undefined)
 const errorMessage = computed<string>(() => {
-  if (!response.value) return 'config';
-  if (!isSoffitOk.value) return 'soffit';
-  return 'unknown';
-});
-const canRetry = ref<boolean>(true);
+  if (!response.value)
+    return 'config'
+  if (!isSoffitOk.value)
+    return 'soffit'
+  return 'unknown'
+})
+const canRetry = ref<boolean>(true)
 
 onMounted(async (): Promise<void> => {
-  response.value = await init();
-});
+  response.value = await init()
+})
 
-const login = (): void => {
-  window.open(`${window.location.protocol}//${window.location.hostname}`, '_blank');
-};
+function login(): void {
+  window.open(`${window.location.protocol}//${window.location.hostname}`, '_blank')
+}
 
-const retry = async (): Promise<void> => {
-  const timeout: number = 5000;
+async function retry(): Promise<void> {
+  const timeout: number = 5000
   debounce(
     async () => {
-      canRetry.value = false;
-      setTimeout(() => (canRetry.value = true), timeout);
-      response.value = undefined;
-      await initToken(configuration.value!.front.userInfoApiUrl);
-      response.value = true;
+      canRetry.value = false
+      setTimeout(() => (canRetry.value = true), timeout)
+      response.value = undefined
+      await initToken(configuration.value!.front.userInfoApiUrl)
+      response.value = true
     },
     timeout,
     { leading: true },
-  )();
-};
+  )()
+}
 </script>
 
 <template>
@@ -76,9 +78,9 @@ const retry = async (): Promise<void> => {
         <v-spacer />
         <v-progress-circular v-show="isLoading" class="me-4" indeterminate />
       </v-toolbar>
-      <v-card-text v-if="!isLoading && !isReady" class="text-preserve-breaks">{{
-        t(`error.signIn.${errorMessage}`)
-      }}</v-card-text>
+      <v-card-text v-if="!isLoading && !isReady" class="text-preserve-breaks">
+        {{ t(`error.signIn.${errorMessage}`) }}
+      </v-card-text>
       <v-card-actions v-if="errorMessage === 'soffit'">
         <v-spacer />
         <v-btn color="primary" prepend-icon="fas fa-right-to-bracket" :text="t('button.signIn')" @click="login" />

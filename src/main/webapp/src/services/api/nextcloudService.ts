@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ncInstance as axios } from '@/utils';
+import { ncInstance as axios } from '@/utils'
 
-const getNcFile = async (userID: string, fileUri: string) => await axios.get(`${userID}/${fileUri}`);
+const getNcFile = async (userID: string, fileUri: string) => await axios.get(`${userID}/${fileUri}`)
 
-const saveNcFile = async (userID: string, file: File, type: string) =>
-  await axios.put(`${userID}/${file.name}.${type}`, file);
+async function saveNcFile(userID: string, file: File, type: string) {
+  return await axios.put(`${userID}/${file.name}.${type}`, file)
+}
 
-export { getNcFile, saveNcFile };
+export { getNcFile, saveNcFile }

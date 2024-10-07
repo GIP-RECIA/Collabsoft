@@ -15,50 +15,52 @@
 -->
 
 <script setup lang="ts">
-import { useFileStore, useHomeStore } from '@/stores';
-import type { Collaboration } from '@/types';
-import { Role, getRole } from '@/types/enums';
-import { storeToRefs } from 'pinia';
-import { ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
+import type { Collaboration } from '@/types'
+import { useFileStore, useHomeStore } from '@/stores'
+import { getRole, Role } from '@/types/enums'
+import { storeToRefs } from 'pinia'
+import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV
 
-const fileStore = useFileStore();
-const { refreshFile } = fileStore;
-const { file } = storeToRefs(fileStore);
+const fileStore = useFileStore()
+const { refreshFile } = fileStore
+const { file } = storeToRefs(fileStore)
 
-const homeStore = useHomeStore();
-const { isShareInRoom } = storeToRefs(homeStore);
+const homeStore = useHomeStore()
+const { isShareInRoom } = storeToRefs(homeStore)
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const roles: Array<Role> = [Role.editor, Role.readonly];
+const roles: Array<Role> = [Role.editor, Role.readonly]
 
-const newUser = ref<any>();
-const newRole = ref<Role>();
+const newUser = ref<any>()
+const newRole = ref<Role>()
 
-const updateRole = (collaboration: Collaboration, newValue: Role): void => {
-  if (newValue != getRole(collaboration.role)) refreshFile();
-};
+function updateRole(collaboration: Collaboration, newValue: Role): void {
+  if (newValue !== getRole(collaboration.role))
+    refreshFile()
+}
 
-const addUser = (): void => {
-  newUser.value = undefined;
-  newRole.value = undefined;
-};
+function addUser(): void {
+  newUser.value = undefined
+  newRole.value = undefined
+}
 
-const visibility = ref<boolean>(false);
+const visibility = ref<boolean>(false)
 
 watch(
   () => file.value?.pub,
   (newValue): void => {
-    if (newValue == undefined) return;
-    visibility.value = newValue;
+    if (newValue === undefined)
+      return
+    visibility.value = newValue
   },
   { immediate: true },
-);
+)
 
-watch(visibility, (): void => refreshFile());
+watch(visibility, (): void => refreshFile())
 </script>
 
 <template>
@@ -83,7 +85,7 @@ watch(visibility, (): void => refreshFile());
       hide-details
       hide-no-data
     >
-      <v-list rounded="xl" class="pa-2"> </v-list>
+      <v-list rounded="xl" class="pa-2" />
       <template #item="{ props }">
         <v-list-item v-bind="props" rounded="xl" />
       </template>
@@ -125,7 +127,7 @@ watch(visibility, (): void => refreshFile());
             class="share-item--role"
             @update:model-value="(newValue) => updateRole(collaboration, newValue)"
           >
-            <v-list rounded="xl" class="pa-2"> </v-list>
+            <v-list rounded="xl" class="pa-2" />
             <template #item="{ props }">
               <v-list-item v-bind="props" rounded="xl" />
             </template>
@@ -139,7 +141,9 @@ watch(visibility, (): void => refreshFile());
   </v-list>
 
   <div :class="[{ 'my-2': isDev }]">
-    <div class="ms-2 mb-1">{{ t('shareOptions') }}</div>
+    <div class="ms-2 mb-1">
+      {{ t('shareOptions') }}
+    </div>
     <v-btn
       prepend-icon="fas fa-chalkboard-user"
       :text="t('button.shareInRoom')"
@@ -151,7 +155,9 @@ watch(visibility, (): void => refreshFile());
   </div>
 
   <div v-if="isDev">
-    <div class="ms-2 my-1">{{ t('information.visibility') }}</div>
+    <div class="ms-2 my-1">
+      {{ t('information.visibility') }}
+    </div>
     <v-switch
       v-model="visibility"
       :label="t(`visibility.${visibility ? 'public' : 'private'}`)"

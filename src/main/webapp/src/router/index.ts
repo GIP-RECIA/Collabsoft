@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Navigation } from '@/types/enums';
-import { redirect } from '@/utils';
-import { createRouter, createWebHistory } from 'vue-router';
+import { Navigation } from '@/types/enums'
+import { redirect } from '@/utils'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +57,6 @@ const router = createRouter({
   ],
   strict: true,
   sensitive: true,
-});
+})
 
-export default router;
+export default router

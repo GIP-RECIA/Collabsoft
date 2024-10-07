@@ -15,22 +15,22 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore, useFileStore } from '@/stores';
-import '@gip-recia/wisemapping-webcomponent';
-import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { useConfigurationStore, useFileStore } from '@/stores'
+import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import '@gip-recia/wisemapping-webcomponent'
 
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV
 
-const { VITE_API_URI } = import.meta.env;
+const { VITE_API_URI } = import.meta.env
 
-const configurationStore = useConfigurationStore();
-const { user } = storeToRefs(configurationStore);
+const configurationStore = useConfigurationStore()
+const { user } = storeToRefs(configurationStore)
 
-const fileStore = useFileStore();
-const { file } = storeToRefs(fileStore);
+const fileStore = useFileStore()
+const { file } = storeToRefs(fileStore)
 
-const apiUrl = computed<string | undefined>(() => (file.value ? `${VITE_API_URI}/api/file` : undefined));
+const apiUrl = computed<string | undefined>(() => (file.value ? `${VITE_API_URI}/api/file` : undefined))
 </script>
 
 <template>

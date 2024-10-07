@@ -15,44 +15,45 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useFileStore, useHomeStore } from '@/stores';
-import { charOTP } from '@/utils';
-import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useAppStore, useFileStore, useHomeStore } from '@/stores'
+import { charOTP } from '@/utils'
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const appStore = useAppStore();
-const { initRoom } = appStore;
+const appStore = useAppStore()
+const { initRoom } = appStore
 
-const fileStore = useFileStore();
-const { file } = storeToRefs(fileStore);
+const fileStore = useFileStore()
+const { file } = storeToRefs(fileStore)
 
-const homeStore = useHomeStore();
-const { isShareInRoom } = storeToRefs(homeStore);
+const homeStore = useHomeStore()
+const { isShareInRoom } = storeToRefs(homeStore)
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const joinCode = ref<string>(charOTP());
-const autoSave = ref<boolean>(false);
+const joinCode = ref<string>(charOTP())
+const autoSave = ref<boolean>(false)
 
-const onCreateAndJoin = (): void => {
-  if (file.value == undefined) return;
-  onClose();
-  initRoom(joinCode.value, file.value.associatedApp.slug, file.value.id, autoSave.value);
-};
+function onCreateAndJoin(): void {
+  if (file.value === undefined)
+    return
+  onClose()
+  initRoom(joinCode.value, file.value.associatedApp.slug, file.value.id, autoSave.value)
+}
 
-const onAutoSave = (): void => {
-  autoSave.value = !autoSave.value;
-};
+function onAutoSave(): void {
+  autoSave.value = !autoSave.value
+}
 
-const onClose = (): void => {
-  isShareInRoom.value = false;
-};
+function onClose(): void {
+  isShareInRoom.value = false
+}
 
-const reset = (): void => {
-  joinCode.value = charOTP();
-  autoSave.value = false;
-};
+function reset(): void {
+  joinCode.value = charOTP()
+  autoSave.value = false
+}
 </script>
 
 <template>
@@ -85,7 +86,7 @@ const reset = (): void => {
       </v-card-text>
       <v-card-actions>
         <v-tooltip :text="t(`button.autoSave.${autoSave ? 'enabled' : 'disabled'}`)" location="bottom center">
-          <template v-slot:activator="{ props }">
+          <template #activator="{ props }">
             <v-btn v-bind="props" color="secondary" @click="onAutoSave">
               <v-icon icon="fas fa-arrows-rotate" :class="[autoSave ? 'text-info' : 'text-disabled']" />
             </v-btn>

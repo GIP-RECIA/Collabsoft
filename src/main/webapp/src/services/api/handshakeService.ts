@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { axiosInstance as axios } from '@/utils';
+import { axiosInstance as axios } from '@/utils'
 
-const handshake = async () => await axios.get('/api/handshake');
+const handshake = async () => await axios.get('/api/handshake')
 
-export { handshake };
+export { handshake }

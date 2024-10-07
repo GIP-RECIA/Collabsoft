@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { App } from 'vue';
+import type { App } from 'vue'
 
-const register = (app: App): void => {};
+// eslint-disable-next-line unused-imports/no-unused-vars
+function register(app: App): void {
+  // app.directive('')
+}
 
-export { register };
+export { register }

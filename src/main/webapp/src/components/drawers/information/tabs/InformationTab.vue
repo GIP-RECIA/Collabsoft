@@ -15,72 +15,76 @@
 -->
 
 <script setup lang="ts">
-import { setFile } from '@/services/api';
-import { useFileStore, useHomeStore } from '@/stores';
-import type { FileBody } from '@/types';
-import { errorHandler } from '@/utils';
-import { format } from 'date-fns';
-import { storeToRefs } from 'pinia';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
+import type { FileBody } from '@/types'
+import { setFile } from '@/services/api'
+import { useFileStore, useHomeStore } from '@/stores'
+import { errorHandler } from '@/utils'
+import { format } from 'date-fns'
+import { storeToRefs } from 'pinia'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const fileStore = useFileStore();
-const { setFile: setFileFromStore } = fileStore;
-const { file } = storeToRefs(fileStore);
+const fileStore = useFileStore()
+const { setFile: setFileFromStore } = fileStore
+const { file } = storeToRefs(fileStore)
 
-const homeStore = useHomeStore();
-const { isDrawer, drawerTab } = storeToRefs(homeStore);
+const homeStore = useHomeStore()
+const { isDrawer, drawerTab } = storeToRefs(homeStore)
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const isEdit = ref<boolean>(false);
-const tmp = ref<{ title: string; description: string | null }>({ title: '', description: '' });
+const isEdit = ref<boolean>(false)
+const tmp = ref<{ title: string, description: string | null }>({ title: '', description: '' })
 
-const initForm = (): void => {
-  isEdit.value = false;
-  if (file.value == undefined) return;
+function initForm(): void {
+  isEdit.value = false
+  if (file.value === undefined)
+    return
   tmp.value = {
     title: file.value.title,
     description: file.value.description,
-  };
-};
+  }
+}
 
-const edit = (): void => {
-  isEdit.value = true;
-  document.getElementById('tmp-title')?.focus();
-};
+function edit(): void {
+  isEdit.value = true
+  document.getElementById('tmp-title')?.focus()
+}
 
 const canSave = computed<boolean>(() => {
-  if (!file.value) return false;
+  if (!file.value)
+    return false
 
-  const hasTitle = tmp.value.title != undefined && tmp.value.title.trim().length > 0;
-  const titleHasChanged = tmp.value.title != file.value.title;
+  const hasTitle = tmp.value.title !== undefined && tmp.value.title.trim().length > 0
+  const titleHasChanged = tmp.value.title !== file.value.title
 
-  const tmpDesctiption =
-    tmp.value.description && tmp.value.description.trim().length > 0 ? tmp.value.description : null;
-  const descriptionHasChanged = tmpDesctiption != file.value?.description;
+  const tmpDesctiption
+    = tmp.value.description && tmp.value.description.trim().length > 0 ? tmp.value.description : null
+  const descriptionHasChanged = tmpDesctiption !== file.value?.description
 
-  return hasTitle && (titleHasChanged || descriptionHasChanged);
-});
+  return hasTitle && (titleHasChanged || descriptionHasChanged)
+})
 
-const save = async (): Promise<void> => {
-  if (!canSave.value || file.value == undefined) return;
+async function save(): Promise<void> {
+  if (!canSave.value || file.value === undefined)
+    return
   try {
-    await setFile(file.value.id, tmp.value as FileBody);
-    setFileFromStore('both', file.value.id, tmp.value as FileBody);
-    isEdit.value = false;
-  } catch (e) {
-    errorHandler(e, true);
+    await setFile(file.value.id, tmp.value as FileBody)
+    setFileFromStore('both', file.value.id, tmp.value as FileBody)
+    isEdit.value = false
   }
-};
+  catch (e) {
+    errorHandler(e, true)
+  }
+}
 
-watch(file, (): void => initForm());
+watch(file, (): void => initForm())
 
-watch(drawerTab, (): void => initForm());
+watch(drawerTab, (): void => initForm())
 
-watch(isDrawer, (): void => initForm());
+watch(isDrawer, (): void => initForm())
 
-onMounted((): void => initForm());
+onMounted((): void => initForm())
 </script>
 
 <template>
@@ -116,8 +120,8 @@ onMounted((): void => initForm());
         :text="t('button.cancel')"
         variant="tonal"
         color="secondary"
-        @click="initForm"
         class="me-2"
+        @click="initForm"
       />
       <v-btn
         prepend-icon="fas fa-save"

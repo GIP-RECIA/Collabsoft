@@ -15,60 +15,62 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores';
-import type { RoomAction } from '@/types';
-import { charOTP } from '@/utils';
-import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import type { RoomAction } from '@/types'
+import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores'
+import { charOTP } from '@/utils'
+import { storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const appStore = useAppStore();
-const { initRoom, joinRoom } = appStore;
+const appStore = useAppStore()
+const { initRoom, joinRoom } = appStore
 
-const configurationStore = useConfigurationStore();
-const { availableApps } = storeToRefs(configurationStore);
+const configurationStore = useConfigurationStore()
+const { availableApps } = storeToRefs(configurationStore)
 
-const homeStore = useHomeStore();
-const { isRoom } = storeToRefs(homeStore);
+const homeStore = useHomeStore()
+const { isRoom } = storeToRefs(homeStore)
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const appType = ref<string | undefined>(availableApps.value.length == 1 ? availableApps.value[0].slug : undefined);
-const joinCode = ref<string>('');
+const appType = ref<string | undefined>(availableApps.value.length === 1 ? availableApps.value[0].slug : undefined)
+const joinCode = ref<string>('')
 
-const button = computed<{ i18n: string; icon: string; disabled: boolean; action: RoomAction }>(() => {
+const button = computed<{ i18n: string, icon: string, disabled: boolean, action: RoomAction }>(() => {
   if (joinCode.value.length > 0) {
     return {
       i18n: 'button.join',
       icon: 'fas fa-arrow-right-to-bracket',
-      disabled: appType.value == undefined || !/^[a-zA-Z]{6}$/.test(joinCode.value),
+      disabled: appType.value === undefined || !/^[a-z]{6}$/i.test(joinCode.value),
       action: 'join',
-    };
+    }
   }
 
   return {
     i18n: 'button.create',
     icon: 'fas fa-plus',
-    disabled: appType.value == undefined,
+    disabled: appType.value === undefined,
     action: 'create',
-  };
-});
+  }
+})
 
-const onAction = (action: RoomAction): void => {
-  if (!appType.value) return;
-  if (action == 'create') initRoom(charOTP(), appType.value, undefined);
-  else joinRoom(joinCode.value.toUpperCase(), appType.value);
-  onClose();
-};
+function onAction(action: RoomAction): void {
+  if (!appType.value)
+    return
+  if (action === 'create')
+    initRoom(charOTP(), appType.value, undefined)
+  else joinRoom(joinCode.value.toUpperCase(), appType.value)
+  onClose()
+}
 
-const onClose = (): void => {
-  isRoom.value = false;
-};
+function onClose(): void {
+  isRoom.value = false
+}
 
-const reset = (): void => {
-  appType.value = availableApps.value.length == 1 ? availableApps.value[0].slug : undefined;
-  joinCode.value = '';
-};
+function reset(): void {
+  appType.value = availableApps.value.length === 1 ? availableApps.value[0].slug : undefined
+  joinCode.value = ''
+}
 </script>
 
 <template>

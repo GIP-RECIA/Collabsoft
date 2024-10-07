@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-export type User = {
-  id: number;
-  casUid: string;
-  displayName?: string;
-};
+export interface User {
+  id: number
+  casUid: string
+  displayName?: string
+}

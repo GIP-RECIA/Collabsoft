@@ -20,17 +20,17 @@ export enum Role {
   readonly = 'READONLY',
 }
 
-const getRole = (role: string): Role => {
+function getRole(role: string): Role {
   switch (role.toUpperCase()) {
     case Role.owner.toString():
-      return Role.owner;
+      return Role.owner
     case Role.editor.toString():
-      return Role.editor;
+      return Role.editor
     case Role.readonly.toString():
-      return Role.readonly;
+      return Role.readonly
     default:
-      throw new Error(`No matching role found for : ${role.toUpperCase()}`);
+      throw new Error(`No matching role found for : ${role.toUpperCase()}`)
   }
-};
+}
 
-export { getRole };
+export { getRole }

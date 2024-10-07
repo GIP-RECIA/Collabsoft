@@ -13,133 +13,137 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useConfigurationStore } from './configurationStore.ts';
-import { useFileStore } from './fileStore.ts';
-import { interpolate } from '@/utils';
-import { useSessionStorage } from '@vueuse/core';
-import { defineStore, storeToRefs } from 'pinia';
-import { computed, readonly, ref } from 'vue';
-import { type RouteLocationRaw, useRouter } from 'vue-router';
+/* eslint-disable ts/no-use-before-define */
+import { interpolate } from '@/utils'
+import { useSessionStorage } from '@vueuse/core'
+import { defineStore, storeToRefs } from 'pinia'
+import { computed, readonly, ref } from 'vue'
+import { type RouteLocationRaw, useRouter } from 'vue-router'
+import { useConfigurationStore } from './configurationStore.ts'
+import { useFileStore } from './fileStore.ts'
 
 export const useAppStore = defineStore('app', () => {
-  const { VITE_BASE_URI } = import.meta.env;
+  const { VITE_BASE_URI } = import.meta.env
 
-  const router = useRouter();
-  const configurationStore = useConfigurationStore();
-  const fileStore = useFileStore();
+  const router = useRouter()
+  const configurationStore = useConfigurationStore()
+  const fileStore = useFileStore()
 
   /* -- App -- */
 
   /**
    * App context state
    */
-  const isApp = ref<boolean>(false);
+  const isApp = ref<boolean>(false)
 
   /**
    * Room context state
    */
-  const isRoom = computed<boolean>(() => _roomId.value != undefined);
+  const isRoom = computed<boolean>(() => _roomId.value !== undefined)
 
   /**
    * Type of app state
    */
-  const _appType = ref<string | undefined>();
+  const _appType = ref<string | undefined>()
 
   /**
    * File / Room title
    */
   const title = computed<string>(() => {
-    const { file } = storeToRefs(fileStore);
+    const { file } = storeToRefs(fileStore)
 
-    const fileName = file.value ? file.value.title : '';
+    const fileName = file.value ? file.value.title : ''
 
-    return isRoom.value ? _roomId.value! : fileName;
-  });
+    return isRoom.value ? _roomId.value! : fileName
+  })
 
   /**
    * Auto save state
    */
-  const _autoSave = ref<boolean>(true);
+  const _autoSave = ref<boolean>(true)
   const isAutoSave = computed<boolean>({
     get() {
-      return room.value ? room.value.saveOnFile : _autoSave.value;
+      return room.value ? room.value.saveOnFile : _autoSave.value
     },
     set(value) {
-      if (canAutoSave.value) _autoSave.value = value;
-      if (room.value?.fileId) room.value.saveOnFile = value;
+      if (canAutoSave.value)
+        _autoSave.value = value
+      if (room.value?.fileId)
+        room.value.saveOnFile = value
     },
-  });
+  })
 
   /**
    * Auto save is available state
    */
   const canAutoSave = computed<boolean>(() => {
-    return !isRoom.value ? true : room.value?.fileId != undefined;
-  });
+    return !isRoom.value ? true : room.value?.fileId !== undefined
+  })
 
   /* -- File -- */
 
   /**
    * Current file id
    */
-  const _fileId = ref<number | undefined>();
+  const _fileId = ref<number | undefined>()
 
   /* -- Room -- */
 
   /**
    * Current room id
    */
-  const _roomId = ref<string | undefined>();
+  const _roomId = ref<string | undefined>()
 
   /**
    * List of owned rooms
    */
   const _ownedRooms = useSessionStorage<
-    Array<{ roomId: string; appType: string; fileId: number | undefined; saveOnFile: boolean }>
-  >(`${__APP_SLUG__}.owned-rooms`, []);
+    Array<{ roomId: string, appType: string, fileId: number | undefined, saveOnFile: boolean }>
+  >(`${__APP_SLUG__}.owned-rooms`, [])
 
   /**
    * Room information if owner
    */
   const room = computed(() =>
-    _ownedRooms.value.find((room) => room.roomId == _roomId.value && room.appType == _appType.value),
-  );
+    _ownedRooms.value.find(room => room.roomId === _roomId.value && room.appType === _appType.value),
+  )
 
   /**
    * Chech if user is the owner of the room
    */
-  const isRoomOwner = computed<boolean>(() => room.value != undefined);
+  const isRoomOwner = computed<boolean>(() => room.value !== undefined)
 
   /**
    * Id of file to load in the room
    */
-  const _initRoomFileId = ref<number | undefined>();
+  const _initRoomFileId = ref<number | undefined>()
 
   /**
    * Initialize room and navigate to it
    */
   const initRoom = (roomId: string, appType: string, fileId: number | undefined, saveOnFile: boolean = false): void => {
-    _initRoomFileId.value = fileId;
-    _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile });
-    joinRoom(roomId, appType);
-  };
+    _initRoomFileId.value = fileId
+    _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile })
+    joinRoom(roomId, appType)
+  }
 
   const joinRoom = (roomId: string, appType: string): void => {
-    const route: RouteLocationRaw = { name: `collaborative-${appType}`, params: { roomId } };
-    isApp.value ? router.replace(route) : router.push(route);
-  };
+    const route: RouteLocationRaw = { name: `collaborative-${appType}`, params: { roomId } }
+    isApp.value ? router.replace(route) : router.push(route)
+  }
 
   /**
    * Destroy yjs session
    */
-  const _destroy = ref<boolean>(false);
+  const _destroy = ref<boolean>(false)
   const destroyRoom = (): void => {
-    if (!isApp.value || !isRoom.value) return;
-    _destroy.value = true;
+    if (!isApp.value || !isRoom.value)
+      return
+    _destroy.value = true
     setTimeout(() => {
-      _destroy.value = false;
-    }, 200);
-  };
+      _destroy.value = false
+    }, 200)
+  }
 
   /* -- Store actions -- */
 
@@ -147,43 +151,48 @@ export const useAppStore = defineStore('app', () => {
    * Initialize app context
    */
   const initAppContext = (roomId: string | undefined, fileId: number | undefined, routeName: string): void => {
-    const { loadFile } = fileStore;
-    const { file } = storeToRefs(fileStore);
+    const { loadFile } = fileStore
+    const { file } = storeToRefs(fileStore)
 
-    isApp.value = true;
-    _fileId.value = fileId;
-    _roomId.value = roomId;
-    _appType.value = routeName.startsWith('collaborative-') ? routeName.substring('collaborative-'.length) : routeName;
+    isApp.value = true
+    _fileId.value = fileId
+    _roomId.value = roomId
+    _appType.value = routeName.startsWith('collaborative-') ? routeName.substring('collaborative-'.length) : routeName
 
-    if (fileId != undefined) {
-      if (!file.value) loadFile(fileId);
-    } else file.value = undefined;
-  };
+    if (fileId !== undefined) {
+      if (!file.value)
+        loadFile(fileId)
+    }
+    else {
+      file.value = undefined
+    }
+  }
 
   /**
    * Exit app context
    */
   const exitAppContext = (): void => {
-    isApp.value = false;
-    _autoSave.value = true;
-    _fileId.value = undefined;
-    _roomId.value = undefined;
-    _appType.value = undefined;
-    _initRoomFileId.value = undefined;
-  };
+    isApp.value = false
+    _autoSave.value = true
+    _fileId.value = undefined
+    _roomId.value = undefined
+    _appType.value = undefined
+    _initRoomFileId.value = undefined
+  }
 
   const websocketApiUrl = computed<string>(() => {
-    const { configuration } = storeToRefs(configurationStore);
+    const { configuration } = storeToRefs(configurationStore)
 
     return interpolate(
+      // eslint-disable-next-line no-template-curly-in-string
       configuration.value?.front.collaboration.websocketApiUrl ?? '${protocol}://${domain}${baseUri}/ws',
       {
-        protocol: `ws${location.protocol == 'http' ? '' : 's'}`,
+        protocol: `ws${location.protocol === 'http' ? '' : 's'}`,
         domain: window.location.hostname,
         baseUri: VITE_BASE_URI,
       },
-    );
-  });
+    )
+  })
 
   return {
     isApp,
@@ -202,5 +211,5 @@ export const useAppStore = defineStore('app', () => {
     initAppContext,
     exitAppContext,
     websocketApiUrl,
-  };
-});
+  }
+})

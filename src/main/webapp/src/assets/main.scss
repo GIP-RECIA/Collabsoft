@@ -16,7 +16,7 @@
 
 @use 'vuetify/settings' with (
   $color-pack: false,
-  $utilities: false,
+  $utilities: false
 );
 
 .app-container {
@@ -31,5 +31,5 @@
 }
 
 .text-preserve-breaks {
-  white-space: preserve-breaks
+  white-space: preserve-breaks;
 }

@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getConfiguration } from '@/services/api';
-import type { AssociatedApp, Configuration, Soffit } from '@/types';
-import { errorHandler, initToken, setNcUri, useEntTheme } from '@/utils';
-import { initAppsRoutes } from '@/utils/routerUtils.ts';
-import { defineStore } from 'pinia';
-import { computed, ref, watch } from 'vue';
+/* eslint-disable ts/no-use-before-define */
+import type { AssociatedApp, Configuration, Soffit } from '@/types'
+import { getConfiguration } from '@/services/api'
+import { errorHandler, initToken, setNcUri, useEntTheme } from '@/utils'
+import { initAppsRoutes } from '@/utils/routerUtils.ts'
+import { defineStore } from 'pinia'
+import { computed, ref, watch } from 'vue'
 
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV
 
 export const useConfigurationStore = defineStore('configuration', () => {
-  const configuration = ref<Configuration | undefined>();
+  const configuration = ref<Configuration | undefined>()
 
   /**
    * Initialise `configuration`
@@ -31,68 +32,72 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const init = async (force: boolean = false): Promise<boolean> => {
     if (force || !isInit.value) {
       try {
-        const response = await getConfiguration();
-        configuration.value = response.data;
-        if (!configuration.value) return false;
-        const { nextcloudUri, userInfoApiUrl, templateApiPath, apps } = configuration.value.front;
-        if (isNcAvailable.value) setNcUri(nextcloudUri);
-        await initToken(userInfoApiUrl);
-        await useEntTheme(templateApiPath);
-        await initAppsRoutes(apps);
+        const response = await getConfiguration()
+        configuration.value = response.data
+        if (!configuration.value)
+          return false
+        const { nextcloudUri, userInfoApiUrl, templateApiPath, apps } = configuration.value.front
+        if (isNcAvailable.value)
+          setNcUri(nextcloudUri)
+        await initToken(userInfoApiUrl)
+        await useEntTheme(templateApiPath)
+        await initAppsRoutes(apps)
 
-        return true;
-      } catch (e) {
-        errorHandler(e);
+        return true
+      }
+      catch (e) {
+        errorHandler(e)
       }
     }
-    return false;
-  };
+    return false
+  }
 
-  const isInit = computed<boolean>(() => configuration.value != undefined);
+  const isInit = computed<boolean>(() => configuration.value !== undefined)
 
-  const isReady = computed<boolean>(() => isInit.value && isSoffitOk.value);
+  const isReady = computed<boolean>(() => isInit.value && isSoffitOk.value)
 
   /* -- App name -- */
 
-  const infoName = ref<string | undefined>();
+  const infoName = ref<string | undefined>()
 
   const appName = computed<string>(() =>
-    isInit.value && configuration.value!.front.appName.trim() != '' ? configuration.value!.front.appName : __APP_NAME__,
-  );
+    isInit.value && configuration.value!.front.appName.trim() !== '' ? configuration.value!.front.appName : __APP_NAME__,
+  )
 
   watch(
     [infoName, appName],
     () => {
-      document.title = infoName.value ? `${infoName.value} - ${appName.value}` : appName.value;
+      document.title = infoName.value ? `${infoName.value} - ${appName.value}` : appName.value
     },
     { immediate: true },
-  );
+  )
 
   /* -- Nextcloud -- */
 
-  const isNcAvailable = computed<boolean>(() => (configuration.value?.front.nextcloudUri ?? '').length > 0);
+  const isNcAvailable = computed<boolean>(() => (configuration.value?.front.nextcloudUri ?? '').length > 0)
 
   /* -- User -- */
 
-  const user = ref<Soffit>({ sub: 'guest', token: undefined });
+  const user = ref<Soffit>({ sub: 'guest', token: undefined })
 
-  const isSoffitOk = computed<boolean>(() => !user.value.sub.startsWith('guest'));
+  const isSoffitOk = computed<boolean>(() => !user.value.sub.startsWith('guest'))
 
   /* -- Navigation -- */
 
-  const lastNavigation = ref<string | undefined>();
+  const lastNavigation = ref<string | undefined>()
 
   /**
    * Dialog settings state
    */
-  const isSettings = ref<boolean>(false);
+  const isSettings = ref<boolean>(false)
 
   /* -- Apps -- */
 
   const availableApps = computed<Array<AssociatedApp>>(() => {
-    if (!configuration.value) return [];
-    return isDev ? configuration.value.front.apps : configuration.value.front.apps.filter((app) => app.enabled);
-  });
+    if (!configuration.value)
+      return []
+    return isDev ? configuration.value.front.apps : configuration.value.front.apps.filter(app => app.enabled)
+  })
 
   return {
     configuration,
@@ -107,5 +112,5 @@ export const useConfigurationStore = defineStore('configuration', () => {
     lastNavigation,
     isSettings,
     availableApps,
-  };
-});
+  }
+})

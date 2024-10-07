@@ -15,25 +15,27 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore, useFileStore } from '@/stores';
-import { storeToRefs } from 'pinia';
-import { useI18n } from 'vue-i18n';
+import { useConfigurationStore, useFileStore } from '@/stores'
+import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
 
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV
 
-const configurationStore = useConfigurationStore();
-const { appName, isSettings } = storeToRefs(configurationStore);
+const configurationStore = useConfigurationStore()
+const { appName, isSettings } = storeToRefs(configurationStore)
 
-const fileStore = useFileStore();
-const { refreshFiles } = fileStore;
+const fileStore = useFileStore()
+const { refreshFiles } = fileStore
 
-const { t } = useI18n();
+const { t } = useI18n()
 </script>
 
 <template>
   <v-navigation-drawer color="transparent" floating class="py-4 ps-4">
     <div class="d-flex flex-column h-100">
-      <h1 class="text-center mb-6">{{ appName }}</h1>
+      <h1 class="text-center mb-6">
+        {{ appName }}
+      </h1>
       <v-list color="primary" class="py-0 overflow-y-auto">
         <v-list-item
           prepend-icon="fas fa-folder"

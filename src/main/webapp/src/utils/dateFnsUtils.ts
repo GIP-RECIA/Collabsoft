@@ -13,33 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { type Duration, formatDuration, intervalToDuration } from 'date-fns';
+import { type Duration, formatDuration, intervalToDuration } from 'date-fns'
 
-type dateType = string | number | Date;
+type dateType = string | number | Date
 
-const dateToDuration = (date: dateType): Duration => {
+function dateToDuration(date: dateType): Duration {
   return intervalToDuration({
     start: date,
     end: Date.now(),
-  });
-};
+  })
+}
 
-const formatedDuration = (duration: Duration): string => {
-  const { years, months, weeks, days, hours, minutes, seconds } = duration;
+function formatedDuration(duration: Duration): string {
+  const { years, months, weeks, days, hours, minutes, seconds } = duration
 
   if (!years && !months && !weeks && !days && !hours && !minutes && !seconds)
-    return formatDuration({ seconds: 1 }, { format: ['seconds'] });
+    return formatDuration({ seconds: 1 }, { format: ['seconds'] })
 
-  const units: { [key: string]: number | undefined } = { years, months, weeks, days, hours, minutes, seconds };
+  const units: { [key: string]: number | undefined } = { years, months, weeks, days, hours, minutes, seconds }
 
   for (const [unit, value] of Object.entries(units)) {
     if (value && value > 0) {
-      return formatDuration({ [unit]: value }, { format: [unit] as Array<keyof Duration> });
+      return formatDuration({ [unit]: value }, { format: [unit] as Array<keyof Duration> })
     }
   }
 
-  console.error("You're not supported to be here");
-  return '';
-};
+  console.error('You\'re not supported to be here')
+  return ''
+}
 
-export { dateToDuration, formatedDuration };
+export { dateToDuration, formatedDuration }

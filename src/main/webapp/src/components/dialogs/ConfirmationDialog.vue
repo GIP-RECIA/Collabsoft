@@ -15,49 +15,51 @@
 -->
 
 <script setup lang="ts">
-import type { Confirmation } from '@/types';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
+import type { Confirmation } from '@/types'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
-  title: string;
-  description?: string;
-  yesValue: string;
-  noValue: string;
-  cancelable?: boolean;
-  noColor?: string;
-  yesColor?: string;
-}>();
-
-const modelValue = defineModel<boolean>();
+  title: string
+  description?: string
+  yesValue: string
+  noValue: string
+  cancelable?: boolean
+  noColor?: string
+  yesColor?: string
+}>()
 
 const emit = defineEmits({
   close(payload: Confirmation): boolean {
-    return !!payload;
+    return !!payload
   },
-});
+})
 
-const onCancel = (): void => {
-  modelValue.value = false;
-  emit('close', 'cancel');
-};
+const { t } = useI18n()
 
-const onNo = (): void => {
-  modelValue.value = false;
-  emit('close', 'no');
-};
+const modelValue = defineModel<boolean>()
 
-const onYes = (): void => {
-  modelValue.value = false;
-  emit('close', 'yes');
-};
+function onCancel(): void {
+  modelValue.value = false
+  emit('close', 'cancel')
+}
+
+function onNo(): void {
+  modelValue.value = false
+  emit('close', 'no')
+}
+
+function onYes(): void {
+  modelValue.value = false
+  emit('close', 'yes')
+}
 </script>
 
 <template>
   <v-dialog v-model="modelValue" persistent :max-width="500">
     <v-card :title="title" rounded="xl">
-      <v-card-text v-if="description">{{ description }}</v-card-text>
+      <v-card-text v-if="description">
+        {{ description }}
+      </v-card-text>
 
       <v-card-actions>
         <v-btn v-if="cancelable" :text="t('button.cancel')" @click="onCancel" />

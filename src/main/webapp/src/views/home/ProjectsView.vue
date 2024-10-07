@@ -15,19 +15,19 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore, useHomeStore } from '@/stores';
-import { storeToRefs } from 'pinia';
-import { useI18n } from 'vue-i18n';
-import { useDisplay } from 'vuetify';
+import { useConfigurationStore, useHomeStore } from '@/stores'
+import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
+import { useDisplay } from 'vuetify'
 
-const configurationStore = useConfigurationStore();
-const { isSettings } = storeToRefs(configurationStore);
+const configurationStore = useConfigurationStore()
+const { isSettings } = storeToRefs(configurationStore)
 
-const homeStore = useHomeStore();
-const { isNew, isRoom, search } = storeToRefs(homeStore);
+const homeStore = useHomeStore()
+const { isNew, isRoom, search } = storeToRefs(homeStore)
 
-const { t } = useI18n();
-const { mobile } = useDisplay();
+const { t } = useI18n()
+const { mobile } = useDisplay()
 </script>
 
 <template>

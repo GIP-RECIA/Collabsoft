@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export * from './Navigation.ts';
-export * from './Role.ts';
-export * from './Tabs.ts';
-export * from './Theme.ts';
+export * from './Navigation.ts'
+export * from './Role.ts'
+export * from './Tabs.ts'
+export * from './Theme.ts'

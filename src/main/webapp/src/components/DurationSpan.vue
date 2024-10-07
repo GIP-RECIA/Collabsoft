@@ -15,40 +15,40 @@
 -->
 
 <script setup lang="ts">
-import { dateToDuration, formatedDuration } from '@/utils';
-import { onUnmounted, ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
+import { dateToDuration, formatedDuration } from '@/utils'
+import { onUnmounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  date: string;
-}>();
+  date: string
+}>()
 
-const formated = ref<string>('');
+const { t } = useI18n()
 
-const timeout = ref<number | undefined>();
+const formated = ref<string>('')
 
-const getFormatedDuration = (): void => {
-  const duration = dateToDuration(props.date);
-  const { years, months, weeks, days, hours } = duration;
+const timeout = ref<number | undefined>()
+
+function getFormatedDuration(): void {
+  const duration = dateToDuration(props.date)
+  const { years, months, weeks, days, hours } = duration
 
   if (!years && !months && !weeks && !days)
-    timeout.value = setTimeout(getFormatedDuration, hours && hours > 0 ? 600000 : 20000);
+    timeout.value = setTimeout(getFormatedDuration, hours && hours > 0 ? 600000 : 20000)
 
-  formated.value = formatedDuration(duration);
-};
+  formated.value = formatedDuration(duration)
+}
 
 watch(
   () => props.date,
   () => {
-    clearTimeout(timeout.value);
-    getFormatedDuration();
+    clearTimeout(timeout.value)
+    getFormatedDuration()
   },
   { immediate: true },
-);
+)
 
-onUnmounted(() => clearTimeout(timeout.value));
+onUnmounted(() => clearTimeout(timeout.value))
 </script>
 
 <template>

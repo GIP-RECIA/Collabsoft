@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export * from './configurationService.ts';
-export * from './fileService.ts';
-export * from './handshakeService.ts';
-export * from './nextcloudService.ts';
+export * from './configurationService.ts'
+export * from './fileService.ts'
+export * from './handshakeService.ts'
+export * from './nextcloudService.ts'

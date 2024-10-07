@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { User } from './userType.ts';
+import type { User } from './userType.ts'
 
-export type Collaboration = {
-  user: User;
-  role: string;
-};
+export interface Collaboration {
+  user: User
+  role: string
+}

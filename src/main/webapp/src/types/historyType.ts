@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type History = {
-  id: number;
-  creationDate: string;
-};
+export interface History {
+  id: number
+  creationDate: string
+}

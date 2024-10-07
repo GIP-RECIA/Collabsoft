@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type CollaborationBody = {
-  userId: number;
-  role: number;
-};
+export interface CollaborationBody {
+  userId: number
+  role: number
+}

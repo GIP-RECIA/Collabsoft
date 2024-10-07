@@ -13,45 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { AssociatedApp } from '@/types';
-import { Navigation } from '@/types/enums';
-import { capitalize } from 'vue';
-import { type RouteRecordRaw, type RouteRecordRedirectOption, type Router } from 'vue-router';
+import type { AssociatedApp } from '@/types'
+import type { Router, RouteRecordRaw, RouteRecordRedirectOption } from 'vue-router'
+import { Navigation } from '@/types/enums'
+import { capitalize } from 'vue'
 
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV
 
 const redirect: RouteRecordRedirectOption = () => {
-  return { name: Navigation.projects };
-};
+  return { name: Navigation.projects }
+}
 
-const initAppsRoutes = async (apps: Array<AssociatedApp>): Promise<void> => {
-  const router: Router = (await import('@/router')).default;
+async function initAppsRoutes(apps: Array<AssociatedApp>): Promise<void> {
+  const router: Router = (await import('@/router')).default
 
   apps
-    .filter((app) => app.enabled || isDev)
+    .filter(app => app.enabled || isDev)
     .forEach((app) => {
       const solo: RouteRecordRaw = {
         path: `${app.slug}/:fileId(\\d+)`,
         name: app.slug,
         component: () => import(`@/views/app/${app.slug}/${capitalize(app.slug)}View.vue`),
-      };
-      router.addRoute('app', solo);
+      }
+      router.addRoute('app', solo)
 
       const multi: RouteRecordRaw = {
         path: `${app.slug}/:roomId([A-Z]{6})`,
         name: `collaborative-${app.slug}`,
         component: () => import(`@/views/app/${app.slug}/Collaborative${capitalize(app.slug)}View.vue`),
-      };
-      router.addRoute('app', multi);
-    });
+      }
+      router.addRoute('app', multi)
+    })
 
-  router.addRoute({ path: '/:pathName(.*)', redirect });
+  router.addRoute({ path: '/:pathName(.*)', redirect })
 
-  router.replace(router.currentRoute.value);
-};
+  router.replace(router.currentRoute.value)
+}
 
-const preventExit = (e: Event): void => {
-  e.preventDefault();
-};
+function preventExit(e: Event): void {
+  e.preventDefault()
+}
 
-export { redirect, initAppsRoutes, preventExit };
+export { initAppsRoutes, preventExit, redirect }

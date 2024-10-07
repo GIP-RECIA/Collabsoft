@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-export * from './associatedAppType.ts';
-export * from './collaborationBodyType.ts';
-export * from './collaborationType.ts';
-export * from './configurationType.ts';
-export * from './confirmationType.ts';
-export * from './fileBodyType.ts';
-export * from './fileType.ts';
-export * from './historyBodyType.ts';
-export * from './historyType.ts';
-export * from './metadataBodyType.ts';
-export * from './portalEntryType.ts';
-export * from './roomActionType.ts';
-export * from './soffitType.ts';
-export * from './userType.ts';
+export * from './associatedAppType.ts'
+export * from './collaborationBodyType.ts'
+export * from './collaborationType.ts'
+export * from './configurationType.ts'
+export * from './confirmationType.ts'
+export * from './fileBodyType.ts'
+export * from './fileType.ts'
+export * from './historyBodyType.ts'
+export * from './historyType.ts'
+export * from './metadataBodyType.ts'
+export * from './portalEntryType.ts'
+export * from './roomActionType.ts'
+export * from './soffitType.ts'
+export * from './userType.ts'

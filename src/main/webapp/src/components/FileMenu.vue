@@ -15,87 +15,89 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
-import { Tabs } from '@/types/enums';
-import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils';
-import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const isDev = import.meta.env.DEV;
-
-const appStore = useAppStore();
-const { isApp } = storeToRefs(appStore);
-
-const configurationStore = useConfigurationStore();
-const { isNcAvailable, isSettings } = storeToRefs(configurationStore);
-
-const fileStore = useFileStore();
-const { loadFile } = fileStore;
-const { file } = storeToRefs(fileStore);
-
-const homeStore = useHomeStore();
-const { isDrawer, drawerTab, isDelete } = storeToRefs(homeStore);
-
-const { t } = useI18n();
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import { Tabs } from '@/types/enums'
+import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils'
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  fileId: number;
-  size?: string | number;
-  forceRefresh?: boolean;
-}>();
+  fileId: number
+  size?: string | number
+  forceRefresh?: boolean
+}>()
 
-const isStarred = ref(false);
+const isDev = import.meta.env.DEV
 
-const getFile = async (): Promise<void> => {
-  await loadFile(props.fileId, props.forceRefresh);
-};
+const appStore = useAppStore()
+const { isApp } = storeToRefs(appStore)
 
-const onStar = (): void => {
-  isStarred.value = !isStarred.value;
-};
+const configurationStore = useConfigurationStore()
+const { isNcAvailable, isSettings } = storeToRefs(configurationStore)
 
-const onInformation = async (): Promise<void> => {
-  await getFile();
-  drawerTab.value = Tabs.Information;
-  isDrawer.value = true;
-};
+const fileStore = useFileStore()
+const { loadFile } = fileStore
+const { file } = storeToRefs(fileStore)
 
-const onShare = async (): Promise<void> => {
-  await getFile();
-  drawerTab.value = Tabs.Share;
-  isDrawer.value = true;
-};
+const homeStore = useHomeStore()
+const { isDrawer, drawerTab, isDelete } = storeToRefs(homeStore)
 
-const onHistories = async (): Promise<void> => {
-  await getFile();
-  drawerTab.value = Tabs.Histories;
-  isDrawer.value = true;
-};
+const { t } = useI18n()
 
-const onExport = async (): Promise<void> => {
-  await getFile();
-  if (!file.value || !isNcAvailable.value) return;
-  await saveOnNc(toFile(file.value), file.value.associatedApp.extension);
-};
+const isStarred = ref(false)
 
-const onDownload = async (): Promise<void> => {
-  await getFile();
-  if (!file.value) return;
-  downloadFileOrBlob(toFile(file.value), `${file.value.title}.${file.value.associatedApp.extension}`);
-};
+async function getFile(): Promise<void> {
+  await loadFile(props.fileId, props.forceRefresh)
+}
 
-const onDelete = async (): Promise<void> => {
-  await getFile();
-  isDelete.value = true;
-};
+function onStar(): void {
+  isStarred.value = !isStarred.value
+}
+
+async function onInformation(): Promise<void> {
+  await getFile()
+  drawerTab.value = Tabs.Information
+  isDrawer.value = true
+}
+
+async function onShare(): Promise<void> {
+  await getFile()
+  drawerTab.value = Tabs.Share
+  isDrawer.value = true
+}
+
+async function onHistories(): Promise<void> {
+  await getFile()
+  drawerTab.value = Tabs.Histories
+  isDrawer.value = true
+}
+
+async function onExport(): Promise<void> {
+  await getFile()
+  if (!file.value || !isNcAvailable.value)
+    return
+  await saveOnNc(toFile(file.value), file.value.associatedApp.extension)
+}
+
+async function onDownload(): Promise<void> {
+  await getFile()
+  if (!file.value)
+    return
+  downloadFileOrBlob(toFile(file.value), `${file.value.title}.${file.value.associatedApp.extension}`)
+}
+
+async function onDelete(): Promise<void> {
+  await getFile()
+  isDelete.value = true
+}
 </script>
 
 <template>
   <v-menu>
-    <template #activator="{ props }">
+    <template #activator="{ props: activatorProps }">
       <v-btn
-        v-bind="props"
+        v-bind="activatorProps"
         variant="text"
         color="default"
         icon="fas fa-ellipsis-vertical"

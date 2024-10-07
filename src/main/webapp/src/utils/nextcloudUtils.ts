@@ -13,39 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import i18n from '@/plugins/i18n.ts';
-import { saveNcFile } from '@/services/api';
-import { useConfigurationStore } from '@/stores';
-import { errorHandler, interpolate } from '@/utils';
-import axios from 'axios';
-import { storeToRefs } from 'pinia';
-import { toast } from 'vue3-toastify';
+import i18n from '@/plugins/i18n.ts'
+import { saveNcFile } from '@/services/api'
+import { useConfigurationStore } from '@/stores'
+import { errorHandler, interpolate } from '@/utils'
+import axios from 'axios'
+import { storeToRefs } from 'pinia'
+import { toast } from 'vue3-toastify'
 
-const { VITE_AXIOS_TIMEOUT } = import.meta.env;
+const { VITE_AXIOS_TIMEOUT } = import.meta.env
 
-const { t } = i18n.global;
+const { t } = i18n.global
 
-let ncBaseUri: string | undefined;
+let ncBaseUri: string | undefined
 
 const instance = axios.create({
   timeout: VITE_AXIOS_TIMEOUT,
   headers: {
     Authorization: 'Bearer null',
   },
-});
+})
 
-const setNcUri = (uri: string): void => {
-  if (uri.length <= 0) return;
-  ncBaseUri = interpolate(uri, { domain: window.location.hostname });
-  instance.defaults.baseURL = `${ncBaseUri}/remote.php/dav/files/`;
-};
+function setNcUri(uri: string): void {
+  if (uri.length <= 0)
+    return
+  ncBaseUri = interpolate(uri, { domain: window.location.hostname })
+  instance.defaults.baseURL = `${ncBaseUri}/remote.php/dav/files/`
+}
 
-const saveOnNc = async (file: File, type: string): Promise<void> => {
-  const configurationStore = useConfigurationStore();
-  const { user } = storeToRefs(configurationStore);
+async function saveOnNc(file: File, type: string): Promise<void> {
+  const configurationStore = useConfigurationStore()
+  const { user } = storeToRefs(configurationStore)
 
   try {
-    const response = await saveNcFile(user.value.sub, file, type);
+    const response = await saveNcFile(user.value.sub, file, type)
     if ([201, 204].includes(response.status)) {
       toast.success(
         t('toast.nc.200', {
@@ -54,21 +55,25 @@ const saveOnNc = async (file: File, type: string): Promise<void> => {
         }),
         {
           onClick: () => {
-            window.open(`${ncBaseUri}/`, '_blank');
+            window.open(`${ncBaseUri}/`, '_blank')
           },
         },
-      );
+      )
     }
-  } catch (error: any) {
+  }
+  catch (error: any) {
     if (error.response?.status === 401) {
       toast.error(t('toast.nc.401'), {
         autoClose: false,
         onClick: () => {
-          window.open(`${ncBaseUri}/apps/user_cas/login`, '_blank');
+          window.open(`${ncBaseUri}/apps/user_cas/login`, '_blank')
         },
-      });
-    } else errorHandler(error, true);
+      })
+    }
+    else {
+      errorHandler(error, true)
+    }
   }
-};
+}
 
-export { instance as ncInstance, setNcUri, saveOnNc };
+export { instance as ncInstance, saveOnNc, setNcUri }

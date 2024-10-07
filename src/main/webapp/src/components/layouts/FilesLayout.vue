@@ -15,38 +15,38 @@
 -->
 
 <script setup lang="ts">
-import DurationSpan from '@/components/DurationSpan.vue';
-import FileMenu from '@/components/FileMenu.vue';
-import { useHomeStore } from '@/stores';
-import type { File } from '@/types';
-import { useSessionStorage } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
-import { ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useDisplay } from 'vuetify';
-
-const isDev = import.meta.env.DEV;
-
-const { VITE_API_URI } = import.meta.env;
-
-const homeStore = useHomeStore();
-const { search } = storeToRefs(homeStore);
-
-const { t } = useI18n();
-const { xs } = useDisplay();
+import type { File } from '@/types'
+import DurationSpan from '@/components/DurationSpan.vue'
+import FileMenu from '@/components/FileMenu.vue'
+import { useHomeStore } from '@/stores'
+import { useSessionStorage } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
+import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useDisplay } from 'vuetify'
 
 defineProps<{
-  files: Array<File> | undefined;
-}>();
+  files: Array<File> | undefined
+}>()
+
+const isDev = import.meta.env.DEV
+
+const { VITE_API_URI } = import.meta.env
+
+const homeStore = useHomeStore()
+const { search } = storeToRefs(homeStore)
+
+const { t } = useI18n()
+const { xs } = useDisplay()
 
 const headers = ref<Array<any>>([
   { title: t('information.title'), key: 'title', sortable: true, width: '100%' },
   { title: '', key: 'actions', sortable: false, align: 'end' },
-]);
+])
 
-const addColumnEditionDate = (): void => {
-  const index = headers.value.findIndex((header) => header.key == 'editionDate');
-  if (index == -1) {
+function addColumnEditionDate(): void {
+  const index = headers.value.findIndex(header => header.key === 'editionDate')
+  if (index === -1) {
     headers.value.splice(1, 0, {
       title: t('information.edited'),
       key: 'editionDate',
@@ -57,29 +57,30 @@ const addColumnEditionDate = (): void => {
       cellProps: {
         style: 'white-space: nowrap;',
       },
-    });
+    })
   }
-};
+}
 
-const removeColumnEditionDate = (): void => {
-  const index = headers.value.findIndex((header) => header.key == 'editionDate');
-  if (index >= 0) headers.value.splice(index, 1);
-};
+function removeColumnEditionDate(): void {
+  const index = headers.value.findIndex(header => header.key === 'editionDate')
+  if (index >= 0)
+    headers.value.splice(index, 1)
+}
 
-watch(xs, (newValue): void => (newValue ? removeColumnEditionDate() : addColumnEditionDate()), { immediate: true });
+watch(xs, (newValue): void => (newValue ? removeColumnEditionDate() : addColumnEditionDate()), { immediate: true })
 
-const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 'title', order: 'asc' }]);
+const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 'title', order: 'asc' }])
 </script>
 
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
   <v-data-table
+    v-model:sort-by="sortBy"
     :headers="headers"
     :items="files"
-    v-model:sort-by="sortBy"
     :search="search"
     filter-keys="title"
-    :loading="files == undefined"
+    :loading="files === undefined"
     :items-per-page="-1"
     sort-asc-icon="fas fa-sort-up"
     sort-desc-icon="fas fa-sort-down"
@@ -106,15 +107,15 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
       </router-link>
     </template>
     <template #item.editionDate="{ item }">
-      <duration-span :date="item.editionDate" />
+      <DurationSpan :date="item.editionDate" />
     </template>
     <template #item.actions="{ item }">
-      <file-menu :file-id="item.id" />
+      <FileMenu :file-id="item.id" />
     </template>
     <template #loading>
       <v-skeleton-loader type="table-row@6" />
     </template>
-    <template #bottom></template>
+    <template #bottom />
   </v-data-table>
 </template>
 

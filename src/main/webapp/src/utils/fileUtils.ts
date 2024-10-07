@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { File as cFile } from '@/types';
+import type { File as cFile } from '@/types'
 
-const downloadFileOrBlob = (fileOrBlob: File | Blob, filename: string): void => {
-  const link = document.createElement('a');
+function downloadFileOrBlob(fileOrBlob: File | Blob, filename: string): void {
+  const link = document.createElement('a')
 
-  link.href = URL.createObjectURL(fileOrBlob);
-  link.download = filename;
+  link.href = URL.createObjectURL(fileOrBlob)
+  link.download = filename
 
-  document.body.appendChild(link);
+  document.body.appendChild(link)
 
   link.dispatchEvent(
     new MouseEvent('click', {
@@ -29,15 +29,15 @@ const downloadFileOrBlob = (fileOrBlob: File | Blob, filename: string): void => 
       cancelable: true,
       view: window,
     }),
-  );
+  )
 
-  document.body.removeChild(link);
-};
+  document.body.removeChild(link)
+}
 
-const toFile = (file: cFile): File => {
+function toFile(file: cFile): File {
   return new File([file.data], file.title, {
     type: `application/${file.associatedApp.type};charset=utf-8`,
-  });
-};
+  })
+}
 
-export { downloadFileOrBlob, toFile };
+export { downloadFileOrBlob, toFile }

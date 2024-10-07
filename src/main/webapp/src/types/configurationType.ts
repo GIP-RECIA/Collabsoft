@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { AssociatedApp } from './associatedAppType.ts';
+import type { AssociatedApp } from './associatedAppType.ts'
 
-export type Configuration = {
+export interface Configuration {
   front: {
-    appName: string;
-    userInfoApiUrl: string;
-    nextcloudUri: string;
+    appName: string
+    userInfoApiUrl: string
+    nextcloudUri: string
     collaboration: {
-      websocketApiUrl: string;
-    };
-    templateApiPath?: string;
+      websocketApiUrl: string
+    }
+    templateApiPath?: string
     extendedUportal?: {
       header?: {
-        componentPath: string;
+        componentPath: string
         props: {
-          [key: string]: string | number;
-        };
-      };
+          [key: string]: string | number
+        }
+      }
       footer?: {
-        componentPath: string;
+        componentPath: string
         props: {
-          [key: string]: string | number;
-        };
-      };
-    };
-    apps: Array<AssociatedApp>;
-  };
-};
+          [key: string]: string | number
+        }
+      }
+    }
+    apps: Array<AssociatedApp>
+  }
+}

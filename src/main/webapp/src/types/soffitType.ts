@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export type Soffit = {
-  sub: string;
-  token?: string;
-};
+export interface Soffit {
+  sub: string
+  token?: string
+}

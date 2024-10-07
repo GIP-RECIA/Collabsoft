@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export type HistoryBody = {
-  data: any;
-};
+export interface HistoryBody {
+  data: any
+}

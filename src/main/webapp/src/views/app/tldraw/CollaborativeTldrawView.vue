@@ -15,37 +15,37 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useConfigurationStore } from '@/stores';
-import { headObserver, styleObserver } from '@/utils';
-import '@gip-recia/tldraw-webcomponent';
-import { storeToRefs } from 'pinia';
-import { computed, onMounted, onUnmounted } from 'vue';
-import { useTheme } from 'vuetify';
+import { useAppStore, useConfigurationStore } from '@/stores'
+import { headObserver, styleObserver } from '@/utils'
+import { storeToRefs } from 'pinia'
+import { computed, onMounted, onUnmounted } from 'vue'
+import { useTheme } from 'vuetify'
+import '@gip-recia/tldraw-webcomponent'
 
-const { VITE_API_URI } = import.meta.env;
+const { VITE_API_URI } = import.meta.env
 
-const appStore = useAppStore();
-const { isAutoSave, canAutoSave, roomId, room, isRoomOwner, initRoomFileId, destroy, websocketApiUrl } =
-  storeToRefs(appStore);
+const appStore = useAppStore()
+const { isAutoSave, canAutoSave, roomId, room, isRoomOwner, initRoomFileId, destroy, websocketApiUrl }
+  = storeToRefs(appStore)
 
-const configurationStore = useConfigurationStore();
-const { user } = storeToRefs(configurationStore);
+const configurationStore = useConfigurationStore()
+const { user } = storeToRefs(configurationStore)
 
-const theme = useTheme();
+const theme = useTheme()
 
 const apiUrl = computed<string | undefined>(() =>
   room.value?.fileId ? `${VITE_API_URI}/api/file/${room.value.fileId}` : undefined,
-);
+)
 
 onMounted(() => {
-  styleObserver.observe(document.body, { attributes: true });
-  headObserver.observe(document.head, { childList: true });
-});
+  styleObserver.observe(document.body, { attributes: true })
+  headObserver.observe(document.head, { childList: true })
+})
 
 onUnmounted(() => {
-  styleObserver.disconnect();
-  headObserver.disconnect();
-});
+  styleObserver.disconnect()
+  headObserver.disconnect()
+})
 </script>
 
 <template>
@@ -55,7 +55,7 @@ onUnmounted(() => {
     :persistance-api-url="apiUrl"
     :assets-api-url="apiUrl ? `${apiUrl}/resource` : undefined"
     :token="user.token"
-    :dark-mode="theme.global.name.value == 'dark'"
+    :dark-mode="theme.global.name.value === 'dark'"
     :auto-save="canAutoSave && isAutoSave"
     :open="isRoomOwner"
     :websocket-api-url="websocketApiUrl"

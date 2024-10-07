@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export type RoomAction = 'create' | 'join';
+export type RoomAction = 'create' | 'join'

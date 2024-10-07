@@ -15,37 +15,38 @@
 -->
 
 <script setup lang="ts">
-import { saveFile } from '@/services/api';
-import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
-import { errorHandler } from '@/utils';
-import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { saveFile } from '@/services/api'
+import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import { errorHandler } from '@/utils'
+import { storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV
 
-const configurationStore = useConfigurationStore();
-const { availableApps } = storeToRefs(configurationStore);
+const configurationStore = useConfigurationStore()
+const { availableApps } = storeToRefs(configurationStore)
 
-const fileStore = useFileStore();
-const { addFile } = fileStore;
+const fileStore = useFileStore()
+const { addFile } = fileStore
 
-const homeStore = useHomeStore();
-const { isNew } = storeToRefs(homeStore);
+const homeStore = useHomeStore()
+const { isNew } = storeToRefs(homeStore)
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const fileType = ref<number | undefined>(availableApps.value.length == 1 ? availableApps.value[0].id : undefined);
-const title = ref<string | undefined>();
-const description = ref<string | undefined>();
-const pub = ref<boolean>(false);
+const fileType = ref<number | undefined>(availableApps.value.length === 1 ? availableApps.value[0].id : undefined)
+const title = ref<string | undefined>()
+const description = ref<string | undefined>()
+const pub = ref<boolean>(false)
 
 const canSave = computed<boolean>(
-  () => fileType.value != undefined && title.value != undefined && title.value.trim().length > 0,
-);
+  () => fileType.value !== undefined && title.value !== undefined && title.value.trim().length > 0,
+)
 
-const onSave = async (): Promise<void> => {
-  if (!canSave.value) return;
+async function onSave(): Promise<void> {
+  if (!canSave.value)
+    return
   try {
     const response = await saveFile({
       title: title.value!,
@@ -53,24 +54,25 @@ const onSave = async (): Promise<void> => {
       data: '',
       associatedAppId: fileType.value!,
       pub: pub.value,
-    });
-    addFile(response.data);
-    onClose();
-  } catch (e) {
-    errorHandler(e, true);
+    })
+    addFile(response.data)
+    onClose()
   }
-};
+  catch (e) {
+    errorHandler(e, true)
+  }
+}
 
-const onClose = (): void => {
-  isNew.value = false;
-};
+function onClose(): void {
+  isNew.value = false
+}
 
-const reset = (): void => {
-  fileType.value = availableApps.value.length == 1 ? availableApps.value[0].id : undefined;
-  title.value = undefined;
-  description.value = undefined;
-  pub.value = false;
-};
+function reset(): void {
+  fileType.value = availableApps.value.length === 1 ? availableApps.value[0].id : undefined
+  title.value = undefined
+  description.value = undefined
+  pub.value = false
+}
 </script>
 
 <template>
@@ -89,7 +91,9 @@ const reset = (): void => {
         </template>
       </v-toolbar>
       <v-card-text>
-        <div class="ms-2 mb-2">{{ t('dialog.file.description') }}</div>
+        <div class="ms-2 mb-2">
+          {{ t('dialog.file.description') }}
+        </div>
         <v-btn-toggle v-model="fileType" mandatory class="mb-3">
           <v-btn
             v-for="app in availableApps"
@@ -120,7 +124,9 @@ const reset = (): void => {
           class="mb-3"
         />
         <div v-if="isDev">
-          <div class="ms-2 mb-1">{{ t('information.visibility') }}</div>
+          <div class="ms-2 mb-1">
+            {{ t('information.visibility') }}
+          </div>
           <v-switch
             v-model="pub"
             :label="t(`visibility.${pub ? 'public' : 'private'}`)"

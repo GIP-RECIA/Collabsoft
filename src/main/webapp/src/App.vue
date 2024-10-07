@@ -15,53 +15,57 @@
 -->
 
 <script setup lang="ts">
-import LoginDialog from '@/components/dialogs/LoginDialog.vue';
-import SettingsDialog from '@/components/dialogs/SettingsDialog.vue';
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores';
-import { watchOnce } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
-import { useDisplay } from 'vuetify';
+import LoginDialog from '@/components/dialogs/LoginDialog.vue'
+import SettingsDialog from '@/components/dialogs/SettingsDialog.vue'
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import { watchOnce } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
+import { useDisplay } from 'vuetify'
 
-const appStore = useAppStore();
-const { isApp } = storeToRefs(appStore);
+const appStore = useAppStore()
+const { isApp } = storeToRefs(appStore)
 
-const configurationStore = useConfigurationStore();
-const { configuration, isInit, isReady, appName, lastNavigation } = storeToRefs(configurationStore);
+const configurationStore = useConfigurationStore()
+const { configuration, isInit, isReady, appName, lastNavigation } = storeToRefs(configurationStore)
 
-const fileStore = useFileStore();
-const { refreshFiles } = fileStore;
+const fileStore = useFileStore()
+const { refreshFiles } = fileStore
 
-const homeStore = useHomeStore();
-const { reset: resetHome } = homeStore;
-const router = useRouter();
+const homeStore = useHomeStore()
+const { reset: resetHome } = homeStore
+const router = useRouter()
 
-const { mobile } = useDisplay();
+const { mobile } = useDisplay()
 
 router.beforeEach((to) => {
-  resetHome();
-  if (to.name != undefined && to.name != null) lastNavigation.value = to.name as string;
-  if (isReady.value) refreshFiles(true, true);
-});
+  resetHome()
+  if (to.name !== undefined && to.name != null)
+    lastNavigation.value = to.name as string
+  if (isReady.value)
+    refreshFiles(true, true)
+})
 
 watchOnce(isInit, (newValue) => {
-  if (!newValue || !configuration.value?.front.extendedUportal) return;
-  const { header, footer } = configuration.value.front.extendedUportal;
+  if (!newValue || !configuration.value?.front.extendedUportal)
+    return
+  const { header, footer } = configuration.value.front.extendedUportal
   if (header) {
-    let extendedUportalHeaderScript = document.createElement('script');
-    extendedUportalHeaderScript.setAttribute('src', header.componentPath);
-    document.head.appendChild(extendedUportalHeaderScript);
+    const extendedUportalHeaderScript = document.createElement('script')
+    extendedUportalHeaderScript.setAttribute('src', header.componentPath)
+    document.head.appendChild(extendedUportalHeaderScript)
   }
   if (footer) {
-    let extendedUportalFooterScript = document.createElement('script');
-    extendedUportalFooterScript.setAttribute('src', footer.componentPath);
-    document.head.appendChild(extendedUportalFooterScript);
+    const extendedUportalFooterScript = document.createElement('script')
+    extendedUportalFooterScript.setAttribute('src', footer.componentPath)
+    document.head.appendChild(extendedUportalFooterScript)
   }
-});
+})
 
 watchOnce(isReady, (newValue) => {
-  if (newValue) refreshFiles(true, true);
-});
+  if (newValue)
+    refreshFiles(true, true)
+})
 </script>
 
 <template>
@@ -75,8 +79,8 @@ watchOnce(isReady, (newValue) => {
     </header>
     <main class="h-100">
       <router-view v-if="isReady" />
-      <login-dialog />
-      <settings-dialog />
+      <LoginDialog />
+      <SettingsDialog />
     </main>
     <footer>
       <extended-uportal-footer

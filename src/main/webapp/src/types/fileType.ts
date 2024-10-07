@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { AssociatedApp } from './associatedAppType.ts';
-import type { Collaboration } from './collaborationType.ts';
-import type { History } from './historyType.ts';
-import type { User } from './userType.ts';
+import type { AssociatedApp } from './associatedAppType.ts'
+import type { Collaboration } from './collaborationType.ts'
+import type { History } from './historyType.ts'
+import type { User } from './userType.ts'
 
-export type File = {
-  id: number;
-  uuid: string;
-  title: string;
-  description: string | null;
-  data: any;
-  creator: User;
-  creationDate: string;
-  lastEditor: User;
-  editionDate: string;
-  associatedApp: AssociatedApp;
-  pub: boolean;
-  collaborations?: Array<Collaboration>;
-  histories?: Array<History>;
-};
+export interface File {
+  id: number
+  uuid: string
+  title: string
+  description: string | null
+  data: any
+  creator: User
+  creationDate: string
+  lastEditor: User
+  editionDate: string
+  associatedApp: AssociatedApp
+  pub: boolean
+  collaborations?: Array<Collaboration>
+  histories?: Array<History>
+}
