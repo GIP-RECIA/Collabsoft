@@ -16,7 +16,7 @@
 import { associatedApp1 } from './assocatedAppSamples.ts'
 import { user1, user2, user3 } from './userSamples.ts'
 // @ts-expect-error project location
-import type { File } from '@/types/fileType.ts'
+import type { File } from '@/types'
 
 const date = '2024-07-15 17:50:00.000'
 

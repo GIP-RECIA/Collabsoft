@@ -20,9 +20,7 @@ import { associatedApp1, associatedApp2 } from '../../config/samples.ts'
 // @ts-expect-error project location
 import RoomDialog from '@/components/dialogs/RoomDialog.vue'
 // @ts-expect-error project location
-import { useConfigurationStore } from '@/stores/configurationStore.ts'
-// @ts-expect-error project location
-import { useHomeStore } from '@/stores/homeStore.ts'
+import { useConfigurationStore, useHomeStore } from '@/stores'
 import { createTestingPinia } from '@pinia/testing'
 import { flushPromises, mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'

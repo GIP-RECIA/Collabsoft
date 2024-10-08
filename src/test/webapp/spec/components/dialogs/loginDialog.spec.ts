@@ -19,7 +19,7 @@ import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index
 // @ts-expect-error project location
 import LoginDialog from '@/components/dialogs/LoginDialog.vue'
 // @ts-expect-error project location
-import { useConfigurationStore } from '@/stores/configurationStore.ts'
+import { useConfigurationStore } from '@/stores'
 import { createTestingPinia } from '@pinia/testing'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'

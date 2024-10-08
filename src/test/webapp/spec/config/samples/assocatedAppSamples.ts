@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 // @ts-expect-error project location
-import type { AssociatedApp } from '@/types/associatedAppType.ts'
+import type { AssociatedApp } from '@/types'
 
 const associatedApp1: AssociatedApp = {
   id: 1,

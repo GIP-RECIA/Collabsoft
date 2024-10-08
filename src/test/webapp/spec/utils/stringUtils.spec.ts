@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 // @ts-expect-error project location
-import { charOTP, interpolate, slugify } from '@/utils/stringUtils.ts'
+import { charOTP, interpolate, slugify } from '@/utils'
 import { describe, expect, it } from 'vitest'
 
 describe('stringUtils', () => {

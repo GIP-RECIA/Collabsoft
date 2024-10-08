@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 // @ts-expect-error project location
-import type { User } from '@/types/userType.ts'
+import type { User } from '@/types'
 
 const user1: User = {
   id: 1,
