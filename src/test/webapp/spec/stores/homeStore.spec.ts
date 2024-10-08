@@ -13,32 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { file1 } from '../config/samples.ts';
-// @ts-ignore
-import { useFileStore } from '@/stores/fileStore.ts';
-// @ts-ignore
-import { useHomeStore } from '@/stores/homeStore.ts';
-// @ts-ignore
-import { Tabs } from '@/types/enums/Tabs.ts';
-import { createPinia, setActivePinia, storeToRefs } from 'pinia';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { file1 } from '../config/samples.ts'
+// @ts-expect-error project location
+import { useFileStore } from '@/stores/fileStore.ts'
+// @ts-expect-error project location
+import { useHomeStore } from '@/stores/homeStore.ts'
+// @ts-expect-error project location
+import { Tabs } from '@/types/enums/Tabs.ts'
+import { createPinia, setActivePinia, storeToRefs } from 'pinia'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('homeStore', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
-  });
+    setActivePinia(createPinia())
+  })
 
   it('reset', () => {
-    const fileStore = useFileStore();
-    const { file } = storeToRefs(fileStore);
+    const fileStore = useFileStore()
+    const { file } = storeToRefs(fileStore)
 
-    const homeStore = useHomeStore();
-    const { reset } = homeStore;
-    const { isDrawer, drawerTab, isNew, isRoom, isShareInRoom, isDelete, search } = storeToRefs(homeStore);
+    const homeStore = useHomeStore()
+    const { reset } = homeStore
+    const { isDrawer, drawerTab, isNew, isRoom, isShareInRoom, isDelete, search } = storeToRefs(homeStore)
 
     fileStore.$patch({
       file: file1,
-    });
+    })
     homeStore.$patch({
       isDrawer: true,
       drawerTab: Tabs.Share,
@@ -47,16 +47,16 @@ describe('homeStore', () => {
       isShareInRoom: true,
       isDelete: true,
       search: 'foo',
-    });
-    expect(file.value).toStrictEqual(file1);
-    reset();
-    expect(file.value).toBeUndefined();
-    expect(isDrawer.value).toBe(false);
-    expect(drawerTab.value).toBe(Tabs.Information);
-    expect(isNew.value).toBe(false);
-    expect(isRoom.value).toBe(false);
-    expect(isShareInRoom.value).toBe(false);
-    expect(isDelete.value).toBe(false);
-    expect(search.value).toBe(undefined);
-  });
-});
+    })
+    expect(file.value).toStrictEqual(file1)
+    reset()
+    expect(file.value).toBeUndefined()
+    expect(isDrawer.value).toBe(false)
+    expect(drawerTab.value).toBe(Tabs.Information)
+    expect(isNew.value).toBe(false)
+    expect(isRoom.value).toBe(false)
+    expect(isShareInRoom.value).toBe(false)
+    expect(isDelete.value).toBe(false)
+    expect(search.value).toBe(undefined)
+  })
+})

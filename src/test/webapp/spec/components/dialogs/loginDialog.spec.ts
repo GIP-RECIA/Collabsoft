@@ -13,49 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts';
-// @ts-ignore
-import LoginDialog from '@/components/dialogs/LoginDialog.vue';
-// @ts-ignore
-import { useConfigurationStore } from '@/stores/configurationStore.ts';
-import { createTestingPinia } from '@pinia/testing';
-import { VueWrapper, mount } from '@vue/test-utils';
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import type { VueWrapper } from '@vue/test-utils'
+import { ResizeObserver } from '@juggle/resize-observer'
+import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts'
+// @ts-expect-error project location
+import LoginDialog from '@/components/dialogs/LoginDialog.vue'
+// @ts-expect-error project location
+import { useConfigurationStore } from '@/stores/configurationStore.ts'
+import { createTestingPinia } from '@pinia/testing'
+import { mount } from '@vue/test-utils'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 
-global.ResizeObserver = require('resize-observer-polyfill');
+globalThis.ResizeObserver = ResizeObserver
 
 // TODO
-describe('LoginDialog', () => {
-  const pinia = createTestingPinia();
-  let configurationStore;
-  let wrapper: VueWrapper;
-  const dialog = () => wrapper.getComponent(LoginDialog);
+describe('loginDialog', () => {
+  const pinia = createTestingPinia()
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  let configurationStore
+  let wrapper: VueWrapper
+  const dialog = () => wrapper.getComponent(LoginDialog)
 
   beforeAll(() => {
-    configurationStore = useConfigurationStore(pinia);
+    configurationStore = useConfigurationStore(pinia)
 
-    registerFontAwsome();
-  });
+    registerFontAwsome()
+  })
 
   beforeEach(() => {
-    const el = document.createElement('div');
-    el.id = 'modal';
-    document.body.appendChild(el);
+    const el = document.createElement('div')
+    el.id = 'modal'
+    document.body.appendChild(el)
 
     wrapper = mount(LoginDialog, {
       global: {
         plugins: [...plugins, pinia],
         stubs: { FontAwesomeIcon },
       },
-    });
-  });
+    })
+  })
 
   afterEach(() => {
-    wrapper.unmount();
-    document.body.innerHTML = '';
-  });
+    wrapper.unmount()
+    document.body.innerHTML = ''
+  })
 
   it('test 1 - initial state', async () => {
-    expect(dialog().html()).not.toBe('');
-  });
-});
+    expect(dialog().html()).not.toBe('')
+  })
+})

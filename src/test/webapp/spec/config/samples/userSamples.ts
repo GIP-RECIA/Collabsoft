@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// @ts-ignore
-import type { User } from '@/types/userType.ts';
+// @ts-expect-error project location
+import type { User } from '@/types/userType.ts'
 
 const user1: User = {
   id: 1,
   casUid: 'User1',
   displayName: undefined,
-};
+}
 
 const user2: User = {
   id: 2,
   casUid: 'User2',
   displayName: undefined,
-};
+}
 
 const user3: User = {
   id: 3,
   casUid: 'User3',
   displayName: undefined,
-};
+}
 
-export { user1, user2, user3 };
+export { user1, user2, user3 }

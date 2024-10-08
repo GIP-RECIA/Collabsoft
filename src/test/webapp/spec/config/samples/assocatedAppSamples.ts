@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// @ts-ignore
-import type { AssociatedApp } from '@/types/associatedAppType.ts';
+// @ts-expect-error project location
+import type { AssociatedApp } from '@/types/associatedAppType.ts'
 
 const associatedApp1: AssociatedApp = {
   id: 1,
@@ -24,7 +24,7 @@ const associatedApp1: AssociatedApp = {
   iconPath: null,
   extension: 'tldr',
   type: 'json',
-};
+}
 
 const associatedApp2: AssociatedApp = {
   id: 2,
@@ -34,6 +34,6 @@ const associatedApp2: AssociatedApp = {
   iconPath: null,
   extension: 'wxml',
   type: 'xml',
-};
+}
 
-export { associatedApp1, associatedApp2 };
+export { associatedApp1, associatedApp2 }

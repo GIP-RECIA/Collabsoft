@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { associatedApp1 } from './assocatedAppSamples.ts';
-import { user1, user2, user3 } from './userSamples.ts';
-// @ts-ignore
-import type { File } from '@/types/fileType.ts';
+import { associatedApp1 } from './assocatedAppSamples.ts'
+import { user1, user2, user3 } from './userSamples.ts'
+// @ts-expect-error project location
+import type { File } from '@/types/fileType.ts'
 
-const date = '2024-07-15 17:50:00.000';
+const date = '2024-07-15 17:50:00.000'
 
 const file1: File = {
   id: 1,
@@ -34,7 +34,7 @@ const file1: File = {
   pub: false,
   collaborations: undefined,
   histories: undefined,
-};
+}
 
 const file2: File = {
   id: 2,
@@ -50,7 +50,7 @@ const file2: File = {
   pub: false,
   collaborations: undefined,
   histories: undefined,
-};
+}
 
 const file3: File = {
   id: 3,
@@ -66,7 +66,7 @@ const file3: File = {
   pub: false,
   collaborations: undefined,
   histories: undefined,
-};
+}
 
 const file4: File = {
   id: 4,
@@ -82,7 +82,7 @@ const file4: File = {
   pub: true,
   collaborations: undefined,
   histories: undefined,
-};
+}
 
 const file5: File = {
   id: 5,
@@ -98,7 +98,7 @@ const file5: File = {
   pub: false,
   collaborations: undefined,
   histories: undefined,
-};
+}
 
 const file6: File = {
   id: 6,
@@ -114,6 +114,6 @@ const file6: File = {
   pub: false,
   collaborations: undefined,
   histories: undefined,
-};
+}
 
-export { file1, file2, file3, file4, file5, file6 };
+export { file1, file2, file3, file4, file5, file6 }

@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export * from './samples/assocatedAppSamples.ts';
-export * from './samples/fileSamples.ts';
-export * from './samples/userSamples.ts';
+export * from './samples/assocatedAppSamples.ts'
+export * from './samples/fileSamples.ts'
+export * from './samples/userSamples.ts'

@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// @ts-ignore
-import { charOTP, interpolate, slugify } from '@/utils/stringUtils.ts';
-import { describe, expect, it } from 'vitest';
+// @ts-expect-error project location
+import { charOTP, interpolate, slugify } from '@/utils/stringUtils.ts'
+import { describe, expect, it } from 'vitest'
 
 describe('stringUtils', () => {
   it('charOTP', () => {
-    expect(charOTP()).length(6);
-    expect(charOTP(8)).length(8);
-    expect(charOTP()).not.toBe(charOTP());
-  });
+    expect(charOTP()).length(6)
+    expect(charOTP(8)).length(8)
+    expect(charOTP()).not.toBe(charOTP())
+  })
 
   it('slugify', () => {
-    expect(slugify('Foo Bar --Bar été ')).toBe('foo-bar-bar-ete');
-  });
+    expect(slugify('Foo Bar --Bar été ')).toBe('foo-bar-bar-ete')
+  })
 
   it('interpolate', () => {
-    expect(interpolate('foo ${bar}', { bar: 'bar !' })).toBe('foo bar !');
-  });
-});
+    // eslint-disable-next-line no-template-curly-in-string
+    expect(interpolate('foo ${bar}', { bar: 'bar !' })).toBe('foo bar !')
+  })
+})

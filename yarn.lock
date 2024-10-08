@@ -926,6 +926,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@juggle/resize-observer@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@juggle/resize-observer@npm:3.4.0"
+  checksum: 10/73d1d00ee9132fb6f0aea0531940a6b93603e935590bd450fc6285a328d906102eeeb95dea77b2edac0e779031a9708aa8c82502bd298ee4dd26e7dff48f397a
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -2373,6 +2380,7 @@ __metadata:
     "@gip-recia/tldraw-webcomponent": "npm:^3.6.0"
     "@gip-recia/wisemapping-webcomponent": "npm:^0.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^4.0.0"
+    "@juggle/resize-observer": "npm:^3.4.0"
     "@pinia/testing": "npm:^0.1.6"
     "@playwright/test": "npm:^1.47.2"
     "@tsconfig/node20": "npm:^20.1.4"
@@ -2403,7 +2411,6 @@ __metadata:
     npm-run-all2: "npm:^6.2.3"
     pinia: "npm:^2.2.4"
     regenerator-runtime: "npm:^0.14.1"
-    resize-observer-polyfill: "npm:^1.5.1"
     sass: "npm:^1.79.4"
     typescript: "npm:^5.6.2"
     vite: "npm:^5.4.8"
@@ -6883,13 +6890,6 @@ __metadata:
   version: 2.0.2
   resolution: "require-from-string@npm:2.0.2"
   checksum: 10/839a3a890102a658f4cb3e7b2aa13a1f80a3a976b512020c3d1efc418491c48a886b6e481ea56afc6c4cb5eef678f23b2a4e70575e7534eccadf5e30ed2e56eb
-  languageName: node
-  linkType: hard
-
-"resize-observer-polyfill@npm:^1.5.1":
-  version: 1.5.1
-  resolution: "resize-observer-polyfill@npm:1.5.1"
-  checksum: 10/e10ee50cd6cf558001de5c6fb03fee15debd011c2f694564b71f81742eef03fb30d6c2596d1d5bf946d9991cb692fcef529b7bd2e4057041377ecc9636c753ce
   languageName: node
   linkType: hard
 

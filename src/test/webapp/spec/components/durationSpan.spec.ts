@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { plugins } from '../config/index.ts';
-// @ts-ignore
-import DurationSpan from '@/components/DurationSpan.vue';
-import { VueWrapper, mount } from '@vue/test-utils';
-import { beforeEach, describe, expect, it } from 'vitest';
+import type { VueWrapper } from '@vue/test-utils'
+import { ResizeObserver } from '@juggle/resize-observer'
+import { plugins } from '../config/index.ts'
+// @ts-expect-error project location
+import DurationSpan from '@/components/DurationSpan.vue'
+import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-global.ResizeObserver = require('resize-observer-polyfill');
+globalThis.ResizeObserver = ResizeObserver
 
-describe('DurationSpan', () => {
-  let date: Date;
-  let wrapper: VueWrapper;
+describe('durationSpan', () => {
+  let date: Date
+  let wrapper: VueWrapper
 
   beforeEach(() => {
-    date = new Date();
+    date = new Date()
     wrapper = mount(DurationSpan, {
       global: {
         plugins: [...plugins],
@@ -34,48 +36,48 @@ describe('DurationSpan', () => {
       props: {
         date: date.toString(),
       },
-    });
-  });
+    })
+  })
 
   it('test 1 - seconds', async () => {
-    expect(wrapper.text()).toBe('1 second ago');
+    expect(wrapper.text()).toBe('1 second ago')
 
     setTimeout(() => {
-      expect(wrapper.text()).toBe('30 seconds ago');
-    }, 30000);
+      expect(wrapper.text()).toBe('30 seconds ago')
+    }, 30000)
 
-    date.setSeconds(date.getSeconds() - 59);
-    await wrapper.setProps({ date: date.toString() });
-    expect(wrapper.text()).toBe('59 seconds ago');
-  });
+    date.setSeconds(date.getSeconds() - 59)
+    await wrapper.setProps({ date: date.toString() })
+    expect(wrapper.text()).toBe('59 seconds ago')
+  })
 
   it('test 2 - minutes', async () => {
-    date.setMinutes(date.getMinutes() - 59);
-    await wrapper.setProps({ date: date.toString() });
-    expect(wrapper.text()).toBe('59 minutes ago');
-  });
+    date.setMinutes(date.getMinutes() - 59)
+    await wrapper.setProps({ date: date.toString() })
+    expect(wrapper.text()).toBe('59 minutes ago')
+  })
 
   it('test 3 - hours', async () => {
-    date.setHours(date.getHours() - 23);
-    await wrapper.setProps({ date: date.toString() });
-    expect(wrapper.text()).toBe('23 hours ago');
-  });
+    date.setHours(date.getHours() - 23)
+    await wrapper.setProps({ date: date.toString() })
+    expect(wrapper.text()).toBe('23 hours ago')
+  })
 
   it('test 4 - days', async () => {
-    date.setDate(date.getDate() - 29);
-    await wrapper.setProps({ date: date.toString() });
-    expect(wrapper.text()).toBe('29 days ago');
-  });
+    date.setDate(date.getDate() - 29)
+    await wrapper.setProps({ date: date.toString() })
+    expect(wrapper.text()).toBe('29 days ago')
+  })
 
   it('test 5 - months', async () => {
-    date.setMonth(date.getMonth() - 11);
-    await wrapper.setProps({ date: date.toString() });
-    expect(wrapper.text()).toBe('11 months ago');
-  });
+    date.setMonth(date.getMonth() - 11)
+    await wrapper.setProps({ date: date.toString() })
+    expect(wrapper.text()).toBe('11 months ago')
+  })
 
   it('test 7 - years', async () => {
-    date.setFullYear(date.getFullYear() - 2);
-    await wrapper.setProps({ date: date.toString() });
-    expect(wrapper.text()).toBe('2 years ago');
-  });
-});
+    date.setFullYear(date.getFullYear() - 2)
+    await wrapper.setProps({ date: date.toString() })
+    expect(wrapper.text()).toBe('2 years ago')
+  })
+})
