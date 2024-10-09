@@ -1,6 +1,6 @@
-import viteConfig from './vite.config.ts';
-import { fileURLToPath } from 'node:url';
-import { configDefaults, defineConfig, mergeConfig } from 'vitest/config';
+import { fileURLToPath } from 'node:url'
+import { configDefaults, defineConfig, mergeConfig } from 'vitest/config'
+import viteConfig from './vite.config.ts'
 
 export default mergeConfig(
   viteConfig({ mode: 'test' }),
@@ -17,4 +17,4 @@ export default mergeConfig(
       },
     },
   }),
-);
+)

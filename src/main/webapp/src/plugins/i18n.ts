@@ -28,9 +28,8 @@ function findLanguage(): string {
   if (config.supportLocales.includes(window.navigator.language))
     return window.navigator.language
 
-  const matchLanguages = window.navigator.languages.filter(lang =>
-    config.supportLocales.find(available => lang === available),
-  )
+  const matchLanguages = window.navigator.languages
+    .filter(lang => config.supportLocales.find(available => lang === available))
   if (matchLanguages.length > 0)
     return matchLanguages[0]
 

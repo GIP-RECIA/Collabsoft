@@ -1,3 +1,4 @@
+/* eslint-disable node/prefer-global/process */
 import { readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
@@ -5,7 +6,6 @@ import vue from '@vitejs/plugin-vue'
 import { defineConfig, loadEnv } from 'vite'
 import vuetify from 'vite-plugin-vuetify'
 import { parseString } from 'xml2js'
-/* eslint-disable node/prefer-global/process */
 import pkg from './package.json'
 import { slugify } from './src/main/webapp/src/utils/stringUtils.ts'
 
