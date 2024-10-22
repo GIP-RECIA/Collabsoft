@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.0](https://github.com/GIP-RECIA/Collabsoft/compare/0.3.0...0.4.0) (2024-10-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* use generic extended uportal properties
+
+### Features
+
+* add front-end unit test to pre-commit hook ([a5f077f](https://github.com/GIP-RECIA/Collabsoft/commit/a5f077fcc6608898267a7c7f8bf06889a6d2d49b))
+* add ListUtil ([c676e15](https://github.com/GIP-RECIA/Collabsoft/commit/c676e153fc2efa2b6b84d4bb39fdb26dc4fb6d99))
+* use docker license check and generation on pre-commit ([5e683ec](https://github.com/GIP-RECIA/Collabsoft/commit/5e683ec6b34e214b6156f0bd76dcf95b938e601f))
+* use generic extended uportal properties ([40d5648](https://github.com/GIP-RECIA/Collabsoft/commit/40d56487bf47562ebe1405db355a21b2425dc9cf))
+
+
+### Bug Fixes
+
+* add missing icons ([09778e6](https://github.com/GIP-RECIA/Collabsoft/commit/09778e6c86e2a8a87ab0f0aad76b5aa02ad60e77))
+* style issues ([6997a72](https://github.com/GIP-RECIA/Collabsoft/commit/6997a72d8a44769790e25dd65693640cb0a5824e))
+* typing error ([833a57f](https://github.com/GIP-RECIA/Collabsoft/commit/833a57f449b700cc10c5e0af78753182159cd91d))
+* typing error ([8c46dbe](https://github.com/GIP-RECIA/Collabsoft/commit/8c46dbe69c5ec00c6ae9975e651d8028389a1f3c))
+* **vite:** scss warning ([bac6644](https://github.com/GIP-RECIA/Collabsoft/commit/bac66447b5a89d5c8473095b6726a8288d2525fe))
+* **vue-i18n:** remove vue-i18n deprecated feature ([827b40d](https://github.com/GIP-RECIA/Collabsoft/commit/827b40d2bc819e680788e6a3deed984098676962))
+
 ## [0.3.0](https://github.com/GIP-RECIA/Collabsoft/compare/0.2.1...0.3.0) (2024-08-28)
 
 
