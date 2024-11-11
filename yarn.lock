@@ -1618,14 +1618,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.10.0, @typescript-eslint/types@npm:^8.9.0":
+"@typescript-eslint/types@npm:8.10.0":
   version: 8.10.0
   resolution: "@typescript-eslint/types@npm:8.10.0"
   checksum: 10/2701711c87181553b68cdeba9d8ea55e0ae8ac441b5fe9667ee8be1dbac20386698930239a0e210b73d14961110ab128559a162abaed6e890a851543b6617c97
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.13.0":
+"@typescript-eslint/types@npm:8.13.0, @typescript-eslint/types@npm:^8.9.0":
   version: 8.13.0
   resolution: "@typescript-eslint/types@npm:8.13.0"
   checksum: 10/0051c4a798b8f328451290581f0c8c95acfcb988192647edcb9179013793b8ccc7110b5fee74207394340aca8919d9ca039de2bbd36f41c7693a99d1345092c3
