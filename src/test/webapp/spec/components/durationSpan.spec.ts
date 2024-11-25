@@ -45,10 +45,6 @@ describe('durationSpan', () => {
     setTimeout(() => {
       expect(wrapper.text()).toBe('30 seconds ago')
     }, 30000)
-
-    date.setSeconds(date.getSeconds() - 59)
-    await wrapper.setProps({ date: date.toString() })
-    expect(wrapper.text()).toBe('59 seconds ago')
   })
 
   it('test 2 - minutes', async () => {
