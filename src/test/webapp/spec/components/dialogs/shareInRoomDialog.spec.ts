@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import type { VueWrapper } from '@vue/test-utils'
-import { ResizeObserver } from '@juggle/resize-observer'
-import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts'
 // @ts-expect-error project location
 import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue'
 // @ts-expect-error project location
 import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores'
+import { ResizeObserver } from '@juggle/resize-observer'
 import { createTestingPinia } from '@pinia/testing'
 import { flushPromises, mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts'
 
 globalThis.ResizeObserver = ResizeObserver
 

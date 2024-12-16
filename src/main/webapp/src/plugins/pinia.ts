@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
 import { acceptHMRUpdate, createPinia } from 'pinia'
 

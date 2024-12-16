@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import i18n from '@/plugins/i18n.ts'
 import { saveNcFile } from '@/services/api'
 import { useConfigurationStore } from '@/stores'

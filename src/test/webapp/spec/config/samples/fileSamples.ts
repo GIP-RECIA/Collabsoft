@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { associatedApp1 } from './assocatedAppSamples.ts'
-import { user1, user2, user3 } from './userSamples.ts'
+
 // @ts-expect-error project location
 import type { File } from '@/types'
+import { associatedApp1 } from './assocatedAppSamples.ts'
+import { user1, user2, user3 } from './userSamples.ts'
 
 const date = '2024-07-15 17:50:00.000'
 

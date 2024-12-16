@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import type { VueWrapper } from '@vue/test-utils'
-import { ResizeObserver } from '@juggle/resize-observer'
-import { plugins } from '../config/index.ts'
 // @ts-expect-error project location
 import DurationSpan from '@/components/DurationSpan.vue'
+import { ResizeObserver } from '@juggle/resize-observer'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { plugins } from '../config/index.ts'
 
 globalThis.ResizeObserver = ResizeObserver
 

@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { file1 } from '../config/samples.ts'
+
 // @ts-expect-error project location
 import { useFileStore, useHomeStore } from '@/stores'
 // @ts-expect-error project location
 import { Tabs } from '@/types/enums'
 import { createPinia, setActivePinia, storeToRefs } from 'pinia'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { file1 } from '../config/samples.ts'
 
 describe('homeStore', () => {
   beforeEach(() => {

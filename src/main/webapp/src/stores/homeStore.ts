@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { Tabs } from '@/types/enums'
 import { useSessionStorage } from '@vueuse/core'
 import { defineStore, storeToRefs } from 'pinia'

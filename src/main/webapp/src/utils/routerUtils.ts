@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import type { AssociatedApp } from '@/types'
 import type { Router, RouteRecordRaw, RouteRecordRedirectOption } from 'vue-router'
 import { Navigation } from '@/types/enums'

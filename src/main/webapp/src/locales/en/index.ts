@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { en } from 'vuetify/locale'
 import alerts from './alerts.json'
 import applications from './applications.json'

@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import type { VueWrapper } from '@vue/test-utils'
-import { ResizeObserver } from '@juggle/resize-observer'
-import { plugins } from '../../config/index.ts'
 // @ts-expect-error project location
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
+import { ResizeObserver } from '@juggle/resize-observer'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { VBtn, VCardText } from 'vuetify/components'
+import { plugins } from '../../config/index.ts'
 
 globalThis.ResizeObserver = ResizeObserver
 
