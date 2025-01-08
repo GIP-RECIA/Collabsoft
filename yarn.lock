@@ -897,12 +897,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-svg-core@npm:^6.7.1":
-  version: 6.7.1
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.7.1"
+"@fortawesome/fontawesome-common-types@npm:6.7.2":
+  version: 6.7.2
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.7.2"
+  checksum: 10/3c2e938afe6f5939bd63181faaec7b062902d9ed970c75d6becb1fd8e5ca0ed937e7d1513bd7ae545da407d0682039e50730cdb3136b58656128838ea2c58ac0
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-svg-core@npm:^6.7.2":
+  version: 6.7.2
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.7.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.7.1"
-  checksum: 10/797b906e40a0ee232d834876f6b89c24594155a98f0a7bd92982748ed93bf91ce2c687538059e5df126d2fccf58389b5de142ec3724c1ca892e0689b5899f4be
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10/a3767631329aaa8c1bfafc9470718628533ceb42365774cd0c121477e0f3125f3cce4c2447058deee2874829ce11aa7a3fe183b0000bad81cf5ed0449c8470ef
   languageName: node
   linkType: hard
 
@@ -2753,7 +2760,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.6.1"
     "@commitlint/config-conventional": "npm:^19.6.0"
     "@date-io/date-fns": "npm:^3.2.0"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.7.2"
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.1"
     "@fortawesome/free-solid-svg-icons": "npm:^6.7.1"
     "@fortawesome/vue-fontawesome": "npm:^3.0.8"
