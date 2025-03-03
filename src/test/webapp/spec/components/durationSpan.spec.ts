@@ -61,9 +61,9 @@ describe('durationSpan', () => {
   })
 
   it('test 4 - days', async () => {
-    date.setDate(date.getDate() - 29)
+    date.setDate(date.getDate() - 26)
     await wrapper.setProps({ date: date.toString() })
-    expect(wrapper.text()).toBe('29 days ago')
+    expect(wrapper.text()).toBe('26 days ago')
   })
 
   it('test 5 - months', async () => {
