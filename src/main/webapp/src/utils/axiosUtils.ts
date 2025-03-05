@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
+import type { ToastContainerOptions } from 'vue3-toastify'
 import i18n from '@/plugins/i18n.ts'
 import { handshake } from '@/services/api'
 import { useConfigurationStore } from '@/stores'
 import oidc from '@uportal/open-id-connect'
 import axios from 'axios'
 import { storeToRefs } from 'pinia'
-import { toast, type ToastContainerOptions } from 'vue3-toastify'
+import { toast } from 'vue3-toastify'
 
 const isDev = import.meta.env.DEV
 

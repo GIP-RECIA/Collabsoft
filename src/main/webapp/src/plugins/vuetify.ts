@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
+import type { ThemeDefinition } from 'vuetify'
 import { Theme } from '@/types/enums'
 import DateFnsAdapter from '@date-io/date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import { useI18n } from 'vue-i18n'
-import { createVuetify, type ThemeDefinition } from 'vuetify'
+import { createVuetify } from 'vuetify'
 import { md3 } from 'vuetify/blueprints'
 import { aliases, fa } from 'vuetify/iconsets/fa-svg'
 import { createVueI18nAdapter } from 'vuetify/locale/adapters/vue-i18n'
