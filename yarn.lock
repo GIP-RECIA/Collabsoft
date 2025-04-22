@@ -1461,14 +1461,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pinia/testing@npm:^0.1.7":
-  version: 0.1.7
-  resolution: "@pinia/testing@npm:0.1.7"
-  dependencies:
-    vue-demi: "npm:^0.14.10"
+"@pinia/testing@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@pinia/testing@npm:1.0.1"
   peerDependencies:
-    pinia: ">=2.2.6"
-  checksum: 10/ec864a46aa6df171ba3e23974006a56049bd933c289bc2c5563290f09f10a28a5a415b843eb42e06907063d092e24cd67a51dde525fbd1fe7c6d03199f8c21a3
+    pinia: ">=3.0.2"
+  checksum: 10/ea9b8197e75a600939f1fc95a617fc3d1b9d48d958db268467063e60c695fe57e3f630217fa51d0b5e6c89e6a7e9eb77f86db35708850dadacb443cf5a58b5f0
   languageName: node
   linkType: hard
 
@@ -3037,7 +3035,7 @@ __metadata:
     "@gip-recia/wisemapping-webcomponent": "npm:^0.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^6.0.8"
     "@juggle/resize-observer": "npm:^3.4.0"
-    "@pinia/testing": "npm:^0.1.7"
+    "@pinia/testing": "npm:^1.0.1"
     "@playwright/test": "npm:^1.52.0"
     "@tsconfig/node22": "npm:^22.0.1"
     "@types/jsdom": "npm:^21"
