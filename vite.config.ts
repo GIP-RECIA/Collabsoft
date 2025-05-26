@@ -49,13 +49,12 @@ export default ({ mode }: ConfigEnv) => {
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: tag =>
-              [
-                'extended-uportal-header',
-                'extended-uportal-footer',
-                'tldraw-editor',
-                'wisemapping-editor',
-              ].includes(tag),
+            isCustomElement: tag => [
+              'extended-uportal-header',
+              'extended-uportal-footer',
+              'tldraw-editor',
+              'wisemapping-editor',
+            ].includes(tag),
           },
         },
       }),
