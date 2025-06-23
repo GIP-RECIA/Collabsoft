@@ -19,7 +19,7 @@
   "dependencies": {
     "@gip-recia/tldraw-webcomponent": "^3.6.0",
     "@gip-recia/wisemapping-webcomponent": "^0.1.0",
-    "@vueuse/core": "^13.3.0",
+    "@vueuse/core": "^13.4.0",
     "pinia": "^2.3.1",
     "vue": "^3.5.17",
     "vue-i18n": "^11.1.5",
