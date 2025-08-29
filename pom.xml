@@ -7,7 +7,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.18</version>
-    <relativePath />
+    <relativePath/>
   </parent>
 
   <groupId>fr.recia.collabsoft</groupId>
@@ -599,8 +599,8 @@
                   <goal>install-node-and-yarn</goal>
                 </goals>
                 <configuration>
-                  <nodeVersion>v20.11.0</nodeVersion>
-                  <yarnVersion>v1.22.5</yarnVersion>
+                  <nodeVersion>v22.19.0</nodeVersion>
+                  <yarnVersion>v1.22.22</yarnVersion>
                 </configuration>
               </execution>
               <execution>
