@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import { createPinia, setActivePinia, storeToRefs } from 'pinia'
+import { beforeEach, describe, expect, it } from 'vitest'
 // @ts-expect-error project location
 import { useFileStore, useHomeStore } from '@/stores'
 // @ts-expect-error project location
 import { Tabs } from '@/types/enums'
-import { createPinia, setActivePinia, storeToRefs } from 'pinia'
-import { beforeEach, describe, expect, it } from 'vitest'
 import { file1 } from '../config/samples.ts'
 
 describe('homeStore', () => {

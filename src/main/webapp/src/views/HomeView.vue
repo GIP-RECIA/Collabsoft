@@ -16,6 +16,10 @@
 
 <script setup lang="ts">
 import type { Confirmation } from '@/types'
+import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useDisplay } from 'vuetify'
 import BottomNavigation from '@/components/BottomNavigation.vue'
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
 import FileDialog from '@/components/dialogs/FileDialog.vue'
@@ -26,10 +30,6 @@ import FilesLayout from '@/components/layouts/FilesLayout.vue'
 import { deleteFile } from '@/services/api'
 import { useFileStore, useHomeStore } from '@/stores'
 import { errorHandler } from '@/utils'
-import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useDisplay } from 'vuetify'
 
 const fileStore = useFileStore()
 const { deleteFile: deleteFileFromStore } = fileStore

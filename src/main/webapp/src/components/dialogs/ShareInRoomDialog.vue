@@ -15,11 +15,11 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useFileStore, useHomeStore } from '@/stores'
-import { charOTP } from '@/utils'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useAppStore, useFileStore, useHomeStore } from '@/stores'
+import { charOTP } from '@/utils'
 
 const appStore = useAppStore()
 const { initRoom } = appStore

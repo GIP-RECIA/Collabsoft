@@ -15,14 +15,14 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-// @ts-expect-error project location
-import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue'
-// @ts-expect-error project location
-import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores'
 import { ResizeObserver } from '@juggle/resize-observer'
 import { createTestingPinia } from '@pinia/testing'
 import { flushPromises, mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+// @ts-expect-error project location
+import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue'
+// @ts-expect-error project location
+import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores'
 import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts'
 
 globalThis.ResizeObserver = ResizeObserver

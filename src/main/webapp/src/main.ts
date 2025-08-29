@@ -15,6 +15,8 @@
  */
 
 import type { ToastContainerOptions } from 'vue3-toastify'
+import { createApp } from 'vue'
+import Vue3Toasity from 'vue3-toastify'
 import App from '@/App.vue'
 import { register as registerDirectives } from '@/directives'
 import { register as registerFontAwsome } from '@/plugins/fontawesome.ts'
@@ -22,8 +24,6 @@ import i18n from '@/plugins/i18n.ts'
 import pinia from '@/plugins/pinia.ts'
 import vuetify from '@/plugins/vuetify.ts'
 import router from '@/router'
-import { createApp } from 'vue'
-import Vue3Toasity from 'vue3-toastify'
 import 'regenerator-runtime/runtime.js'
 import '@/plugins/date-fns.ts'
 import 'vuetify/styles'

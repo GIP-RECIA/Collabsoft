@@ -16,16 +16,16 @@
 
 <script setup lang="ts">
 import type { Confirmation } from '@/types'
+import { storeToRefs } from 'pinia'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue'
 import FileMenu from '@/components/FileMenu.vue'
 import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
 import { Navigation, Tabs } from '@/types/enums'
 import { preventExit } from '@/utils'
-import { storeToRefs } from 'pinia'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 
 const isDev = import.meta.env.DEV
 

@@ -16,11 +16,11 @@
 
 <script setup lang="ts">
 import type { RoomAction } from '@/types'
-import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores'
-import { charOTP } from '@/utils'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores'
+import { charOTP } from '@/utils'
 
 const appStore = useAppStore()
 const { initRoom, joinRoom } = appStore

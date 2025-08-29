@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { Tabs } from '@/types/enums'
 import { useSessionStorage } from '@vueuse/core'
 import { defineStore, storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
+import { Tabs } from '@/types/enums'
 import { useFileStore } from './fileStore.ts'
 
 export const useHomeStore = defineStore('home', () => {

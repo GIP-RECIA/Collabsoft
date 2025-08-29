@@ -15,6 +15,10 @@
 -->
 
 <script setup lang="ts">
+import debounce from 'lodash.debounce'
+import { storeToRefs } from 'pinia'
+import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue'
 import HistoriesTab from '@/components/drawers/information/tabs/HistoriesTab.vue'
 import InformationTab from '@/components/drawers/information/tabs/InformationTab.vue'
@@ -22,10 +26,6 @@ import ShareTab from '@/components/drawers/information/tabs/ShareTab.vue'
 import DurationSpan from '@/components/DurationSpan.vue'
 import { useFileStore, useHomeStore } from '@/stores'
 import { Tabs } from '@/types/enums'
-import debounce from 'lodash.debounce'
-import { storeToRefs } from 'pinia'
-import { ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 
 const { VITE_API_URI } = import.meta.env
 

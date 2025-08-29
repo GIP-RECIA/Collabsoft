@@ -15,11 +15,11 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-// @ts-expect-error project location
-import DurationSpan from '@/components/DurationSpan.vue'
 import { ResizeObserver } from '@juggle/resize-observer'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+// @ts-expect-error project location
+import DurationSpan from '@/components/DurationSpan.vue'
 import { plugins } from '../config/index.ts'
 
 globalThis.ResizeObserver = ResizeObserver

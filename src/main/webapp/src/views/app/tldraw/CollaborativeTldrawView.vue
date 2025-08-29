@@ -15,11 +15,11 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useConfigurationStore } from '@/stores'
-import { headObserver, styleObserver } from '@/utils'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, onUnmounted } from 'vue'
 import { useTheme } from 'vuetify'
+import { useAppStore, useConfigurationStore } from '@/stores'
+import { headObserver, styleObserver } from '@/utils'
 import '@gip-recia/tldraw-webcomponent'
 
 const { VITE_API_URI } = import.meta.env

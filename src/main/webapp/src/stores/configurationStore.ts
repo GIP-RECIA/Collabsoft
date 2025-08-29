@@ -16,11 +16,11 @@
 
 /* eslint-disable ts/no-use-before-define */
 import type { AssociatedApp, Configuration, Soffit } from '@/types'
+import { defineStore } from 'pinia'
+import { computed, ref, watch } from 'vue'
 import { getConfiguration } from '@/services/api'
 import { errorHandler, initToken, setNcUri, useEntTheme } from '@/utils'
 import { initAppsRoutes } from '@/utils/routerUtils.ts'
-import { defineStore } from 'pinia'
-import { computed, ref, watch } from 'vue'
 
 const isDev = import.meta.env.DEV
 

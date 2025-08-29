@@ -16,11 +16,11 @@
 
 /* eslint-disable ts/no-use-before-define */
 import type { RouteLocationRaw } from 'vue-router'
-import { interpolate } from '@/utils'
 import { useSessionStorage } from '@vueuse/core'
 import { defineStore, storeToRefs } from 'pinia'
 import { computed, readonly, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { interpolate } from '@/utils'
 import { useConfigurationStore } from './configurationStore.ts'
 import { useFileStore } from './fileStore.ts'
 

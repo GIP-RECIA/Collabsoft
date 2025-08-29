@@ -15,12 +15,12 @@
 -->
 
 <script setup lang="ts">
-import { saveFile } from '@/services/api'
-import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
-import { errorHandler } from '@/utils'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { saveFile } from '@/services/api'
+import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import { errorHandler } from '@/utils'
 
 const isDev = import.meta.env.DEV
 

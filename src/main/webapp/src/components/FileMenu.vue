@@ -15,12 +15,12 @@
 -->
 
 <script setup lang="ts">
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
-import { Tabs } from '@/types/enums'
-import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import { Tabs } from '@/types/enums'
+import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils'
 
 const props = defineProps<{
   fileId: number

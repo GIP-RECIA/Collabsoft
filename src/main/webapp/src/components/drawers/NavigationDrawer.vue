@@ -15,9 +15,9 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore, useFileStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
+import { useConfigurationStore, useFileStore } from '@/stores'
 
 const isDev = import.meta.env.DEV
 

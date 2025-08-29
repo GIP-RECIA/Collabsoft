@@ -15,12 +15,12 @@
 -->
 
 <script setup lang="ts">
-import { useConfigurationStore } from '@/stores'
-import { initToken } from '@/utils'
 import debounce from 'lodash.debounce'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useConfigurationStore } from '@/stores'
+import { initToken } from '@/utils'
 
 const configurationStore = useConfigurationStore()
 const { init } = configurationStore

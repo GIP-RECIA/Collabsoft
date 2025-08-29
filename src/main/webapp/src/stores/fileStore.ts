@@ -16,13 +16,13 @@
 
 /* eslint-disable ts/no-use-before-define */
 import type { File, FileBody } from '@/types'
-import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/api'
-import { Navigation } from '@/types/enums'
-import { errorHandler } from '@/utils'
 import { differenceInMilliseconds } from 'date-fns'
 import debounce from 'lodash.debounce'
 import { defineStore, storeToRefs } from 'pinia'
 import { ref } from 'vue'
+import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/api'
+import { Navigation } from '@/types/enums'
+import { errorHandler } from '@/utils'
 import { useConfigurationStore } from './configurationStore.ts'
 
 export const useFileStore = defineStore('file', () => {

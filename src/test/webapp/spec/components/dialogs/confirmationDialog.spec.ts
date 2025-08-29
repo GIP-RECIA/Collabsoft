@@ -15,12 +15,12 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-// @ts-expect-error project location
-import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
 import { ResizeObserver } from '@juggle/resize-observer'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { VBtn, VCardText } from 'vuetify/components'
+// @ts-expect-error project location
+import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
 import { plugins } from '../../config/index.ts'
 
 globalThis.ResizeObserver = ResizeObserver

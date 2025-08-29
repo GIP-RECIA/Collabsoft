@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { AssociatedApp } from '@/types'
 import type { Router, RouteRecordRaw, RouteRecordRedirectOption } from 'vue-router'
-import { Navigation } from '@/types/enums'
+import type { AssociatedApp } from '@/types'
 import { capitalize } from 'vue'
+import { Navigation } from '@/types/enums'
 
 const isDev = import.meta.env.DEV
 
