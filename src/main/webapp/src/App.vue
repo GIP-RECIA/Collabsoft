@@ -93,7 +93,8 @@ watchOnce(isReady, (newValue) => {
 </template>
 
 <style scoped lang="scss">
-header {
-  z-index: 1000;
+extended-uportal-header {
+  display: block;
+  height: var(--recia-header-height);
 }
 </style>
