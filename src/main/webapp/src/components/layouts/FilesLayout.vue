@@ -88,6 +88,7 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
     fixed-header
     hover
     class="h-100 rounded-xl"
+    style="overflow: hidden;"
   >
     <template #item.title="{ item }">
       <router-link
