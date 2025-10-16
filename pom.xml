@@ -437,6 +437,7 @@
           </archive>
           <packagingExcludes>WEB-INF/lib/tomcat-*.jar,
             WEB-INF/lib-provided,
+            WEB-INF/classes/logback-*.xml,
             WEB-INF/classes/config/application-*.yml,
             scripts/**,
             assets/**,
