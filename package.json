@@ -24,7 +24,7 @@
     "vue": "^3.5.26",
     "vue-i18n": "^11.2.2",
     "vue-router": "^4.6.3",
-    "vuetify": "^3.8.6"
+    "vuetify": "^3.11.6"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.7.3",
