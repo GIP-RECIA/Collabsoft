@@ -9,7 +9,7 @@ logging:
 spring:
   config:
     activate:
-      on-profile: 'test'
+      on-profile: test
 
   servlet:
     multipart:
@@ -26,8 +26,8 @@ spring:
       auto-commit: false
       minimum-idle: 10
       maximum-pool-size: 50
-      #max-life-time: 30000
-      #idle-timeout: 30000
+      # max-life-time: 30000
+      # idle-timeout: 30000
       connection-test-query: SELECT 1
       register-mbeans: true
       data-source-properties:
@@ -44,4 +44,4 @@ app:
     jwt-signature-key: ''
 
   storage:
-    location: '/home/quentin/.tmp/collabsoft'
+    location: /home/quentin/.tmp/collabsoft
