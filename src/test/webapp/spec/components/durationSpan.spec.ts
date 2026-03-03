@@ -15,14 +15,10 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-import { ResizeObserver } from '@juggle/resize-observer'
 import { mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 // @ts-expect-error project location
 import DurationSpan from '@/components/DurationSpan.vue'
-import { plugins } from '../config/index.ts'
-
-globalThis.ResizeObserver = ResizeObserver
 
 describe('durationSpan', () => {
   let date: Date
@@ -31,9 +27,6 @@ describe('durationSpan', () => {
   beforeEach(() => {
     date = new Date()
     wrapper = mount(DurationSpan, {
-      global: {
-        plugins: [...plugins],
-      },
       props: {
         date: date.toString(),
       },

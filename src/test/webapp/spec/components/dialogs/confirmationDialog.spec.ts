@@ -15,15 +15,11 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-import { ResizeObserver } from '@juggle/resize-observer'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { VBtn, VCardText } from 'vuetify/components'
 // @ts-expect-error project location
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
-import { plugins } from '../../config/index.ts'
-
-globalThis.ResizeObserver = ResizeObserver
 
 describe('confirmationDialog', () => {
   let wrapper: VueWrapper
@@ -35,9 +31,6 @@ describe('confirmationDialog', () => {
     document.body.appendChild(el)
 
     wrapper = mount(ConfirmationDialog, {
-      global: {
-        plugins: [...plugins],
-      },
       props: {
         'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
         'title': 'Foo',

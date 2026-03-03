@@ -15,7 +15,6 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-import { ResizeObserver } from '@juggle/resize-observer'
 import { createTestingPinia } from '@pinia/testing'
 import { flushPromises, mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
@@ -23,9 +22,6 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import ShareInRoomDialog from '@/components/dialogs/ShareInRoomDialog.vue'
 // @ts-expect-error project location
 import { useAppStore, useConfigurationStore, useHomeStore } from '@/stores'
-import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts'
-
-globalThis.ResizeObserver = ResizeObserver
 
 // TODO
 describe('shareInRoomDialog', () => {
@@ -42,8 +38,6 @@ describe('shareInRoomDialog', () => {
     appStore = useAppStore(pinia)
     configurationStore = useConfigurationStore(pinia)
     homeStore = useHomeStore(pinia)
-
-    registerFontAwsome()
   })
 
   beforeEach(() => {
@@ -53,8 +47,7 @@ describe('shareInRoomDialog', () => {
 
     wrapper = mount(ShareInRoomDialog, {
       global: {
-        plugins: [...plugins, pinia],
-        stubs: { FontAwesomeIcon },
+        plugins: [pinia],
       },
     })
   })

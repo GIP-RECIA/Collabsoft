@@ -15,7 +15,6 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-import { ResizeObserver } from '@juggle/resize-observer'
 import { createTestingPinia } from '@pinia/testing'
 import { flushPromises, mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
@@ -23,9 +22,6 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import SettingsDialog from '@/components/dialogs/SettingsDialog.vue'
 // @ts-expect-error project location
 import { useConfigurationStore } from '@/stores'
-import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts'
-
-globalThis.ResizeObserver = ResizeObserver
 
 // TODO
 describe('settingsDialog', () => {
@@ -36,8 +32,6 @@ describe('settingsDialog', () => {
 
   beforeAll(() => {
     configurationStore = useConfigurationStore(pinia)
-
-    registerFontAwsome()
   })
 
   beforeEach(() => {
@@ -47,8 +41,7 @@ describe('settingsDialog', () => {
 
     wrapper = mount(SettingsDialog, {
       global: {
-        plugins: [...plugins, pinia],
-        stubs: { FontAwesomeIcon },
+        plugins: [pinia],
       },
     })
   })

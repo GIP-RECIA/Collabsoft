@@ -15,7 +15,6 @@
  */
 
 import type { VueWrapper } from '@vue/test-utils'
-import { ResizeObserver } from '@juggle/resize-observer'
 import { createTestingPinia } from '@pinia/testing'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
@@ -23,10 +22,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import FileDialog from '@/components/dialogs/FileDialog.vue'
 // @ts-expect-error project location
 import { useConfigurationStore, useHomeStore } from '@/stores'
-import { FontAwesomeIcon, plugins, registerFontAwsome } from '../../config/index.ts'
 import { associatedApp1, associatedApp2 } from '../../config/samples.ts'
-
-globalThis.ResizeObserver = ResizeObserver
 
 // TODO
 describe('fileDialog', () => {
@@ -41,8 +37,6 @@ describe('fileDialog', () => {
     configurationStore = useConfigurationStore(pinia)
     configurationStore.availableApps = [associatedApp1, associatedApp2]
     homeStore = useHomeStore(pinia)
-
-    registerFontAwsome()
   })
 
   beforeEach(() => {
@@ -52,8 +46,7 @@ describe('fileDialog', () => {
 
     wrapper = mount(FileDialog, {
       global: {
-        plugins: [...plugins, pinia],
-        stubs: { FontAwesomeIcon },
+        plugins: [pinia],
       },
     })
   })
