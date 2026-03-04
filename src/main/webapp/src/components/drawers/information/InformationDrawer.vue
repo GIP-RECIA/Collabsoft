@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash-es'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'

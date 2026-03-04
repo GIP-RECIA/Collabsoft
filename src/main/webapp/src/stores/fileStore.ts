@@ -17,7 +17,7 @@
 /* eslint-disable ts/no-use-before-define */
 import type { File, FileBody } from '@/types/index.ts'
 import { differenceInMilliseconds } from 'date-fns'
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash-es'
 import { defineStore, storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import {
