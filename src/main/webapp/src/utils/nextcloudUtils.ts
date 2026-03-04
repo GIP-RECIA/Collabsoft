@@ -35,19 +35,28 @@ const instance = axios.create({
   },
 })
 
-function setNcUri(uri: string): void {
+function setNcUri(
+  uri: string,
+): void {
   if (uri.length <= 0)
     return
   ncBaseUri = interpolate(uri, { domain: window.location.hostname })
   instance.defaults.baseURL = `${ncBaseUri}/remote.php/dav/files/`
 }
 
-async function saveOnNc(file: File, type: string): Promise<void> {
+async function saveOnNc(
+  file: File,
+  type: string,
+): Promise<void> {
   const configurationStore = useConfigurationStore()
   const { user } = storeToRefs(configurationStore)
 
   try {
-    const response = await saveNcFile(user.value.sub, file, type)
+    const response = await saveNcFile(
+      user.value.sub,
+      file,
+      type,
+    )
     if ([201, 204].includes(response.status)) {
       toast.success(
         t('toast.nc.200', {
@@ -77,4 +86,8 @@ async function saveOnNc(file: File, type: string): Promise<void> {
   }
 }
 
-export { instance as ncInstance, saveOnNc, setNcUri }
+export {
+  instance as ncInstance,
+  saveOnNc,
+  setNcUri,
+}

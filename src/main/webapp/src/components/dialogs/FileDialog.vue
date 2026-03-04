@@ -35,13 +35,21 @@ const { isNew } = storeToRefs(homeStore)
 
 const { t } = useI18n()
 
-const fileType = ref<number | undefined>(availableApps.value.length === 1 ? availableApps.value[0].id : undefined)
+const fileType = ref<number | undefined>(
+  availableApps.value.length === 1
+    ? availableApps.value[0].id
+    : undefined,
+)
 const title = ref<string | undefined>()
 const description = ref<string | undefined>()
 const pub = ref<boolean>(false)
 
 const canSave = computed<boolean>(
-  () => fileType.value !== undefined && title.value !== undefined && title.value.trim().length > 0,
+  () => (
+    fileType.value !== undefined
+    && title.value !== undefined
+    && title.value.trim().length > 0
+  ),
 )
 
 async function onSave(): Promise<void> {
@@ -50,7 +58,9 @@ async function onSave(): Promise<void> {
   try {
     const response = await saveFile({
       title: title.value!,
-      description: description.value && description.value.trim().length > 0 ? description.value : null,
+      description: description.value && description.value.trim().length > 0
+        ? description.value
+        : null,
       data: '',
       associatedAppId: fileType.value!,
       pub: pub.value,
@@ -68,7 +78,9 @@ function onClose(): void {
 }
 
 function reset(): void {
-  fileType.value = availableApps.value.length === 1 ? availableApps.value[0].id : undefined
+  fileType.value = availableApps.value.length === 1
+    ? availableApps.value[0].id
+    : undefined
   title.value = undefined
   description.value = undefined
   pub.value = false
@@ -76,9 +88,17 @@ function reset(): void {
 </script>
 
 <template>
-  <v-dialog v-model="isNew" :max-width="1024" persistent @after-leave="reset">
+  <v-dialog
+    v-model="isNew"
+    :max-width="1024"
+    persistent
+    @after-leave="reset"
+  >
     <v-card rounded="xl">
-      <v-toolbar :title="t('dialog.file.title')" color="rgba(255, 255, 255, 0)">
+      <v-toolbar
+        :title="t('dialog.file.title')"
+        color="rgba(255, 255, 255, 0)"
+      >
         <template #append>
           <v-btn
             icon="fas fa-xmark"
@@ -94,7 +114,11 @@ function reset(): void {
         <div class="ms-2 mb-2">
           {{ t('dialog.file.description') }}
         </div>
-        <v-btn-toggle v-model="fileType" mandatory class="mb-3">
+        <v-btn-toggle
+          v-model="fileType"
+          mandatory
+          class="mb-3"
+        >
           <v-btn
             v-for="app in availableApps"
             :key="app.id"

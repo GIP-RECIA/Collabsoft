@@ -64,7 +64,10 @@ watch(visibility, (): void => refreshFile())
 </script>
 
 <template>
-  <div v-if="isDev" class="d-flex align-center mb-2 bg-grey-lighten-3 rounded-xl">
+  <div
+    v-if="isDev"
+    class="d-flex align-center mb-2 bg-grey-lighten-3 rounded-xl"
+  >
     <v-text-field
       v-model="newUser"
       variant="solo"
@@ -101,7 +104,10 @@ watch(visibility, (): void => refreshFile())
     />
   </div>
 
-  <v-list v-if="file?.collaborations" class="pt-0">
+  <v-list
+    v-if="file?.collaborations"
+    class="pt-0"
+  >
     <v-list-item
       v-for="(collaboration, index) in file.collaborations"
       :key="index"
@@ -127,15 +133,27 @@ watch(visibility, (): void => refreshFile())
             class="share-item--role"
             @update:model-value="(newValue) => updateRole(collaboration, newValue)"
           >
-            <v-list rounded="xl" class="pa-2" />
+            <v-list
+              rounded="xl"
+              class="pa-2"
+            />
             <template #item="{ props }">
-              <v-list-item v-bind="props" rounded="xl" />
+              <v-list-item
+                v-bind="props"
+                rounded="xl"
+              />
             </template>
           </v-select>
         </div>
       </template>
       <template #append>
-        <v-btn icon="fas fa-trash" color="error" variant="text" size="small" :alt="t('button.delete')" />
+        <v-btn
+          icon="fas fa-trash"
+          color="error"
+          variant="text"
+          size="small"
+          :alt="t('button.delete')"
+        />
       </template>
     </v-list-item>
   </v-list>

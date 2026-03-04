@@ -33,10 +33,19 @@ const { isRoom } = storeToRefs(homeStore)
 
 const { t } = useI18n()
 
-const appType = ref<string | undefined>(availableApps.value.length === 1 ? availableApps.value[0].slug : undefined)
+const appType = ref<string | undefined>(
+  availableApps.value.length === 1
+    ? availableApps.value[0].slug
+    : undefined,
+)
 const joinCode = ref<string>('')
 
-const button = computed<{ i18n: string, icon: string, disabled: boolean, action: RoomAction }>(() => {
+const button = computed<{
+  i18n: string
+  icon: string
+  disabled: boolean
+  action: RoomAction
+}>(() => {
   if (joinCode.value.length > 0) {
     return {
       i18n: 'button.join',
@@ -54,12 +63,24 @@ const button = computed<{ i18n: string, icon: string, disabled: boolean, action:
   }
 })
 
-function onAction(action: RoomAction): void {
+function onAction(
+  action: RoomAction,
+): void {
   if (!appType.value)
     return
-  if (action === 'create')
-    initRoom(charOTP(), appType.value, undefined)
-  else joinRoom(joinCode.value.toUpperCase(), appType.value)
+  if (action === 'create') {
+    initRoom(
+      charOTP(),
+      appType.value,
+      undefined,
+    )
+  }
+  else {
+    joinRoom(
+      joinCode.value.toUpperCase(),
+      appType.value,
+    )
+  }
   onClose()
 }
 
@@ -68,15 +89,25 @@ function onClose(): void {
 }
 
 function reset(): void {
-  appType.value = availableApps.value.length === 1 ? availableApps.value[0].slug : undefined
+  appType.value = availableApps.value.length === 1
+    ? availableApps.value[0].slug
+    : undefined
   joinCode.value = ''
 }
 </script>
 
 <template>
-  <v-dialog v-model="isRoom" :max-width="1024 / 2" persistent @after-leave="reset">
+  <v-dialog
+    v-model="isRoom"
+    :max-width="1024 / 2"
+    persistent
+    @after-leave="reset"
+  >
     <v-card rounded="xl">
-      <v-toolbar :title="t('dialog.room.title')" color="rgba(255, 255, 255, 0)">
+      <v-toolbar
+        :title="t('dialog.room.title')"
+        color="rgba(255, 255, 255, 0)"
+      >
         <template #append>
           <v-btn
             icon="fas fa-xmark"
@@ -89,11 +120,19 @@ function reset(): void {
         </template>
       </v-toolbar>
       <v-card-text class="pt-0">
-        <v-alert type="info" variant="tonal" class="text-preserve-breaks">
+        <v-alert
+          type="info"
+          variant="tonal"
+          class="text-preserve-breaks"
+        >
           {{ t('dialog.room.info') }}
         </v-alert>
         <div class="d-flex flex-column align-center mt-4">
-          <v-btn-toggle v-model="appType" mandatory class="mb-3">
+          <v-btn-toggle
+            v-model="appType"
+            mandatory
+            class="mb-3"
+          >
             <v-btn
               v-for="app in availableApps"
               :key="app.id"
@@ -102,7 +141,10 @@ function reset(): void {
               rounded="xl"
             />
           </v-btn-toggle>
-          <v-otp-input v-model="joinCode" type="text" />
+          <v-otp-input
+            v-model="joinCode"
+            type="text"
+          />
         </div>
       </v-card-text>
       <v-card-actions>

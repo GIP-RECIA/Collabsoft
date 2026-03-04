@@ -27,9 +27,12 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <v-list v-if="file?.histories" class="py-0">
+  <v-list
+    v-if="file?.histories"
+    class="py-0"
+  >
     <v-list-item
-      v-for="history in file.histories"
+      v-for="(history, index) in file.histories"
       :key="history.id"
       :title="format(history.creationDate, 'Pp')"
       rounded="xl"
@@ -37,7 +40,13 @@ const { t } = useI18n()
       :class="[index < file.histories.length - 1 ? 'mb-2' : '']"
     >
       <template #append>
-        <v-btn icon="fas fa-eye" color="info" variant="text" size="small" :alt="t('button.view')" />
+        <v-btn
+          icon="fas fa-eye"
+          color="info"
+          variant="text"
+          size="small"
+          :alt="t('button.view')"
+        />
         <v-btn
           icon="fas fa-clock-rotate-left"
           color="secondary"
@@ -45,7 +54,13 @@ const { t } = useI18n()
           size="small"
           :alt="t('button.revert')"
         />
-        <v-btn icon="fas fa-trash" color="error" variant="text" size="small" :alt="t('button.delete')" />
+        <v-btn
+          icon="fas fa-trash"
+          color="error"
+          variant="text"
+          size="small"
+          :alt="t('button.delete')"
+        />
       </template>
     </v-list-item>
   </v-list>

@@ -39,7 +39,12 @@ function onCreateAndJoin(): void {
   if (file.value === undefined)
     return
   onClose()
-  initRoom(joinCode.value, file.value.associatedApp.slug, file.value.id, autoSave.value)
+  initRoom(
+    joinCode.value,
+    file.value.associatedApp.slug,
+    file.value.id,
+    autoSave.value,
+  )
 }
 
 function onAutoSave(): void {
@@ -57,9 +62,17 @@ function reset(): void {
 </script>
 
 <template>
-  <v-dialog v-model="isShareInRoom" :max-width="1024 / 2" persistent @after-leave="reset">
+  <v-dialog
+    v-model="isShareInRoom"
+    :max-width="1024 / 2"
+    persistent
+    @after-leave="reset"
+  >
     <v-card rounded="xl">
-      <v-toolbar :title="t('dialog.shareInRoom.title')" color="rgba(255, 255, 255, 0)">
+      <v-toolbar
+        :title="t('dialog.shareInRoom.title')"
+        color="rgba(255, 255, 255, 0)"
+      >
         <template #append>
           <v-btn
             icon="fas fa-xmark"
@@ -72,7 +85,11 @@ function reset(): void {
         </template>
       </v-toolbar>
       <v-card-text class="pt-0">
-        <v-alert type="info" variant="tonal" class="text-preserve-breaks">
+        <v-alert
+          type="info"
+          variant="tonal"
+          class="text-preserve-breaks"
+        >
           <i18n-t keypath="dialog.shareInRoom.info">
             <template #icon>
               <v-icon icon="fas fa-arrows-rotate" size="small" />
@@ -81,14 +98,28 @@ function reset(): void {
         </v-alert>
         <div class="d-flex flex-column align-center mt-4">
           {{ t('dialog.shareInRoom.description') }}
-          <v-otp-input :model-value="joinCode" type="text" disabled />
+          <v-otp-input
+            :model-value="joinCode"
+            type="text"
+            disabled
+          />
         </div>
       </v-card-text>
       <v-card-actions>
-        <v-tooltip :text="t(`button.autoSave.${autoSave ? 'enabled' : 'disabled'}`)" location="bottom center">
+        <v-tooltip
+          :text="t(`button.autoSave.${autoSave ? 'enabled' : 'disabled'}`)"
+          location="bottom center"
+        >
           <template #activator="{ props }">
-            <v-btn v-bind="props" color="secondary" @click="onAutoSave">
-              <v-icon icon="fas fa-arrows-rotate" :class="[autoSave ? 'text-info' : 'text-disabled']" />
+            <v-btn
+              v-bind="props"
+              color="secondary"
+              @click="onAutoSave"
+            >
+              <v-icon
+                icon="fas fa-arrows-rotate"
+                :class="[autoSave ? 'text-info' : 'text-disabled']"
+              />
             </v-btn>
           </template>
         </v-tooltip>

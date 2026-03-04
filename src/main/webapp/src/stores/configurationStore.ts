@@ -30,14 +30,21 @@ export const useConfigurationStore = defineStore('configuration', () => {
   /**
    * Initialise `configuration`
    */
-  const init = async (force: boolean = false): Promise<boolean> => {
+  const init = async (
+    force: boolean = false,
+  ): Promise<boolean> => {
     if (force || !isInit.value) {
       try {
         const response = await getConfiguration()
         configuration.value = response.data
         if (!configuration.value)
           return false
-        const { nextcloudUri, userInfoApiUrl, templateApiPath, apps } = configuration.value.front
+        const {
+          nextcloudUri,
+          userInfoApiUrl,
+          templateApiPath,
+          apps,
+        } = configuration.value.front
         if (isNcAvailable.value)
           setNcUri(nextcloudUri)
         await initToken(userInfoApiUrl)
@@ -62,20 +69,26 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const infoName = ref<string | undefined>()
 
   const appName = computed<string>(() =>
-    isInit.value && configuration.value!.front.appName.trim() !== '' ? configuration.value!.front.appName : __APP_NAME__,
+    isInit.value && configuration.value!.front.appName.trim() !== ''
+      ? configuration.value!.front.appName
+      : __APP_NAME__,
   )
 
   watch(
     [infoName, appName],
     () => {
-      document.title = infoName.value ? `${infoName.value} - ${appName.value}` : appName.value
+      document.title = infoName.value
+        ? `${infoName.value} - ${appName.value}`
+        : appName.value
     },
     { immediate: true },
   )
 
   /* -- Nextcloud -- */
 
-  const isNcAvailable = computed<boolean>(() => (configuration.value?.front.nextcloudUri ?? '').length > 0)
+  const isNcAvailable = computed<boolean>(
+    () => (configuration.value?.front.nextcloudUri ?? '').length > 0,
+  )
 
   /* -- User -- */
 
@@ -97,7 +110,9 @@ export const useConfigurationStore = defineStore('configuration', () => {
   const availableApps = computed<Array<AssociatedApp>>(() => {
     if (!configuration.value)
       return []
-    return isDev ? configuration.value.front.apps : configuration.value.front.apps.filter(app => app.enabled)
+    return isDev
+      ? configuration.value.front.apps
+      : configuration.value.front.apps.filter(app => app.enabled)
   })
 
   return {

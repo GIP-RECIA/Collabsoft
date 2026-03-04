@@ -58,10 +58,22 @@ watch(isDrawer, (newValue) => {
 </script>
 
 <template>
-  <v-navigation-drawer v-model="isDrawer" location="right" :width="460" temporary class="pa-2">
+  <v-navigation-drawer
+    v-model="isDrawer"
+    location="right"
+    :width="460"
+    temporary
+    class="pa-2"
+  >
     <div v-show="show">
-      <v-toolbar :title="t(`navigation.title.${drawerTab}`)" color="rgba(255, 255, 255, 0)">
-        <template v-if="file" #title>
+      <v-toolbar
+        :title="t(`navigation.title.${drawerTab}`)"
+        color="rgba(255, 255, 255, 0)"
+      >
+        <template
+          v-if="file"
+          #title
+        >
           <div class="d-flex align-center">
             <v-icon
               icon="fas fa-file"
@@ -83,7 +95,13 @@ watch(isDrawer, (newValue) => {
           </div>
         </template>
         <template #append>
-          <v-btn icon="fas fa-xmark" color="default" variant="plain" :alt="t('button.close')" @click="onClose" />
+          <v-btn
+            icon="fas fa-xmark"
+            color="default"
+            variant="plain"
+            :alt="t('button.close')"
+            @click="onClose"
+          />
         </template>
       </v-toolbar>
 
@@ -96,10 +114,18 @@ watch(isDrawer, (newValue) => {
         fixed-tabs
         class="mb-3"
       >
-        <v-tab :value="Tabs.Information" :title="t('navigation.title.information')" class="text-medium-emphasis">
+        <v-tab
+          :value="Tabs.Information"
+          :title="t('navigation.title.information')"
+          class="text-medium-emphasis"
+        >
           <v-icon icon="fas fa-circle-info" />
         </v-tab>
-        <v-tab :value="Tabs.Share" :title="t('navigation.title.share')" class="text-medium-emphasis">
+        <v-tab
+          :value="Tabs.Share"
+          :title="t('navigation.title.share')"
+          class="text-medium-emphasis"
+        >
           <v-icon icon="fas fa-share-nodes" />
         </v-tab>
         <v-tab

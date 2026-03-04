@@ -16,10 +16,24 @@
 
 import { ncInstance as axios } from '@/utils'
 
-const getNcFile = async (userID: string, fileUri: string) => await axios.get(`${userID}/${fileUri}`)
-
-async function saveNcFile(userID: string, file: File, type: string) {
-  return await axios.put(`${userID}/${file.name}.${type}`, file)
+async function getNcFile(userID: string, fileUri: string) {
+  return await axios.get(
+    `${userID}/${fileUri}`,
+  )
 }
 
-export { getNcFile, saveNcFile }
+async function saveNcFile(
+  userID: string,
+  file: File,
+  type: string,
+) {
+  return await axios.put(
+    `${userID}/${file.name}.${type}`,
+    file,
+  )
+}
+
+export {
+  getNcFile,
+  saveNcFile,
+}

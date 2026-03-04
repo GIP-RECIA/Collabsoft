@@ -30,7 +30,9 @@ function findLanguage(): string {
     return window.navigator.language
 
   const matchLanguages = window.navigator.languages
-    .filter(lang => config.supportLocales.find(available => lang === available))
+    .filter(lang =>
+      config.supportLocales.find(available => lang === available),
+    )
   if (matchLanguages.length > 0)
     return matchLanguages[0]
 

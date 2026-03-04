@@ -20,7 +20,9 @@ export enum Role {
   readonly = 'READONLY',
 }
 
-function getRole(role: string): Role {
+function getRole(
+  role: string,
+): Role {
   switch (role.toUpperCase()) {
     case Role.owner.toString():
       return Role.owner

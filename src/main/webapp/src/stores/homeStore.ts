@@ -59,7 +59,9 @@ export const useHomeStore = defineStore('home', () => {
   const deleteTitle = computed<string | undefined>(() => {
     const { file } = storeToRefs(fileStore)
 
-    return file.value ? `"${file.value.title}"` : undefined
+    return file.value
+      ? `"${file.value.title}"`
+      : undefined
   })
 
   /* -- Display -- */
@@ -72,7 +74,10 @@ export const useHomeStore = defineStore('home', () => {
   /**
    * Files diplay state
    */
-  const isGrid = useSessionStorage<boolean>(`${__APP_SLUG__}.is-grid`, false)
+  const isGrid = useSessionStorage<boolean>(
+    `${__APP_SLUG__}.is-grid`,
+    false,
+  )
 
   /* -- Store actions -- */
 

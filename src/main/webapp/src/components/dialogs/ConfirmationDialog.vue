@@ -55,17 +55,36 @@ function onYes(): void {
 </script>
 
 <template>
-  <v-dialog v-model="modelValue" persistent :max-width="500">
-    <v-card :title="title" rounded="xl">
+  <v-dialog
+    v-model="modelValue"
+    persistent
+    :max-width="500"
+  >
+    <v-card
+      :title="title"
+      rounded="xl"
+    >
       <v-card-text v-if="description">
         {{ description }}
       </v-card-text>
 
       <v-card-actions>
-        <v-btn v-if="cancelable" :text="t('button.cancel')" @click="onCancel" />
+        <v-btn
+          v-if="cancelable"
+          :text="t('button.cancel')"
+          @click="onCancel"
+        />
         <v-spacer />
-        <v-btn :text="t(noValue)" :color="noColor" @click="onNo" />
-        <v-btn :text="t(yesValue)" :color="yesColor" @click="onYes" />
+        <v-btn
+          :text="t(noValue)"
+          :color="noColor"
+          @click="onNo"
+        />
+        <v-btn
+          :text="t(yesValue)"
+          :color="yesColor"
+          @click="onYes"
+        />
       </v-card-actions>
     </v-card>
   </v-dialog>

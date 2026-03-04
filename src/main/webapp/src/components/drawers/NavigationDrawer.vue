@@ -31,12 +31,19 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <v-navigation-drawer color="transparent" floating class="py-4 ps-4">
+  <v-navigation-drawer
+    color="transparent"
+    floating
+    class="py-4 ps-4"
+  >
     <div class="d-flex flex-column h-100">
       <h1 class="text-center mb-6">
         {{ appName }}
       </h1>
-      <v-list color="primary" class="py-0 overflow-y-auto">
+      <v-list
+        color="primary"
+        class="py-0 overflow-y-auto"
+      >
         <v-list-item
           prepend-icon="fas fa-folder"
           :title="t('navigation.item.projects')"

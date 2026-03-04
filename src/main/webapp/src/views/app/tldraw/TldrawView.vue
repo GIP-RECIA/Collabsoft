@@ -36,7 +36,9 @@ const { file } = storeToRefs(fileStore)
 const theme = useTheme()
 
 const apiUrl = computed<string | undefined>(() =>
-  file.value ? `${VITE_API_URI}/api/file/${file.value.id}` : undefined,
+  file.value
+    ? `${VITE_API_URI}/api/file/${file.value.id}`
+    : undefined,
 )
 
 onMounted(() => {

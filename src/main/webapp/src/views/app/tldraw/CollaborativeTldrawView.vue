@@ -25,8 +25,16 @@ import '@gip-recia/tldraw-webcomponent'
 const { VITE_API_URI } = import.meta.env
 
 const appStore = useAppStore()
-const { isAutoSave, canAutoSave, roomId, room, isRoomOwner, initRoomFileId, destroy, websocketApiUrl }
-  = storeToRefs(appStore)
+const {
+  isAutoSave,
+  canAutoSave,
+  roomId,
+  room,
+  isRoomOwner,
+  initRoomFileId,
+  destroy,
+  websocketApiUrl,
+} = storeToRefs(appStore)
 
 const configurationStore = useConfigurationStore()
 const { user } = storeToRefs(configurationStore)
@@ -34,7 +42,9 @@ const { user } = storeToRefs(configurationStore)
 const theme = useTheme()
 
 const apiUrl = computed<string | undefined>(() =>
-  room.value?.fileId ? `${VITE_API_URI}/api/file/${room.value.fileId}` : undefined,
+  room.value?.fileId
+    ? `${VITE_API_URI}/api/file/${room.value.fileId}`
+    : undefined,
 )
 
 onMounted(() => {
@@ -53,14 +63,22 @@ onUnmounted(() => {
     v-if="roomId"
     mode="multi"
     :persistance-api-url="apiUrl"
-    :assets-api-url="apiUrl ? `${apiUrl}/resource` : undefined"
+    :assets-api-url="
+      apiUrl
+        ? `${apiUrl}/resource`
+        : undefined
+    "
     :token="user.token"
     :dark-mode="theme.global.name.value === 'dark'"
     :auto-save="canAutoSave && isAutoSave"
     :open="isRoomOwner"
     :websocket-api-url="websocketApiUrl"
     :room-id="`${roomId}-tldraw`"
-    :init-url="initRoomFileId ? `${VITE_API_URI}/api/file/${initRoomFileId}` : undefined"
+    :init-url="
+      initRoomFileId
+        ? `${VITE_API_URI}/api/file/${initRoomFileId}`
+        : undefined
+    "
     :owner="isRoomOwner"
     :clear-on-leave="true"
     :leave="destroy"

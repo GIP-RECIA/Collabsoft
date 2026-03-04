@@ -25,7 +25,9 @@ const redirect: RouteRecordRedirectOption = () => {
   return { name: Navigation.projects }
 }
 
-async function initAppsRoutes(apps: Array<AssociatedApp>): Promise<void> {
+async function initAppsRoutes(
+  apps: Array<AssociatedApp>,
+): Promise<void> {
   const router: Router = (await import('@/router')).default
 
   apps
@@ -34,19 +36,26 @@ async function initAppsRoutes(apps: Array<AssociatedApp>): Promise<void> {
       const solo: RouteRecordRaw = {
         path: `${app.slug}/:fileId(\\d+)`,
         name: app.slug,
-        component: () => import(`@/views/app/${app.slug}/${capitalize(app.slug)}View.vue`),
+        component: () => import(
+          `@/views/app/${app.slug}/${capitalize(app.slug)}View.vue`,
+        ),
       }
       router.addRoute('app', solo)
 
       const multi: RouteRecordRaw = {
         path: `${app.slug}/:roomId([A-Z]{6})`,
         name: `collaborative-${app.slug}`,
-        component: () => import(`@/views/app/${app.slug}/Collaborative${capitalize(app.slug)}View.vue`),
+        component: () => import(
+          `@/views/app/${app.slug}/Collaborative${capitalize(app.slug)}View.vue`,
+        ),
       }
       router.addRoute('app', multi)
     })
 
-  router.addRoute({ path: '/:pathName(.*)', redirect })
+  router.addRoute({
+    path: '/:pathName(.*)',
+    redirect,
+  })
 
   router.replace(router.currentRoute.value)
 }
@@ -55,4 +64,8 @@ function preventExit(e: Event): void {
   e.preventDefault()
 }
 
-export { initAppsRoutes, preventExit, redirect }
+export {
+  initAppsRoutes,
+  preventExit,
+  redirect,
+}

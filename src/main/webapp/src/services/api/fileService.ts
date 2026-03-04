@@ -17,57 +17,173 @@
 import type { CollaborationBody, FileBody, HistoryBody, MetadataBody } from '@/types'
 import { axiosInstance as axios } from '@/utils'
 
-const getFiles = async () => await axios.get('/api/file')
-
-const getShared = async () => await axios.get('/api/file/shared')
-
-const getStarred = async () => await axios.get('/api/file/starred')
-
-const getPublic = async () => await axios.get('/api/file/public')
-
-const saveFile = async (body: FileBody) => await axios.post('/api/file', body)
-
-const getFile = async (fileId: number) => await axios.get(`/api/file/${fileId}`)
-
-const setFile = async (fileId: number, body: FileBody) => await axios.put(`/api/file/${fileId}`, body)
-
-const deleteFile = async (fileId: number) => await axios.delete(`/api/file/${fileId}`)
-
-const setMetadata = async (fileId: number, body: MetadataBody) => await axios.put(`/api/file/${fileId}/metadata`, body)
-
-const getShare = async (fileId: number) => await axios.get(`/api/file/${fileId}`)
-
-async function saveShare(fileId: number, body: CollaborationBody) {
-  return await axios.post(`/api/file/${fileId}/share`, body)
+async function getFiles() {
+  return await axios.get(
+    '/api/file',
+  )
 }
 
-async function setShare(fileId: number, userId: number, body: CollaborationBody) {
-  return await axios.put(`/api/file/${fileId}/share/${userId}`, body)
+async function getShared() {
+  return await axios.get(
+    '/api/file/shared',
+  )
 }
 
-const deleteShare = async (fileId: number, userId: number) => await axios.delete(`/api/file/${fileId}/share/${userId}`)
-
-const deleteSharing = async (fileId: number) => await axios.delete(`/api/file/${fileId}/share`)
-
-const getHistories = async (fileId: number) => await axios.get(`/api/file/${fileId}/history`)
-
-async function createHistory(fileId: number, body: HistoryBody) {
-  return await axios.post(`/api/file/${fileId}/history`, body)
+async function getStarred() {
+  return await axios.get(
+    '/api/file/starred',
+  )
 }
 
-async function getHistory(fileId: number, historyId: number) {
-  return await axios.get(`/api/file/${fileId}/history/${historyId}`)
+async function getPublic() {
+  return await axios.get(
+    '/api/file/public',
+  )
 }
 
-async function deleteHistory(fileId: number, historyId: number) {
-  return await axios.delete(`/api/file/${fileId}/history/${historyId}`)
+async function saveFile(
+  body: FileBody,
+) {
+  return await axios.post(
+    '/api/file',
+    body,
+  )
 }
 
-async function revertHistory(fileId: number, historyId: number) {
-  return await axios.post(`/api/file/${fileId}/history/${historyId}/revert`)
+async function getFile(
+  fileId: number,
+) {
+  return await axios.get(
+    `/api/file/${fileId}`,
+  )
 }
 
-const deleteHistories = async (fileId: number) => await axios.delete(`/api/file/${fileId}/history`)
+async function setFile(
+  fileId: number,
+  body: FileBody,
+) {
+  return await axios.put(
+    `/api/file/${fileId}`,
+    body,
+  )
+}
+
+async function deleteFile(
+  fileId: number,
+) {
+  return await axios.delete(
+    `/api/file/${fileId}`,
+  )
+}
+
+async function setMetadata(
+  fileId: number,
+  body: MetadataBody,
+) {
+  return await axios.put(
+    `/api/file/${fileId}/metadata`,
+    body,
+  )
+}
+
+async function getShare(
+  fileId: number,
+) {
+  return await axios.get(
+    `/api/file/${fileId}`,
+  )
+}
+
+async function saveShare(
+  fileId: number,
+  body: CollaborationBody,
+) {
+  return await axios.post(
+    `/api/file/${fileId}/share`,
+    body,
+  )
+}
+
+async function setShare(
+  fileId: number,
+  userId: number,
+  body: CollaborationBody,
+) {
+  return await axios.put(
+    `/api/file/${fileId}/share/${userId}`,
+    body,
+  )
+}
+
+async function deleteShare(
+  fileId: number,
+  userId: number,
+) {
+  return await axios.delete(
+    `/api/file/${fileId}/share/${userId}`,
+  )
+}
+
+async function deleteSharing(
+  fileId: number,
+) {
+  return await axios.delete(
+    `/api/file/${fileId}/share`,
+  )
+}
+
+async function getHistories(
+  fileId: number,
+) {
+  return await axios.get(
+    `/api/file/${fileId}/history`,
+  )
+}
+
+async function createHistory(
+  fileId: number,
+  body: HistoryBody,
+) {
+  return await axios.post(
+    `/api/file/${fileId}/history`,
+    body,
+  )
+}
+
+async function getHistory(
+  fileId: number,
+  historyId: number,
+) {
+  return await axios.get(
+    `/api/file/${fileId}/history/${historyId}`,
+  )
+}
+
+async function deleteHistory(
+  fileId: number,
+  historyId: number,
+) {
+  return await axios.delete(
+    `/api/file/${fileId}/history/${historyId}`,
+  )
+}
+
+async function revertHistory(
+  fileId: number,
+  historyId: number,
+) {
+  return await axios.post(
+    `/api/file/${fileId}/history/${historyId}/revert`,
+  )
+}
+
+async function deleteHistories(
+  fileId: number,
+) {
+  return await axios.delete(
+    `/api/file/${fileId}/history`,
+  )
+}
 
 export {
   createHistory,

@@ -33,8 +33,14 @@ function getFormatedDuration(): void {
   const duration = dateToDuration(props.date)
   const { years, months, weeks, days, hours } = duration
 
-  if (!years && !months && !weeks && !days)
-    timeout.value = setTimeout(getFormatedDuration, hours && hours > 0 ? 600000 : 20000)
+  if (!years && !months && !weeks && !days) {
+    timeout.value = setTimeout(
+      getFormatedDuration,
+      hours && hours > 0
+        ? 600000
+        : 20000,
+    )
+  }
 
   formated.value = formatedDuration(duration)
 }

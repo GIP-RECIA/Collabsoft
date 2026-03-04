@@ -20,7 +20,13 @@ import { differenceInMilliseconds } from 'date-fns'
 import debounce from 'lodash.debounce'
 import { defineStore, storeToRefs } from 'pinia'
 import { ref } from 'vue'
-import { getFile, getFiles, getPublic, getShared, getStarred } from '@/services/api'
+import {
+  getFile,
+  getFiles,
+  getPublic,
+  getShared,
+  getStarred,
+} from '@/services/api'
 import { Navigation } from '@/types/enums'
 import { errorHandler } from '@/utils'
 import { useConfigurationStore } from './configurationStore.ts'
@@ -40,36 +46,42 @@ export const useFileStore = defineStore('file', () => {
   /**
    * Load files for a Navigation
    */
-  const loadFiles = debounce(async (requestedFiles: Navigation): Promise<void> => {
-    try {
-      let response
-      switch (requestedFiles) {
-        case Navigation.projects:
-          response = await getFiles()
-          break
-        case Navigation.favorites:
-          response = await getStarred()
-          break
-        case Navigation.shared:
-          response = await getShared()
-          break
-        case Navigation.public:
-          response = await getPublic()
-          break
+  const loadFiles = debounce(
+    async (requestedFiles: Navigation): Promise<void> => {
+      try {
+        let response
+        switch (requestedFiles) {
+          case Navigation.projects:
+            response = await getFiles()
+            break
+          case Navigation.favorites:
+            response = await getStarred()
+            break
+          case Navigation.shared:
+            response = await getShared()
+            break
+          case Navigation.public:
+            response = await getPublic()
+            break
+        }
+        if (response)
+          files.value = response.data
       }
-      if (response)
-        files.value = response.data
-    }
-    catch (e) {
-      errorHandler(e, 'loadFiles')
-    }
-    lastUpdated = new Date()
-  }, 200)
+      catch (e) {
+        errorHandler(e, 'loadFiles')
+      }
+      lastUpdated = new Date()
+    },
+    200,
+  )
 
   /**
    * Refresh files
    */
-  const refreshFiles = (instant: boolean = false, loading: boolean = false): void => {
+  const refreshFiles = (
+    instant: boolean = false,
+    loading: boolean = false,
+  ): void => {
     const { lastNavigation } = storeToRefs(configurationStore)
 
     if (instant || differenceInMilliseconds(new Date(), lastUpdated) > 5000) {
@@ -83,14 +95,18 @@ export const useFileStore = defineStore('file', () => {
   /**
    * Add a file
    */
-  const addFile = (file: File): void => {
+  const addFile = (
+    file: File,
+  ): void => {
     files.value?.push(file)
   }
 
   /**
    * Delete a file
    */
-  const deleteFile = (fileId: number): void => {
+  const deleteFile = (
+    fileId: number,
+  ): void => {
     if (!files.value)
       return
     const index = files.value.findIndex(file => file.id === fileId)
@@ -101,8 +117,15 @@ export const useFileStore = defineStore('file', () => {
   /**
    * Set a file title, description and pub form store ref files, file or both
    */
-  const setFile = (from: 'files' | 'file' | 'both', fileId: number | undefined, value: FileBody): void => {
-    const _setFile = (file: File | undefined, value: FileBody): void => {
+  const setFile = (
+    from: 'files' | 'file' | 'both',
+    fileId: number | undefined,
+    value: FileBody,
+  ): void => {
+    const _setFile = (
+      file: File | undefined,
+      value: FileBody,
+    ): void => {
       if (!file)
         return
       if (value.title)
@@ -144,8 +167,15 @@ export const useFileStore = defineStore('file', () => {
   /**
    * Load current file
    */
-  const loadFile = async (fileId: number, force: boolean = false): Promise<void> => {
-    if (!file.value || file.value.id !== fileId || force) {
+  const loadFile = async (
+    fileId: number,
+    force: boolean = false,
+  ): Promise<void> => {
+    if (
+      !file.value
+      || file.value.id !== fileId
+      || force
+    ) {
       try {
         const response = await getFile(fileId)
         file.value = response.data

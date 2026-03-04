@@ -31,14 +31,38 @@ const { mobile } = useDisplay()
 </script>
 
 <template>
-  <div class="d-flex align-center" :class="[mobile ? 'gc-2 mb-2' : 'gc-4 mb-4']">
-    <v-btn icon="fas fa-plus" variant="tonal" size="small" @click="isNew = true" />
+  <div
+    class="d-flex align-center"
+    :class="[mobile ? 'gc-2 mb-2' : 'gc-4 mb-4']"
+  >
     <v-btn
-      :icon="mobile ? 'fas fa-chalkboard-user' : undefined"
-      :prepend-icon="mobile ? undefined : 'fas fa-chalkboard-user'"
+      icon="fas fa-plus"
       variant="tonal"
-      :text="mobile ? undefined : t('button.rooms')"
-      :size="mobile ? 'small' : undefined"
+      size="small"
+      @click="isNew = true"
+    />
+    <v-btn
+      :icon="
+        mobile
+          ? 'fas fa-chalkboard-user'
+          : undefined
+      "
+      :prepend-icon="
+        mobile
+          ? undefined
+          : 'fas fa-chalkboard-user'
+      "
+      variant="tonal"
+      :text="
+        mobile
+          ? undefined
+          : t('button.rooms')
+      "
+      :size="
+        mobile
+          ? 'small'
+          : undefined
+      "
       :class="{ 'custom-height': !mobile }"
       @click="isRoom = true"
     />

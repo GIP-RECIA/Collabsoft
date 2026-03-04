@@ -34,7 +34,13 @@ const { isDrawer, drawerTab } = storeToRefs(homeStore)
 const { t } = useI18n()
 
 const isEdit = ref<boolean>(false)
-const tmp = ref<{ title: string, description: string | null }>({ title: '', description: '' })
+const tmp = ref<{
+  title: string
+  description: string | null
+}>({
+  title: '',
+  description: '',
+})
 
 function initForm(): void {
   isEdit.value = false
@@ -55,11 +61,13 @@ const canSave = computed<boolean>(() => {
   if (!file.value)
     return false
 
-  const hasTitle = tmp.value.title !== undefined && tmp.value.title.trim().length > 0
+  const hasTitle = tmp.value.title !== undefined
+    && tmp.value.title.trim().length > 0
   const titleHasChanged = tmp.value.title !== file.value.title
 
-  const tmpDesctiption
-    = tmp.value.description && tmp.value.description.trim().length > 0 ? tmp.value.description : null
+  const tmpDesctiption = tmp.value.description && tmp.value.description.trim().length > 0
+    ? tmp.value.description
+    : null
   const descriptionHasChanged = tmpDesctiption !== file.value?.description
 
   return hasTitle && (titleHasChanged || descriptionHasChanged)
@@ -69,8 +77,15 @@ async function save(): Promise<void> {
   if (!canSave.value || file.value === undefined)
     return
   try {
-    await setFile(file.value.id, tmp.value as FileBody)
-    setFileFromStore('both', file.value.id, tmp.value as FileBody)
+    await setFile(
+      file.value.id,
+      tmp.value as FileBody,
+    )
+    setFileFromStore(
+      'both',
+      file.value.id,
+      tmp.value as FileBody,
+    )
     isEdit.value = false
   }
   catch (e) {
@@ -113,7 +128,13 @@ onMounted((): void => initForm())
   />
   <div class="d-flex mb-2">
     <v-spacer />
-    <v-btn v-if="!isEdit" prepend-icon="fas fa-pen" :text="t('button.edit')" variant="tonal" @click="edit" />
+    <v-btn
+      v-if="!isEdit"
+      prepend-icon="fas fa-pen"
+      :text="t('button.edit')"
+      variant="tonal"
+      @click="edit"
+    />
     <div v-else>
       <v-btn
         prepend-icon="fas fa-xmark"

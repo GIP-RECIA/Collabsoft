@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-function charOTP(length: number = 6) {
+function charOTP(
+  length: number = 6,
+) {
   let otp = ''
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   for (let i = 0; i < length; i++) {
@@ -25,7 +27,9 @@ function charOTP(length: number = 6) {
   return otp
 }
 
-function slugify(value: string): string {
+function slugify(
+  value: string,
+): string {
   return String(value)
     .normalize('NFKD') // split accented characters into their base characters and diacritical marks
     .replace(/[\u0300-\u036F]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
@@ -36,7 +40,10 @@ function slugify(value: string): string {
     .replace(/-+/g, '-') // remove consecutive hyphens
 }
 
-function interpolate(input: string, params: object): string {
+function interpolate(
+  input: string,
+  params: object,
+): string {
   const names = Object.keys(params)
   const vals = Object.values(params)
 
@@ -44,4 +51,8 @@ function interpolate(input: string, params: object): string {
   return new Function(...names, `return \`${input}\`;`)(...vals)
 }
 
-export { charOTP, interpolate, slugify }
+export {
+  charOTP,
+  interpolate,
+  slugify,
+}

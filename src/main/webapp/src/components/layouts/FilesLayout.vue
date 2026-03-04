@@ -40,8 +40,18 @@ const { t } = useI18n()
 const { xs } = useDisplay()
 
 const headers = ref<Array<any>>([
-  { title: t('information.title'), key: 'title', sortable: true, width: '100%' },
-  { title: '', key: 'actions', sortable: false, align: 'end' },
+  {
+    title: t('information.title'),
+    key: 'title',
+    sortable: true,
+    width: '100%',
+  },
+  {
+    title: '',
+    key: 'actions',
+    sortable: false,
+    align: 'end',
+  },
 ])
 
 function addColumnEditionDate(): void {
@@ -67,9 +77,20 @@ function removeColumnEditionDate(): void {
     headers.value.splice(index, 1)
 }
 
-watch(xs, (newValue): void => (newValue ? removeColumnEditionDate() : addColumnEditionDate()), { immediate: true })
+watch(
+  xs,
+  (newValue): void => (
+    newValue
+      ? removeColumnEditionDate()
+      : addColumnEditionDate()
+  ),
+  { immediate: true },
+)
 
-const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 'title', order: 'asc' }])
+const sortBy = useSessionStorage<Array<any>>(
+  `${__APP_SLUG__}.sort-by`,
+  [{ key: 'title', order: 'asc' }],
+)
 </script>
 
 <!-- eslint-disable vue/valid-v-slot -->
@@ -92,7 +113,11 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
   >
     <template #item.title="{ item }">
       <router-link
-        :to="item.associatedApp.enabled || isDev ? { name: item.associatedApp.slug, params: { fileId: item.id } } : ''"
+        :to="
+          item.associatedApp.enabled || isDev
+            ? { name: item.associatedApp.slug, params: { fileId: item.id } }
+            : ''
+        "
         class="v-data-table-column-title"
       >
         <v-icon
@@ -104,7 +129,8 @@ const sortBy = useSessionStorage<Array<any>>(`${__APP_SLUG__}.sort-by`, [{ key: 
           "
           class="text-medium-emphasis ms-2"
         />
-        <span class="text-truncated ms-4">{{ item.title }}</span>
+        <span class="text-truncated ms-4">
+          {{ item.title }}</span>
       </router-link>
     </template>
     <template #item.editionDate="{ item }">

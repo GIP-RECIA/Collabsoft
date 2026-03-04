@@ -54,9 +54,13 @@ export const useAppStore = defineStore('app', () => {
   const title = computed<string>(() => {
     const { file } = storeToRefs(fileStore)
 
-    const fileName = file.value ? file.value.title : ''
+    const fileName = file.value
+      ? file.value.title
+      : ''
 
-    return isRoom.value ? _roomId.value! : fileName
+    return isRoom.value
+      ? _roomId.value!
+      : fileName
   })
 
   /**
@@ -65,7 +69,9 @@ export const useAppStore = defineStore('app', () => {
   const _autoSave = ref<boolean>(true)
   const isAutoSave = computed<boolean>({
     get() {
-      return room.value ? room.value.saveOnFile : _autoSave.value
+      return room.value
+        ? room.value.saveOnFile
+        : _autoSave.value
     },
     set(value) {
       if (canAutoSave.value)
@@ -79,7 +85,9 @@ export const useAppStore = defineStore('app', () => {
    * Auto save is available state
    */
   const canAutoSave = computed<boolean>(() => {
-    return !isRoom.value ? true : room.value?.fileId !== undefined
+    return !isRoom.value
+      ? true
+      : room.value?.fileId !== undefined
   })
 
   /* -- File -- */
@@ -100,14 +108,25 @@ export const useAppStore = defineStore('app', () => {
    * List of owned rooms
    */
   const _ownedRooms = useSessionStorage<
-    Array<{ roomId: string, appType: string, fileId: number | undefined, saveOnFile: boolean }>
-  >(`${__APP_SLUG__}.owned-rooms`, [])
+    Array<{
+      roomId: string
+      appType: string
+      fileId: number | undefined
+      saveOnFile: boolean
+    }>
+  >(
+    `${__APP_SLUG__}.owned-rooms`,
+    [],
+  )
 
   /**
    * Room information if owner
    */
   const room = computed(() =>
-    _ownedRooms.value.find(room => room.roomId === _roomId.value && room.appType === _appType.value),
+    _ownedRooms.value.find(room => (
+      room.roomId === _roomId.value
+      && room.appType === _appType.value
+    )),
   )
 
   /**
@@ -123,15 +142,36 @@ export const useAppStore = defineStore('app', () => {
   /**
    * Initialize room and navigate to it
    */
-  const initRoom = (roomId: string, appType: string, fileId: number | undefined, saveOnFile: boolean = false): void => {
+  const initRoom = (
+    roomId: string,
+    appType: string,
+    fileId: number | undefined,
+    saveOnFile: boolean = false,
+  ): void => {
     _initRoomFileId.value = fileId
-    _ownedRooms.value.push({ roomId, appType, fileId, saveOnFile })
-    joinRoom(roomId, appType)
+    _ownedRooms.value.push({
+      roomId,
+      appType,
+      fileId,
+      saveOnFile,
+    })
+    joinRoom(
+      roomId,
+      appType,
+    )
   }
 
-  const joinRoom = (roomId: string, appType: string): void => {
-    const route: RouteLocationRaw = { name: `collaborative-${appType}`, params: { roomId } }
-    isApp.value ? router.replace(route) : router.push(route)
+  const joinRoom = (
+    roomId: string,
+    appType: string,
+  ): void => {
+    const route: RouteLocationRaw = {
+      name: `collaborative-${appType}`,
+      params: { roomId },
+    }
+    isApp.value
+      ? router.replace(route)
+      : router.push(route)
   }
 
   /**
@@ -152,14 +192,20 @@ export const useAppStore = defineStore('app', () => {
   /**
    * Initialize app context
    */
-  const initAppContext = (roomId: string | undefined, fileId: number | undefined, routeName: string): void => {
+  const initAppContext = (
+    roomId: string | undefined,
+    fileId: number | undefined,
+    routeName: string,
+  ): void => {
     const { loadFile } = fileStore
     const { file } = storeToRefs(fileStore)
 
     isApp.value = true
     _fileId.value = fileId
     _roomId.value = roomId
-    _appType.value = routeName.startsWith('collaborative-') ? routeName.substring('collaborative-'.length) : routeName
+    _appType.value = routeName.startsWith('collaborative-')
+      ? routeName.substring('collaborative-'.length)
+      : routeName
 
     if (fileId !== undefined) {
       if (!file.value)

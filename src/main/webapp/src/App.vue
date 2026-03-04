@@ -21,13 +21,24 @@ import { useRouter } from 'vue-router'
 import { useDisplay } from 'vuetify'
 import LoginDialog from '@/components/dialogs/LoginDialog.vue'
 import SettingsDialog from '@/components/dialogs/SettingsDialog.vue'
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import {
+  useAppStore,
+  useConfigurationStore,
+  useFileStore,
+  useHomeStore,
+} from '@/stores'
 
 const appStore = useAppStore()
 const { isApp } = storeToRefs(appStore)
 
 const configurationStore = useConfigurationStore()
-const { configuration, isInit, isReady, appName, lastNavigation } = storeToRefs(configurationStore)
+const {
+  configuration,
+  isInit,
+  isReady,
+  appName,
+  lastNavigation,
+} = storeToRefs(configurationStore)
 
 const fileStore = useFileStore()
 const { refreshFiles } = fileStore

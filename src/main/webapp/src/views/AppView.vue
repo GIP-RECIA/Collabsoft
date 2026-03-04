@@ -23,7 +23,12 @@ import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import ConfirmationDialog from '@/components/dialogs/ConfirmationDialog.vue'
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue'
 import FileMenu from '@/components/FileMenu.vue'
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import {
+  useAppStore,
+  useConfigurationStore,
+  useFileStore,
+  useHomeStore,
+} from '@/stores'
 import { Navigation, Tabs } from '@/types/enums'
 import { preventExit } from '@/utils'
 
@@ -31,7 +36,13 @@ const isDev = import.meta.env.DEV
 
 const appStore = useAppStore()
 const { destroyRoom, initAppContext, exitAppContext } = appStore
-const { isRoom, title, isAutoSave, canAutoSave, isRoomOwner } = storeToRefs(appStore)
+const {
+  isRoom,
+  title,
+  isAutoSave,
+  canAutoSave,
+  isRoomOwner,
+} = storeToRefs(appStore)
 
 const configurationsStore = useConfigurationStore()
 const { infoName } = storeToRefs(configurationsStore)
@@ -76,7 +87,9 @@ function onAutoSave(): void {
 }
 
 function goBack(): void {
-  window.history.length > 2 ? router.back() : router.push({ name: Navigation.projects })
+  window.history.length > 2
+    ? router.back()
+    : router.push({ name: Navigation.projects })
 }
 
 const canLeave = ref<boolean>(false)
@@ -100,7 +113,9 @@ const confirmationLeaveDescription = computed<string>(() => {
   return `dialog.leave.${info}.description`
 })
 
-function leave(result: Confirmation): void {
+function leave(
+  result: Confirmation,
+): void {
   confirmationLeave.value = false
 
   const leaveApp = (): void => {
@@ -120,7 +135,11 @@ watch(
   () => route,
   () => {
     const { fileId, roomId } = route.params
-    initAppContext(roomId as string, fileId ? Number.parseInt(fileId as string) : undefined, route.name as string)
+    initAppContext(
+      roomId as string,
+      fileId ? Number.parseInt(fileId as string) : undefined,
+      route.name as string,
+    )
   },
   { immediate: true, deep: true },
 )
@@ -159,13 +178,23 @@ onUnmounted(() => {
   <v-layout full-height>
     <v-main>
       <div class="d-flex flex-column h-100">
-        <v-toolbar :title="title" density="compact">
+        <v-toolbar
+          :title="title"
+          density="compact"
+        >
           <template #prepend>
-            <v-btn icon="fas fa-arrow-left" size="small" @click="isRoom ? goBack() : exit()" />
+            <v-btn
+              icon="fas fa-arrow-left"
+              size="small"
+              @click="isRoom ? goBack() : exit()"
+            />
           </template>
           <template #append>
             <div v-if="!isRoom">
-              <v-tooltip :text="t(`menu.item.${isStarred ? 'unstar' : 'star'}`)" location="bottom center">
+              <v-tooltip
+                :text="t(`menu.item.${isStarred ? 'unstar' : 'star'}`)"
+                location="bottom center"
+              >
                 <template #activator="{ props }">
                   <v-btn
                     v-if="isDev"
@@ -177,7 +206,10 @@ onUnmounted(() => {
                   />
                 </template>
               </v-tooltip>
-              <v-tooltip :text="t('menu.item.information')" location="bottom center">
+              <v-tooltip
+                :text="t('menu.item.information')"
+                location="bottom center"
+              >
                 <template #activator="{ props }">
                   <v-btn
                     v-bind="props"
@@ -188,7 +220,10 @@ onUnmounted(() => {
                   />
                 </template>
               </v-tooltip>
-              <v-tooltip :text="t('menu.item.share')" location="bottom center">
+              <v-tooltip
+                :text="t('menu.item.share')"
+                location="bottom center"
+              >
                 <template #activator="{ props }">
                   <v-btn
                     v-bind="props"
@@ -210,12 +245,20 @@ onUnmounted(() => {
                   v-bind="props"
                   icon="fas fa-arrows-rotate"
                   size="small"
-                  :class="[isAutoSave ? 'text-medium-emphasis text-info' : 'text-disabled']"
+                  :class="[
+                    isAutoSave
+                      ? 'text-medium-emphasis text-info'
+                      : 'text-disabled',
+                  ]"
                   @click="onAutoSave"
                 />
               </template>
             </v-tooltip>
-            <FileMenu :file-id="file?.id ?? -1" size="small" force-refresh />
+            <FileMenu
+              :file-id="file?.id ?? -1"
+              size="small"
+              force-refresh
+            />
           </template>
         </v-toolbar>
         <router-view class="app-view-container" />

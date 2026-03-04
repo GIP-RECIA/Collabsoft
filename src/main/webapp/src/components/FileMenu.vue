@@ -18,7 +18,12 @@
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import {
+  useAppStore,
+  useConfigurationStore,
+  useFileStore,
+  useHomeStore,
+} from '@/stores'
 import { Tabs } from '@/types/enums'
 import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils'
 
@@ -77,14 +82,20 @@ async function onExport(): Promise<void> {
   await getFile()
   if (!file.value || !isNcAvailable.value)
     return
-  await saveOnNc(toFile(file.value), file.value.associatedApp.extension)
+  await saveOnNc(
+    toFile(file.value),
+    file.value.associatedApp.extension,
+  )
 }
 
 async function onDownload(): Promise<void> {
   await getFile()
   if (!file.value)
     return
-  downloadFileOrBlob(toFile(file.value), `${file.value.title}.${file.value.associatedApp.extension}`)
+  downloadFileOrBlob(
+    toFile(file.value),
+    `${file.value.title}.${file.value.associatedApp.extension}`,
+  )
 }
 
 async function onDelete(): Promise<void> {
@@ -107,7 +118,10 @@ async function onDelete(): Promise<void> {
       />
     </template>
 
-    <v-list rounded="xl" class="pa-2">
+    <v-list
+      rounded="xl"
+      class="pa-2"
+    >
       <div v-if="!isApp">
         <v-list-item
           v-if="isDev"
@@ -122,7 +136,12 @@ async function onDelete(): Promise<void> {
           rounded="xl"
           @click="onInformation"
         />
-        <v-list-item prepend-icon="fas fa-share-nodes" :title="t('menu.item.share')" rounded="xl" @click="onShare" />
+        <v-list-item
+          prepend-icon="fas fa-share-nodes"
+          :title="t('menu.item.share')"
+          rounded="xl"
+          @click="onShare"
+        />
       </div>
       <div v-if="fileId > -1">
         <v-list-item
@@ -139,9 +158,17 @@ async function onDelete(): Promise<void> {
           rounded="xl"
           @click="onExport"
         />
-        <v-list-item prepend-icon="fas fa-download" :title="t('menu.item.download')" rounded="xl" @click="onDownload" />
+        <v-list-item
+          prepend-icon="fas fa-download"
+          :title="t('menu.item.download')"
+          rounded="xl"
+          @click="onDownload"
+        />
       </div>
-      <v-divider v-if="fileId > -1" class="my-2" />
+      <v-divider
+        v-if="fileId > -1"
+        class="my-2"
+      />
       <v-list-item
         v-if="!isApp"
         prepend-icon="fas fa-trash"

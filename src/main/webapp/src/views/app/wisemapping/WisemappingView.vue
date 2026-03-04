@@ -30,7 +30,13 @@ const { user } = storeToRefs(configurationStore)
 const fileStore = useFileStore()
 const { file } = storeToRefs(fileStore)
 
-const apiUrl = computed<string | undefined>(() => (file.value ? `${VITE_API_URI}/api/file` : undefined))
+const apiUrl = computed<string | undefined>(
+  () => (
+    file.value
+      ? `${VITE_API_URI}/api/file`
+      : undefined
+  ),
+)
 </script>
 
 <template>

@@ -67,7 +67,11 @@ async function deleteItem(result: Confirmation): Promise<void> {
   <v-layout full-height>
     <v-main>
       <NavigationDrawer />
-      <v-container fluid class="h-100 d-flex flex-column" :class="[mobile ? 'pa-2' : '']">
+      <v-container
+        fluid
+        class="h-100 d-flex flex-column"
+        :class="[mobile ? 'pa-2' : '']"
+      >
         <router-view />
         <FilesLayout :files="files" />
       </v-container>

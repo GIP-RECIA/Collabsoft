@@ -19,24 +19,45 @@ import { formatDuration, intervalToDuration } from 'date-fns'
 
 type dateType = string | number | Date
 
-function dateToDuration(date: dateType): Duration {
+function dateToDuration(
+  date: dateType,
+): Duration {
   return intervalToDuration({
     start: date,
     end: Date.now(),
   })
 }
 
-function formatedDuration(duration: Duration): string {
+function formatedDuration(
+  duration: Duration,
+): string {
   const { years, months, weeks, days, hours, minutes, seconds } = duration
 
   if (!years && !months && !weeks && !days && !hours && !minutes && !seconds)
     return formatDuration({ seconds: 1 }, { format: ['seconds'] })
 
-  const units: { [key: string]: number | undefined } = { years, months, weeks, days, hours, minutes, seconds }
+  const units: {
+    [key: string]: number | undefined
+  } = {
+    years,
+    months,
+    weeks,
+    days,
+    hours,
+    minutes,
+    seconds,
+  }
 
   for (const [unit, value] of Object.entries(units)) {
     if (value && value > 0) {
-      return formatDuration({ [unit]: value }, { format: [unit] as Array<keyof Duration> })
+      return formatDuration(
+        {
+          [unit]: value,
+        },
+        {
+          format: [unit] as Array<keyof Duration>,
+        },
+      )
     }
   }
 
@@ -44,4 +65,7 @@ function formatedDuration(duration: Duration): string {
   return ''
 }
 
-export { dateToDuration, formatedDuration }
+export {
+  dateToDuration,
+  formatedDuration,
+}

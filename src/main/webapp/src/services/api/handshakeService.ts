@@ -16,6 +16,12 @@
 
 import { axiosInstance as axios } from '@/utils'
 
-const handshake = async () => await axios.get('/api/handshake')
+async function handshake() {
+  return await axios.get(
+    '/api/handshake',
+  )
+}
 
-export { handshake }
+export {
+  handshake,
+}

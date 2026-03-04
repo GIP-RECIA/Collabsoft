@@ -21,4 +21,6 @@ function register(app: App): void {
   // app.directive('')
 }
 
-export { register }
+export {
+  register,
+}

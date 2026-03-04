@@ -15,7 +15,12 @@
  */
 
 import { acceptHMRUpdate, createPinia } from 'pinia'
-import { useAppStore, useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
+import {
+  useAppStore,
+  useConfigurationStore,
+  useFileStore,
+  useHomeStore,
+} from '@/stores'
 
 const { hot } = import.meta
 

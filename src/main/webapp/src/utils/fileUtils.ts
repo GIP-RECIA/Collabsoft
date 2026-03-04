@@ -16,7 +16,10 @@
 
 import type { File as cFile } from '@/types'
 
-function downloadFileOrBlob(fileOrBlob: File | Blob, filename: string): void {
+function downloadFileOrBlob(
+  fileOrBlob: File | Blob,
+  filename: string,
+): void {
   const link = document.createElement('a')
 
   link.href = URL.createObjectURL(fileOrBlob)
@@ -36,9 +39,16 @@ function downloadFileOrBlob(fileOrBlob: File | Blob, filename: string): void {
 }
 
 function toFile(file: cFile): File {
-  return new File([file.data], file.title, {
-    type: `application/${file.associatedApp.type};charset=utf-8`,
-  })
+  return new File(
+    [file.data],
+    file.title,
+    {
+      type: `application/${file.associatedApp.type};charset=utf-8`,
+    },
+  )
 }
 
-export { downloadFileOrBlob, toFile }
+export {
+  downloadFileOrBlob,
+  toFile,
+}
