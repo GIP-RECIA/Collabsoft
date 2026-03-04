@@ -86,7 +86,7 @@ function errorHandler(
   toastOrI18n?: boolean | string,
 ): void {
   let showToast: boolean = typeof toastOrI18n == 'boolean' && toastOrI18n
-  const i18nHandled: Array<number> = [401, 404, 500]
+  const i18nHandled: number[] = [401, 404, 500]
   let message: string, error: any
 
   if (axios.isAxiosError(e)) {

@@ -31,6 +31,6 @@ export interface File {
   editionDate: string
   associatedApp: AssociatedApp
   pub: boolean
-  collaborations?: Array<Collaboration>
-  histories?: Array<History>
+  collaborations?: Collaboration[]
+  histories?: History[]
 }

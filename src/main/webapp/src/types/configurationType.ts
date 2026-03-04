@@ -39,6 +39,6 @@ export interface Configuration {
         }
       }
     }
-    apps: Array<AssociatedApp>
+    apps: AssociatedApp[]
   }
 }

@@ -33,12 +33,18 @@ const { isShareInRoom } = storeToRefs(homeStore)
 
 const { t } = useI18n()
 
-const roles: Array<Role> = [Role.editor, Role.readonly]
+const roles: Role[] = [
+  Role.editor,
+  Role.readonly,
+]
 
 const newUser = ref<any>()
 const newRole = ref<Role>()
 
-function updateRole(collaboration: Collaboration, newValue: Role): void {
+function updateRole(
+  collaboration: Collaboration,
+  newValue: Role,
+): void {
   if (newValue !== getRole(collaboration.role))
     refreshFile()
 }

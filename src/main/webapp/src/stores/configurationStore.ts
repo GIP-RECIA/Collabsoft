@@ -107,7 +107,7 @@ export const useConfigurationStore = defineStore('configuration', () => {
 
   /* -- Apps -- */
 
-  const availableApps = computed<Array<AssociatedApp>>(() => {
+  const availableApps = computed<AssociatedApp[]>(() => {
     if (!configuration.value)
       return []
     return isDev

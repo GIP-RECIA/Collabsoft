@@ -15,7 +15,7 @@
  */
 
 const styleObserver = new MutationObserver(
-  (mutationList: Array<MutationRecord>) => {
+  (mutationList: MutationRecord[]) => {
     for (const mutation of mutationList) {
       if (
         mutation.type === 'attributes'
@@ -28,7 +28,7 @@ const styleObserver = new MutationObserver(
 )
 
 const headObserver = new MutationObserver(
-  (mutationList: Array<MutationRecord>) => {
+  (mutationList: MutationRecord[]) => {
     for (const mutation of mutationList) {
       if (
         mutation.type === 'childList'

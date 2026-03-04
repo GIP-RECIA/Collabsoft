@@ -41,7 +41,7 @@ export const useFileStore = defineStore('file', () => {
   /**
    * List of files
    */
-  const files = ref<Array<File> | undefined>()
+  const files = ref<File[] | undefined>()
 
   /**
    * Load files for a Navigation

@@ -55,7 +55,7 @@ function formatedDuration(
           [unit]: value,
         },
         {
-          format: [unit] as Array<keyof Duration>,
+          format: [unit] as (keyof Duration)[],
         },
       )
     }

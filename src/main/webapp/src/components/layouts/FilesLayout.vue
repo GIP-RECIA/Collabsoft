@@ -26,7 +26,7 @@ import FileMenu from '@/components/FileMenu.vue'
 import { useHomeStore } from '@/stores'
 
 defineProps<{
-  files: Array<File> | undefined
+  files: File[] | undefined
 }>()
 
 const isDev = import.meta.env.DEV
@@ -39,7 +39,7 @@ const { search } = storeToRefs(homeStore)
 const { t } = useI18n()
 const { xs } = useDisplay()
 
-const headers = ref<Array<any>>([
+const headers = ref<any[]>([
   {
     title: t('information.title'),
     key: 'title',
@@ -87,7 +87,7 @@ watch(
   { immediate: true },
 )
 
-const sortBy = useSessionStorage<Array<any>>(
+const sortBy = useSessionStorage<any[]>(
   `${__APP_SLUG__}.sort-by`,
   [{ key: 'title', order: 'asc' }],
 )

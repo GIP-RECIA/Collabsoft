@@ -26,7 +26,7 @@ const redirect: RouteRecordRedirectOption = () => {
 }
 
 async function initAppsRoutes(
-  apps: Array<AssociatedApp>,
+  apps: AssociatedApp[],
 ): Promise<void> {
   const router: Router = (await import('@/router')).default
 

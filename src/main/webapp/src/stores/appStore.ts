@@ -108,12 +108,12 @@ export const useAppStore = defineStore('app', () => {
    * List of owned rooms
    */
   const _ownedRooms = useSessionStorage<
-    Array<{
+    {
       roomId: string
       appType: string
       fileId: number | undefined
       saveOnFile: boolean
-    }>
+    }[]
   >(
     `${__APP_SLUG__}.owned-rooms`,
     [],
