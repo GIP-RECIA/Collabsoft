@@ -18,9 +18,9 @@ import axios from 'axios'
 import { storeToRefs } from 'pinia'
 import { toast } from 'vue3-toastify'
 import i18n from '@/plugins/i18n.ts'
-import { saveNcFile } from '@/services/api'
-import { useConfigurationStore } from '@/stores'
-import { errorHandler, interpolate } from '@/utils'
+import { saveNcFile } from '@/services/api/index.ts'
+import { useConfigurationStore } from '@/stores/index.ts'
+import { errorHandler, interpolate } from '@/utils/index.ts'
 
 const { VITE_AXIOS_TIMEOUT } = import.meta.env
 

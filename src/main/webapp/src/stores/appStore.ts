@@ -20,7 +20,7 @@ import { useSessionStorage } from '@vueuse/core'
 import { defineStore, storeToRefs } from 'pinia'
 import { computed, readonly, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { interpolate } from '@/utils'
+import { interpolate } from '@/utils/index.ts'
 import { useConfigurationStore } from './configurationStore.ts'
 import { useFileStore } from './fileStore.ts'
 

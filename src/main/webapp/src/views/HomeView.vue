@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import type { Confirmation } from '@/types'
+import type { Confirmation } from '@/types/index.ts'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -27,9 +27,9 @@ import RoomDialog from '@/components/dialogs/RoomDialog.vue'
 import InformationDrawer from '@/components/drawers/information/InformationDrawer.vue'
 import NavigationDrawer from '@/components/drawers/NavigationDrawer.vue'
 import FilesLayout from '@/components/layouts/FilesLayout.vue'
-import { deleteFile } from '@/services/api'
-import { useFileStore, useHomeStore } from '@/stores'
-import { errorHandler } from '@/utils'
+import { deleteFile } from '@/services/api/index.ts'
+import { useFileStore, useHomeStore } from '@/stores/index.ts'
+import { errorHandler } from '@/utils/index.ts'
 
 const fileStore = useFileStore()
 const { deleteFile: deleteFileFromStore } = fileStore

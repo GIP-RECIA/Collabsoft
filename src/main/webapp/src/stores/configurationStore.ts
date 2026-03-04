@@ -15,12 +15,17 @@
  */
 
 /* eslint-disable ts/no-use-before-define */
-import type { AssociatedApp, Configuration, Soffit } from '@/types'
+import type { AssociatedApp, Configuration, Soffit } from '@/types/index.ts'
 import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
-import { getConfiguration } from '@/services/api'
-import { errorHandler, initToken, setNcUri, useEntTheme } from '@/utils'
-import { initAppsRoutes } from '@/utils/routerUtils.ts'
+import { getConfiguration } from '@/services/api/index.ts'
+import {
+  errorHandler,
+  initAppsRoutes,
+  initToken,
+  setNcUri,
+  useEntTheme,
+} from '@/utils/index.ts'
 
 const isDev = import.meta.env.DEV
 

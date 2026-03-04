@@ -23,9 +23,9 @@ import {
   useConfigurationStore,
   useFileStore,
   useHomeStore,
-} from '@/stores'
-import { Tabs } from '@/types/enums'
-import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils'
+} from '@/stores/index.ts'
+import { Tabs } from '@/types/enums/index.ts'
+import { downloadFileOrBlob, saveOnNc, toFile } from '@/utils/index.ts'
 
 const props = defineProps<{
   fileId: number

@@ -18,8 +18,8 @@
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, onUnmounted } from 'vue'
 import { useTheme } from 'vuetify'
-import { useAppStore, useConfigurationStore } from '@/stores'
-import { headObserver, styleObserver } from '@/utils'
+import { useAppStore, useConfigurationStore } from '@/stores/index.ts'
+import { headObserver, styleObserver } from '@/utils/index.ts'
 import '@gip-recia/tldraw-webcomponent'
 
 const { VITE_API_URI } = import.meta.env

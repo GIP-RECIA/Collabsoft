@@ -24,8 +24,8 @@ import HistoriesTab from '@/components/drawers/information/tabs/HistoriesTab.vue
 import InformationTab from '@/components/drawers/information/tabs/InformationTab.vue'
 import ShareTab from '@/components/drawers/information/tabs/ShareTab.vue'
 import DurationSpan from '@/components/DurationSpan.vue'
-import { useFileStore, useHomeStore } from '@/stores'
-import { Tabs } from '@/types/enums'
+import { useFileStore, useHomeStore } from '@/stores/index.ts'
+import { Tabs } from '@/types/enums/index.ts'
 
 const { VITE_API_URI } = import.meta.env
 

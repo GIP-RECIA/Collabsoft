@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import type { Confirmation } from '@/types'
+import type { Confirmation } from '@/types/index.ts'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -28,9 +28,9 @@ import {
   useConfigurationStore,
   useFileStore,
   useHomeStore,
-} from '@/stores'
-import { Navigation, Tabs } from '@/types/enums'
-import { preventExit } from '@/utils'
+} from '@/stores/index.ts'
+import { Navigation, Tabs } from '@/types/enums/index.ts'
+import { preventExit } from '@/utils/index.ts'
 
 const isDev = import.meta.env.DEV
 

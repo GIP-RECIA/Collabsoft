@@ -18,7 +18,7 @@
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
 import { useDisplay } from 'vuetify'
-import { useConfigurationStore, useHomeStore } from '@/stores'
+import { useConfigurationStore, useHomeStore } from '@/stores/index.ts'
 
 const configurationStore = useConfigurationStore()
 const { isSettings } = storeToRefs(configurationStore)

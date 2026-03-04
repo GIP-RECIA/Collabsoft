@@ -15,7 +15,7 @@
  */
 
 /* eslint-disable ts/no-use-before-define */
-import type { File, FileBody } from '@/types'
+import type { File, FileBody } from '@/types/index.ts'
 import { differenceInMilliseconds } from 'date-fns'
 import debounce from 'lodash.debounce'
 import { defineStore, storeToRefs } from 'pinia'
@@ -26,9 +26,9 @@ import {
   getPublic,
   getShared,
   getStarred,
-} from '@/services/api'
-import { Navigation } from '@/types/enums'
-import { errorHandler } from '@/utils'
+} from '@/services/api/index.ts'
+import { Navigation } from '@/types/enums/index.ts'
+import { errorHandler } from '@/utils/index.ts'
 import { useConfigurationStore } from './configurationStore.ts'
 
 export const useFileStore = defineStore('file', () => {

@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-import type { CollaborationBody, FileBody, HistoryBody, MetadataBody } from '@/types'
-import { axiosInstance as axios } from '@/utils'
+import type {
+  CollaborationBody,
+  FileBody,
+  HistoryBody,
+  MetadataBody,
+} from '@/types/index.ts'
+import { axiosInstance as axios } from '@/utils/index.ts'
 
 async function getFiles() {
   return await axios.get(

@@ -15,7 +15,7 @@
 -->
 
 <script setup lang="ts">
-import type { File } from '@/types'
+import type { File } from '@/types/index.ts'
 import { useSessionStorage } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
@@ -23,7 +23,7 @@ import { useI18n } from 'vue-i18n'
 import { useDisplay } from 'vuetify'
 import DurationSpan from '@/components/DurationSpan.vue'
 import FileMenu from '@/components/FileMenu.vue'
-import { useHomeStore } from '@/stores'
+import { useHomeStore } from '@/stores/index.ts'
 
 defineProps<{
   files: File[] | undefined

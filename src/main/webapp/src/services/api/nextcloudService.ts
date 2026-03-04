@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ncInstance as axios } from '@/utils'
+import { ncInstance as axios } from '@/utils/index.ts'
 
 async function getNcFile(userID: string, fileUri: string) {
   return await axios.get(

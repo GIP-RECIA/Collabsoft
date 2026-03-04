@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
-import { useConfigurationStore, useFileStore } from '@/stores'
+import { useConfigurationStore, useFileStore } from '@/stores/index.ts'
 import '@gip-recia/wisemapping-webcomponent'
 
 const isDev = import.meta.env.DEV

@@ -15,14 +15,14 @@
 -->
 
 <script setup lang="ts">
-import type { FileBody } from '@/types'
+import type { FileBody } from '@/types/index.ts'
 import { format } from 'date-fns'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { setFile } from '@/services/api'
-import { useFileStore, useHomeStore } from '@/stores'
-import { errorHandler } from '@/utils'
+import { setFile } from '@/services/api/index.ts'
+import { useFileStore, useHomeStore } from '@/stores/index.ts'
+import { errorHandler } from '@/utils/index.ts'
 
 const fileStore = useFileStore()
 const { setFile: setFileFromStore } = fileStore

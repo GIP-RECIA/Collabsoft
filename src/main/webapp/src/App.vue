@@ -26,7 +26,7 @@ import {
   useConfigurationStore,
   useFileStore,
   useHomeStore,
-} from '@/stores'
+} from '@/stores/index.ts'
 
 const appStore = useAppStore()
 const { isApp } = storeToRefs(appStore)

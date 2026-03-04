@@ -15,8 +15,8 @@
  */
 
 import { createRouter, createWebHistory } from 'vue-router'
-import { Navigation } from '@/types/enums'
-import { redirect } from '@/utils'
+import { Navigation } from '@/types/enums/index.ts'
+import { redirect } from '@/utils/index.ts'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

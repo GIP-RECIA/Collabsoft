@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { File as cFile } from '@/types'
+import type { File as cFile } from '@/types/index.ts'
 
 function downloadFileOrBlob(
   fileOrBlob: File | Blob,

@@ -18,8 +18,8 @@
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAppStore, useFileStore, useHomeStore } from '@/stores'
-import { charOTP } from '@/utils'
+import { useAppStore, useFileStore, useHomeStore } from '@/stores/index.ts'
+import { charOTP } from '@/utils/index.ts'
 
 const appStore = useAppStore()
 const { initRoom } = appStore

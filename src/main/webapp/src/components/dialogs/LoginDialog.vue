@@ -19,8 +19,8 @@ import debounce from 'lodash.debounce'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useConfigurationStore } from '@/stores'
-import { initToken } from '@/utils'
+import { useConfigurationStore } from '@/stores/index.ts'
+import { initToken } from '@/utils/index.ts'
 
 const configurationStore = useConfigurationStore()
 const { init } = configurationStore

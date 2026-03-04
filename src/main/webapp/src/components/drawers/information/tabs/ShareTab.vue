@@ -15,12 +15,12 @@
 -->
 
 <script setup lang="ts">
-import type { Collaboration } from '@/types'
+import type { Collaboration } from '@/types/index.ts'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useFileStore, useHomeStore } from '@/stores'
-import { getRole, Role } from '@/types/enums'
+import { useFileStore, useHomeStore } from '@/stores/index.ts'
+import { getRole, Role } from '@/types/enums/index.ts'
 
 const isDev = import.meta.env.DEV
 

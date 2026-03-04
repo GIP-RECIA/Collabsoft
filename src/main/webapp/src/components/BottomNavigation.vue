@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { useDisplay } from 'vuetify'
-import { useFileStore } from '@/stores'
+import { useFileStore } from '@/stores/index.ts'
 
 const isDev = import.meta.env.DEV
 

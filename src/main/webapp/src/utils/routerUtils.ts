@@ -15,9 +15,9 @@
  */
 
 import type { Router, RouteRecordRaw, RouteRecordRedirectOption } from 'vue-router'
-import type { AssociatedApp } from '@/types'
+import type { AssociatedApp } from '@/types/index.ts'
 import { capitalize } from 'vue'
-import { Navigation } from '@/types/enums'
+import { Navigation } from '@/types/enums/index.ts'
 
 const isDev = import.meta.env.DEV
 
@@ -28,7 +28,7 @@ const redirect: RouteRecordRedirectOption = () => {
 async function initAppsRoutes(
   apps: AssociatedApp[],
 ): Promise<void> {
-  const router: Router = (await import('@/router')).default
+  const router: Router = (await import('@/router/index.ts')).default
 
   apps
     .filter(app => app.enabled || isDev)

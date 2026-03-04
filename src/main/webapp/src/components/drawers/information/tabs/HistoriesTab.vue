@@ -18,7 +18,7 @@
 import { format } from 'date-fns'
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
-import { useFileStore } from '@/stores'
+import { useFileStore } from '@/stores/index.ts'
 
 const fileStore = useFileStore()
 const { file } = storeToRefs(fileStore)

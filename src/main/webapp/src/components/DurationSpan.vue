@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { dateToDuration, formatedDuration } from '@/utils'
+import { dateToDuration, formatedDuration } from '@/utils/index.ts'
 
 const props = defineProps<{
   date: string

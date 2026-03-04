@@ -18,9 +18,9 @@
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { saveFile } from '@/services/api'
-import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores'
-import { errorHandler } from '@/utils'
+import { saveFile } from '@/services/api/index.ts'
+import { useConfigurationStore, useFileStore, useHomeStore } from '@/stores/index.ts'
+import { errorHandler } from '@/utils/index.ts'
 
 const isDev = import.meta.env.DEV
 
