@@ -1325,19 +1325,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@exodus/bytes@npm:^1.11.0, @exodus/bytes@npm:^1.6.0":
-  version: 1.11.0
-  resolution: "@exodus/bytes@npm:1.11.0"
-  peerDependencies:
-    "@noble/hashes": ^1.8.0 || ^2.0.0
-  peerDependenciesMeta:
-    "@noble/hashes":
-      optional: true
-  checksum: 10/a8c815fc15a6f16e05ae2da11b210c3bec7d75c7595478c4b8bb8f3a7bc7fde4b44dc9f160b15c9d7a5b064abd6f38731d7817c132c9da60a4164038601ff54f
-  languageName: node
-  linkType: hard
-
-"@exodus/bytes@npm:^1.15.0":
+"@exodus/bytes@npm:^1.11.0, @exodus/bytes@npm:^1.15.0, @exodus/bytes@npm:^1.6.0":
   version: 1.15.0
   resolution: "@exodus/bytes@npm:1.15.0"
   peerDependencies:
@@ -4144,17 +4132,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-tree@npm:^3.0.0":
-  version: 3.1.0
-  resolution: "css-tree@npm:3.1.0"
-  dependencies:
-    mdn-data: "npm:2.12.2"
-    source-map-js: "npm:^1.0.1"
-  checksum: 10/e8c5c8e98e3aa4a620fda0b813ce57ccf99281652bf9d23e5cdfc9961c9a93a6769941f9a92e31e65d90f446f42fa83879ab0185206dc7a178d9f656d0913e14
-  languageName: node
-  linkType: hard
-
-"css-tree@npm:^3.2.1":
+"css-tree@npm:^3.0.0, css-tree@npm:^3.2.1":
   version: 3.2.1
   resolution: "css-tree@npm:3.2.1"
   dependencies:
@@ -6789,14 +6767,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^11.2.6":
-  version: 11.2.6
-  resolution: "lru-cache@npm:11.2.6"
-  checksum: 10/91222bbd59f793a0a0ad57789388f06b34ac9bb1613433c1d1810457d09db5cd3ec8943227ce2e1f5d6a0a15d6f1a9f129cb2c49ae9b6b10e82d4965fddecbef
-  languageName: node
-  linkType: hard
-
-"lru-cache@npm:^11.2.7":
+"lru-cache@npm:^11.2.6, lru-cache@npm:^11.2.7":
   version: 11.2.7
   resolution: "lru-cache@npm:11.2.7"
   checksum: 10/fbff4b8dee8189dde9b52cdfb3ea89b4c9cec094c1538cd30d1f47299477ff312efdb35f7994477ec72328f8e754e232b26a143feda1bd1f79ff22da6664d2c5
@@ -7041,13 +7012,6 @@ __metadata:
   dependencies:
     "@types/mdast": "npm:^4.0.0"
   checksum: 10/f4a5dbb9ea03521d7d3e26a9ba5652a1d6fbd55706dddd2155427517085688830e0ecd3f12418cfd40892640886eb39a4034c3c967d85e01e2fa64cfb53cff05
-  languageName: node
-  linkType: hard
-
-"mdn-data@npm:2.12.2":
-  version: 2.12.2
-  resolution: "mdn-data@npm:2.12.2"
-  checksum: 10/854e41715a9358e69f9a530117cd6ca7e71d06176469de8d70b1e629753b6827f5bd730995c16ad3750f3c9bad92230f8e4e178de2b34926b05f5205d27d76af
   languageName: node
   linkType: hard
 
@@ -9064,7 +9028,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.1, source-map-js@npm:^1.0.2, source-map-js@npm:^1.2.1":
+"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.2, source-map-js@npm:^1.2.1":
   version: 1.2.1
   resolution: "source-map-js@npm:1.2.1"
   checksum: 10/ff9d8c8bf096d534a5b7707e0382ef827b4dd360a577d3f34d2b9f48e12c9d230b5747974ee7c607f0df65113732711bb701fe9ece3c7edbd43cb2294d707df3
@@ -10197,18 +10161,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"whatwg-url@npm:^16.0.0":
-  version: 16.0.0
-  resolution: "whatwg-url@npm:16.0.0"
-  dependencies:
-    "@exodus/bytes": "npm:^1.11.0"
-    tr46: "npm:^6.0.0"
-    webidl-conversions: "npm:^8.0.1"
-  checksum: 10/f57a668adcd98fc21a8da88905ac23da3feba2aea2fb484caab20980504a32c16fd9e3c3313131eacade802505118967631cea3e48e5c3c272ba76521babe355
-  languageName: node
-  linkType: hard
-
-"whatwg-url@npm:^16.0.1":
+"whatwg-url@npm:^16.0.0, whatwg-url@npm:^16.0.1":
   version: 16.0.1
   resolution: "whatwg-url@npm:16.0.1"
   dependencies:
