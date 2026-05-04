@@ -47,7 +47,7 @@
     "@types/xml2js": "^0",
     "@uportal/open-id-connect": "^1.40.2",
     "@vitejs/plugin-vue": "^6.0.5",
-    "@vue/test-utils": "^2.4.6",
+    "@vue/test-utils": "^2.4.10",
     "@vue/tsconfig": "^0.9.1",
     "axios": "^1.15.0",
     "commit-and-tag-version": "^12.7.1",
