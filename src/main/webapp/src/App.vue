@@ -110,4 +110,31 @@ extended-uportal-header {
   display: block;
   height: var(--recia-header-height);
 }
+
+footer {
+  display: none;
+}
+
+@media only screen and (hover: hover) and (pointer: fine) {
+  footer {
+    display: unset;
+
+    @media screen and (width >= 1280px) {
+      height: 10px;
+    }
+
+    > extended-uportal-footer {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 1000;
+      transition: transform 0.2s;
+    }
+  }
+
+  main:has(:hover, :focus-visible) ~ footer > extended-uportal-footer {
+    transform: translateY(calc(100% - 10px));
+  }
+}
 </style>
