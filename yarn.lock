@@ -2852,19 +2852,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-kit@npm:^8.1.2":
-  version: 8.1.3
-  resolution: "@vue/devtools-kit@npm:8.1.3"
-  dependencies:
-    "@vue/devtools-shared": "npm:^8.1.3"
-    birpc: "npm:^2.6.1"
-    hookable: "npm:^5.5.3"
-    perfect-debounce: "npm:^2.0.0"
-  checksum: 10/6a8330d357da28224689bd4a54c791af930dc41f965675c5022077d1fc223d20ca1ab9b2d482d8b83fbe5462206df60d1e5a61a212dae0ef57d353da5482adb5
-  languageName: node
-  linkType: hard
-
-"@vue/devtools-kit@npm:^8.1.5":
+"@vue/devtools-kit@npm:^8.1.2, @vue/devtools-kit@npm:^8.1.5":
   version: 8.1.5
   resolution: "@vue/devtools-kit@npm:8.1.5"
   dependencies:
@@ -2882,13 +2870,6 @@ __metadata:
   dependencies:
     rfdc: "npm:^1.4.1"
   checksum: 10/0d722ce0cb6d70036adcf3b6a7a235dcc7f170bde64ace49e9f7b714d8d8ab72a9cefbefdefa05c8a3d5df4b1e08e00a2d9aa5e65b9de723f907bed3f255ba8a
-  languageName: node
-  linkType: hard
-
-"@vue/devtools-shared@npm:^8.1.3":
-  version: 8.1.3
-  resolution: "@vue/devtools-shared@npm:8.1.3"
-  checksum: 10/b1a94719c809b3dc30e8a10b60380ad35fe676a3cf2f84e6144e59ec250e2884948bd904b33b2480de12fe0b76e05619f8f4dc1f82b37321ef3fea84f679dde9
   languageName: node
   linkType: hard
 
