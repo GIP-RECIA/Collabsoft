@@ -1993,12 +1993,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pinia/testing@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@pinia/testing@npm:1.0.3"
+"@pinia/testing@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@pinia/testing@npm:2.0.1"
+  dependencies:
+    nostics: "npm:^1.1.4"
   peerDependencies:
-    pinia: ">=3.0.4"
-  checksum: 10/78032d123003ce9f480181052d98f70b077b8f27b85500b7472afa233657f44f1c73fb50c68afd258f1ceb119edbc2337d2ef5ff0706d3d7500d82d4e582f32f
+    pinia: ">=4.0.2"
+  checksum: 10/505033e49f048edc73c966d8347c31e3ed35ebf3be506ed2d002b7abc8d4ac586f9c61105f8cb78d6779876f77e07a7331bcbfe8ca3b3e6c0b3476f229d63808
   languageName: node
   linkType: hard
 
@@ -3610,7 +3612,7 @@ __metadata:
     "@gip-recia/wisemapping-webcomponent": "npm:^0.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.4"
     "@juggle/resize-observer": "npm:^3.4.0"
-    "@pinia/testing": "npm:^1.0.3"
+    "@pinia/testing": "npm:^2.0.1"
     "@playwright/test": "npm:^1.62.0"
     "@tsconfig/node24": "npm:^24.0.4"
     "@types/jsdom": "npm:^28"
@@ -7296,6 +7298,13 @@ __metadata:
   bin:
     nopt: bin/nopt.js
   checksum: 10/56a1ccd2ad711fb5115918e2c96828703cddbe12ba2c3bd00591758f6fa30e6f47dd905c59dbfcf9b773f3a293b45996609fb6789ae29d6bfcc3cf3a6f7d9fda
+  languageName: node
+  linkType: hard
+
+"nostics@npm:^1.1.4":
+  version: 1.2.0
+  resolution: "nostics@npm:1.2.0"
+  checksum: 10/eddb85764b5862ae30fc3f442e1b54df907bbc6ec0c8bfc8f7a4dd4892afe241eadd0e68888f846e1cf6ab96f3e0f7ccb435ef87654604c1b4cc297fefc00556
   languageName: node
   linkType: hard
 
