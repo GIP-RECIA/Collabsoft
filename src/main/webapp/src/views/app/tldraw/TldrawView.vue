@@ -16,10 +16,10 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, onUnmounted } from 'vue'
+import { computed } from 'vue'
 import { useTheme } from 'vuetify'
+import { useFixTldraw } from '@/composables/index.ts'
 import { useAppStore, useConfigurationStore, useFileStore } from '@/stores/index.ts'
-import { headObserver, styleObserver } from '@/utils/index.ts'
 import '@gip-recia/tldraw-webcomponent'
 
 const { VITE_API_URI } = import.meta.env
@@ -41,15 +41,7 @@ const apiUrl = computed<string | undefined>(() =>
     : undefined,
 )
 
-onMounted(() => {
-  styleObserver.observe(document.body, { attributes: true })
-  headObserver.observe(document.head, { childList: true })
-})
-
-onUnmounted(() => {
-  styleObserver.disconnect()
-  headObserver.disconnect()
-})
+useFixTldraw()
 </script>
 
 <template>

@@ -15,3 +15,4 @@
  */
 
 export * from './useEntTheme.ts'
+export * from './useFixTldraw.ts'
