@@ -93,7 +93,7 @@ useEntTheme()
         v-bind="configuration!.front.extendedUportal?.header?.props"
       />
     </header>
-    <main class="h-100">
+    <main class="h-100" :data-app="isApp">
       <router-view v-if="isReady" />
       <LoginDialog />
       <SettingsDialog />
@@ -101,7 +101,7 @@ useEntTheme()
     <footer>
       <extended-uportal-footer
         v-if="isInit"
-        v-show="!isApp && isReady && !mobile"
+        v-show="isReady && !mobile"
         v-bind="configuration!.front.extendedUportal?.footer?.props"
       />
     </footer>
@@ -116,28 +116,46 @@ extended-uportal-header {
 
 footer {
   display: none;
+
+  > extended-uportal-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+    transition: transform 0.2s;
+  }
 }
 
 @media only screen and (hover: hover) and (pointer: fine) {
-  footer {
-    display: unset;
+  main {
+    &[data-app='false'] {
+      ~ footer {
+        @media screen and (width >= 1280px) {
+          height: 10px;
+        }
+      }
 
-    @media screen and (width >= 1280px) {
-      height: 10px;
+      &:has(:hover, :focus-visible) {
+        ~ footer > extended-uportal-footer {
+          transform: translateY(calc(100% - 10px));
+        }
+      }
     }
 
-    > extended-uportal-footer {
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      z-index: 1000;
-      transition: transform 0.2s;
+    &[data-app='true'] {
+      ~ footer {
+        visibility: hidden;
+
+        > extended-uportal-footer {
+          transform: translateY(100%);
+        }
+      }
     }
   }
 
-  main:has(:hover, :focus-visible) ~ footer > extended-uportal-footer {
-    transform: translateY(calc(100% - 10px));
+  footer {
+    display: unset;
   }
 }
 </style>
