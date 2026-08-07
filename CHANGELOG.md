@@ -2,8 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## [0.4.0](https://github.com/GIP-RECIA/Collabsoft/compare/0.3.0...0.4.0) (2024-10-22)
+## [0.4.3](https://github.com/GIP-RECIA/Collabsoft/compare/0.4.2...0.4.3) (2026-08-07)
 
+### Features
+
+* **ui:** use css variable for primary ([94038d8](https://github.com/GIP-RECIA/Collabsoft/commit/94038d8e3cd23139c4ce0f76fbfb8f96de87ca16))
+* **ui:** use floating footer ([593ca1f](https://github.com/GIP-RECIA/Collabsoft/commit/593ca1f2f4c4aad5b14d8cfde69981e7a5c2ac17))
+
+### Bug Fixes
+
+* eslint issues ([aaa4a7f](https://github.com/GIP-RECIA/Collabsoft/commit/aaa4a7f9e21facf2cfa0eaa244151e637dddeb2c))
+* settings dialog radio button ([2b10c7c](https://github.com/GIP-RECIA/Collabsoft/commit/2b10c7ce9e4f487cf3f38a60aa4da0852bdfcd6c))
+* ts config ([d371add](https://github.com/GIP-RECIA/Collabsoft/commit/d371add612dd9ad37ecc5b613ae6237b23047ea0))
+* **ui:** hide footer on opened app ([5add1fd](https://github.com/GIP-RECIA/Collabsoft/commit/5add1fd5f7c104fcde80206101cb987ab6bd0088))
+* **ui:** use charset utf-8 for web components injection ([f6b9005](https://github.com/GIP-RECIA/Collabsoft/commit/f6b90056dde4ae37b1218bb6ad152fb6843ef6ae))
+
+## [0.4.2](https://github.com/GIP-RECIA/Collabsoft/compare/0.4.1...0.4.2) (2025-10-16)
+
+### Bug Fixes
+
+* css bug ([d37aa5d](https://github.com/GIP-RECIA/Collabsoft/commit/d37aa5df56302c22ad9260b07796744d77d5a415))
+* exclude logback from war ([16d8796](https://github.com/GIP-RECIA/Collabsoft/commit/16d8796153904a55c0559caec5a520f92b2e305e))
+* vue-i18n's escapeParameterHtml does not prevent DOM-based XSS through its tag attributes ([4e8d422](https://github.com/GIP-RECIA/Collabsoft/commit/4e8d422ecf86d8040d81bb9bc0c809116999b4be))
+
+## [0.4.1](https://github.com/GIP-RECIA/Collabsoft/compare/0.4.0...0.4.1) (2025-08-29)
+
+### Features
+
+* setup new header ([ec2b077](https://github.com/GIP-RECIA/Collabsoft/commit/ec2b07739a7c49e4f6cdd1601c4790fddc5d1b53))
+
+### Bug Fixes
+
+* **i18n:** vue-i18n message issues ([4c89ce2](https://github.com/GIP-RECIA/Collabsoft/commit/4c89ce2dc792b49a581a54258df9fab25299f8b8))
+* **tests:** February has 28 days ([058665c](https://github.com/GIP-RECIA/Collabsoft/commit/058665c36c32cc8e2e0bd095c07246ae83e81c09))
+
+## [0.4.0](https://github.com/GIP-RECIA/Collabsoft/compare/0.3.0...0.4.0) (2024-10-22)
 
 ### ⚠ BREAKING CHANGES
 
@@ -16,7 +49,6 @@ All notable changes to this project will be documented in this file. See [commit
 * use docker license check and generation on pre-commit ([5e683ec](https://github.com/GIP-RECIA/Collabsoft/commit/5e683ec6b34e214b6156f0bd76dcf95b938e601f))
 * use generic extended uportal properties ([40d5648](https://github.com/GIP-RECIA/Collabsoft/commit/40d56487bf47562ebe1405db355a21b2425dc9cf))
 
-
 ### Bug Fixes
 
 * add missing icons ([09778e6](https://github.com/GIP-RECIA/Collabsoft/commit/09778e6c86e2a8a87ab0f0aad76b5aa02ad60e77))
@@ -27,7 +59,6 @@ All notable changes to this project will be documented in this file. See [commit
 * **vue-i18n:** remove vue-i18n deprecated feature ([827b40d](https://github.com/GIP-RECIA/Collabsoft/commit/827b40d2bc819e680788e6a3deed984098676962))
 
 ## [0.3.0](https://github.com/GIP-RECIA/Collabsoft/compare/0.2.1...0.3.0) (2024-08-28)
-
 
 ### Features
 
@@ -40,7 +71,6 @@ All notable changes to this project will be documented in this file. See [commit
 * **settings:** improve style ([c944983](https://github.com/GIP-RECIA/Collabsoft/commit/c944983befbfc6a419356afbd4a980b0a10cd322))
 * **ui:** hide extended uportal footer in mobile ([1dbe0c2](https://github.com/GIP-RECIA/Collabsoft/commit/1dbe0c26d3685709cce30dc4816e1b5b5fdf1948))
 * **vuetify:** use date-fns ([535bc78](https://github.com/GIP-RECIA/Collabsoft/commit/535bc78d1326ae0afbcddb604764ce7be34c41c0))
-
 
 ### Bug Fixes
 
@@ -55,13 +85,11 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.2.1](https://github.com/GIP-RECIA/Collabsoft/compare/0.2.0...0.2.1) (2024-06-20)
 
-
 ### Features
 
 * build web socket api url with domain, protocol and base uri ([34298a3](https://github.com/GIP-RECIA/Collabsoft/commit/34298a3ecc23154bcd64153ca8b3524c548f4a73))
 
 ## [0.2.0](https://github.com/GIP-RECIA/Collabsoft/compare/0.1.0...0.2.0) (2024-06-17)
-
 
 ### ⚠ BREAKING CHANGES
 
@@ -72,7 +100,6 @@ All notable changes to this project will be documented in this file. See [commit
 * add apps to log info ([1eab00a](https://github.com/GIP-RECIA/Collabsoft/commit/1eab00aeff04b6379eefd98cd1cf9b5fc7d4deef))
 * define a custom app name with properties ([fcb5d79](https://github.com/GIP-RECIA/Collabsoft/commit/fcb5d79e346235ce0a6af7a657d0494fe19eb818))
 * update test script ([9211778](https://github.com/GIP-RECIA/Collabsoft/commit/92117782bb9d4bf0a485d38fe3145d553555bbc0))
-
 
 ### Bug Fixes
 
@@ -85,7 +112,6 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.1.0](https://github.com/GIP-RECIA/Collabsoft/compare/0.0.1...0.1.0) (2024-06-10)
 
-
 ### ⚠ BREAKING CHANGES
 
 * nexcloud uri parameter
@@ -95,7 +121,6 @@ All notable changes to this project will be documented in this file. See [commit
 * nexcloud uri parameter ([545a87d](https://github.com/GIP-RECIA/Collabsoft/commit/545a87df01c8f5a7e6604ea42f3a393aa9d9273b))
 * regex path exclusion for soffit interceptor ([029fa79](https://github.com/GIP-RECIA/Collabsoft/commit/029fa790127a1e8e80b953969c0a808f8471e06f))
 
-
 ### Bug Fixes
 
 * axios errorHandler ([597d822](https://github.com/GIP-RECIA/Collabsoft/commit/597d8221e08357427fd335ac75dbb2f2b90e161e))
@@ -103,17 +128,15 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.0.1](https://github.com/GIP-RECIA/Collabsoft/compare/81e8874135ba55ae7f42e5187dc91af2208f1a10...0.0.1) (2024-05-29)
 
-
 ### ⚠ BREAKING CHANGES
 
+* add app store functions
+* add UUID
 * database change
 * disable apps
-* add UUID
-* add app store functions
 * update file and home stores
 
 * update file and home stores ([b5a8748](https://github.com/GIP-RECIA/Collabsoft/commit/b5a874856cd7dc1cd3d76946df25b16cbffce758))
-
 
 ### Features
 
@@ -202,7 +225,6 @@ All notable changes to this project will be documented in this file. See [commit
 * use uPortal soffit ([0e229ed](https://github.com/GIP-RECIA/Collabsoft/commit/0e229edd874916ec64b7640601a19a692c88b611))
 * use uPortal soffit ([781605a](https://github.com/GIP-RECIA/Collabsoft/commit/781605a48939cd76015323d4ff31136457c8e854))
 * user info api url property ([99616b9](https://github.com/GIP-RECIA/Collabsoft/commit/99616b997f8c7e557b7d0028880dafdcdd5e77f8))
-
 
 ### Bug Fixes
 
