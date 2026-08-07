@@ -16,7 +16,6 @@
 
 export * from './axiosUtils.ts'
 export * from './dateFnsUtils.ts'
-export * from './entUtils.ts'
 export * from './fileUtils.ts'
 export * from './nextcloudUtils.ts'
 export * from './routerUtils.ts'

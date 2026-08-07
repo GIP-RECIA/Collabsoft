@@ -24,7 +24,6 @@ import {
   initAppsRoutes,
   initToken,
   setNcUri,
-  useEntTheme,
 } from '@/utils/index.ts'
 
 const isDev = import.meta.env.DEV
@@ -47,13 +46,11 @@ export const useConfigurationStore = defineStore('configuration', () => {
         const {
           nextcloudUri,
           userInfoApiUrl,
-          templateApiPath,
           apps,
         } = configuration.value.front
         if (isNcAvailable.value)
           setNcUri(nextcloudUri)
         await initToken(userInfoApiUrl)
-        await useEntTheme(templateApiPath)
         await initAppsRoutes(apps)
 
         return true

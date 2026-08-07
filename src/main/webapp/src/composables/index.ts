@@ -14,40 +14,4 @@
  * limitations under the License.
  */
 
-export interface PortalEntry {
-  identity: {
-    Id: string
-    name: string
-    domains?: string[]
-    uai?: string[]
-  }
-  images: {
-    Id: string
-    name: string
-    path?: string
-    url?: string
-    opacity?: number
-  }[]
-  colors: {
-    Id: string
-    hexa: string
-    rgb: {
-      r: number
-      g: number
-      b: number
-    }
-  }[]
-  sponsors: {
-    Id: string
-    name: string
-    url?: string
-    logo: {
-      path?: string
-      url?: string
-      parameters?: {
-        propertie: string
-        value: string
-      }[]
-    }
-  }[]
-}
+export * from './useEntTheme.ts'

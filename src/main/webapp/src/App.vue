@@ -27,6 +27,7 @@ import {
   useFileStore,
   useHomeStore,
 } from '@/stores/index.ts'
+import { useEntTheme } from './composables/index.ts'
 
 const appStore = useAppStore()
 const { isApp } = storeToRefs(appStore)
@@ -79,6 +80,8 @@ watchOnce(isReady, (newValue) => {
   if (newValue)
     refreshFiles(true, true)
 })
+
+useEntTheme()
 </script>
 
 <template>
