@@ -16,18 +16,23 @@
 
 package fr.recia.collabsoft.configuration;
 
+import fr.recia.notifications.soffit_java_client.SoffitJwtAuthenticationFilter;
+import fr.recia.notifications.soffit_java_client.SoffitJwtValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.apereo.portal.soffit.security.SoffitApiAuthenticationManager;
-import org.apereo.portal.soffit.security.SoffitApiPreAuthenticatedProcessingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 @Slf4j
 @Configuration
@@ -40,31 +45,48 @@ public class SecurityConfiguration {
     this.collabsoftProperties = collabsoftProperties;
   }
 
+
+  @Bean
+  SoffitJwtValidator soffitJwtValidator() {
+    return new SoffitJwtValidator(collabsoftProperties.getSoffit().getJwtSignatureKey());
+  }
+
+  @Bean
+  SoffitJwtAuthenticationFilter soffitJwtAuthenticationFilter(SoffitJwtValidator validator) {
+    return new SoffitJwtAuthenticationFilter(validator);
+  }
+
+
   @Bean
   public AuthenticationManager authenticationManager() {
     return new SoffitApiAuthenticationManager();
   }
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    final AbstractPreAuthenticatedProcessingFilter filter = new SoffitApiPreAuthenticatedProcessingFilter(
-      collabsoftProperties.getSoffit().getJwtSignatureKey()
-    );
-    filter.setAuthenticationManager(authenticationManager());
-    http.addFilter(filter);
+  SecurityFilterChain securityFilterChain(HttpSecurity http, SoffitJwtAuthenticationFilter filter) {
 
-    http
-      .csrf()
-      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+    CsrfTokenRequestAttributeHandler csrfTokenRequestHandler =
+      new CsrfTokenRequestAttributeHandler();
+
+    http.csrf(csrf -> csrf
+      .csrfTokenRepository(
+        CookieCsrfTokenRepository.withHttpOnlyFalse())
+      .csrfTokenRequestHandler(csrfTokenRequestHandler)
+    );
 
     http.authorizeHttpRequests(authz -> authz
-      .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-      .antMatchers("/health-check", "/api/config", "/ui/**").permitAll()
-      .antMatchers("/api/**").authenticated()
+      .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+      .requestMatchers("/health-check", "/api/config", "/ui/**", "/dist/**").permitAll()
+      .requestMatchers("/api/**").authenticated()
       .anyRequest().denyAll()
     );
 
-    http.sessionManagement().sessionFixation().newSession();
+   http .sessionManagement(session -> session
+      .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+      .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::newSession // retester avec new session ?
+      )
+    ).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
 
     return http.build();
   }
