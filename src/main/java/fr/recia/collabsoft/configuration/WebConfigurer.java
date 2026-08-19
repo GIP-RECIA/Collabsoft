@@ -19,21 +19,15 @@ package fr.recia.collabsoft.configuration;
 import fr.recia.collabsoft.web.filter.StaticResourcesProductionFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.MimeMappings;
-import org.springframework.boot.web.server.WebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
-import org.springframework.http.MediaType;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import java.nio.charset.StandardCharsets;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 import java.util.Arrays;
 import java.util.EnumSet;
 
@@ -42,7 +36,7 @@ import java.util.EnumSet;
  */
 @Slf4j
 @Configuration
-public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
+public class WebConfigurer implements ServletContextInitializer {
 
   @Autowired
   private Environment env;
@@ -62,18 +56,18 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
   /**
    * Set up Mime types.
    */
-  @Override
-  public void customize(WebServerFactory server) {
-    if (server instanceof ConfigurableServletWebServerFactory) {
-      MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
-      // IE issue, see https://github.com/jhipster/generator-jhipster/pull/711
-      mappings.add("html", MediaType.TEXT_HTML_VALUE + ";charset=" + StandardCharsets.UTF_8.name().toLowerCase());
-      // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
-      mappings.add("json", MediaType.TEXT_HTML_VALUE + ";charset=" + StandardCharsets.UTF_8.name().toLowerCase());
-      ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
-      servletWebServer.setMimeMappings(mappings);
-    }
-  }
+//  @Override
+//  public void customize(WebServerFactory server) {
+//    if (server instanceof ConfigurableServletWebServerFactory) {
+//      MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
+//      // IE issue, see https://github.com/jhipster/generator-jhipster/pull/711
+//      mappings.add("html", MediaType.TEXT_HTML_VALUE + ";charset=" + StandardCharsets.UTF_8.name().toLowerCase());
+//      // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
+//      mappings.add("json", MediaType.TEXT_HTML_VALUE + ";charset=" + StandardCharsets.UTF_8.name().toLowerCase());
+//      ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
+//      servletWebServer.setMimeMappings(mappings);
+//    }
+//  }
 
 //  /**
 //   * Initializes the GZip filter.
