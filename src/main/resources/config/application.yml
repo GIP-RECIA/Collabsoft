@@ -13,7 +13,7 @@ spring:
     name: Collabosoft
 
   profiles:
-    active: @spring.profiles.active@
+#    active: @spring.profiles.active@
     group:
       dev: dev
       test: test
