@@ -20,7 +20,7 @@
     "@gip-recia/tldraw-webcomponent": "^3.6.0",
     "@gip-recia/wisemapping-webcomponent": "^0.1.0",
     "@vueuse/core": "^14.4.0",
-    "pinia": "^4.0.2",
+    "pinia": "^4.0.3",
     "vue": "^3.5.42",
     "vue-i18n": "^11.4.8",
     "vue-router": "^5.3.0",
