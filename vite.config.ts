@@ -8,7 +8,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import vuetify from 'vite-plugin-vuetify'
 import { parseString } from 'xml2js'
-import pkg from './package.json'
+import pkg from './package.json' with { type: 'json' }
 import { slugify } from './src/main/webapp/src/utils/stringUtils.ts'
 
 // https://vitejs.dev/config/
