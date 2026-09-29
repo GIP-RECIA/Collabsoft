@@ -1255,6 +1255,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gip-recia/ui@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@gip-recia/ui@npm:1.1.0"
+  checksum: 10/ab6631bd6567b57a651025a73e73c9206ea1ba9970aaf01295a7f9cd2c828becaab22699fbda81e6d8805255a07a22a2c087efee23e31711a8d1c367762bbfe9
+  languageName: node
+  linkType: hard
+
 "@gip-recia/wisemapping-webcomponent@npm:^0.1.0":
   version: 0.1.0
   resolution: "@gip-recia/wisemapping-webcomponent@npm:0.1.0"
@@ -3622,6 +3629,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:^7.3.1"
     "@fortawesome/vue-fontawesome": "npm:^3.3.3"
     "@gip-recia/tldraw-webcomponent": "npm:^3.6.0"
+    "@gip-recia/ui": "npm:^1.1.0"
     "@gip-recia/wisemapping-webcomponent": "npm:^0.1.0"
     "@intlify/unplugin-vue-i18n": "npm:^11.2.5"
     "@juggle/resize-observer": "npm:^3.4.0"

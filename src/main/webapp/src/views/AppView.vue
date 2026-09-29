@@ -124,7 +124,7 @@ function leave(
 
   const leaveRoom = (): void => {
     destroyRoom()
-    setTimeout(() => exit(), 200)
+    setTimeout(exit, 200)
   }
 
   if (result === 'yes')

@@ -59,8 +59,8 @@ export default ({ mode }: ConfigEnv) => {
         template: {
           compilerOptions: {
             isCustomElement: tag => [
-              'extended-uportal-header',
-              'extended-uportal-footer',
+              'r-header',
+              'r-footer',
               'tldraw-editor',
               'wisemapping-editor',
             ].includes(tag),
