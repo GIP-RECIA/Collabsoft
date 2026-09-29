@@ -92,7 +92,10 @@ function reset(): void {
         >
           <i18n-t keypath="dialog.shareInRoom.info">
             <template #icon>
-              <v-icon icon="fas fa-arrows-rotate" size="small" />
+              <v-icon
+                icon="fas fa-arrows-rotate"
+                size="small"
+              />
             </template>
           </i18n-t>
         </v-alert>

@@ -94,9 +94,15 @@ watch(visibility, (): void => refreshFile())
       hide-details
       hide-no-data
     >
-      <v-list rounded="xl" class="pa-2" />
+      <v-list
+        rounded="xl"
+        class="pa-2"
+      />
       <template #item="{ props }">
-        <v-list-item v-bind="props" rounded="xl" />
+        <v-list-item
+          v-bind="props"
+          rounded="xl"
+        />
       </template>
     </v-select>
     <v-btn

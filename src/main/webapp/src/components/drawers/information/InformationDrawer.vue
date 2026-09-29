@@ -144,7 +144,10 @@ watch(isDrawer, (newValue) => {
         <v-window-item :value="Tabs.Share">
           <ShareTab />
         </v-window-item>
-        <v-window-item v-if="isDev" :value="Tabs.Histories">
+        <v-window-item
+          v-if="isDev"
+          :value="Tabs.Histories"
+        >
           <HistoriesTab />
         </v-window-item>
       </v-window>

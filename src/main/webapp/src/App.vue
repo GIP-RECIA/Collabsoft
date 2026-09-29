@@ -86,7 +86,11 @@ useEntTheme()
 
 <template>
   <v-app class="app-container">
-    <nav role="navigation" aria-label="Accès rapide" class="skip-links">
+    <nav
+      role="navigation"
+      aria-label="Accès rapide"
+      class="skip-links"
+    >
       <ul>
         <li>
           <a href="#main">Contenu</a>
@@ -100,7 +104,12 @@ useEntTheme()
         v-bind="configuration!.front.extendedUportal?.header?.props"
       />
     </header>
-    <main id="main" tabindex="-1" class="h-100" :data-app="isApp">
+    <main
+      id="main"
+      tabindex="-1"
+      class="h-100"
+      :data-app="isApp"
+    >
       <router-view v-if="isReady" />
       <LoginDialog />
       <SettingsDialog />
