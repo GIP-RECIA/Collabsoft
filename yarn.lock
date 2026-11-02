@@ -3639,7 +3639,7 @@ __metadata:
     lodash-es: "npm:^4.18.1"
     lodash.throttle: "npm:^4.1.1"
     npm-run-all2: "npm:^9.0.4"
-    pinia: "npm:^4.0.3"
+    pinia: "npm:^4.1.0"
     regenerator-runtime: "npm:^0.14.1"
     sass: "npm:^1.107.0"
     typescript: "npm:@typescript/typescript6@^6.0.2"
@@ -7490,13 +7490,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pinia@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "pinia@npm:4.0.3"
+"pinia@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "pinia@npm:4.1.0"
   dependencies:
-    nostics: "npm:^1.1.4"
+    nostics: "npm:^1.2.0"
   peerDependencies:
-    "@vue/devtools-api": ^8.1.5
+    "@vue/devtools-api": ^8.2.1
     typescript: ">=5.6.0"
     vue: ^3.5.11
   peerDependenciesMeta:
@@ -7504,7 +7504,7 @@ __metadata:
       optional: false
     typescript:
       optional: true
-  checksum: 10/345ed6db415a4bbd36e1c129817bbe6b2ba207ebeff7229d376486da834b25792115d05411d5be3675f48169308dfcac5640f61929b728d8b707f65f7a56837d
+  checksum: 10/a44bfd93ced70f0410b09eb409ca33d4865d937320fecfecb50a888c95fbdacf93069b75710c84f5bec6a317a2ef644df0738a6c722d8c8acbe53b63566dc764
   languageName: node
   linkType: hard
 
