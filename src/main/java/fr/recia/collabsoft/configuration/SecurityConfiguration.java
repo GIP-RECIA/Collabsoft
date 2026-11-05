@@ -83,7 +83,7 @@ public class SecurityConfiguration {
 
    http .sessionManagement(session -> session
       .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-      .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::newSession // retester avec new session ?
+      .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::newSession
       )
     ).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
