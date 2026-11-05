@@ -41,7 +41,7 @@ app:
     enable: false
 
   soffit:
-    jwt-signature-key: ''
+    jwt-signature-key: 'Y5+xKfMP1fP6P7HCNXbEKraSGJq9YEzITCkPy82CrVE='
 
   storage:
     location: /home/quentin/.tmp/collabsoft
