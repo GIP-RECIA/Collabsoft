@@ -224,6 +224,13 @@
     </dependency>
   </dependencies>
 
+  <repositories>
+    <repository>
+      <id>esco-releases</id>
+      <url>https://nexus.recia.dev/content/repositories/releases/</url>
+    </repository>
+  </repositories>
+
   <pluginRepositories>
     <pluginRepository>
       <releases>
