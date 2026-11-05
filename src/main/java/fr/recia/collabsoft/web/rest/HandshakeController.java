@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HandshakeController {
 
   @GetMapping
-  public ResponseEntity<Object> handshake(CsrfToken csrfToken) {
+  public ResponseEntity<Object> handshake() {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 

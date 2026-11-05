@@ -16,6 +16,7 @@
 
 package fr.recia.collabsoft.configuration;
 
+import fr.recia.collabsoft.web.filter.CsrfCookieFilter;
 import fr.recia.notifications.soffit_java_client.SoffitJwtAuthenticationFilter;
 import fr.recia.notifications.soffit_java_client.SoffitJwtValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 @Slf4j
@@ -86,6 +88,7 @@ public class SecurityConfiguration {
       .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::newSession
       )
     ).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+   http.addFilterBefore(new CsrfCookieFilter(), CsrfFilter.class);
 
 
     return http.build();
