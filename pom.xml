@@ -395,7 +395,8 @@
           <packagingExcludes>WEB-INF/lib/tomcat-*.jar,
             WEB-INF/lib-provided,
             WEB-INF/classes/logback-*.xml,
-            WEB-INF/classes/config/application-*.yml</packagingExcludes>
+            WEB-INF/classes/config/application-*.yml,
+            index.html</packagingExcludes>
           <warSourceExcludes>org/,
             src/</warSourceExcludes>
           <webResources>
